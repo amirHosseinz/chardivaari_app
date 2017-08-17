@@ -277,6 +277,17 @@ export const guestProfileRowsData = [
       },
     },
   },
+  {
+    'data': {
+      'text': 'خروج',
+      'action': 'logout',
+      'icon': {
+        'name': 'zoom-out-map',
+        'color': 'black',
+        'size': 30,
+      },
+    },
+  },
 ];
 
 export const hostProfileRowsData = [
@@ -308,6 +319,17 @@ export const hostProfileRowsData = [
       'action': 'settings',
       'icon': {
         'name': 'settings',
+        'color': 'black',
+        'size': 30,
+      },
+    },
+  },
+  {
+    'data': {
+      'text': 'خروج',
+      'action': 'logout',
+      'icon': {
+        'name': 'zoom-out-map',
         'color': 'black',
         'size': 30,
       },

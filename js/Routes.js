@@ -1,5 +1,5 @@
 import MainScreen from './MainScreen';
-import LoginScreen from './LoginScreen';
+import LoginSignupTabView from './LoginSignupTabView';
 import SearchRoom from './SearchRoom';
 import VerificationScreen from './LoginVerificationScreen';
 import SearchResultsTabView from './SearchResultsTabView';
@@ -28,8 +28,8 @@ import RequestScreen from './RequestScreen';
 import ConversationScreen from './ConversationScreen';
 
 const Routes = ({
-  login: {
-    screen: LoginScreen,
+  loginSignupTabView: {
+    screen: LoginSignupTabView,
     navigationOptions: {
       title: "ورود",
       headerTintColor: "#000000",

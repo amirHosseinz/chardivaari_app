@@ -6,7 +6,6 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
-// import { fetch } from 'fetch';
 
 import Card from './common/Card';
 import CardSection from './common/CardSection';
@@ -15,13 +14,23 @@ import Input from './common/Input';
 import Spinner from './common/Spinner';
 
 
-class LoginScreen extends Component {
-  state = {
-    username: '',
-    password: '',
-    error: '',
-    loading: false,
-  };
+class SignupScreen extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state={
+      firstName: '',
+      lastName: '',
+      cellPhoneNo: '',
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      error: '',
+      loading: false,
+    };
+  }
 
   onButtonPress() {
     // TODO
@@ -33,8 +42,8 @@ class LoginScreen extends Component {
       loading: true,
     });
 
-    fetch('https://www.zorozadeh.com/auth/api-token-auth/', {
-    // fetch('http://192.168.12.100:8000/auth/api-token-auth/', {
+    fetch('https://www.zorozadeh.com/auth/signup/', {
+    // fetch('http://192.168.1.101:8000/auth/signup/', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -42,7 +51,9 @@ class LoginScreen extends Component {
       },
       body: JSON.stringify({
         username: this.state.username,
+        email: this.state.email,
         password: this.state.password,
+        confirm_password: this.state.confirmPassword,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
@@ -55,27 +66,18 @@ class LoginScreen extends Component {
     this.setState({
       loading: false,
     });
-    body = JSON.parse(response._bodyText);
-    if (response.status === 200) {
-      this.setState({
-        token: body.token,
-        error: '',
-        loading: false,
-       });
-       // TODO
-       // after login should read from cache to go to guest or host screen
-       this.props.navigation.navigate('guestScreen');
-       // Alert.alert(String(body.token));
+    // console.log('injaaaaakkkk');
+    // console.log(response);
+    // Alert.alert(String(response.status));
+    if (response.status === 201) {
+      this.props.navigation.navigate('verification');
     } else {
       this.onLoginFail();
     }
   }
 
   onLoginFail() {
-    this.setState({
-      error: 'نام کاربری یا رمز عبور اشتباه است.',
-      loading: false,
-    });
+    this.setState({ error: 'خطا رخ داده.', loading: false });
   }
 
   onLoginSuccess() {
@@ -105,6 +107,15 @@ class LoginScreen extends Component {
       <Card >
         <CardSection>
           <Input
+            placeholder="ahmad@example.com"
+            label="ایمیل یا شماره تلفن همراه"
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
+          />
+        </CardSection>
+
+        <CardSection>
+          <Input
             placeholder="ahmad"
             label="نام کاربری"
             value={this.state.username}
@@ -119,6 +130,16 @@ class LoginScreen extends Component {
             label="رمز عبور"
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
+          />
+        </CardSection>
+
+        <CardSection>
+          <Input
+            secureTextEntry
+            placeholder="123"
+            label="تکرار رمز عبور"
+            value={this.state.confirmPassword}
+            onChangeText={confirmPassword => this.setState({ confirmPassword })}
           />
         </CardSection>
 
@@ -147,4 +168,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default SignupScreen;

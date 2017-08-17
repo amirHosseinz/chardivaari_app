@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import RNExitApp from 'react-native-exit-app';
 
 class ProfileRows extends Component {
 
@@ -8,6 +9,11 @@ class ProfileRows extends Component {
     if (this.props.data.action === 'hostScreen' || this.props.data.action === 'guestScreen' ||
         this.props.data.action === 'addListing' ){
       this.props.navigation.navigate(this.props.data.action);
+    } else if (this.props.data.action === 'logout') {
+      // TODO
+      // logout from app
+      this.props.navigation.navigate('loginSignupTabView');
+      // RNExitApp.exitApp();
     } else {
       Alert.alert(this.props.data.action);
     }
