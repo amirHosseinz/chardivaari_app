@@ -31,7 +31,10 @@ class GuestScreen extends Component {
   renderContent() {
     switch (this.state.tabIndex) {
       case 0:
-        return(<SearchRoom role={'guest'} navigation={this.props.navigation} />);
+        return(<SearchRoom
+          role={'guest'}
+          navigation={this.props.navigation}
+          />);
       case 1:
         return(<TripsScreen role={'guest'} navigation={this.props.navigation} />);
       case 2:

@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 // import { fetch } from 'fetch';
 
 import Card from './common/Card';
@@ -33,8 +34,8 @@ class LoginScreen extends Component {
       loading: true,
     });
 
-    fetch('https://www.zorozadeh.com/auth/api-token-auth/', {
-    // fetch('http://192.168.12.100:8000/auth/api-token-auth/', {
+    // fetch('https://www.zorozadeh.com/auth/api-token-auth/', {
+    fetch('http://192.168.12.100:8000/auth/api-token-auth/', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -64,6 +65,7 @@ class LoginScreen extends Component {
        });
        // TODO
        // after login should read from cache to go to guest or host screen
+       CacheStore.set('token', body.token);
        this.props.navigation.navigate('guestScreen');
        // Alert.alert(String(body.token));
     } else {

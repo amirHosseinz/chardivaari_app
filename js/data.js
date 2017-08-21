@@ -19,6 +19,7 @@ export const unreadMessagesCount = 3;
 export const messageListData = [
   {
     'message': {
+      id: 0,
       'title': 'اجاره‌ی موقت خانه',
       'status': 'read',
       'partyName': 'علی احمدی',
@@ -26,6 +27,7 @@ export const messageListData = [
   },
   {
     'message': {
+      id: 1,
       'title': 'اجاره‌ی بلند مدت خانه',
       'status': 'unread',
       'partyName': 'علی محسن',
@@ -33,6 +35,7 @@ export const messageListData = [
   },
   {
     'message': {
+      id: 2,
       'title': 'چه خبر؟',
       'status': 'read',
       'partyName': 'داوود احمدی',
@@ -40,6 +43,7 @@ export const messageListData = [
   },
   {
     'message': {
+      id: 3,
       'title': 'اجاره‌ی موقت خانه',
       'status': 'read',
       'partyName': 'علی احمدی',
@@ -47,195 +51,7 @@ export const messageListData = [
   },
   {
     'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدیز',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدیز',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدیز',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'unread',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'read',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
-      'title': 'اجاره‌ی موقت خانه',
-      'status': 'unread',
-      'partyName': 'علی احمدی',
-    },
-  },
-  {
-    'message': {
+      id: 4,
       'title': 'اجاره‌ی موقت خانه',
       'status': 'read',
       'partyName': 'علی احمدیز',
@@ -354,7 +170,7 @@ export const resultsToShow = [
     'latitude': 35.74,
     'longitude': 51.404343,
     'description': 'خواندن کی بود مانند رزرو کردن؟',
-    'image_url': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
+    'preview': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
   },
   {
     'id': 2,
@@ -372,7 +188,7 @@ export const resultsToShow = [
     'latitude': 35.2,
     'longitude': 51.304343,
     'description': 'این خانه بسیار خانه‌ی خوبی است.',
-    'image_url': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
+    'preview': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
   },
   {
     'id': 3,
@@ -390,6 +206,6 @@ export const resultsToShow = [
     'latitude': 35.6,
     'longitude': 51.454343,
     'description': 'توضیحات در باب این خانه در کلام نمی‌گنجد.',
-    'image_url': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
+    'preview': 'http://www.quotezone.co.uk/assets/images/showcase/product-home.png',
   }
 ];

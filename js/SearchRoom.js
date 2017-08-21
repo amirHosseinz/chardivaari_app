@@ -11,6 +11,8 @@ import {
   FooterTab,
   Dimensions,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
+import PersianCalendarPicker from 'react-native-persian-calendar-picker';
 
 import LoginScreen from './LoginScreen';
 import Card from './common/Card';
@@ -24,32 +26,118 @@ import { resultsToShow } from './data';
 
 
 class SearchRoom extends Component {
-  state = { numberOfGuests: '', from_date: '', untill_date: '', where: '' };
+  constructor(props) {
+    super(props);
+    this.state = {
+      numberOfGuests: '',
+      from_date: new Date(),
+      untill_date: new Date(),
+      where: '',
+      token: '',
+      fromCalVisible: false,
+      untillCalVisible: false,
+    };
+  }
 
-  onButtonPress() {
-    // todo
-    // get list of rooms from server
-    // this.props.navigation.navigate('searchResults');
-    const {navigate} = this.props.navigation;
+  componentWillMount() {
+    CacheStore.get('token').then((value) => {
+      // console.log(value);
+      this.setState({ token: value });
+    });
+
+    // this.setState({ token: this.props.token});
+  }
+
+  onSearchButtonPress() {
+    // fetch('https://www.zorozadeh.com/api/search/', {
+    fetch('http://192.168.12.100:8000/api/search/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        district: this.state.where,
+        start_date: this.state.from_date.toISOString(),
+        end_date: this.state.untill_date.toISOString(),
+        capacity: this.state.numberOfGuests,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      console.error(error);
+    });
+
+    // TODO
+    // pass result list to searchresults screen
     // var room = resultsToShow[0];
     // navigate('roomView', {room: room});
-    navigate('searchResults');
+
+  }
+
+  onResponseRecieved(response) {
+    console.log(response);
+    body = JSON.parse(response._bodyText);
+    console.log('body');
+    console.log(body);
+    if (response.status === 200) {
+      const {navigate} = this.props.navigation;
+      navigate('searchResults', {rooms: body.room});
+      console.log('count is: ');
+      console.log(body.total_count);
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
   }
 
   renderButton() {
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
+      <Button onPress={this.onSearchButtonPress.bind(this)}>
       بگرد
       </Button>
     );
+  }
+
+  renderFromCalButton() {
+    return(
+      <Button onPress={this.onFromCalButtonPress.bind(this)}>
+        از؟
+      </Button>
+    );
+  }
+
+  onFromCalButtonPress() {
+    if (this.state.fromCalVisible) {
+      this.setState({ fromCalVisible: false });
+    } else {
+      this.setState({ fromCalVisible: true });
+    }
+  }
+
+  renderUntillCalButton() {
+    return(
+      <Button onPress={this.onUntillCalButtonPress.bind(this)}>
+        تا؟
+      </Button>
+    );
+  }
+
+  onUntillCalButtonPress() {
+    if (this.state.untillCalVisible) {
+      this.setState({ untillCalVisible: false });
+    } else {
+      this.setState({ untillCalVisible: true });
+    }
   }
 
   render() {
     return (
       <View style={styles.container} >
       <ScrollView>
-      <Card >
+      <Card>
 
+      <View style={styles.calendarContainer} >
       <CardSection>
         <Input
           placeholder="1"
@@ -58,19 +146,39 @@ class SearchRoom extends Component {
           onChangeText={numberOfGuests => this.setState({ numberOfGuests })}
         />
       </CardSection>
+      </View>
 
+      <View style={styles.calendarContainer} >
         <CardSection>
-          <DatePicker pickerText='از؟' />
+          {this.renderFromCalButton()}
         </CardSection>
+        <CardSection>
+          {this.state.fromCalVisible ?
+            <PersianCalendarPicker
+            selectedDate={this.state.from_date}
+            onDateChange={(date) => { this.setState({ from_date: date }) }}
+            /> : null }
+        </CardSection>
+      </View>
 
+      <View style={styles.calendarContainer} >
         <CardSection>
-          <DatePicker pickerText='تا؟' />
+          {this.renderUntillCalButton()}
         </CardSection>
+        <CardSection>
+          {this.state.untillCalVisible ?
+            <PersianCalendarPicker
+            selectedDate={this.state.untill_date}
+            onDateChange={(date) => { this.setState({ untill_date: date }) }}
+            /> : null }
+        </CardSection>
+      </View>
 
         <Text style={styles.errorTextStyle}>
           {this.state.error}
         </Text>
 
+        <View style={styles.calendarContainer} >
         <CardSection>
           <Input
             placeholder="تهران"
@@ -79,13 +187,13 @@ class SearchRoom extends Component {
             onChangeText={where => this.setState({ where })}
           />
         </CardSection>
+        </View>
 
         <CardSection>
           {this.renderButton()}
         </CardSection>
       </Card>
       </ScrollView>
-
       </View>
     );
   }
@@ -95,6 +203,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#d3d3ff',
+    marginBottom: 60 + 10,
   },
   buttonsContainer: {
     flex: 0.5,
@@ -122,6 +231,10 @@ const styles = StyleSheet.create({
     bottom: 1,
     width: Dimensions.get('screen').width,
     height: 60,
+  },
+  calendarContainer: {
+    flex: 1,
+    marginTop: 10,
   },
 });
 

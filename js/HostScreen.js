@@ -21,7 +21,10 @@ class HostScreen extends Component {
   renderContent() {
     switch (this.state.tabIndex) {
       case 0:
-        return(<InboxScreen role={'host'} navigation={this.props.navigation} />);
+        return(<InboxScreen
+          role={'host'}
+          navigation={this.props.navigation}
+          />);
       case 1:
         return(<CalendarScreen role={'host'} navigation={this.props.navigation} />);
       case 2:

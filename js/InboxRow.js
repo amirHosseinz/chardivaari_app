@@ -11,22 +11,22 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class InboxRow extends Component {
 
   renderStatus() {
-    if (this.props.message.status === 'unread') {
+    if (this.props.message.message.status === 'unread') {
       return <Icon size={20} name={'radio-button-unchecked'} color={'#ff4500'} />;
     }
   }
 
   onPress() {
     // Alert.alert('here');
-    this.props.navigation.navigate('conversationScreen', {partyName: this.props.message.partyName});
+    this.props.navigation.navigate('conversationScreen', {partyName: this.props.message.message.partyName});
   }
 
   render() {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)} >
       <View style={styles.container} >
-        <Text>{this.props.message.partyName}</Text>
-        <Text>{this.props.message.title}</Text>
+        <Text>{this.props.message.message.partyName}</Text>
+        <Text>{this.props.message.message.title}</Text>
         <View style={styles.statusStyle} >
           {this.renderStatus()}
         </View>

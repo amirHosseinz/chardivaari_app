@@ -8,18 +8,18 @@ import Button from './common/Button';
 class RoomPreview extends Component {
 
   componentWillMount() {
-    console.log('image_url:');
-    console.log(this.props.room.image_url);
+    console.log('preview: ');
+    console.log(localServer + this.props.room.preview);
   }
 
   render() {
     return(
       <Card>
         <CardSection>
-          <View style={ styles.thumbnailContainerStyle } >
+          <View style={ styles.thumbnailContainerStyle }>
             <Image
               style={ styles.thumbnailStyle }
-              source={{ uri: this.props.room.image_url }}
+              source={{ uri: localServer + this.props.room.preview }}
             />
           </View>
           <View style={ styles.headerContentStyle } >
@@ -31,7 +31,7 @@ class RoomPreview extends Component {
         <CardSection>
           <Image
             style={ styles.imageStyle }
-            source={{ uri: this.props.room.image_url }}
+            source={{ uri: localServer + this.props.room.preview }}
           />
         </CardSection>
 
@@ -47,7 +47,7 @@ class RoomPreview extends Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={() => { Alert.alert('reserve the room.')}}>
+          <Button onPress={() => { Alert.alert(localServer + this.props.room.preview)}}>
             رزرو کنید!
           </Button>
         </CardSection>
@@ -55,6 +55,9 @@ class RoomPreview extends Component {
     );
   }
 }
+
+const localServer = 'http://192.168.12.100:8000';
+const server = '';
 
 const styles = StyleSheet.create({
   headerContentStyle: {
