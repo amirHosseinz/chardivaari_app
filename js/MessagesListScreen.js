@@ -37,11 +37,12 @@ class MessagesListScreen extends Component {
   }
 
   setToken(token) {
-    this.setState({ token });
+    this.setState({
+      token
+    }, () => this.fetchMessageList());
   }
 
-  componentDidMount() {
-    // this method run after loading page
+  fetchMessageList() {
     // fetch('https://www.zorozadeh.com/api/search/', {
     fetch('http://192.168.12.100:8000/api/message/list/', {
       method: 'POST',
@@ -57,12 +58,18 @@ class MessagesListScreen extends Component {
     });
   }
 
+  componentDidMount() {
+    // this method run after loading page
+  }
+
   onResponseRecieved(response) {
     // TODO
     console.log('response: ');
     console.log(response);
-    console.log('token: ');
-    console.log(this.state.token);
+    body = JSON.parse(response._bodyText);
+    console.log('length: ' + body.length);
+    first_message = body[0];
+    console.log('first_message title: '+ first_message.subject);
   }
 
   onUnreadMessagePress() {
