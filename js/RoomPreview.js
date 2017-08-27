@@ -4,12 +4,11 @@ import { Text, View, Image, StyleSheet, Alert } from 'react-native';
 import Card from './common/Card';
 import CardSection from './common/CardSection';
 import Button from './common/Button';
+import { testURL, productionURL } from './data';
 
 class RoomPreview extends Component {
 
   componentWillMount() {
-    console.log('preview: ');
-    console.log(localServer + this.props.room.preview);
   }
 
   render() {
@@ -19,7 +18,7 @@ class RoomPreview extends Component {
           <View style={ styles.thumbnailContainerStyle }>
             <Image
               style={ styles.thumbnailStyle }
-              source={{ uri: localServer + this.props.room.preview }}
+              source={{ uri: productionURL + this.props.room.preview }}
             />
           </View>
           <View style={ styles.headerContentStyle } >
@@ -31,7 +30,7 @@ class RoomPreview extends Component {
         <CardSection>
           <Image
             style={ styles.imageStyle }
-            source={{ uri: localServer + this.props.room.preview }}
+            source={{ uri: productionURL + this.props.room.preview }}
           />
         </CardSection>
 
@@ -47,7 +46,7 @@ class RoomPreview extends Component {
           </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={() => { Alert.alert(localServer + this.props.room.preview)}}>
+          <Button onPress={() => { Alert.alert(productionURL + this.props.room.preview)}}>
             رزرو کنید!
           </Button>
         </CardSection>
@@ -55,9 +54,6 @@ class RoomPreview extends Component {
     );
   }
 }
-
-const localServer = 'http://192.168.12.100:8000';
-const server = '';
 
 const styles = StyleSheet.create({
   headerContentStyle: {

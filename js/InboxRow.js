@@ -6,27 +6,63 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class InboxRow extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      partyName: '',
+      imSender: false,
+      username: '',
+    };
+  }
+
+  componentWillMount() {
+    CacheStore.get('username').then((value) => this.setPartyName(value));
+  }
+
+  setPartyName(myName) {
+    if (myName === this.props.message.sender) {
+      this.setState({
+        partyName: this.props.message.recipient,
+        imSender: true,
+        username: myName,
+      });
+    } else {
+      this.setState({
+        partyName: this.props.message.sender,
+        username: myName,
+      });
+    }
+  }
 
   renderStatus() {
-    if (this.props.message.message.status === 'unread') {
+    if (this.props.message.read_at == null && this.state.imSender) {
       return <Icon size={20} name={'radio-button-unchecked'} color={'#ff4500'} />;
     }
   }
 
   onPress() {
     // Alert.alert('here');
-    this.props.navigation.navigate('conversationScreen', {partyName: this.props.message.message.partyName});
+    // todo
+    this.props.navigation.navigate(
+      'conversationScreen',
+      {
+        partyName: this.state.partyName,
+        messageId: this.props.message.id,
+        username: this.state.username,
+      }
+    );
   }
 
   render() {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)} >
       <View style={styles.container} >
-        <Text>{this.props.message.message.partyName}</Text>
-        <Text>{this.props.message.message.title}</Text>
+        <Text>{this.state.partyName}</Text>
+        <Text>{this.props.message.subject}</Text>
         <View style={styles.statusStyle} >
           {this.renderStatus()}
         </View>

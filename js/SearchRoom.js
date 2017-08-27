@@ -22,10 +22,11 @@ import Button from './common/Button';
 import Spinner from './common/Spinner';
 import DatePicker from './common/DatePicker';
 
-import { resultsToShow } from './data';
+import { testURL, productionURL } from './data';
 
 
 class SearchRoom extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -44,13 +45,10 @@ class SearchRoom extends Component {
       // console.log(value);
       this.setState({ token: value });
     });
-
-    // this.setState({ token: this.props.token});
   }
 
   onSearchButtonPress() {
-    // fetch('https://www.zorozadeh.com/api/search/', {
-    fetch('http://192.168.12.100:8000/api/search/', {
+    fetch(productionURL + '/api/search/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -68,12 +66,6 @@ class SearchRoom extends Component {
     .catch((error) => {
       console.error(error);
     });
-
-    // TODO
-    // pass result list to searchresults screen
-    // var room = resultsToShow[0];
-    // navigate('roomView', {room: room});
-
   }
 
   onResponseRecieved(response) {

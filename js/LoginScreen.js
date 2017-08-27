@@ -14,7 +14,7 @@ import CardSection from './common/CardSection';
 import Button from './common/Button';
 import Input from './common/Input';
 import Spinner from './common/Spinner';
-
+import { testURL, productionURL } from './data';
 
 class LoginScreen extends Component {
   state = {
@@ -25,17 +25,11 @@ class LoginScreen extends Component {
   };
 
   onButtonPress() {
-    // TODO
-    // fetch doesnt work
-    console.log(this.state.username);
-    console.log(this.state.password);
-
     this.setState({
       loading: true,
     });
 
-    // fetch('https://www.zorozadeh.com/auth/api-token-auth/', {
-    fetch('http://192.168.12.100:8000/auth/api-token-auth/', {
+    fetch(productionURL + '/auth/api-token-auth/', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -66,6 +60,7 @@ class LoginScreen extends Component {
        // TODO
        // after login should read from cache to go to guest or host screen
        CacheStore.set('token', body.token);
+       CacheStore.set('username', this.state.username);
        this.props.navigation.navigate('guestScreen');
        // Alert.alert(String(body.token));
     } else {

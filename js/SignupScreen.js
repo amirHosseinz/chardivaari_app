@@ -12,6 +12,7 @@ import CardSection from './common/CardSection';
 import Button from './common/Button';
 import Input from './common/Input';
 import Spinner from './common/Spinner';
+import { testURL, productionURL } from './data';
 
 
 class SignupScreen extends Component {
@@ -33,17 +34,11 @@ class SignupScreen extends Component {
   }
 
   onButtonPress() {
-    // TODO
-    // fetch doesnt work
-    console.log(this.state.username);
-    console.log(this.state.password);
-
     this.setState({
       loading: true,
     });
 
-    fetch('https://www.zorozadeh.com/auth/signup/', {
-    // fetch('http://192.168.1.101:8000/auth/signup/', {
+    fetch(productionURL + '/auth/signup/', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -66,9 +61,7 @@ class SignupScreen extends Component {
     this.setState({
       loading: false,
     });
-    // console.log('injaaaaakkkk');
     // console.log(response);
-    // Alert.alert(String(response.status));
     if (response.status === 201) {
       this.props.navigation.navigate('verification');
     } else {

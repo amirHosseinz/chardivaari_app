@@ -1,9 +1,9 @@
+
 export type Listing = {
   id: number,
   address: string,
   capacity: number,
   price: number,
-
 };
 
 export const users = [
@@ -15,6 +15,9 @@ export const users = [
 ];
 
 export const unreadMessagesCount = 3;
+
+export const productionURL = 'https://www.zorozadeh.com';
+export const testURL = 'http://192.168.12.100:8000';
 
 export const messageListData = [
   {

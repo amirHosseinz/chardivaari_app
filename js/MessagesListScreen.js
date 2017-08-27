@@ -14,7 +14,7 @@ import CacheStore from 'react-native-cache-store';
 
 import InboxRow from './InboxRow';
 import InboxHeader from './InboxHeader';
-import { messageListData, unreadMessagesCount } from './data';
+import { testURL, productionURL } from './data';
 
 class MessagesListScreen extends Component {
 
@@ -29,10 +29,6 @@ class MessagesListScreen extends Component {
 
   componentWillMount() {
     // this method run before loading page
-    this.setState({
-      unreadCount: unreadMessagesCount,
-      messages: messageListData,
-    });
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 
@@ -43,8 +39,7 @@ class MessagesListScreen extends Component {
   }
 
   fetchMessageList() {
-    // fetch('https://www.zorozadeh.com/api/search/', {
-    fetch('http://192.168.12.100:8000/api/message/list/', {
+    fetch(productionURL + '/api/message/list/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -63,13 +58,18 @@ class MessagesListScreen extends Component {
   }
 
   onResponseRecieved(response) {
-    // TODO
     console.log('response: ');
     console.log(response);
-    body = JSON.parse(response._bodyText);
-    console.log('length: ' + body.length);
-    first_message = body[0];
-    console.log('first_message title: '+ first_message.subject);
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        messages: body.message_list,
+        unreadCount: body.count,
+      });
+    } else {
+      // TODO
+      // a eror handle
+    }
   }
 
   onUnreadMessagePress() {
@@ -78,7 +78,7 @@ class MessagesListScreen extends Component {
     Alert.alert('you read message.');
   }
 
-  _keyExtractor = (item, index) => item.message.id;
+  _keyExtractor = (item, index) => item.id;
 
   renderMessage({item}, navigation) {
     return(

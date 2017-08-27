@@ -8,10 +8,7 @@ class SearchResults extends Component {
   state={ rooms: [] };
 
   componentWillMount() {
-    // TODO
-    // read from server's response
     this.setState({ rooms: this.props.navigation.state.params.rooms });
-    // this.setState({rooms: resultsToShow});
   }
 
   renderRooms() {
