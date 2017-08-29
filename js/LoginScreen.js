@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
-  }
+  },
 });
 
 export default LoginScreen;

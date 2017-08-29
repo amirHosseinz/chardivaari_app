@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, View, ScrollView, StyleSheet, Image, Text } from 'react-native';
+import {
+  Dimensions,
+  Alert,
+  View,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableHighlight,
+} from 'react-native';
 import Stars from 'react-native-stars-rating';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import CacheStore from 'react-native-cache-store';
 
 import Card from './common/Card';
 import CardSection from './common/CardSection';
 import Button from './common/Button';
-import { resultsToShow } from './data';
+import { testURL, productionURL } from './data';
 
+class RoomView extends Component {
 
-class RoomView extends Component{
-  state={room: null, region: null, marker: null};
-  mapStyle = [];
+  constructor (props) {
+    super(props);
+    this.state={
+      token: '',
+      username: '',
+      room: null,
+      region: null,
+      marker: null,
+    };
+    this.mapStyle = [];
+  }
 
   onRegionChange(region) {
     this.setState({ region });
@@ -37,9 +56,76 @@ class RoomView extends Component{
       radius: 350,
     };
     this.setState({ marker: circleElement });
+
+    CacheStore.get('token').then((value) => this.setToken(value));
+    CacheStore.get('username').then((value) => this.setUsername(value));
   }
 
-  render() {
+  setToken (token) {
+    this.setState({
+      token
+    });
+    console.log('token setted.');
+  }
+
+  setUsername (username) {
+    this.setState({
+      username
+    });
+    console.log('username setted.');
+  }
+
+  onPressContactHost () {
+    fetch(productionURL + '/api/message/compose/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        sender: this.state.username,
+        recipient: this.state.room.owner,
+        subject: this.state.room.title,
+        body: ' درخواست صحبت درباره‌ی خانه‌ی ' + this.state.room.title,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  onResponseRecieved(response) {
+    body = JSON.parse(response._bodyText);
+    // console.log('body');
+    // console.log(body);
+    if (response.status === 200) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          partyName: this.state.room.owner,
+          messageId: body.message_id,
+          username: this.state.username,
+        }
+      );
+      // console.log('count is: ');
+      // console.log(body.total_count);
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
+  }
+
+  onRequestBookButtonPress () {
+    this.props.navigation.navigate(
+      'requestBook',
+      {
+        roomId: this.state.room.id,
+      }
+    );
+  }
+
+  render () {
     return(
       <View style={styles.container}>
       <ScrollView>
@@ -47,7 +133,7 @@ class RoomView extends Component{
           <CardSection>
             <Image
               style={ styles.imageStyle }
-              source={{ uri: this.state.room.image_url }}
+              source={{ uri: productionURL + this.state.room.preview }}
             />
           </CardSection>
 
@@ -74,9 +160,9 @@ class RoomView extends Component{
           <CardSection >
             <View style={styles.roomOptions} >
               <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.capacity } مهمان</Text>
-              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.bedRooms } تخت</Text>
-              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.rooms } اتاق</Text>
-              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.toilets } سرویس بهداشتی</Text>
+              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.beds_number } تخت</Text>
+              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.rooms_number } اتاق</Text>
+              <Text style={{padding: 10, fontSize: 20}} >{ this.state.room.toilets_number } سرویس بهداشتی</Text>
             </View>
           </CardSection>
 
@@ -101,15 +187,28 @@ class RoomView extends Component{
 
           <CardSection>
             <View style={styles.checkInOutStyle}>
-            <Text style={{padding: 5, fontSize: 20}} >ساعت خروج: {this.state.room.checkOut}</Text>
-            <Text style={{padding: 5, fontSize: 20}} >ساعت ورود: {this.state.room.checkIn}</Text>
+            <Text style={{padding: 5, fontSize: 20}} >ساعت خروج: {this.state.room.check_out}</Text>
+            <Text style={{padding: 5, fontSize: 20}} >ساعت ورود از: {this.state.room.check_in_from}</Text>
+            <Text style={{padding: 5, fontSize: 20}} >ساعت ورود تا: {this.state.room.check_in_till}</Text>
             </View>
           </CardSection>
+
+          <CardSection>
+            <View style={styles.headerContentStyle}>
+            <TouchableHighlight onPress={this.onPressContactHost.bind(this)}>
+            <View style={styles.contactHostStyle}>
+                <Text style={styles.contactHostTextStyle}>تماس با میزبان</Text>
+            </View>
+            </TouchableHighlight>
+            </View>
+          </CardSection>
+
         </Card>
       </ScrollView>
+
       <View style={styles.footerStyle} >
         <CardSection>
-          <Button onPress={() => { Alert.alert('reserve the room.')}} >
+          <Button onPress={this.onRequestBookButtonPress.bind(this)} >
             رزرو کن
           </Button>
           <View style={styles.reviewStyle} >
@@ -197,6 +296,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  contactHostTextStyle: {
+    color: 'black',
+    fontSize: 20,
+  },
+  contactHostStyle: {
+    padding: 15,
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    backgroundColor: '#ffa07a',
   },
 });
 

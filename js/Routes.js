@@ -24,6 +24,7 @@ import AddListingFourteenthStep from './AddListingFourteenthStep';
 import AddListingFifteenthStep from './AddListingFifteenthStep';
 
 import RequestScreen from './RequestScreen';
+import RequestBook from './RequestBook';
 
 import ConversationScreen from './ConversationScreen';
 
@@ -392,6 +393,21 @@ const Routes = ({
     screen: RequestScreen,
     navigationOptions: {
       title: 'درخواست',
+      headerTintColor: "#000000",
+      headerStyle: {
+        backgroundColor: '#F8F8F8',
+        justifyContent: 'center',
+        height: 70,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+      }
+    }
+  },
+  requestBook: {
+    screen: RequestBook,
+    navigationOptions: {
+      title: 'درخواست رزرو',
       headerTintColor: "#000000",
       headerStyle: {
         backgroundColor: '#F8F8F8',

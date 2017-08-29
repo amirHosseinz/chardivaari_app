@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
+  View,
   StyleSheet,
   Text,
-  View,
   ScrollView,
   Image,
   Alert,
@@ -19,16 +19,15 @@ import CardSection from './common/CardSection';
 import Input from './common/Input';
 import Button from './common/Button';
 import Spinner from './common/Spinner';
-import DatePicker from './common/DatePicker';
 
 import { testURL, productionURL } from './data';
 
+class RequestBook extends Component {
 
-class SearchRoom extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
+  constructor (props) {
+    super (props);
+    this.state={
+      roomId: '',
       numberOfGuests: '',
       from_date: new Date(),
       untill_date: new Date(),
@@ -40,15 +39,31 @@ class SearchRoom extends Component {
     };
   }
 
-  componentWillMount() {
+  componentWillMount () {
+    this.setState({ roomId: this.props.navigation.state.params.roomId });
     CacheStore.get('token').then((value) => {
-      // console.log(value);
       this.setState({ token: value });
     });
   }
 
-  onSearchButtonPress() {
-    fetch(productionURL + '/api/search/', {
+  onFromCalButtonPress () {
+    if (this.state.fromCalVisible) {
+      this.setState({ fromCalVisible: false });
+    } else {
+      this.setState({ fromCalVisible: true });
+    }
+  }
+
+  onUntillCalButtonPress () {
+    if (this.state.untillCalVisible) {
+      this.setState({ untillCalVisible: false });
+    } else {
+      this.setState({ untillCalVisible: true });
+    }
+  }
+
+  onRequestBookButtonPress () {
+    fetch(productionURL + '/api/room/request/book/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -56,10 +71,10 @@ class SearchRoom extends Component {
         'Authorization': 'Token ' + this.state.token,
       },
       body: JSON.stringify({
-        district: this.state.where,
+        room_id: this.state.roomId,
         start_date: this.state.from_date.toISOString(),
         end_date: this.state.untill_date.toISOString(),
-        capacity: this.state.numberOfGuests,
+        number_of_guests: this.state.numberOfGuests,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
@@ -68,69 +83,36 @@ class SearchRoom extends Component {
     });
   }
 
-  onResponseRecieved(response) {
+  onResponseRecieved (response) {
     body = JSON.parse(response._bodyText);
-    // console.log('body');
-    // console.log(body);
+    console.log('body');
+    console.log(body);
     if (response.status === 200) {
       this.setState({ error: null });
-      const {navigate} = this.props.navigation;
-      navigate('searchResults', {rooms: body.room});
-      // console.log('count is: ');
-      // console.log(body.total_count);
+      if (!body.is_available) {
+        this.setState({ error: 'خانه در این تاریخ رزرو شده است.' });
+      } else {
+        if (body.is_requested) {
+          Alert.alert('درخواست با موفقیت ثبت شد.');
+          // TODO
+        } else {
+          this.setState({ error: 'خطایی رخ داده.' });
+        }
+      }
+      // const {navigate} = this.props.navigation;
+      // navigate('searchResults', {rooms: body.room});
     } else {
-      Alert.alert('خطایی رخ داده.');
-      this.setState({ error: 'خطایی رخ داده.' });
+      this.setState({ error: 'خطا در برقراری ارتباط با سرور!' });
     }
   }
 
-  renderButton() {
-    return (
-      <Button onPress={this.onSearchButtonPress.bind(this)}>
-      بگرد
-      </Button>
-    );
-  }
-
-  renderFromCalButton() {
+  render () {
     return(
-      <Button onPress={this.onFromCalButtonPress.bind(this)}>
-        از؟
-      </Button>
-    );
-  }
-
-  onFromCalButtonPress() {
-    if (this.state.fromCalVisible) {
-      this.setState({ fromCalVisible: false });
-    } else {
-      this.setState({ fromCalVisible: true });
-    }
-  }
-
-  renderUntillCalButton() {
-    return(
-      <Button onPress={this.onUntillCalButtonPress.bind(this)}>
-        تا؟
-      </Button>
-    );
-  }
-
-  onUntillCalButtonPress() {
-    if (this.state.untillCalVisible) {
-      this.setState({ untillCalVisible: false });
-    } else {
-      this.setState({ untillCalVisible: true });
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.container} >
+      <View style={styles.container}>
       <ScrollView>
       <Card>
 
-      <View style={styles.calendarContainer} >
+      <View style={styles.itemContainer}>
       <CardSection>
         <Input
           placeholder="1"
@@ -141,9 +123,11 @@ class SearchRoom extends Component {
       </CardSection>
       </View>
 
-      <View style={styles.calendarContainer} >
+      <View style={styles.itemContainer} >
         <CardSection>
-          {this.renderFromCalButton()}
+          <Button onPress={this.onFromCalButtonPress.bind(this)}>
+            از؟
+          </Button>
         </CardSection>
         <CardSection>
           {this.state.fromCalVisible ?
@@ -154,9 +138,11 @@ class SearchRoom extends Component {
         </CardSection>
       </View>
 
-      <View style={styles.calendarContainer} >
+      <View style={styles.itemContainer} >
         <CardSection>
-          {this.renderUntillCalButton()}
+          <Button onPress={this.onUntillCalButtonPress.bind(this)}>
+            تا؟
+          </Button>
         </CardSection>
         <CardSection>
           {this.state.untillCalVisible ?
@@ -167,29 +153,22 @@ class SearchRoom extends Component {
         </CardSection>
       </View>
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
+      <Text style={styles.errorTextStyle}>
+        {this.state.error}
+      </Text>
 
-        <View style={styles.calendarContainer} >
-        <CardSection>
-          <Input
-            placeholder="تهران"
-            label='کجا؟'
-            value={this.state.where}
-            onChangeText={where => this.setState({ where })}
-          />
-        </CardSection>
-        </View>
+      <CardSection>
+        <Button onPress={this.onRequestBookButtonPress.bind(this)}>
+        رزرو کن!
+        </Button>
+      </CardSection>
 
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
       </Card>
       </ScrollView>
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -198,28 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#d3d3ff',
     marginBottom: 60 + 10,
   },
-  button:{
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#d6d7da',
-    padding: 13,
-  },
-  buttonTextStyle: {
-    fontSize: 20,
-    color: '#a9a9a9'
-  },
-  ImagesStyle: {
-    height: 50,
-    width: 50
-  },
-  buttomNavigation: {
-    position: 'absolute',
-    bottom: 1,
-    width: Dimensions.get('screen').width,
-    height: 60,
-  },
-  calendarContainer: {
+  itemContainer: {
     flex: 1,
     marginTop: 10,
   },
@@ -230,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchRoom;
+export default RequestBook;
