@@ -7,9 +7,12 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 
 import RequestsListHeader from './RequestsListHeader';
 import RequestRow from './RequestRow';
+
+import { testURL, productionURL } from './data';
 
 class RequestsListScreen extends Component {
 
@@ -17,257 +20,60 @@ class RequestsListScreen extends Component {
     super(props);
     this.state={
       requests: [],
+      token: '',
+      toDoCount: 0,
     };
   }
 
   componentWillMount() {
-    initRequests = [
-      {
-        'request': {
-          id: 1,
-          'listingTitle': 'ویلای شمال',
-          'status': 'waitingHostConfirm',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'علی احمدی',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 2,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 3,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 4,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingHostConfirm',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 5,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 6,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 7,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 8,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 9,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingHostConfirm',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 10,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 11,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 12,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingHostConfirm',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 13,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 14,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 15,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingHostConfirm',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 16,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-      {
-        'request': {
-          id: 17,
-          'listingTitle': 'خونه‌ی دریا کنار',
-          'status': 'waitingForPayment',
-          'checkIn': '1396-10-11',
-          'checkOut': '1396-10-13',
-          'length': 2,
-          'people': 5,
-          'price': 35400,
-          'partyName': 'آق غلام',
-          'description': '',
-        },
-      },
-    ];
+    // this.setState({
+    //   requests: initRequests,
+    // });
+    CacheStore.get('token').then((value) => this.setToken(value));
+  }
 
+  setToken (token) {
     this.setState({
-      requests: initRequests,
+      token
+    }, () => this.fetchRequestList());
+  }
+
+  fetchRequestList () {
+    console.log('role');
+    console.log(this.props.role);
+    fetch(productionURL + '/api/request/list/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: this.props.role,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      console.error(error);
     });
   }
 
-  _keyExtractor = (item, index) => item.request.id;
+  onResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      console.log('body');
+      console.log(body);
+      this.setState({
+        requests: body.request_list,
+        toDoCount: body.count,
+      });
+    } else {
+      // TODO
+      // a eror handle
+    }
+  }
+
+  _keyExtractor = (item, index) => item.id;
 
   renderRequest({item}, navigation) {
     return(
@@ -282,7 +88,7 @@ class RequestsListScreen extends Component {
   render(){
     return(
       <View style={styles.container} >
-        <RequestsListHeader count={5} />
+        <RequestsListHeader count={this.state.toDoCount} />
         <FlatList
           data={this.state.requests}
           keyExtractor={this._keyExtractor}

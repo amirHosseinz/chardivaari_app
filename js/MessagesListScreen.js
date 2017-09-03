@@ -38,7 +38,7 @@ class MessagesListScreen extends Component {
     }, () => this.fetchMessageList());
   }
 
-  fetchMessageList() {
+  fetchMessageList () {
     fetch(productionURL + '/api/message/list/', {
       method: 'POST',
       headers: {
@@ -57,9 +57,7 @@ class MessagesListScreen extends Component {
     // this method run after loading page
   }
 
-  onResponseRecieved(response) {
-    console.log('response: ');
-    console.log(response);
+  onResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({

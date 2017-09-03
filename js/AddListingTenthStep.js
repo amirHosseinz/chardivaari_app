@@ -36,7 +36,7 @@ class AddListingTenthStep extends Component {
             placeholder={'اگر توضیحاتی در مورد خانه دارید اینجا بنویسید'}
             autoCorrect={false}
             style={styles.inputStyle}
-            value={this.state.city}
+            value={this.state.description}
             onChangeText={description => this.setState({ description })}
           />
         </View>

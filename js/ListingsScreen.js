@@ -3,14 +3,17 @@ import {
   StyleSheet,
   Text,
   View,
+  ListView,
   FlatList,
   Image,
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CacheStore from 'react-native-cache-store';
 
 import ListingsListHeader from './ListingsListHeader';
 import ListingRow from './ListingRow';
+import { testURL, productionURL } from './data';
 
 class ListingsScreen extends Component {
 
@@ -18,49 +21,46 @@ class ListingsScreen extends Component {
     super(props);
     this.state={
       listings: [],
+      token: '',
+      username: null,
     };
   }
 
   componentWillMount() {
-    // TODO
-    // set listings list in state
-    listings = [
-      {
-        id: 1,
-        listingTitle: '',
-        listingImageUri: '',
+    CacheStore.get('token').then((value) => this.setToken(value));
+  }
+
+  setToken(token) {
+    this.setState({
+      token
+    }, () => this.fetchListingList());
+  }
+
+  fetchListingList () {
+    fetch(productionURL + '/api/room/list/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
       },
-      {
-        id: 2,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-      {
-        id: 3,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-      {
-        id: 4,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-      {
-        id: 5,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-      {
-        id: 6,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-      {
-        id: 7,
-        listingTitle: '',
-        listingImageUri: '',
-      },
-    ];
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  onResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        listings: body.listings,
+      });
+    } else {
+      // TODO
+      // a eror handle
+    }
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -70,7 +70,6 @@ class ListingsScreen extends Component {
       <ListingRow
         listingItem={item}
         navigation={navigation}
-        role={this.props.role}
       />
     );
   }
@@ -84,12 +83,11 @@ class ListingsScreen extends Component {
       <FlatList
         data={this.state.listings}
         keyExtractor={this._keyExtractor}
-        renderItem={(item) => this.renderListing(item, this.props.navigation)}
-      />
+        renderItem={(item) => this.renderListing(item, this.props.navigation)} />
 
       <View style={styles.addingListing} >
         <Text style={styles.text} >افزودن خانه</Text>
-        <Icon size={40} color="black" name="add" style={styles.addListingIconStyle} />
+        <Icon size={40} color="black" name="add" />
       </View>
 
       </View>
@@ -100,27 +98,24 @@ class ListingsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'stretch',
     marginTop: 20,
+    marginBottom: 60 + 10,
     backgroundColor: '#F5FCFF',
   },
   addingListing: {
-    flex: 1,
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-    alignItems: 'stretch',
+    alignItems: 'center',
     backgroundColor: 'gray',
     borderWidth: 3,
     borderRadius: 40,
     borderColor: 'green',
-    width: Dimensions.get('screen').width - 20,
+    width: Dimensions.get('screen').width,
   },
   text: {
     fontSize: 25,
     color: 'black',
-    paddingRight: 5,
-  },
-  addListingIconStyle: {
-    paddingLeft: 5,
   },
 });
 

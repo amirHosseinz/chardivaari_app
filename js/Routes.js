@@ -27,6 +27,7 @@ import RequestScreen from './RequestScreen';
 import RequestBook from './RequestBook';
 
 import ConversationScreen from './ConversationScreen';
+import EditListingScreen from './EditListingScreen';
 
 const Routes = ({
   loginSignupTabView: {
@@ -408,6 +409,21 @@ const Routes = ({
     screen: RequestBook,
     navigationOptions: {
       title: 'درخواست رزرو',
+      headerTintColor: "#000000",
+      headerStyle: {
+        backgroundColor: '#F8F8F8',
+        justifyContent: 'center',
+        height: 70,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+      }
+    }
+  },
+  editListingScreen: {
+    screen: EditListingScreen,
+    navigationOptions: {
+      title: 'ویرایش اطلاعات خانه',
       headerTintColor: "#000000",
       headerStyle: {
         backgroundColor: '#F8F8F8',

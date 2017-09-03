@@ -11,9 +11,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class RequestRow extends Component {
 
   renderStatus() {
-    if (this.props.requestItem.request.status === 'waitingForPayment') {
+    if (this.props.requestItem.status === 'WAIT_FOR_HOST') {
       return <Icon size={20} name={'payment'} color={'#66cdaa'} />;
-    } else if (this.props.requestItem.request.status === 'waitingHostConfirm') {
+    } else if (this.props.requestItem.status === 'WAIT_FOR_GUEST_PAY') {
       return <Icon size={20} name={'blur-on'} color={'#f5fffa'} />;
     } else {
       return <Icon size={20} name={'blur-on'} color={'#f5fffa'} />;
@@ -21,10 +21,9 @@ class RequestRow extends Component {
   }
 
   onPress() {
-    // Alert.alert('You wanna read request? haha :D');
     this.props.navigation.navigate('requestScreen',
     {
-      request: this.props.requestItem.request,
+      request: this.props.requestItem,
       role: this.props.role,
     });
   }
@@ -33,8 +32,8 @@ class RequestRow extends Component {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)} >
       <View style={styles.container} >
-        <Text style={styles.applicant} >{this.props.requestItem.request.partyName}</Text>
-        <Text style={styles.listingTitleStyle} >{this.props.requestItem.request.listingTitle}</Text>
+        <Text style={styles.applicant} >{this.props.requestItem.room.owner}</Text>
+        <Text style={styles.listingTitleStyle} >{this.props.requestItem.room.title}</Text>
         <View style={styles.statusStyle} >
           {this.renderStatus()}
         </View>

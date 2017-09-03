@@ -31,7 +31,7 @@ class RequestBook extends Component {
       numberOfGuests: '',
       from_date: new Date(),
       untill_date: new Date(),
-      where: '',
+      description: '',
       token: '',
       fromCalVisible: false,
       untillCalVisible: false,
@@ -75,6 +75,7 @@ class RequestBook extends Component {
         start_date: this.state.from_date.toISOString(),
         end_date: this.state.untill_date.toISOString(),
         number_of_guests: this.state.numberOfGuests,
+        description: this.state.description,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
@@ -151,6 +152,17 @@ class RequestBook extends Component {
             onDateChange={(date) => { this.setState({ untill_date: date }) }}
             /> : null }
         </CardSection>
+      </View>
+
+      <View style={styles.itemContainer} >
+      <CardSection>
+        <Input
+          placeholder="توضیحات"
+          label='توضیحات را در این جا قید فرمایید.'
+          value={this.state.description}
+          onChangeText={description => this.setState({ description })}
+        />
+      </CardSection>
       </View>
 
       <Text style={styles.errorTextStyle}>

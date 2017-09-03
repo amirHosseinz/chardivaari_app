@@ -8,12 +8,26 @@ import {
 } from 'react-native';
 
 class TripsScreen extends Component {
+  constructor (props) {
+    super(props);
+    this.state={
+      token: null,
+    };
+  }
+
+  componentWillMount () {
+    // TODO
+    // set token from CacheStore
+  }
+
+  fetchTripList () {
+    // TODO
+    // fetch trip list from server
+  }
+
   render() {
     return(
       <View style={styles.container}>
-        <View style={{marginTop: 20}}>
-          <Text style={styles.helloText}>Trips Screen, to be coninued!</Text>
-        </View>
       </View>
     );
   }
@@ -22,9 +36,10 @@ class TripsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
     backgroundColor: '#F5FCFF',
   },
-  helloText: {
+  text: {
     fontSize: 25,
   },
 });

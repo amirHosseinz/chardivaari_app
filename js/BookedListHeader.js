@@ -6,18 +6,20 @@ import {
   Dimensions,
 } from 'react-native';
 
-class ListingsListHeader extends Component {
-  constructor(props) {
-    super(props);
+class BookedListHeader extends Component {
+
+  componentWillMount () {
+    // run before Component
   }
 
-  render() {
+  render () {
     return(
       <View style={styles.container}>
-        <Text style={styles.headerText}>لیست خانه‌های ثبت شده در سیستم</Text>
+        <Text style={styles.headerText}>شما {this.props.count} رزرو تایید شده دارید</Text>
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -36,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListingsListHeader;
+export default BookedListHeader;

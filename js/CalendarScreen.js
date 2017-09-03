@@ -5,15 +5,85 @@ import {
   View,
   Image,
   Dimensions,
+  FlatList,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
+
+import BookedListHeader from './BookedListHeader';
+import BookedRequestRow from './BookedRequestRow';
+import { testURL, productionURL } from './data';
 
 class CalendarScreen extends Component {
-  render() {
+  constructor (props) {
+    super(props);
+    this.state={
+      token: null,
+      username: '',
+      count: 0,
+      bookedList: [],
+    };
+  }
+
+  componentWillMount() {
+    CacheStore.get('token').then((value) => this.setToken(value));
+  }
+
+  setToken(token) {
+    this.setState({
+      token
+    }, () => this.fetchBookedList());
+  }
+
+  fetchBookedList () {
+    fetch(productionURL + '/api/reservations/list/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: this.props.role,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  onResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        count: body.count,
+        bookedList: body.reserve_list,
+      });
+    } else {
+      // TODO
+      // a eror handle
+    }
+  }
+
+  _keyExtractor = (item, index) => item.id;
+
+  renderBookedItem ({item}, navigation) {
+    return(
+      <BookedRequestRow
+        requestItem={item}
+        navigation={navigation}
+      />
+    );
+  }
+
+  render () {
     return(
       <View style={styles.container}>
-        <View style={{marginTop: 20}}>
-          <Text style={styles.helloText}>Calendar Screen, to be coninued!</Text>
-        </View>
+        <BookedListHeader count={this.state.count}/>
+        <FlatList
+          data={this.state.bookedList}
+          keyExtractor={this._keyExtractor}
+          renderItem={(item) => this.renderBookedItem(item, this.props.navigation)} />
       </View>
     );
   }
@@ -22,9 +92,11 @@ class CalendarScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
+    marginBottom: 60 + 10,
     backgroundColor: '#F5FCFF',
   },
-  helloText: {
+  text: {
     fontSize: 25,
   },
 });

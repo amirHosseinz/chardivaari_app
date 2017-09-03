@@ -65,14 +65,12 @@ class RoomView extends Component {
     this.setState({
       token
     });
-    console.log('token setted.');
   }
 
   setUsername (username) {
     this.setState({
       username
     });
-    console.log('username setted.');
   }
 
   onPressContactHost () {
@@ -96,7 +94,7 @@ class RoomView extends Component {
     });
   }
 
-  onResponseRecieved(response) {
+  onResponseRecieved (response) {
     body = JSON.parse(response._bodyText);
     // console.log('body');
     // console.log(body);

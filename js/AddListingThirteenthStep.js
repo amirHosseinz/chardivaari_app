@@ -19,7 +19,7 @@ class AddListingThirteenthStep extends Component {
     };
   }
 
-  onButtonPress() {
+  onButtonPress () {
     const {navigate} = this.props.navigation;
     navigate('addListingFourteenthStep');
   }
@@ -45,9 +45,9 @@ class AddListingThirteenthStep extends Component {
           </View>
         </ScrollView>
 
-        <View style={styles.buttonWrapper} >
-        <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle} >
-          <Text style={styles.textStyle} >
+        <View style={styles.buttonWrapper}>
+        <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={styles.buttonStyle}>
+          <Text style={styles.textStyle}>
             ادامه
           </Text>
         </TouchableOpacity>

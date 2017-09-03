@@ -11,8 +11,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class RequestsListHeader extends Component {
   render() {
     return(
-      <View style={styles.container} >
-        <Text style={styles.text} >شما {this.props.count} درخواست خوانده نشده دارید.</Text>
+      <View style={styles.container}>
+        <Text style={styles.text} >شما {this.props.count} درخواست نیاز به بررسی دارید</Text>
         <TouchableOpacity>
           <Icon size={30} name={'autorenew'} color={'#ffa500'} />
         </TouchableOpacity>
