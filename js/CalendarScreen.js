@@ -18,7 +18,6 @@ class CalendarScreen extends Component {
     super(props);
     this.state={
       token: null,
-      username: '',
       count: 0,
       bookedList: [],
     };

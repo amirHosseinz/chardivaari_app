@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import {
   View,
-  StyleSheet,
   Text,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 
-class BookedRequestRow extends Component {
-
-  componentWillMount () {
-    // runs before Component
-  }
+class TripsRow extends Component {
 
   onPress () {
     this.props.navigation.navigate(
-      'bookedRequestScreen',
+      'tripDetailScreen',
       {
-        bookedRequest: this.props.requestItem,
+        trip: this.props.tripItem,
       }
     );
   }
@@ -25,9 +21,9 @@ class BookedRequestRow extends Component {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)}>
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.requestItem.guest_person}</Text>
-        <Text style={styles.text}>{this.props.requestItem.room.title}</Text>
-        <Text style={styles.text}>{this.props.requestItem.start_date}</Text>
+        <Text style={styles.text}>{this.props.tripItem.guest_person}</Text>
+        <Text style={styles.text}>{this.props.tripItem.room.title}</Text>
+        <Text style={styles.text}>{this.props.tripItem.start_date}</Text>
       </View>
       </TouchableOpacity>
     );
@@ -53,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BookedRequestRow;
+export default TripsRow;

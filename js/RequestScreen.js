@@ -204,10 +204,10 @@ class RequestScreen extends Component {
 
   render() {
     return(
-      <ScrollView style={styles.container} >
+      <ScrollView style={styles.container}>
 
-        <View style={styles.requestHeader} >
-          <Text style={styles.headerText} >
+        <View style={styles.requestHeader}>
+          <Text style={styles.headerText}>
             {this.state.request.room.title}
           </Text>
           {this.renderStatus()}

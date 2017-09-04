@@ -28,6 +28,8 @@ import RequestBook from './RequestBook';
 
 import ConversationScreen from './ConversationScreen';
 import EditListingScreen from './EditListingScreen';
+import BookedRequestScreen from './BookedRequestScreen';
+import TripDetailScreen from './TripDetailScreen';
 
 const Routes = ({
   loginSignupTabView: {
@@ -424,6 +426,36 @@ const Routes = ({
     screen: EditListingScreen,
     navigationOptions: {
       title: 'ویرایش اطلاعات خانه',
+      headerTintColor: "#000000",
+      headerStyle: {
+        backgroundColor: '#F8F8F8',
+        justifyContent: 'center',
+        height: 70,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+      }
+    }
+  },
+  bookedRequestScreen: {
+    screen: BookedRequestScreen,
+    navigationOptions: {
+      title: 'رزرو نهایی',
+      headerTintColor: "#000000",
+      headerStyle: {
+        backgroundColor: '#F8F8F8',
+        justifyContent: 'center',
+        height: 70,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+      }
+    }
+  },
+  tripDetailScreen: {
+    screen: TripDetailScreen,
+    navigationOptions: {
+      title: 'سفر نهایی',
       headerTintColor: "#000000",
       headerStyle: {
         backgroundColor: '#F8F8F8',
