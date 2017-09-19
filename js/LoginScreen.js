@@ -42,7 +42,8 @@ class LoginScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+      // console.error(error);
     });
   }
 
@@ -50,8 +51,9 @@ class LoginScreen extends Component {
     this.setState({
       loading: false,
     });
-    body = JSON.parse(response._bodyText);
+
     if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
       this.setState({
         token: body.token,
         error: '',
@@ -62,15 +64,17 @@ class LoginScreen extends Component {
        CacheStore.set('token', body.token);
        CacheStore.set('username', this.state.username);
        this.props.navigation.navigate('guestScreen');
-       // Alert.alert(String(body.token));
+    } else if (response.status === 400) {
+      body = JSON.parse(response._bodyText);
+      this.onLoginFail('نام کاربری یا رمز عبور اشتباه است.');
     } else {
-      this.onLoginFail();
+      this.onLoginFail('خطایی رخ داده است.');
     }
   }
 
-  onLoginFail() {
+  onLoginFail(errorText) {
     this.setState({
-      error: 'نام کاربری یا رمز عبور اشتباه است.',
+      error: errorText,
       loading: false,
     });
   }

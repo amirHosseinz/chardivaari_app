@@ -8,6 +8,7 @@ import {
   BackHandler,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CacheStore from 'react-native-cache-store';
 import RNExitApp from 'react-native-exit-app';
 
 class ProfileRows extends Component {
@@ -20,6 +21,7 @@ class ProfileRows extends Component {
       // TODO
       // delete token in app and cache
       // handle in iOS
+      CacheStore.flush();
       BackHandler.exitApp();
     } else {
       Alert.alert(this.props.data.action);

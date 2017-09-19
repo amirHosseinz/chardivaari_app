@@ -64,22 +64,20 @@ class SearchRoom extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
+      this.setState({
+        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
+      });
       console.error(error);
     });
   }
 
   onResponseRecieved(response) {
     body = JSON.parse(response._bodyText);
-    // console.log('body');
-    // console.log(body);
     if (response.status === 200) {
       this.setState({ error: null });
       const {navigate} = this.props.navigation;
-      navigate('searchResults', {rooms: body.room});
-      // console.log('count is: ');
-      // console.log(body.total_count);
+      navigate('searchResults', { rooms: body.room });
     } else {
-      Alert.alert('خطایی رخ داده.');
       this.setState({ error: 'خطایی رخ داده.' });
     }
   }

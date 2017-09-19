@@ -47,7 +47,8 @@ class TripsScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      // network error
+      // console.error(error);
     });
   }
 

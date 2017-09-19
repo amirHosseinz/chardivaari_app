@@ -95,10 +95,8 @@ class RoomView extends Component {
   }
 
   onResponseRecieved (response) {
-    body = JSON.parse(response._bodyText);
-    // console.log('body');
-    // console.log(body);
     if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
       this.props.navigation.navigate(
         'conversationScreen',
         {
@@ -107,8 +105,6 @@ class RoomView extends Component {
           username: this.state.username,
         }
       );
-      // console.log('count is: ');
-      // console.log(body.total_count);
     } else {
       Alert.alert('خطایی رخ داده.');
     }

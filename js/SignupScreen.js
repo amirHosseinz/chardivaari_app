@@ -53,7 +53,8 @@ class SignupScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+      // console.error(error);
     });
   }
 
@@ -61,16 +62,30 @@ class SignupScreen extends Component {
     this.setState({
       loading: false,
     });
-    // console.log(response);
     if (response.status === 201) {
       this.props.navigation.navigate('verification');
+    } else if (response.status === 400) {
+      body = JSON.parse(response._bodyText);
+      if ('confirm_password' in body) {
+        this.onLoginFail('دو رمز عبور وارد شده یکسان نیست.');
+      } else if ('username' in body) {
+        this.onLoginFail('این نام کاربری قبلا گرفته شده است.');
+      } else if ('email' in body) {
+        if (body.email === 'email already exists.') {
+          this.onLoginFail('ایمیل قبلا گرفته شده است.');
+        } else {
+          this.onLoginFail('ایمیل شما معتبر نمی‌باشد.');
+        }
+      }
     } else {
-      this.onLoginFail();
+      this.onLoginFail('خطایی رخ داده');
     }
   }
 
-  onLoginFail() {
-    this.setState({ error: 'خطا رخ داده.', loading: false });
+  onLoginFail(errorText) {
+    this.setState({
+      error: errorText,
+      loading: false });
   }
 
   onLoginSuccess() {

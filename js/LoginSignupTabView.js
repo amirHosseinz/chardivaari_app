@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import CacheStore from 'react-native-cache-store';
 
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
@@ -16,6 +17,17 @@ class LoginSignupTabView extends Component {
       { key: '2', title: 'ایجاد حساب کاربری' },
     ],
   };
+
+  componentWillMount () {
+    // TODO
+    CacheStore.get('token').then((value) => {
+      if (value == null) {
+        // console.log('value is null');
+      } else {
+        this.props.navigation.navigate('guestScreen');
+      }
+    });
+  }
 
   _handleIndexChange = index => this.setState({ index });
 
