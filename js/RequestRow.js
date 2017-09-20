@@ -30,11 +30,11 @@ class RequestRow extends Component {
 
   render() {
     return(
-      <TouchableOpacity onPress={this.onPress.bind(this)} >
-      <View style={styles.container} >
-        <Text style={styles.applicant} >{this.props.requestItem.room.owner}</Text>
-        <Text style={styles.listingTitleStyle} >{this.props.requestItem.room.title}</Text>
-        <View style={styles.statusStyle} >
+      <TouchableOpacity onPress={this.onPress.bind(this)}>
+      <View style={styles.container}>
+        <Text style={styles.applicant}>{this.props.requestItem.room.owner}</Text>
+        <Text style={styles.listingTitleStyle}>{this.props.requestItem.room.title}</Text>
+        <View style={styles.statusStyle}>
           {this.renderStatus()}
         </View>
       </View>

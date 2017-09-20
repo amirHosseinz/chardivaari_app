@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
+import { NavigationActions } from 'react-navigation';
 // import { fetch } from 'fetch';
 
 import Card from './common/Card';
@@ -23,6 +24,16 @@ class LoginScreen extends Component {
     error: '',
     loading: false,
   };
+
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
 
   onButtonPress() {
     this.setState({
@@ -43,7 +54,7 @@ class LoginScreen extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
-      // console.error(error);
+      console.error(error);
     });
   }
 
@@ -63,7 +74,8 @@ class LoginScreen extends Component {
        // after login should read from cache to go to guest or host screen
        CacheStore.set('token', body.token);
        CacheStore.set('username', this.state.username);
-       this.props.navigation.navigate('guestScreen');
+       // this.props.navigation.navigate('guestScreen');
+       this.resetNavigation('guestScreen');
     } else if (response.status === 400) {
       body = JSON.parse(response._bodyText);
       this.onLoginFail('نام کاربری یا رمز عبور اشتباه است.');

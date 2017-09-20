@@ -1,3 +1,10 @@
+import React, {Component} from 'react';
+import {
+  Dimensions,
+  Text,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import MainScreen from './MainScreen';
 import LoginSignupTabView from './LoginSignupTabView';
 import SearchRoom from './SearchRoom';
@@ -35,17 +42,9 @@ const Routes = ({
   loginSignupTabView: {
     screen: LoginSignupTabView,
     navigationOptions: {
-      title: "ورود",
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
-    }
+      header: null,
+      gesturesEnabled: false,
+    },
   },
   main: {
     screen: MainScreen,
@@ -96,8 +95,14 @@ const Routes = ({
     screen: SearchResultsTabView,
     navigationOptions: {
       title: 'نتایج جست‌جو',
+      // headerLeft: <Icon size={30} color={'#ff0000'} name={'chevron-left'} style={{marginLeft: 20}}/>,
       headerTintColor: "#000000",
+      headerTitleStyle: {
+        alignSelf: 'flex-end',
+        // color: '#ff0000',
+      },
       headerStyle: {
+        alignContent: 'center',
         backgroundColor: '#F8F8F8',
         justifyContent: 'center',
         height: 70,

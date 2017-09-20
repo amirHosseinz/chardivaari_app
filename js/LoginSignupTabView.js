@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import CacheStore from 'react-native-cache-store';
 
@@ -22,11 +23,22 @@ class LoginSignupTabView extends Component {
     // TODO
     CacheStore.get('token').then((value) => {
       if (value == null) {
+        // proceed normal
         // console.log('value is null');
       } else {
-        this.props.navigation.navigate('guestScreen');
+        this.resetNavigation('guestScreen');
       }
     });
+  }
+
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   _handleIndexChange = index => this.setState({ index });

@@ -7,22 +7,30 @@ import {
   StyleSheet,
   BackHandler,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CacheStore from 'react-native-cache-store';
-import RNExitApp from 'react-native-exit-app';
+// import RNExitApp from 'react-native-exit-app';
 
 class ProfileRows extends Component {
+
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
 
   onPressAction(){
     if (this.props.data.action === 'hostScreen' || this.props.data.action === 'guestScreen' ||
         this.props.data.action === 'addListing' ){
       this.props.navigation.navigate(this.props.data.action, {token: ''});
     } else if (this.props.data.action === 'logout') {
-      // TODO
-      // delete token in app and cache
-      // handle in iOS
       CacheStore.flush();
-      BackHandler.exitApp();
+      this.resetNavigation('loginSignupTabView');
     } else {
       Alert.alert(this.props.data.action);
     }

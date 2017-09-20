@@ -17,7 +17,7 @@ export const users = [
 export const unreadMessagesCount = 3;
 
 export const productionURL = 'https://www.trypinn.com';
-// export const productionURL = 'http://192.168.12.102:8000';
+// export const productionURL = 'http://192.168.43.142:8000';
 export const testURL = 'http://192.168.12.100:8000';
 
 export const messageListData = [
