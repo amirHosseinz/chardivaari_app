@@ -6,12 +6,11 @@ import {
   View,
   ScrollView,
   Image,
-  StackNavigator,
 } from 'react-native';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import SearchRoom from './SearchRoom';
+import Explore from './Explore';
 import InboxScreen from './InboxScreen';
 import TripsScreen from './TripsScreen';
 import ProfileScreen from './ProfileScreen';
@@ -22,67 +21,68 @@ import ProfileScreen from './ProfileScreen';
 
 
 class GuestScreen extends Component {
-  state = { tabIndex: 0 };
+  state = { tabIndex: 3 };
 
-  componentWillMount() {
-    this.setState({ tabIndex: 0});
-  }
-
-  renderContent() {
+  renderContent () {
     switch (this.state.tabIndex) {
       case 0:
-        return(<SearchRoom
-          role={'guest'}
-          navigation={this.props.navigation}
-          />);
-      case 1:
-        return(<TripsScreen role={'guest'} navigation={this.props.navigation} />);
-      case 2:
-        return(<InboxScreen role={'guest'} navigation={this.props.navigation} />);
-      case 3:
         return(<ProfileScreen role={'guest'} navigation={this.props.navigation} />);
+      case 1:
+        return(<InboxScreen role={'guest'} navigation={this.props.navigation} />);
+      case 2:
+        return(<TripsScreen role={'guest'} navigation={this.props.navigation} />);
+      case 3:
+        return(<Explore role={'guest'} navigation={this.props.navigation} />);
       default:
-        return(<SearchRoom role={'guest'} navigation={this.props.navigation} />);
+        return(<Explore role={'guest'} navigation={this.props.navigation} />);
       }
   }
 
-  _onTabChange(newTabIndex){
+  _onTabChange (newTabIndex){
     if (this.state.tabIndex !== newTabIndex){
       this.setState({ tabIndex: newTabIndex});
     }
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
+
         {this.renderContent()}
 
         <BottomNavigation
-                labelColor="white"
-                rippleColor="white"
-                activeTab={this.state.tabIndex}
-                style={styles.buttomNavigation}
-                onTabChange={(newTabIndex) => this._onTabChange(newTabIndex)}
+              labelColor="#a0a0a0"
+              activeTab={this.state.tabIndex}
+              rippleColor="#f56e4e"
+              activeLabelColor="#f56e4e"
+              style={{ height: 62,  elevation: 8, position: 'absolute', left: 0, bottom: 0, right: 0 }}
+              innerStyle={{ paddingBottom: 0}}
+              onTabChange={(newTabIndex) => this._onTabChange(newTabIndex)}
+              shifting={false}
               >
                 <Tab
-                  barBackgroundColor="#37474F"
-                  label="کاوش"
-                  icon={<Icon size={24} color="white" name="explore" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>حساب کاربری</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="account-circle" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="account-circle" />}
                 />
                 <Tab
-                  barBackgroundColor="#00796B"
-                  label="سفرها"
-                  icon={<Icon size={24} color="white" name="flight-takeoff" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>پیام ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="forum" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="forum" />}
                 />
                 <Tab
-                  barBackgroundColor="#5D4037"
-                  label="نامه‌ها"
-                  icon={<Icon size={24} color="white" name="mail" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>سفرها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="public" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="public" />}
                 />
                 <Tab
-                  barBackgroundColor="#3E2723"
-                  label="نمایه"
-                  icon={<Icon size={24} color="white" name="dashboard" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>جستجو</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="search" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="search" />}
                 />
         </BottomNavigation>
       </View>
@@ -93,14 +93,11 @@ class GuestScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   },
-  buttomNavigation: {
-    position: 'absolute',
-    bottom: 1,
-    width: Dimensions.get('screen').width,
-    height: 60,
-  },
+  buttomNavFont: {
+    fontFamily: "IRANSans",
+    fontSize: 12,
+  }
 });
 
 export default GuestScreen;

@@ -130,31 +130,15 @@ const Routes = ({
   hostScreen: {
     screen: HostScreen,
     navigationOptions: {
-      title: 'میزبان',
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
+      header: null,
+      gesturesEnabled: false,
     }
   },
   guestScreen: {
     screen: GuestScreen,
     navigationOptions: {
-      title: 'مهمان',
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
+      header: null,
+      gesturesEnabled: false,
     }
   },
   addListing: {

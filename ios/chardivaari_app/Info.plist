@@ -63,6 +63,18 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>IRANSans-Bold.ttf</string>
+		<string>IRANSans-Light.ttf</string>
+		<string>IRANSans-Medium.ttf</string>
+		<string>IRANSans-UltraLight.ttf</string>
+		<string>IRANSans.ttf</string>
+		<string>Sahel-Black.ttf</string>
+		<string>Sahel-Bold.ttf</string>
+		<string>Sahel.ttf</string>
+		<string>Vazir-Light.ttf</string>
+		<string>Vazir-Medium.ttf</string>
+		<string>Vazir-Thin.ttf</string>
+		<string>Vazir.ttf</string>
 	</array>
 </dict>
 </plist>

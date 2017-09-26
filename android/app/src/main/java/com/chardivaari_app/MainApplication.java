@@ -3,6 +3,7 @@ package com.chardivaari_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.rnfs.RNFSPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNExitAppPackage(),
             new RNFSPackage(),
             new ImageResizerPackage(),
             new ImagePickerPackage(),

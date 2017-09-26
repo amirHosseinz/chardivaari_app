@@ -20,6 +20,8 @@
 		"react-native-persian-calendar-picker": "^1.0.0",
 		"react-native-photo-upload": "^1.0.3",
 		"react-native-router-flux": "^4.0.0-beta.16",
+		"react-native-star-rating": "^1.0.8",
+		"react-native-stars": "^1.1.0",
 		"react-native-stars-rating": "^0.1.6",
 		"react-native-stepper": "0.0.2",
 		"react-native-switch": "^1.1.0",
@@ -34,6 +36,11 @@
 		"babel-preset-react-native": "2.1.0",
 		"jest": "20.0.4",
 		"react-test-renderer": "16.0.0-alpha.12"
+	},
+	"rnpm": {
+		"assets": [
+			"./assets/fonts"
+		]
 	},
 	"jest": {
 		"preset": "react-native"
