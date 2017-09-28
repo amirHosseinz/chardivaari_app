@@ -8,38 +8,92 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import StarRating from 'react-native-star-rating';
-import Stars from 'react-native-stars';
+
 import SearchAnimations from './SearchAnimations';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import CacheStore from 'react-native-cache-store';
+
+import ExploreResult from './ExploreResult';
+import { testURL, productionURL } from './data';
 
 class Explore extends Component {
+  state={
+    error: null,
+    token: null,
+    numberOfGuests: null,
+    from_date: null,
+    untill_date: null,
+    where: null,
+    rooms: [],
+  };
 
-  constructor(props) {
-   super(props);
-   this.state = {
-     starCount: 2.5
-   };
- }
+  componentWillMount() {
+    CacheStore.get('token').then((value) => {
+      this.setState({ token: value });
+      this.onSearchButtonPress();
+    });
+  }
 
- onStarRatingPress(rating) {
-   this.setState({
-     starCount: rating
-   });
- }
+  onSearchButtonPress() {
+    fetch(productionURL + '/api/search/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        district: this.state.where,
+        start_date: (this.state.from_date == null) ? null : this.state.from_date.toISOString(),
+        end_date: (this.state.untill_date == null) ? null : this.state.untill_date.toISOString(),
+        capacity: this.state.numberOfGuests,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      this.setState({
+        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
+      });
+      console.log('inja error khorde ha! :((((()))))');
+      // console.error(error);
+    });
+  }
+
+  onResponseRecieved(response) {
+    body = JSON.parse(response._bodyText);
+    console.log('body is: ');
+    console.log(body);
+    if (response.status === 200) {
+      this.setState({
+        error: null,
+        rooms: body.room,
+      });
+    } else {
+      this.setState({ error: 'خطایی رخ داده.' });
+    }
+  }
+
+  renderResults () {
+    return this.state.rooms.map(room =>
+      <ExploreResult key={room.id} room={room} navigation={this.props.navigation} />
+    );
+  }
+
+  renderError () {
+    if (this.state.error != null) {
+      return(
+        <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+      );
+    }
+  }
 
   render () {
-    var rating = 3.47;
-    if (rating - Math.floor(rating) < 0.5) {
-      rating = Math.floor(rating);
-    } else {
-      rating = Math.ceil(rating);
-    }
     return(
       <View style={styles.container}>
         <SearchAnimations />
         <View style={styles.filter}>
         </View>
+
+        {this.renderError()}
 
         <ScrollView style={{
           marginTop: 5,
@@ -48,236 +102,9 @@ class Explore extends Component {
         showsHorizontalScrollIndicator={false}
         >
 
-        <TouchableOpacity>
-      <View style={styles.cards}>
-          <View style={styles.previewimg}>
-            <Image source={require('./img/homesample.jpg')}
-            style={styles.image}>
-            </Image>
-          </View>
-          <View style={styles.details}>
-              <View style={styles.info}>
-                <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-                <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-                <View style={styles.stars}>
+        {this.renderResults()}
 
-                <Stars
-               value={5-rating}
-               spacing={0}
-               count={5}
-               starSize={15}
-               fullStar= {require('./img/starBlank.png')}
-               emptyStar= {require('./img/starFilled.png')}/>
-
-                  </View>
-                </View>
-
-              <View style={styles.price}>
-                <Text style={styles.pricetext}>255,000</Text>
-                <Text style={styles.toman}>تومان</Text>
-                <Text style={styles.night}>/ هر شب</Text>
-              </View>
-          </View>
-      </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-    <View style={styles.cards}>
-        <View style={styles.previewimg}>
-          <Image source={require('./img/back.jpg')}
-          style={styles.image}>
-          </Image>
-        </View>
-        <View style={styles.details}>
-            <View style={styles.info}>
-              <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-              <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-              <View style={styles.stars}>
-
-              <Stars
-             value={5-rating}
-             spacing={0}
-             count={5}
-             starSize={15}
-             fullStar= {require('./img/starBlank.png')}
-             emptyStar= {require('./img/starFilled.png')}/>
-
-                </View>
-              </View>
-
-            <View style={styles.price}>
-              <Text style={styles.pricetext}>255,000</Text>
-              <Text style={styles.toman}>تومان</Text>
-              <Text style={styles.night}>/ هر شب</Text>
-            </View>
-        </View>
-    </View>
-    </TouchableOpacity>
-
-    <TouchableOpacity>
-  <View style={styles.cards}>
-      <View style={styles.previewimg}>
-        <Image source={require('./img/homesample.jpg')}
-        style={styles.image}>
-        </Image>
-      </View>
-      <View style={styles.details}>
-          <View style={styles.info}>
-            <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-            <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-            <View style={styles.stars}>
-
-            <Stars
-           value={5-rating}
-           spacing={0}
-           count={5}
-           starSize={15}
-           fullStar= {require('./img/starBlank.png')}
-           emptyStar= {require('./img/starFilled.png')}/>
-
-              </View>
-            </View>
-
-          <View style={styles.price}>
-            <Text style={styles.pricetext}>255,000</Text>
-            <Text style={styles.toman}>تومان</Text>
-            <Text style={styles.night}>/ هر شب</Text>
-          </View>
-      </View>
-  </View>
-  </TouchableOpacity>
-
-  <TouchableOpacity>
-<View style={styles.cards}>
-    <View style={styles.previewimg}>
-      <Image source={require('./img/back.jpg')}
-      style={styles.image}>
-      </Image>
-    </View>
-    <View style={styles.details}>
-        <View style={styles.info}>
-          <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-          <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-          <View style={styles.stars}>
-
-          <Stars
-         value={5-rating}
-         spacing={0}
-         count={5}
-         starSize={15}
-         fullStar= {require('./img/starBlank.png')}
-         emptyStar= {require('./img/starFilled.png')}/>
-
-            </View>
-          </View>
-
-        <View style={styles.price}>
-          <Text style={styles.pricetext}>255,000</Text>
-          <Text style={styles.toman}>تومان</Text>
-          <Text style={styles.night}>/ هر شب</Text>
-        </View>
-    </View>
-</View>
-</TouchableOpacity>
-
-<TouchableOpacity>
-<View style={styles.cards}>
-  <View style={styles.previewimg}>
-    <Image source={require('./img/homesample.jpg')}
-    style={styles.image}>
-    </Image>
-  </View>
-  <View style={styles.details}>
-      <View style={styles.info}>
-        <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-        <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-        <View style={styles.stars}>
-
-        <Stars
-       value={5-rating}
-       spacing={0}
-       count={5}
-       starSize={15}
-       fullStar= {require('./img/starBlank.png')}
-       emptyStar= {require('./img/starFilled.png')}/>
-
-          </View>
-        </View>
-
-      <View style={styles.price}>
-        <Text style={styles.pricetext}>255,000</Text>
-        <Text style={styles.toman}>تومان</Text>
-        <Text style={styles.night}>/ هر شب</Text>
-      </View>
-  </View>
-</View>
-</TouchableOpacity>
-
-<TouchableOpacity>
-<View style={styles.cards}>
-  <View style={styles.previewimg}>
-    <Image source={require('./img/homesample.jpg')}
-    style={styles.image}>
-    </Image>
-  </View>
-  <View style={styles.details}>
-      <View style={styles.info}>
-        <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-        <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-        <View style={styles.stars}>
-
-        <Stars
-       value={5-rating}
-       spacing={0}
-       count={5}
-       starSize={15}
-       fullStar= {require('./img/starBlank.png')}
-       emptyStar= {require('./img/starFilled.png')}/>
-          </View>
-        </View>
-
-      <View style={styles.price}>
-        <Text style={styles.pricetext}>255,000</Text>
-        <Text style={styles.toman}>تومان</Text>
-        <Text style={styles.night}>/ هر شب</Text>
-      </View>
-  </View>
-</View>
-</TouchableOpacity>
-
-<TouchableOpacity>
-<View style={styles.cards}>
-  <View style={styles.previewimg}>
-    <Image source={require('./img/homesample.jpg')}
-    style={styles.image}>
-    </Image>
-  </View>
-  <View style={styles.details}>
-      <View style={styles.info}>
-        <Text style={styles.h2}>ویلای لاکچری لب ساحل </Text>
-        <Text style={styles.cityfont}>نمک آبرود، مازندران</Text>
-        <View style={styles.stars}>
-
-        <Stars
-       value={5-rating}
-       spacing={0}
-       count={5}
-       starSize={15}
-       fullStar= {require('./img/starBlank.png')}
-       emptyStar= {require('./img/starFilled.png')}/>
-          </View>
-        </View>
-
-      <View style={styles.price}>
-        <Text style={styles.pricetext}>255,000</Text>
-        <Text style={styles.toman}>تومان</Text>
-        <Text style={styles.night}>/ هر شب</Text>
-      </View>
-  </View>
-</View>
-</TouchableOpacity>
-
-</ScrollView>
+        </ScrollView>
 
       </View>
     );
@@ -293,80 +120,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: '#dddddd',
   },
-  cards: {
-    flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 20,
-    height: 110,
-    backgroundColor: '#f9f9f9',
-    marginTop:5,
-    borderRadius: 3,
-    flexDirection: "row",
-    justifyContent:"flex-start",
-    alignItems: 'center',
-},
-  details: {
-    flex: 4,
-    flexDirection: "column",
-    justifyContent: 'flex-end',
-    alignItems:"flex-end",
-    marginRight:10,
+  filter : {
+    backgroundColor: '#636877',
+    height:15,
+    width: Dimensions.get('screen').width,
   },
-  info: {
-    flex:3,
-    flexDirection: "column",
-    alignItems: "flex-end",
-    justifyContent: "flex-start",
-    marginTop:8,
+  errorTextStyle: {
+    fontSize: 16,
+    fontFamily: "Vazir",
+    color: "red",
   },
-previewimg : {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-h2: {
-  fontSize: 16,
-  fontFamily: "Vazir-Medium",
-  color: "#4f4f4f",
-},
-cityfont:{
-  fontSize: 10,
-  fontFamily: "Vazir",
-  color: "#4f4f4f",
-},
-stars: {
-alignItems: "flex-end",
-},
-price: {
-  flex:1,
-  justifyContent:"flex-start",
-  flexDirection: "row-reverse",
-},
-pricetext: {
-  fontSize: 12,
-  fontFamily: "Vazir",
-  color: "#f56e4e"
-},
-toman: {
-  fontSize: 12,
-  fontFamily: "Vazir",
-  color: "#f56e4e",
-  marginRight:2,
-},
-night: {
-  fontSize: 12,
-  fontFamily: "Vazir",
-  color: "#acacac",
-  marginRight:2,
-},
-image : {
- width: Dimensions.get('screen').width/3,
- height: 110,
-},
-filter : {
-  backgroundColor: '#636877',
-  height:13,
-  width: Dimensions.get('screen').width
-},
 });
 
 export default Explore;

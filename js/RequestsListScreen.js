@@ -61,8 +61,6 @@ class RequestsListScreen extends Component {
   onResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      console.log('body');
-      console.log(body);
       this.setState({
         requests: body.request_list,
         toDoCount: body.count,

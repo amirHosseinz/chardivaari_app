@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import {
   View,
+  Button,
   LayoutAnimation,
   TouchableOpacity,
+  TouchableHighlight,
   Text,
   NativeModules,
   StyleSheet,
   Image,
   Dimensions,
+  Modal,
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Calendar from 'react-native-calendar-select';
 
 const { UIManager } = NativeModules;
 
@@ -41,18 +45,26 @@ var expandLayoutAnimation = {
 };
 
 class SearchAnimations extends Component {
-  state = {
-        isOpen: false,
-        myStyle: {
-          height: 80,
-           flexDirection: 'column',
-           alignItems: 'flex-start',
-           justifyContent: 'space-around',
-           backgroundColor: '#636877',
-           paddingTop: 5,
+  constructor (props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+      modalVisible: false,
+      myStyle: {
+        height: 80,
+         flexDirection: 'column',
+         alignItems: 'flex-start',
+         justifyContent: 'space-around',
+         backgroundColor: '#636877',
+         paddingTop: 5,
 
-        }
-     };
+      },
+      srartDate: new Date(),
+      endDate: new Date(),
+    };
+    this.confirmDate = this.confirmDate.bind(this);
+    this.openCalendar = this.openCalendar.bind(this);
+  }
 
      expandElement = () => {
         // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -130,12 +142,18 @@ class SearchAnimations extends Component {
          }
      }
 
+     showModal = () => {
+       this.setState({
+         modalVisible: true,
+       });
+     }
+
      renderRest () {
        if (this.state.isOpen) {
          return(
            <View style={styles.itemStyle}>
            <TouchableOpacity>
-              <Text style={styles.button}>
+              <Text style={styles.button} onPress={this.openCalendar}>
               زمان
                </Text>
            </TouchableOpacity>
@@ -149,7 +167,7 @@ class SearchAnimations extends Component {
          return(
            <View style={styles.itemStyle}>
            <TouchableOpacity>
-              <Text style={styles.button}>
+              <Text style={styles.button} onPress={this.showModal}>
               چند نفر؟
               </Text>
            </TouchableOpacity>
@@ -158,15 +176,90 @@ class SearchAnimations extends Component {
        }
      }
 
+     setModalVisible (visible) {
+       this.setState({
+         modalVisible: visible,
+       });
+     }
+
+     confirmDate({startDate, endDate, startMoment, endMoment}) {
+       this.setState({
+         startDate,
+         endDate
+       });
+       console.log('startDate is: ');
+       console.log(startDate);
+       console.log('endDate is: ');
+       console.log(endDate);
+     }
+
+     openCalendar() {
+       this.calendar && this.calendar.clear();
+       this.calendar && this.calendar.open();
+     }
+
      render () {
-        return (
-           <View style={styles.container}>
+       let customI18n = {
+         'w': ['', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+         'weekday': ['', 'دوشنبه', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+         'text': {
+           'start': 'تاریخ شروع',
+           'end': 'تاریخ پایان',
+           'date': 'تاریخ',
+           'save': 'تایید',
+           'clear': 'ریست کردن'
+         },
+         'date': 'DD / MM'  // date format
+       };
+       // optional property, too.
+       let color = {
+         mainColor: '#636877'
+       };
+
+       return (
+         <View style={styles.container}>
                  <View style={this.state.myStyle}>
                  {this.renderLesserIcon()}
                  {this.renderFirst()}
                  {this.renderRest()}
                  {this.renderThird()}
                  </View>
+
+                 <Modal
+                   animationType='slide'
+                   transparent={false}
+                   visible={this.state.modalVisible}
+                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   >
+                   <View style={{marginTop: 22}}>
+
+                      <View>
+                        <Text>Hello World!</Text>
+                        <TouchableHighlight onPress={() => {
+                          this.setModalVisible(!this.state.modalVisible)
+                        }}>
+                          <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+                      </View>
+
+                   </View>
+                 </Modal>
+
+                 <View>
+                 <Calendar
+                   i18n="en"
+                   ref={(calendar) => {this.calendar = calendar;}}
+                   customI18n={customI18n}
+                   color={color}
+                   format="YYYYMMDD"
+                   minDate="20170510"
+                   maxDate="20180312"
+                   startDate={this.state.startDate}
+                   endDate={this.state.endDate}
+                   onConfirm={this.confirmDate}
+                   />
+                   </View>
+
            </View>
         );
      }

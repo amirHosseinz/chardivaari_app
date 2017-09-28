@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
  } from 'react-native';
 import CacheStore from 'react-native-cache-store';
+import { NavigationActions } from 'react-navigation';
 
 import { testURL, productionURL } from './data';
 
 class RequestScreen extends Component {
-
   constructor (props) {
     super (props);
     this.state={
@@ -31,6 +31,11 @@ class RequestScreen extends Component {
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
+  }
+
+  backNavigation () {
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
   }
 
   setToken (token) {
@@ -53,7 +58,7 @@ class RequestScreen extends Component {
     }
   }
 
-  renderStatus() {
+  renderStatus () {
     if (this.state.request.status === 'WAIT_FOR_HOST') {
       return <Text style={styles.headerStatusText} >در انتظار تایید صاحب‌خانه</Text>;
     } else if (this.state.request.status === 'WAIT_FOR_GUEST_PAY') {
@@ -79,7 +84,7 @@ class RequestScreen extends Component {
       })
       .then((response) => this.onResponseRecieved(response))
       .catch((error) => {
-        console.error(error);
+        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
       });
     } else {
       fetch(productionURL + '/api/message/compose/', {
@@ -98,7 +103,7 @@ class RequestScreen extends Component {
       })
       .then((response) => this.onResponseRecieved(response))
       .catch((error) => {
-        console.error(error);
+        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
       });
     }
   }
@@ -125,23 +130,124 @@ class RequestScreen extends Component {
     }
   }
 
-  onCancelRequestButtonPress() {
-    Alert.alert('cancel request.');
+  onCancelRequestButtonPress () {
+    fetch(productionURL + '/api/request/cancel/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        request_id: this.state.request.id,
+        role: this.state.role,
+      }),
+    })
+    .then((response) => this.onCancelRequestResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+    });
   }
 
-  onAcceptRequestButtonPress() {
-    Alert.alert('accept request.');
+  onCancelRequestResponseRecieved (response) {
+    if (response.status === 200) {
+      this.backNavigation();
+      Alert.alert('درخواست لغو گردید.');
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
   }
 
-  onRejectRequestButtonPress() {
-    Alert.alert('reject request.');
+  onAcceptRequestButtonPress () {
+    fetch(productionURL + '/api/request/accept/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        request_id: this.state.request.id,
+        role: this.state.role,
+      }),
+    })
+    .then((response) => this.onAcceptRequestResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+    });
   }
 
-  onPayRequestButtonPress() {
-    Alert.alert('confirm ' + this.state.request.total_price + ' payment request.');
+  onAcceptRequestResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if ('error' in body) {
+        Alert.alert('این تاریخ در دسترس نمی‌باشد.');
+      } else {
+        this.backNavigation();
+        Alert.alert('درخواست پذیرفته شد.');
+      }
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
   }
 
-  renderAccRejButton() {
+  onRejectRequestButtonPress () {
+    fetch(productionURL + '/api/request/reject/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        request_id: this.state.request.id,
+        role: this.state.role,
+      }),
+    })
+    .then((response) => this.onRejectRequestResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+    });
+  }
+
+  onRejectRequestResponseRecieved (response) {
+    if (response.status === 200) {
+      this.backNavigation();
+      Alert.alert('درخواست رد گردید.');
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
+  }
+
+  onPayRequestButtonPress () {
+    fetch(productionURL + '/api/request/pay/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        request_id: this.state.request.id,
+        role: this.state.role,
+      }),
+    })
+    .then((response) => this.onPayRequestResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+    });
+  }
+
+  onPayRequestResponseRecieved (response) {
+    if (response.status === 200) {
+      this.backNavigation();
+      Alert.alert('درخواست پرداخت گردید.');
+    } else {
+      Alert.alert('خطایی رخ داده.');
+    }
+  }
+
+  renderAccRejButton () {
     if (this.state.role === 'host') {
       if (this.state.request.status === 'WAIT_FOR_HOST') {
         return (
@@ -202,7 +308,7 @@ class RequestScreen extends Component {
     }
   }
 
-  render() {
+  render () {
     return(
       <ScrollView style={styles.container}>
 
