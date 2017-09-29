@@ -368,18 +368,6 @@ const Routes = ({
   },
   conversationScreen: {
     screen: ConversationScreen,
-    navigationOptions: {
-      title: 'مکالمه',
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
-    }
   },
   requestScreen: {
     screen: RequestScreen,

@@ -15,7 +15,6 @@ import timer from 'react-native-timer';
 import { testURL, productionURL } from './data';
 
 class ConversationScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state={
@@ -28,6 +27,31 @@ class ConversationScreen extends Component {
       subject: null,
     };
   }
+
+  testFunc () {
+    Alert.alert('salaaaaaam');
+  }
+
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.state.params.title,
+    headerTintColor: "#000000",
+    headerStyle: {
+      backgroundColor: '#F8F8F8',
+      justifyContent: 'center',
+      height: 70,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+    },
+    headerRight: navigation.state.params.room_id ? <TouchableOpacity
+    onPress={() => {
+      // navigation.navigate();
+      console.log('here');
+    }}
+    style={{marginRight: 20}}>
+    <Text>مشاهده‌ی خانه</Text>
+    </TouchableOpacity> : null,
+  });
 
   componentWillMount() {
     this.setState({

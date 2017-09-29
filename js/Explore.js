@@ -53,16 +53,12 @@ class Explore extends Component {
       this.setState({
         error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
       });
-      console.log('inja error khorde ha! :((((()))))');
-      // console.error(error);
     });
   }
 
   onResponseRecieved(response) {
-    body = JSON.parse(response._bodyText);
-    console.log('body is: ');
-    console.log(body);
     if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
       this.setState({
         error: null,
         rooms: body.room,
