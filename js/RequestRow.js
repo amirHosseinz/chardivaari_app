@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Alert,
   View,
   Text,
   StyleSheet,
@@ -25,6 +24,7 @@ class RequestRow extends Component {
     {
       request: this.props.requestItem,
       role: this.props.role,
+      refresh: this.props.refresh,
     });
   }
 

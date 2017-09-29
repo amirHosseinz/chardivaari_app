@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Alert,
   StyleSheet,
   Text,
   View,
@@ -11,6 +10,7 @@ import {
   FlatList,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
+import timer from 'react-native-timer';
 
 import InboxRow from './InboxRow';
 import InboxHeader from './InboxHeader';
@@ -24,12 +24,26 @@ class MessagesListScreen extends Component {
       messages: [],
       unreadCount: 0,
       token: '',
+      refreshing: true,
     };
   }
 
   componentWillMount() {
-    // this method run before loading page
     CacheStore.get('token').then((value) => this.setToken(value));
+    timer.setInterval(
+      this,
+      'refreshMsgList',
+      () => {
+        this.setState({
+          refreshing: true,
+        });
+      },
+      11000,
+    );
+  }
+
+  componentWillUnmount() {
+      timer.clearInterval(this);
   }
 
   setToken(token) {
@@ -49,12 +63,8 @@ class MessagesListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      Alert.alert('خطای اتصال به اینترنت!');
     });
-  }
-
-  componentDidMount() {
-    // this method run after loading page
   }
 
   onResponseRecieved (response) {
@@ -63,17 +73,12 @@ class MessagesListScreen extends Component {
       this.setState({
         messages: body.message_list,
         unreadCount: body.count,
+        refreshing: false,
       });
     } else {
       // TODO
-      // a eror handle
+      // an eror handler
     }
-  }
-
-  onUnreadMessagePress() {
-    // TODO
-    // dis count unread count
-    Alert.alert('you read message.');
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -87,10 +92,23 @@ class MessagesListScreen extends Component {
     );
   }
 
+  _onRefresh () {
+    if (this.state.refreshing) {
+      this.fetchMessageList();
+    }
+  }
+
+  refresh = () => {
+    this.setState({
+      refreshing: true,
+    });
+  }
+
   render() {
     return(
-      <View style={styles.container} >
-        <InboxHeader count={this.state.unreadCount} />
+      <View style={styles.container}>
+        {this._onRefresh()}
+        <InboxHeader count={this.state.unreadCount} onRefresh={this.refresh} />
         <FlatList
           data={this.state.messages}
           keyExtractor={this._keyExtractor}

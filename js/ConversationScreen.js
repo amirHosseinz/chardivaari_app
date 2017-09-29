@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   View,
   Text,
   StyleSheet,
@@ -9,6 +10,7 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { GiftedChat } from 'react-native-gifted-chat';
+import timer from 'react-native-timer';
 
 import { testURL, productionURL } from './data';
 
@@ -40,6 +42,26 @@ class ConversationScreen extends Component {
     }
   }
 
+  autoRefreshTrigger () {
+    timer.setTimeout(
+      this,
+      'refreshConversation',
+      () => {
+        this.fetchConversation();
+      },
+      10000,
+    );
+  }
+
+  autoRefreshUnTrigger () {
+    timer.clearInterval(this);
+    timer.clearTimeout(this);
+  }
+
+  componentWillUnmount() {
+    this.autoRefreshUnTrigger();
+  }
+
   afterInitial () {
     CacheStore.get('token').then((value) => this.setToken(value));
   }
@@ -64,19 +86,19 @@ class ConversationScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      Alert.alert('لطفا پس از اطمینان اتصال اینترنت مجددا تلاش نمایید.');
     });
   }
 
   onResponseRecieved (response) {
-    // console.log('response: ');
-    // console.log(response);
+    this.autoRefreshUnTrigger();
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (this.state.subject == null) {
         this.setState({ subject: body.message_thread[0].subject });
       }
       this.updateFeed(body.message_thread);
+      this.autoRefreshTrigger();
     } else {
       // TODO
       // an error handler
@@ -87,16 +109,9 @@ class ConversationScreen extends Component {
     lastFeededMessage = null;
     unFeededMessages = [];
 
-    for (i = 0; i < messages.length; i++) {
-      console.log('message body:::: ');
-      console.log(messages[i].body);
-    }
-
     if (this.state.messages.length > 0) {
       this.setState({ lastMessageId: messages[0].id });
       lastFeededMessage = this.state.messages[this.state.messages.length - 1];
-      console.log('lastFeededMessageId:');
-      console.log(lastFeededMessage.id);
       for (i = 0; i < messages.length; i++) {
         if (messages[i].id === lastFeededMessage.id) {
           break;
@@ -109,8 +124,6 @@ class ConversationScreen extends Component {
 
     showing_messages = [];
     for (i = 0; i < unFeededMessages.length; i++) {
-      console.log('message body: ');
-      console.log(unFeededMessages[i].body);
       showing_messages.push(this.serverToChatMessage(unFeededMessages[i]));
     }
     this.setState({ messages: showing_messages });
@@ -158,7 +171,7 @@ class ConversationScreen extends Component {
     })
     .then((response) => this.onReplyMessageResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
     });
   }
 
@@ -174,8 +187,8 @@ class ConversationScreen extends Component {
 
   render () {
     return(
-      <View style={styles.container} >
-        <View style={styles.conversationHeader} >
+      <View style={styles.container}>
+        <View style={styles.conversationHeader}>
           <Text style={styles.text} >{this.state.partyName}</Text>
           <Image style={styles.profileImageStyle} source={{ uri: this.state.partyImageUrl }} />
         </View>

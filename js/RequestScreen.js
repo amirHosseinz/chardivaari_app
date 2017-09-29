@@ -34,6 +34,7 @@ class RequestScreen extends Component {
   }
 
   backNavigation () {
+    this.props.navigation.state.params.refresh();
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
   }
@@ -98,7 +99,7 @@ class RequestScreen extends Component {
           sender: this.state.username,
           recipient: this.state.request.guest_person,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
-          body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.room.title,
+          body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
       })
       .then((response) => this.onResponseRecieved(response))
@@ -242,6 +243,9 @@ class RequestScreen extends Component {
     if (response.status === 200) {
       this.backNavigation();
       Alert.alert('درخواست پرداخت گردید.');
+    } else if (response.status === 203) {
+      // NON_AUTHORITATIVE_INFORMATION
+      Alert.alert('خطای اطلاعات ناقص');
     } else {
       Alert.alert('خطایی رخ داده.');
     }

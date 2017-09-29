@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Alert,
   View,
   Text,
   StyleSheet,
@@ -45,8 +44,6 @@ class InboxRow extends Component {
   }
 
   onPress() {
-    // Alert.alert('here');
-    // todo
     this.props.navigation.navigate(
       'conversationScreen',
       {

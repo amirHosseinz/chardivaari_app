@@ -8,28 +8,39 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
+import timer from 'react-native-timer';
 
 import RequestsListHeader from './RequestsListHeader';
 import RequestRow from './RequestRow';
-
 import { testURL, productionURL } from './data';
 
 class RequestsListScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state={
       requests: [],
       token: '',
       toDoCount: 0,
+      refreshing: true,
     };
   }
 
   componentWillMount() {
-    // this.setState({
-    //   requests: initRequests,
-    // });
     CacheStore.get('token').then((value) => this.setToken(value));
+    timer.setInterval(
+      this,
+      'refreshReqList',
+      () => {
+        this.setState({
+          refreshing: true,
+        });
+      },
+      11000,
+    );
+  }
+
+  componentWillUnmount() {
+      timer.clearInterval(this);
   }
 
   setToken (token) {
@@ -39,8 +50,6 @@ class RequestsListScreen extends Component {
   }
 
   fetchRequestList () {
-    console.log('role');
-    console.log(this.props.role);
     fetch(productionURL + '/api/request/list/', {
       method: 'POST',
       headers: {
@@ -54,7 +63,7 @@ class RequestsListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
     });
   }
 
@@ -64,10 +73,11 @@ class RequestsListScreen extends Component {
       this.setState({
         requests: body.request_list,
         toDoCount: body.count,
+        refreshing: false,
       });
     } else {
       // TODO
-      // a eror handle
+      // an eror handler
     }
   }
 
@@ -79,14 +89,28 @@ class RequestsListScreen extends Component {
         requestItem={item}
         navigation={navigation}
         role={this.props.role}
+        refresh={this.refresh}
       />
     );
   }
 
+  _onRefresh () {
+    if (this.state.refreshing) {
+      this.fetchRequestList();
+    }
+  }
+
+  refresh = () => {
+    this.setState({
+      refreshing: true,
+    });
+  }
+
   render(){
     return(
-      <View style={styles.container} >
-        <RequestsListHeader count={this.state.toDoCount} />
+      <View style={styles.container}>
+        {this._onRefresh()}
+        <RequestsListHeader count={this.state.toDoCount} onRefresh={this.refresh} />
         <FlatList
           data={this.state.requests}
           keyExtractor={this._keyExtractor}

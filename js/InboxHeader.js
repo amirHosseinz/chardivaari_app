@@ -13,7 +13,7 @@ class InboxHeader extends Component {
     return(
       <View style={styles.container} >
         <Text style={styles.text} >شما {this.props.count} پیام خوانده نشده دارید.</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.props.onRefresh}>
           <Icon size={30} name={'autorenew'} color={'#ffa500'} />
         </TouchableOpacity>
       </View>
