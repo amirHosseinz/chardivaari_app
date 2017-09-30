@@ -10,7 +10,8 @@ import {
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CacheStore from 'react-native-cache-store';
-// import RNExitApp from 'react-native-exit-app';
+import Communications from 'react-native-communications';
+
 
 class ProfileRows extends Component {
 
@@ -31,6 +32,8 @@ class ProfileRows extends Component {
     } else if (this.props.data.action === 'logout') {
       CacheStore.flush();
       this.resetNavigation('loginSignupTabView');
+    } else if (this.props.data.action === 'call-us') {
+      Communications.phonecall('09124642386', true);
     } else {
       Alert.alert(this.props.data.action);
     }

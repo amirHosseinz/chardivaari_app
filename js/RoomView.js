@@ -90,7 +90,7 @@ class RoomView extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
     });
   }
 
@@ -103,6 +103,7 @@ class RoomView extends Component {
           partyName: this.state.room.owner,
           messageId: body.message_id,
           username: this.state.username,
+          room: this.state.room,
         }
       );
     } else {

@@ -99,6 +99,17 @@ export const guestProfileRowsData = [
   },
   {
     'data': {
+      'text': 'تماس با ما',
+      'action': 'call-us',
+      'icon': {
+        'name': 'call',
+        'color': 'black',
+        'size': 30,
+      },
+    },
+  },
+  {
+    'data': {
       'text': 'خروج',
       'action': 'logout',
       'icon': {
@@ -139,6 +150,17 @@ export const hostProfileRowsData = [
       'action': 'settings',
       'icon': {
         'name': 'settings',
+        'color': 'black',
+        'size': 30,
+      },
+    },
+  },
+  {
+    'data': {
+      'text': 'تماس با ما',
+      'action': 'call-us',
+      'icon': {
+        'name': 'call',
         'color': 'black',
         'size': 30,
       },

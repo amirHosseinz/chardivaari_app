@@ -15,6 +15,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Calendar from 'react-native-calendar-select';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const { UIManager } = NativeModules;
 
@@ -49,7 +50,8 @@ class SearchAnimations extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      modalVisible: false,
+      capacityModalVisible: false,
+      whereModalVisible: false,
       myStyle: {
         height: 80,
          flexDirection: 'column',
@@ -57,10 +59,10 @@ class SearchAnimations extends Component {
          justifyContent: 'space-around',
          backgroundColor: '#636877',
          paddingTop: 5,
-
       },
       srartDate: new Date(),
       endDate: new Date(),
+      sum: '',
     };
     this.confirmDate = this.confirmDate.bind(this);
     this.openCalendar = this.openCalendar.bind(this);
@@ -72,7 +74,6 @@ class SearchAnimations extends Component {
         // LayoutAnimation.configureNext(expandLayoutAnimation);
         this.setState({
            myStyle: {
-              height: 240,
               backgroundColor: '#636877',
               flexDirection: 'column',
               alignItems: 'center',
@@ -90,7 +91,6 @@ class SearchAnimations extends Component {
         this.setState({
           isOpen: false,
            myStyle: {
-              height: 80,
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'space-around',
@@ -107,9 +107,8 @@ class SearchAnimations extends Component {
          <View style={styles.iconbox}>
             <Icon
               name='expand-less'
-              size={40}
+              size={35}
               color='#d5d7dd'
-              style={styles.iconface}
               onPress={this.collapseElement}
             />
          </View>
@@ -122,29 +121,49 @@ class SearchAnimations extends Component {
          if (this.state.isOpen === true) {
            return(
              <View style={styles.itemStyle}>
-             <TouchableOpacity>
+             <TouchableOpacity style={{flex: 1,}} onPress={this.showWhereModal}>
+             <View style={styles.innerItemStyle}>
+             <Icon
+               name='public'
+               size={35}
+               color='#d5d7dd'
+             />
                 <Text style={styles.button}>
-                مقصد
+                هر کجا
                 </Text>
+                </View>
              </TouchableOpacity>
              </View>
            );
          } else {
            return(
              <View style={styles.itemStyle}>
-             <TouchableOpacity>
-                <Text style={styles.button} onPress={this.expandElement}>
-                Sum
+             <TouchableOpacity style={{flex: 1,}} onPress={this.expandElement}>
+              <View style={styles.innerItemStyle}>
+                <Icon
+                  name='search'
+                  size={35}
+                  color='#d5d7dd'
+                />
+                <Text style={styles.button}>
+                {this.state.sum}
                 </Text>
+              </View>
              </TouchableOpacity>
              </View>
            );
          }
      }
 
-     showModal = () => {
+     showCapacityModal = () => {
        this.setState({
-         modalVisible: true,
+         capacityModalVisible: true,
+       });
+     }
+
+     showWhereModal = () => {
+       this.setState({
+         whereModalVisible: true,
        });
      }
 
@@ -152,10 +171,17 @@ class SearchAnimations extends Component {
        if (this.state.isOpen) {
          return(
            <View style={styles.itemStyle}>
-           <TouchableOpacity>
-              <Text style={styles.button} onPress={this.openCalendar}>
-              زمان
+           <TouchableOpacity onPress={this.openCalendar} style={{flex: 1,}}>
+           <View style={styles.innerItemStyle}>
+           <Icon
+             name='date-range'
+             size={35}
+             color='#d5d7dd'
+           />
+              <Text style={styles.button}>
+              هر زمان
                </Text>
+               </View>
            </TouchableOpacity>
            </View>
          );
@@ -166,19 +192,32 @@ class SearchAnimations extends Component {
        if (this.state.isOpen) {
          return(
            <View style={styles.itemStyle}>
-           <TouchableOpacity>
-              <Text style={styles.button} onPress={this.showModal}>
-              چند نفر؟
+           <TouchableOpacity onPress={this.showCapacityModal} style={{flex: 1,}}>
+           <View style={styles.innerItemStyle}>
+           <Icon
+             name='group-add'
+             size={35}
+             color='#d5d7dd'
+           />
+              <Text style={styles.button}>
+              یک نفر
               </Text>
+              </View>
            </TouchableOpacity>
            </View>
          );
        }
      }
 
-     setModalVisible (visible) {
+     setCapacityModalVisible (visible) {
        this.setState({
-         modalVisible: visible,
+         capacityModalVisible: visible,
+       });
+     }
+
+     setWhereModalVisible (visible) {
+       this.setState({
+         whereModalVisible: visible,
        });
      }
 
@@ -187,10 +226,6 @@ class SearchAnimations extends Component {
          startDate,
          endDate
        });
-       console.log('startDate is: ');
-       console.log(startDate);
-       console.log('endDate is: ');
-       console.log(endDate);
      }
 
      openCalendar() {
@@ -228,7 +263,7 @@ class SearchAnimations extends Component {
                  <Modal
                    animationType='slide'
                    transparent={false}
-                   visible={this.state.modalVisible}
+                   visible={this.state.capacityModalVisible}
                    onRequestClose={() => {alert("Modal has been closed.")}}
                    >
                    <View style={{marginTop: 22}}>
@@ -236,7 +271,7 @@ class SearchAnimations extends Component {
                       <View>
                         <Text>Hello World!</Text>
                         <TouchableHighlight onPress={() => {
-                          this.setModalVisible(!this.state.modalVisible)
+                          this.setCapacityModalVisible(!this.state.capacityModalVisible)
                         }}>
                           <Text>Hide Modal</Text>
                         </TouchableHighlight>
@@ -260,6 +295,22 @@ class SearchAnimations extends Component {
                    />
                    </View>
 
+                   <Modal
+                   animationType='slide'
+                   transparent={false}
+                   visible={this.state.whereModalVisible}
+                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   >
+                    <ModalDropdown
+                    options={this.props.locations}
+                    />
+                    <TouchableHighlight onPress={() => {
+                      this.setWhereModalVisible(!this.state.whereModalVisible)
+                    }}>
+                      <Text>Hide Modal</Text>
+                    </TouchableHighlight>
+                   </Modal>
+
            </View>
         );
      }
@@ -275,15 +326,15 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontFamily: "IRANSans",
     fontSize: 16,
-    marginTop: 10,
     marginRight: 5,
     paddingRight: 12,
-    paddingTop:1,
-    paddingBottom:1,
   },
   itemStyle: {
     width: Dimensions.get('screen').width - 20,
-    height: 55,
+    height: 40,
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     backgroundColor: '#818591',
     padding: 2,
     marginTop: 10,
@@ -302,6 +353,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginLeft:15,
+  },
+  innerItemStyle: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#818591',
+    marginRight: 14,
+    marginLeft: 14,
   },
 });
 

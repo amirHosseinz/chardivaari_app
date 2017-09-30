@@ -28,12 +28,8 @@ class ConversationScreen extends Component {
     };
   }
 
-  testFunc () {
-    Alert.alert('salaaaaaam');
-  }
-
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: navigation.state.params.title,
+  static navigationOptions = ({ navigation }) => ({
+    title: 'مکالمه',
     headerTintColor: "#000000",
     headerStyle: {
       backgroundColor: '#F8F8F8',
@@ -43,10 +39,9 @@ class ConversationScreen extends Component {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
     },
-    headerRight: navigation.state.params.room_id ? <TouchableOpacity
+    headerRight: navigation.state.params.room ? <TouchableOpacity
     onPress={() => {
-      // navigation.navigate();
-      console.log('here');
+      navigation.navigate('roomView', {room: navigation.state.params.room});
     }}
     style={{marginRight: 20}}>
     <Text>مشاهده‌ی خانه</Text>

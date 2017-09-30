@@ -24,13 +24,52 @@ class Explore extends Component {
     untill_date: null,
     where: null,
     rooms: [],
+    locations: [],
   };
 
   componentWillMount() {
     CacheStore.get('token').then((value) => {
       this.setState({ token: value });
-      this.onSearchButtonPress();
+      this.fetchHomepage();
     });
+  }
+
+  fetchHomepage () {
+    fetch(productionURL + '/api/homepage/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+    })
+    .then((response) => this.onFetchHomepageResponseRecieved(response))
+    .catch((error) => {
+      this.setState({
+        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
+      });
+    });
+  }
+
+  onFetchHomepageResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      console.log('this is body######: ');
+      console.log(body);
+      lc = [];
+      for (var i = 0; i < body.location.length; i++) {
+        lc.push(body.location[i].text);
+        console.log('body.location[i].text:   ');
+        console.log(body.location[i].text);
+      }
+      this.setState({
+        error: null,
+        rooms: body.room,
+        locations: lc,
+      });
+    } else {
+      this.setState({ error: 'خطایی رخ داده.' });
+    }
   }
 
   onSearchButtonPress() {
@@ -48,7 +87,7 @@ class Explore extends Component {
         capacity: this.state.numberOfGuests,
       }),
     })
-    .then((response) => this.onResponseRecieved(response))
+    .then((response) => this.onSearchResponseRecieved(response))
     .catch((error) => {
       this.setState({
         error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
@@ -56,7 +95,7 @@ class Explore extends Component {
     });
   }
 
-  onResponseRecieved(response) {
+  onSearchResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({
@@ -85,7 +124,7 @@ class Explore extends Component {
   render () {
     return(
       <View style={styles.container}>
-        <SearchAnimations />
+        <SearchAnimations locations={this.state.locations} />
         <View style={styles.filter}>
         </View>
 
@@ -93,7 +132,7 @@ class Explore extends Component {
 
         <ScrollView style={{
           marginTop: 5,
-          marginBottom: 70,
+          marginBottom: 65,
         }}
         showsHorizontalScrollIndicator={false}
         >
@@ -118,7 +157,7 @@ const styles = StyleSheet.create({
   },
   filter : {
     backgroundColor: '#636877',
-    height:15,
+    height:10,
     width: Dimensions.get('screen').width,
   },
   errorTextStyle: {

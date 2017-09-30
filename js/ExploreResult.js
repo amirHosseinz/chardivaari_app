@@ -27,7 +27,9 @@ class ExploreResult extends Component {
     return(
       <View style={styles.container}>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => {
+        this.props.navigation.navigate('roomView', {room: this.props.room});
+      }}>
     <View style={styles.cards}>
         <View style={styles.previewimg}>
           <Image
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 20,
+    width: Dimensions.get('window').width - 10,
     height: 110,
     backgroundColor: '#f9f9f9',
     marginTop:5,
