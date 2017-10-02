@@ -50,6 +50,8 @@ class SearchAnimations extends Component {
     super(props);
     this.state = {
       isOpen: false,
+      destination: 'هر کجا',
+      capacity: 1,
       capacityModalVisible: false,
       whereModalVisible: false,
       myStyle: {
@@ -129,7 +131,7 @@ class SearchAnimations extends Component {
                color='#d5d7dd'
              />
                 <Text style={styles.button}>
-                هر کجا
+                  {this.state.destination}
                 </Text>
                 </View>
              </TouchableOpacity>
@@ -200,7 +202,7 @@ class SearchAnimations extends Component {
              color='#d5d7dd'
            />
               <Text style={styles.button}>
-              یک نفر
+              {this.state.capacity} نفر
               </Text>
               </View>
            </TouchableOpacity>
@@ -226,11 +228,27 @@ class SearchAnimations extends Component {
          startDate,
          endDate
        });
+       this.props.setStartDate(startDate);
+       this.props.setEndDate(endDate);
      }
 
      openCalendar() {
        this.calendar && this.calendar.clear();
        this.calendar && this.calendar.open();
+     }
+
+     onSelectLocation = (index, value) => {
+       this.setState({
+         destination: value,
+       });
+       this.props.setDestination(value);
+     }
+
+     onSelectCapacity = (index, value) => {
+       this.setState({
+         capacity: value,
+       });
+       this.props.setDestination(value);
      }
 
      render () {
@@ -269,7 +287,10 @@ class SearchAnimations extends Component {
                    <View style={{marginTop: 22}}>
 
                       <View>
-                        <Text>Hello World!</Text>
+                      <ModalDropdown
+                        options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                        onSelect={this.onSelectCapacity}
+                      />
                         <TouchableHighlight onPress={() => {
                           this.setCapacityModalVisible(!this.state.capacityModalVisible)
                         }}>
@@ -302,7 +323,8 @@ class SearchAnimations extends Component {
                    onRequestClose={() => {alert("Modal has been closed.")}}
                    >
                     <ModalDropdown
-                    options={this.props.locations}
+                      options={this.props.locations}
+                      onSelect={this.onSelectLocation}
                     />
                     <TouchableHighlight onPress={() => {
                       this.setWhereModalVisible(!this.state.whereModalVisible)
@@ -324,7 +346,7 @@ const styles = StyleSheet.create({
   button: {
     color: 'white',
     textAlign: 'right',
-    fontFamily: "IRANSans",
+    fontFamily: "Vazir",
     fontSize: 16,
     marginRight: 5,
     paddingRight: 12,

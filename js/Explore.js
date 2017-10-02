@@ -19,10 +19,10 @@ class Explore extends Component {
   state={
     error: null,
     token: null,
-    numberOfGuests: null,
-    from_date: null,
-    untill_date: null,
-    where: null,
+    capacity: null,
+    start_date: null,
+    end_date: null,
+    destination: null,
     rooms: [],
     locations: [],
   };
@@ -54,13 +54,9 @@ class Explore extends Component {
   onFetchHomepageResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      console.log('this is body######: ');
-      console.log(body);
       lc = [];
       for (var i = 0; i < body.location.length; i++) {
         lc.push(body.location[i].text);
-        console.log('body.location[i].text:   ');
-        console.log(body.location[i].text);
       }
       this.setState({
         error: null,
@@ -81,10 +77,10 @@ class Explore extends Component {
         'Authorization': 'Token ' + this.state.token,
       },
       body: JSON.stringify({
-        district: this.state.where,
-        start_date: (this.state.from_date == null) ? null : this.state.from_date.toISOString(),
-        end_date: (this.state.untill_date == null) ? null : this.state.untill_date.toISOString(),
-        capacity: this.state.numberOfGuests,
+        district: this.state.destination,
+        start_date: (this.state.start_date == null) ? null : this.state.start_date.toISOString(),
+        end_date: (this.state.end_date == null) ? null : this.state.end_date.toISOString(),
+        capacity: this.state.capacity,
       }),
     })
     .then((response) => this.onSearchResponseRecieved(response))
@@ -107,6 +103,26 @@ class Explore extends Component {
     }
   }
 
+  setStartDate = (startDate) => {
+    this.setState({
+      start_date: startDate,
+    });
+  }
+
+  setEndDate = (endDate) => {
+    this.setState({
+      end_date: endDate,
+    });
+  }
+
+  setDestination = (destination) => {
+    this.setState({ destination });
+  }
+
+  setCapacity = (capacity) => {
+    this.setState({ capacity });
+  }
+
   renderResults () {
     return this.state.rooms.map(room =>
       <ExploreResult key={room.id} room={room} navigation={this.props.navigation} />
@@ -124,7 +140,13 @@ class Explore extends Component {
   render () {
     return(
       <View style={styles.container}>
-        <SearchAnimations locations={this.state.locations} />
+        <SearchAnimations
+          locations={this.state.locations}
+          setStartDate={this.setStartDate}
+          setEndDate={this.setEndDate}
+          setDestination={this.setDestination}
+          setCapacity={this.setCapacity}
+        />
         <View style={styles.filter}>
         </View>
 
