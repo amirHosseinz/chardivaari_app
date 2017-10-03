@@ -1,6 +1,3 @@
-/**
- * Created by TinySymphony on 2017-05-08.
- */
 
 import React, {PropTypes, Component} from 'react';
 import {
@@ -13,7 +10,7 @@ import {
   Dimensions,
   TouchableHighlight
 } from 'react-native';
-// import Moment from 'moment';
+import Moment from 'moment';
 import moment from 'moment-jalaali';
 import styles from './CalendarStyle';
 import MonthList from './MonthList';
@@ -78,8 +75,9 @@ export default class Calendar extends Component {
     this.state = {
       isModalVisible: false
     };
-    this._today = moment();
-    this._year = this._today.jYear();
+    this._today = Moment();
+    this._jToday = moment();
+    this._year = this._today.year();
     this._i18n = this._i18n.bind(this);
     this._getDateRange = this._getDateRange.bind(this);
     this._onChoose = this._onChoose.bind(this);
@@ -112,17 +110,17 @@ export default class Calendar extends Component {
       endDate,
       format
     } = this.props;
-    let start = moment(startDate, format);
-    let end = moment(endDate, format);
+    let start = Moment(startDate, format);
+    let end = Moment(endDate, format);
     let isStartValid = start.isValid() && start >= this._minDate && start <= this._maxDate;
     let isEndValid = end.isValid() && end >= this._minDate && end <= this._maxDate;
     this.setState({
       startDate: isStartValid ? start : null,
       startDateText: isStartValid ? this._i18n(start, 'date') : '',
-      startWeekdayText: isStartValid ? this._i18n(start.isoWeekday(), 'weekday') : '',
+      startWeekdayText: isStartValid ? this._i18n((start.isoWeekday() + 1) % 7, 'weekday') : '',
       endDate: isEndValid ? end: null,
       endDateText: isEndValid ? this._i18n(end, 'date') : '',
-      endWeekdayText: isEndValid ? this._i18n(end.isoWeekday(), 'weekday') : ''
+      endWeekdayText: isEndValid ? this._i18n((end.isoWeekday() + 1) % 7, 'weekday') : ''
     });
   }
   _getDateRange () {
@@ -131,35 +129,44 @@ export default class Calendar extends Component {
       minDate,
       format
     } = this.props;
-    let max = moment(maxDate, format);
-    let min = moment(minDate, format);
-    let maxValid = max.isValid();
-    let minValid = min.isValid();
-    if (!maxValid && !minValid) {
-      max = moment().add(3, 'jMonth');
-      min = moment();
-    }
-    if (!maxValid && minValid) {
-      max = min.add(3, 'jMonth');
-    }
-    if (maxValid && !minValid) {
-      min = max.subtract(3, 'jMonth');
-    }
-    if (min.isSameOrAfter(max)) return {};
+    let max = Moment(maxDate, format);
+    let jMax = moment(maxDate, format);
+    let min = Moment(minDate, format);
+    let jMin = moment(minDate, format);
+    // let maxValid = max.isValid();
+    // let jMaxValid = jMax.isValid();
+    // let minValid = min.isValid();
+    // let jMinValid = jMin.isValid();
+    // if (!maxValid && !minValid) {
+    max = Moment().add(3, 'months');
+    jMax = moment().add(3, 'jMonth');
+    min = Moment();
+    jMin = moment();
+    // }
+    // if (!maxValid && minValid) {
+    //   max = min.add(3, 'months');
+    // }
+    // if (maxValid && !minValid) {
+    //   min = max.subtract(3, 'months');
+    // }
+    // if (min.isSameOrAfter(max)) return {};
     this._minDate = min;
+    this._jMinDate = jMin;
     this._maxDate = max;
+    this._jMaxDate = jMax;
   }
   _onChoose (day) {
     const {
       startDate,
       endDate
     } = this.state;
+    // day = moment(day.year(), day.month(), day.date(), 'YYYY-MM-DD');
     if ((!startDate && !endDate) || day < startDate || (startDate && endDate)) {
       this.setState({
         startDate: day,
         endDate: null,
         startDateText: this._i18n(day, 'date'),
-        startWeekdayText: this._i18n(day.isoWeekday(), 'weekday'),
+        startWeekdayText: this._i18n((day.isoWeekday() + 1) % 7, 'weekday'),
         endDateText: '',
         endWeekdayText: '',
       });
@@ -167,7 +174,7 @@ export default class Calendar extends Component {
       this.setState({
         endDate: day,
         endDateText: this._i18n(day, 'date'),
-        endWeekdayText: this._i18n(day.isoWeekday(), 'weekday')
+        endWeekdayText: this._i18n((day.isoWeekday() + 1) % 7, 'weekday')
       });
     }
   }
@@ -280,9 +287,11 @@ export default class Calendar extends Component {
           </View>
           <View style={[styles.scroll, {borderColor}]}>
             <MonthList
-              today={this._today}
-              minDate={this._minDate}
-              maxDate={this._maxDate}
+              today={this._jToday}
+              // minDate={this._minDate}
+              minDate={this._jMinDate}
+              // maxDate={this._maxDate}
+              maxDate={this._jMaxDate}
               startDate={this.state.startDate}
               endDate={this.state.endDate}
               onChoose={this._onChoose}

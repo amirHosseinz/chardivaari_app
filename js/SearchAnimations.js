@@ -14,7 +14,8 @@ import {
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Calendar from 'react-native-calendar-select';
+// import Calendar from 'react-native-calendar-select';
+import Calendar from './common/calendar/Calendar';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 const { UIManager } = NativeModules;
@@ -253,16 +254,32 @@ class SearchAnimations extends Component {
 
      render () {
        let customI18n = {
-         'w': ['', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-         'weekday': ['', 'دوشنبه', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+         'w': [
+           '',
+           <Text style={{fontFamily: "Vazir",}}>یک</Text>,
+           <Text style={{fontFamily: "Vazir",}}>دو</Text>,
+           <Text style={{fontFamily: "Vazir",}}>سه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>چهار</Text>,
+           <Text style={{fontFamily: "Vazir",}}>پنج</Text>,
+           <Text style={{fontFamily: "Vazir",}}>جمعه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>شنبه</Text>],
+         'weekday': [
+           '',
+           <Text style={{fontFamily: "Vazir",}}>یک‌شنبه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>دوشنبه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>سه‌شنبه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>چهارشنبه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>پنج‌شنبه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>جمعه</Text>,
+           <Text style={{fontFamily: "Vazir",}}>شنبه</Text>],
          'text': {
-           'start': 'تاریخ شروع',
-           'end': 'تاریخ پایان',
-           'date': 'تاریخ',
-           'save': 'تایید',
-           'clear': 'ریست کردن'
+           'start': <Text style={{fontFamily: "Vazir",}}>تاریخ شروع</Text>,
+           'end': <Text style={{fontFamily: "Vazir",}}>تاریخ پایان</Text>,
+           'date': <Text style={{fontFamily: "Vazir",}}>تاریخ</Text>,
+           'save': <Text style={{fontFamily: "Vazir",}}>تایید</Text>,
+           'clear': <Text style={{fontFamily: "Vazir",}}>ریست کردن</Text>,
          },
-         'date': 'DD / MM'  // date format
+         'date': 'MM / DD'  // date format
        };
        // optional property, too.
        let color = {
@@ -307,9 +324,6 @@ class SearchAnimations extends Component {
                    ref={(calendar) => {this.calendar = calendar;}}
                    customI18n={customI18n}
                    color={color}
-                   format="YYYYMMDD"
-                   minDate="20170510"
-                   maxDate="20180312"
                    startDate={this.state.startDate}
                    endDate={this.state.endDate}
                    onConfirm={this.confirmDate}

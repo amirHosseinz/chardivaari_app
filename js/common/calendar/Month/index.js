@@ -1,6 +1,3 @@
-/**
- * Created by TinySymphony on 2017-05-11.
- */
 
 import React, {PropTypes, Component} from 'react';
 import {
@@ -9,7 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
-// import Moment from 'moment';
+import Moment from 'moment';
 import moment from 'moment-jalaali';
 import styles from './style';
 import Day from '../Day';
@@ -30,9 +27,60 @@ export default class Month extends Component {
       '一月', '二月', '三月', '四月', '五月', '六月',
       '七月', '八月', '九月', '十月', '十一月', '十二月'
     ],
+    // 'en': [
+    //   'January', 'February', 'March', 'April', 'May', 'June',
+    //   'July', 'August', 'September', 'October', 'November', 'December'
+    // ]
+
     'en': [
-      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>فروردین</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>اردیبهشت</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>خرداد</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>تیر</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>مرداد</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>شهریور</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>مهر</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>آبان</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>آذر</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>دی</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>بهمن</Text>,
+      <Text style={{
+        fontFamily: "Vazir",
+        fontSize: 17,
+      }}>اسفند</Text>,
     ]
   }
   _getMonthText () {
@@ -41,8 +89,11 @@ export default class Month extends Component {
       today,
       i18n
     } = this.props;
+    // let y = month.year();
     let y = month.jYear();
+    // let m = month.month();
     let m = month.jMonth();
+    // let year = today.year();
     let year = today.jYear();
     if (year === y) {
       return Month.I18N_MAP[i18n][m];
@@ -50,14 +101,15 @@ export default class Month extends Component {
       if (i18n === 'en') {
         return `${Month.I18N_MAP[i18n][m]}, ${y}`;
       }
-      // return month.format('YYYY年M月');
-      return month.format('jM');
+      return month.format('YYYY年M月');
     }
   }
   _getDayList (date) {
     let dayList;
-    let month = date.month();
-    let weekday = date.isoWeekday();
+    // let month = date.month();
+    let month = date.jMonth();
+    // let weekday = date.isoWeekday();
+    let weekday = (date.isoWeekday() + 1) % 7;
     if (weekday === 7) {
       dayList = [];
     } else {
@@ -65,14 +117,16 @@ export default class Month extends Component {
         empty: date.clone().subtract(1, 'h')
       });
     }
-    while (date.month() === month) {
+    // while (date.month() === month) {
+    while (date.jMonth() === month) {
       dayList.push({
         date: date.clone()
       });
       date.add(1, 'days');
     }
     date.subtract(1, 'days');
-    weekday = date.isoWeekday();
+    // weekday = date.isoWeekday();
+    weekday = (date.isoWeekday() + 1) % 7;
     if (weekday === 7) {
       return dayList.concat(new Array(6).fill({
         empty: date.clone().hour(1)

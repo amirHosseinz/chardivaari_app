@@ -1,6 +1,3 @@
-/**
- * Created by TinySymphony on 2017-05-11.
- */
 
 import React, {PropTypes, Component} from 'react';
 import {
@@ -9,7 +6,7 @@ import {
   ListView,
   Dimensions
 } from 'react-native';
-// import Moment from 'moment';
+import Moment from 'moment';
 import moment from 'moment-jalaali';
 import styles from './CalendarStyle';
 import Month from './Month';
@@ -56,9 +53,28 @@ export default class MonthList extends Component {
   }
   _checkRange (date, start, end) {
     if (!date || !start) return false;
-    if (!end) return date.year() === start.year() && date.month() === start.month();
-    if (date.year() < start.year() || (date.year() === start.year() && date.month() < start.month())) return false;
-    if (date.year() > end.year() || (date.year() === end.year() && date.month() > end.month())) return false;
+    dDate = moment();
+    dDate.year(date.year());
+    dDate.month(date.month());
+    dDate.date(date.date());
+    sStart = moment();
+    sStart.year(start.year());
+    sStart.month(start.month());
+    sStart.date(start.date());
+    date = dDate;
+    start = sStart;
+    if (end) {
+      eEnd = moment();
+      eEnd.year(end.year());
+      eEnd.month(end.month());
+      eEnd.date(end.date());
+      end = eEnd;
+    }
+    if (!end) return date.jYear() === start.jYear() && date.jMonth() === start.jMonth();
+    if (date.jYear() < start.jYear() || (date.jYear() === start.jYear() && date.jMonth() < start.jMonth())) return false;
+    // console.log(String(end.year()) + ', '+ String(date.year()));
+    // console.log(String(end.month()) + ', '+ String(date.month()));
+    if (date.jYear() > end.jYear() || (date.jYear() === end.jYear() && date.jMonth() > end.jMonth())) return false;
     return true;
   }
   _shouldUpdate (month, props) {
@@ -76,33 +92,37 @@ export default class MonthList extends Component {
     return false;
   }
   _getMonthList (props) {
-    let minDate = (props || this.props).minDate.clone().date(1);
+    // let minDate = (props || this.props).minDate.clone().date(1);
+    let minDate = (props || this.props).minDate.clone().jDate(1);
     let maxDate = (props || this.props).maxDate.clone();
     let monthList = [];
     if (!maxDate || !minDate) return monthList;
     while (maxDate > minDate || (
-      maxDate.year() === minDate.year() &&
-      maxDate.month() === minDate.month()
+      // maxDate.year() === minDate.year() &&
+      // maxDate.month() === minDate.month()
+      maxDate.jYear() === minDate.jYear() &&
+      maxDate.jMonth() === minDate.jMonth()
     )) {
       let month = {
         date: minDate.clone()
       };
       month.shouldUpdate = this._shouldUpdate(month, props);
       monthList.push(month);
-      minDate.add(1, 'month');
+      minDate.add(1, 'jMonth');
+      minDate.jDate(1);
     }
     return monthList;
   }
   _getWeekNums(start, end) {
-    let clonedMoment = moment(start), date, day, num, y, m, total = 0;
-    while (!clonedMoment.isSame(end, 'jMonth')) {
-      y = clonedMoment.jYear();
-      m = clonedMoment.jMonth();
+    let clonedMoment = Moment(start), date, day, num, y, m, total = 0;
+    while (!clonedMoment.isSame(end, 'months')) {
+      y = clonedMoment.year();
+      m = clonedMoment.month();
       date = new Date(y, m, 1);
       day = date.getDay();
       num = new Date(y, m + 1, 0).getDate();
       total += Math.ceil((num + day) / 7);
-      clonedMoment.add(1, 'jMonth');
+      clonedMoment.add(1, 'months');
     }
     return total;
   }
@@ -111,8 +131,8 @@ export default class MonthList extends Component {
       startDate,
       minDate
     } = this.props;
-    let monthOffset = 12 * (startDate.jYear() - minDate.jYear()) +
-      startDate.jMonth() - minDate.jMonth();
+    let monthOffset = 12 * (startDate.year() - minDate.year()) +
+      startDate.month() - minDate.month();
     let weekOffset = this._getWeekNums(minDate, startDate);
     setTimeout(() => {
       this.list && this.list.scrollTo({

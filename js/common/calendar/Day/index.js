@@ -1,6 +1,3 @@
-/**
- * Created by TinySymphony on 2017-05-11.
- */
 
 import React, {PropTypes, Component} from 'react';
 import {
@@ -9,7 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
-// import Moment from 'moment';
+import Moment from 'moment';
 import moment from 'moment-jalaali';
 import styles from './style';
 
@@ -46,6 +43,11 @@ export default class Day extends Component {
     this.isStartPart = this.isStart && endDate;
     this.isEnd = date && date.isSame(endDate, 'd');
     this.isFocus = this.isMid || this.isStart || this.isEnd;
+    // console.log('this.isValid: #################');
+    // console.log(this.isValid);
+    // console.log(this.isMid);
+    // console.log(this.isStart);
+    // console.log(this.isEnd);
     return this.isFocus;
   }
   shouldComponentUpdate (nextProps) {
@@ -59,7 +61,9 @@ export default class Day extends Component {
       date,
       color
     } = this.props;
-    let text = date ? date.date() : '';
+    let text = date ? <Text style={{
+      fontFamily: "Vazir",
+    }}>{date.jDate()}</Text> : '';
     let mainColor = {color: color.mainColor};
     let subColor = {color: color.subColor};
     let mainBack = {backgroundColor: color.mainColor};
