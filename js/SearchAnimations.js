@@ -14,7 +14,6 @@ import {
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import Calendar from 'react-native-calendar-select';
 import Calendar from './common/calendar/Calendar';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -231,6 +230,7 @@ class SearchAnimations extends Component {
        });
        this.props.setStartDate(startDate);
        this.props.setEndDate(endDate);
+       this.props.doSearchAction();
      }
 
      openCalendar() {
@@ -250,6 +250,22 @@ class SearchAnimations extends Component {
          capacity: value,
        });
        this.props.setDestination(value);
+     }
+
+     renderCapacityModalRow (value) {
+       return(
+         <View style={styles.capacityRowStyle}>
+          <Text style={styles.capacityRowTextStyle}>{value} نفر</Text>
+         </View>
+       );
+     }
+
+     renderLocationModalRow (value) {
+       return(
+         <View style={styles.capacityRowStyle}>
+          <Text style={styles.capacityRowTextStyle}>{value}</Text>
+         </View>
+       );
      }
 
      render () {
@@ -301,21 +317,25 @@ class SearchAnimations extends Component {
                    visible={this.state.capacityModalVisible}
                    onRequestClose={() => {alert("Modal has been closed.")}}
                    >
-                   <View style={{marginTop: 22}}>
-
-                      <View>
+                      <View style={styles.modalContainer}>
+                      <View style={styles.inputModalStyle}>
                       <ModalDropdown
+                        defaultValue={'تعداد نفرات'}
+                        showsVerticalScrollIndicator={false}
+                        textStyle={styles.optionText}
+                        style={styles.capacityModalStyle}
                         options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                        renderRow={this.renderCapacityModalRow}
                         onSelect={this.onSelectCapacity}
                       />
-                        <TouchableHighlight onPress={() => {
-                          this.setCapacityModalVisible(!this.state.capacityModalVisible)
+                        <TouchableHighlight style={styles.confirmButton} onPress={() => {
+                          this.setCapacityModalVisible(!this.state.capacityModalVisible);
+                          this.props.doSearchAction();
                         }}>
-                          <Text>Hide Modal</Text>
+                          <Text style={styles.confirmButtonText}>تایید</Text>
                         </TouchableHighlight>
+                        </View>
                       </View>
-
-                   </View>
                  </Modal>
 
                  <View>
@@ -336,17 +356,26 @@ class SearchAnimations extends Component {
                    visible={this.state.whereModalVisible}
                    onRequestClose={() => {alert("Modal has been closed.")}}
                    >
+                    <View style={styles.modalContainer}>
+                    <View style={styles.inputModalStyle}>
                     <ModalDropdown
                       options={this.props.locations}
                       onSelect={this.onSelectLocation}
+                      defaultValue={'مقصد سفر'}
+                      showsVerticalScrollIndicator={false}
+                      textStyle={styles.optionText}
+                      style={styles.capacityModalStyle}
+                      renderRow={this.renderLocationModalRow}
                     />
-                    <TouchableHighlight onPress={() => {
-                      this.setWhereModalVisible(!this.state.whereModalVisible)
+                    <TouchableHighlight style={styles.confirmButton} onPress={() => {
+                      this.setWhereModalVisible(!this.state.whereModalVisible);
+                      this.props.doSearchAction();
                     }}>
-                      <Text>Hide Modal</Text>
+                      <Text style={styles.confirmButtonText}>تایید</Text>
                     </TouchableHighlight>
+                    </View>
+                    </View>
                    </Modal>
-
            </View>
         );
      }
@@ -398,6 +427,55 @@ const styles = StyleSheet.create({
     backgroundColor: '#818591',
     marginRight: 14,
     marginLeft: 14,
+  },
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  confirmButton: {
+    height: 50,
+    backgroundColor: '#636877',
+    padding: 10,
+    borderRadius: 5,
+  },
+  confirmButtonText: {
+    fontFamily: "Vazir",
+    fontSize: 20,
+    color: 'white',
+  },
+  optionText: {
+    fontFamily: "Vazir",
+    fontSize: 20,
+    color: '#636877',
+  },
+  capacityModalStyle: {
+    height: 50,
+    width: Dimensions.get('screen').width / 2,
+    borderWidth: 0.5,
+    borderColor: '#636877',
+    borderRadius: 5,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputModalStyle: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  capacityRowStyle: {
+    height: 50,
+    width: Dimensions.get('screen').width / 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  capacityRowTextStyle: {
+    fontFamily: "Vazir",
+    fontSize: 20,
+    color: '#636877',
   },
 });
 

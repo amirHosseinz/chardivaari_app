@@ -38,6 +38,8 @@ import EditListingScreen from './EditListingScreen';
 import BookedRequestScreen from './BookedRequestScreen';
 import TripDetailScreen from './TripDetailScreen';
 
+import HouseDetail from './HouseDetail';
+
 const Routes = ({
   loginSignupTabView: {
     screen: LoginSignupTabView,
@@ -441,6 +443,19 @@ const Routes = ({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
+      }
+    }
+  },
+  houseDetail: {
+    screen: HouseDetail,
+    navigationOptions: {
+      headerStyle: {
+        position: 'absolute',
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0
       }
     }
   },

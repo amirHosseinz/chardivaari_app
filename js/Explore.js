@@ -52,6 +52,8 @@ class Explore extends Component {
   }
 
   onFetchHomepageResponseRecieved (response) {
+    console.log('######################');
+    console.log(response);
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       lc = [];
@@ -68,7 +70,7 @@ class Explore extends Component {
     }
   }
 
-  onSearchButtonPress() {
+  onSearchButtonPress = () => {
     fetch(productionURL + '/api/search/', {
       method: 'POST',
       headers: {
@@ -146,6 +148,7 @@ class Explore extends Component {
           setEndDate={this.setEndDate}
           setDestination={this.setDestination}
           setCapacity={this.setCapacity}
+          doSearchAction={this.onSearchButtonPress}
         />
         <View style={styles.filter}>
         </View>

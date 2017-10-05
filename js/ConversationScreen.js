@@ -41,7 +41,8 @@ class ConversationScreen extends Component {
     },
     headerRight: navigation.state.params.room ? <TouchableOpacity
     onPress={() => {
-      navigation.navigate('roomView', {room: navigation.state.params.room});
+      // navigation.navigate('roomView', {room: navigation.state.params.room});
+      navigation.navigate('houseDetail', {room: navigation.state.params.room});
     }}
     style={{marginRight: 20}}>
     <Text>مشاهده‌ی خانه</Text>
