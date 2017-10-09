@@ -75,6 +75,7 @@ class RequestsListScreen extends Component {
         toDoCount: body.count,
         refreshing: false,
       });
+      this.props.setCount(body.count);
     } else {
       // TODO
       // an eror handler

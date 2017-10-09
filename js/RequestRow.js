@@ -32,7 +32,7 @@ class RequestRow extends Component {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)}>
       <View style={styles.container}>
-        <Text style={styles.applicant}>{this.props.requestItem.room.owner}</Text>
+        <Text style={styles.applicant}>{this.props.requestItem.room.owner.last_name}</Text>
         <Text style={styles.listingTitleStyle}>{this.props.requestItem.room.title}</Text>
         <View style={styles.statusStyle}>
           {this.renderStatus()}

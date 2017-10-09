@@ -86,7 +86,7 @@ class HouseDetail extends Component {
      },
      body: JSON.stringify({
        sender: this.state.username,
-       recipient: this.state.room.owner,
+       recipient: this.state.room.owner.username,
        subject: this.state.room.title,
        body: ' درخواست صحبت درباره‌ی خانه‌ی ' + this.state.room.title,
      }),

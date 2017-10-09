@@ -12,8 +12,9 @@ import {
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
 
-import InboxRow from './InboxRow';
-import InboxHeader from './InboxHeader';
+// import InboxRow from './InboxRow';
+// import InboxHeader from './InboxHeader';
+import PrivateMessageRow from './PrivateMessageRow';
 import { testURL, productionURL } from './data';
 
 class MessagesListScreen extends Component {
@@ -75,6 +76,7 @@ class MessagesListScreen extends Component {
         unreadCount: body.count,
         refreshing: false,
       });
+      this.props.setCount(body.count);
     } else {
       // TODO
       // an eror handler
@@ -85,7 +87,7 @@ class MessagesListScreen extends Component {
 
   renderMessage({item}, navigation) {
     return(
-      <InboxRow
+      <PrivateMessageRow
         message={item}
         navigation={navigation}
       />
@@ -108,7 +110,6 @@ class MessagesListScreen extends Component {
     return(
       <View style={styles.container}>
         {this._onRefresh()}
-        <InboxHeader count={this.state.unreadCount} onRefresh={this.refresh} />
         <FlatList
           data={this.state.messages}
           keyExtractor={this._keyExtractor}
