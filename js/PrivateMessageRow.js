@@ -10,56 +10,122 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { testURL, productionURL } from './data';
 
 class PrivateMessageRow extends Component {
+  constructor (props) {
+    super(props);
+    this.state={
+      username: null,
+      party: null,
+    };
+  }
+
+  componentWillMount () {
+    CacheStore.get('username').then((value) => this.setUsername(value));
+  }
+
+  setUsername (value) {
+    this.setState({
+      username: value,
+    });
+    if (value === this.props.message.sender.username) {
+      this.setState({
+        party: this.props.message.recipient,
+      });
+    } else {
+      this.setState({
+        party: this.props.message.sender,
+      });
+    }
+  }
+
+  renderHostname () {
+    if (this.props.message.sender.username === this.state.username) {
+      return(
+        <Text style={styles.hostname}>{this.props.message.recipient.last_name}</Text>
+      );
+    } else if (this.props.message.recipient.username === this.state.username) {
+      return(
+        <Text style={styles.hostname}>{this.props.message.sender.last_name}</Text>
+      );
+    }
+  }
+
+  renderReadStatus () {
+    if ((this.props.message.recipient.username === this.state.username) &&
+      (this.props.message.read_at == null)) {
+        return(
+          <View style={styles.badgebox}>
+            <View style={styles.badge}>
+            </View>
+          </View>
+        );
+    }
+  }
+
+  renderProfilePicture () {
+    if (this.props.message.sender.profile_picture != null) {
+      return(
+        <View style={styles.avatar}>
+          <Image source={{
+            uri: productionURL + this.props.message.sender.profile_picture,
+          }}
+          style={styles.avatarimg}/>
+        </View>
+      );
+    } else {
+      return(
+        <View style={styles.avatar}>
+          <Icon
+            name='account-circle'
+            size={55}
+            color='#c2c2c2'
+            style={styles.avatarimg}
+          />
+        </View>
+      );
+    }
+  }
+
+  _onPress() {
+    this.props.navigation.navigate(
+      'conversationScreen',
+      {
+        party: this.state.party,
+        messageId: this.props.message.id,
+        username: this.state.username,
+      }
+    );
+  }
+
   render () {
     return(
     <View style={styles.container}>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={this._onPress.bind(this)}>
       <View style={styles.msgcards}>
-
-        <View style={styles.avatar}>
-          <Image source={require('./img/account.jpg')}
-          style={styles.avatarimg}/>
-        </View>
+        {this.renderProfilePicture()}
         <View style={styles.textbox}>
-          <Text style={styles.housename}>فرهاد براهیمی</Text>
-          <Text style={styles.hostname}>ویلای لاکچری کنار ساحل ...</Text>
+          {this.renderHostname()}
+          <Text style={styles.housename}>{this.props.message.subject}</Text>
         </View>
-        <View style={styles.badgebox}>
-          <View style={styles.badge}>
-
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity>
-      <View style={styles.msgcards}>
-
-        <View style={styles.avatar}>
-          <Image source={require('./img/account.jpg')}
-          style={styles.avatarimg}/>
-        </View>
-        <View style={styles.textbox}>
-          <Text style={styles.housename}>فرهاد براهیمی</Text>
-          <Text style={styles.hostname}>ویلای لاکچری کنار ساحل ...</Text>
-        </View>
-        <View style={styles.badgebox}>
-          <View style={styles.badge}>
-          </View>
-        </View>
+        {this.renderReadStatus()}
       </View>
     </TouchableOpacity>
     </View>
   );
 }
 }
+
+
 const styles = StyleSheet.create({
   container: {
     flex:1,
     alignItems:"center",
     backgroundColor: "#e5e5e5",
-
   },
   msgcards: {
     flexWrap: 'wrap',
@@ -71,9 +137,8 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent:"flex-start",
   },
-
   avatar: {
-    flex:5,
+  flex:5,
   flexDirection:"row-reverse",
   alignItems:"center",
   justifyContent: "center",
@@ -88,15 +153,14 @@ textbox: {
   flex:18,
   justifyContent:"center",
   marginRight:8,
-
 },
 housename: {
-  fontFamily: "Vazir-Medium",
-  fontSize:18,
-},
-hostname: {
   fontFamily: "Vazir-Light",
   fontSize:14,
+},
+hostname: {
+  fontFamily: "Vazir-Medium",
+  fontSize:18,
 },
 iconboox:{
   flexDirection: "row",
@@ -122,5 +186,4 @@ badge: {
 }
 });
 
-
-export default Request;
+export default PrivateMessageRow;

@@ -10,8 +10,9 @@ import {
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
 
-import RequestsListHeader from './RequestsListHeader';
-import RequestRow from './RequestRow';
+// import RequestsListHeader from './RequestsListHeader';
+// import RequestRow from './RequestRow';
+import RequestRowScreen from './RequestRowScreen';
 import { testURL, productionURL } from './data';
 
 class RequestsListScreen extends Component {
@@ -63,6 +64,8 @@ class RequestsListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
+      console.log('error: $$$$$$$$$$#######################');
+      console.log(error);
       Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
     });
   }
@@ -86,7 +89,7 @@ class RequestsListScreen extends Component {
 
   renderRequest({item}, navigation) {
     return(
-      <RequestRow
+      <RequestRowScreen
         requestItem={item}
         navigation={navigation}
         role={this.props.role}
@@ -111,7 +114,6 @@ class RequestsListScreen extends Component {
     return(
       <View style={styles.container}>
         {this._onRefresh()}
-        <RequestsListHeader count={this.state.toDoCount} onRefresh={this.refresh} />
         <FlatList
           data={this.state.requests}
           keyExtractor={this._keyExtractor}

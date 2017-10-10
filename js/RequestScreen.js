@@ -78,7 +78,7 @@ class RequestScreen extends Component {
         },
         body: JSON.stringify({
           sender: this.state.username,
-          recipient: this.state.request.room.owner,
+          recipient: this.state.request.room.owner.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
@@ -87,7 +87,7 @@ class RequestScreen extends Component {
       .catch((error) => {
         Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
       });
-    } else {
+    } else if (this.state.role === 'host') {
       fetch(productionURL + '/api/message/compose/', {
         method: 'POST',
         headers: {
@@ -97,7 +97,7 @@ class RequestScreen extends Component {
         },
         body: JSON.stringify({
           sender: this.state.username,
-          recipient: this.state.request.guest_person,
+          recipient: this.state.request.guest_person.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
@@ -110,7 +110,7 @@ class RequestScreen extends Component {
   }
 
   onResponseRecieved (response) {
-    var pName = '';
+    var pName = null;
     if (this.state.role === 'guest') {
       pName = this.state.request.room.owner;
     } else {
@@ -121,7 +121,7 @@ class RequestScreen extends Component {
       this.props.navigation.navigate(
         'conversationScreen',
         {
-          partyName: pName,
+          party: pName,
           messageId: body.message_id,
           username: this.state.username,
         }
@@ -326,7 +326,7 @@ class RequestScreen extends Component {
         <View style={styles.requestDetails} >
           <View style={styles.requestDetailItem} >
             <Text style={styles.bodyText} >متقاضی: </Text>
-            <Text style={styles.bodyText} >{this.state.request.guest_person}</Text>
+            <Text style={styles.bodyText} >{this.state.request.guest_person.last_name}</Text>
           </View>
         </View>
 

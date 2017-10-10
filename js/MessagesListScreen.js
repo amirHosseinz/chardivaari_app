@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -122,8 +123,8 @@ class MessagesListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
-    marginBottom: 70,
+    marginTop: 5,
+    marginBottom: 65,
     backgroundColor: '#F5FCFF',
   },
 });

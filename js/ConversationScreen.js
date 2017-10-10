@@ -11,6 +11,7 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { GiftedChat } from 'react-native-gifted-chat';
 import timer from 'react-native-timer';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { testURL, productionURL } from './data';
 
@@ -19,8 +20,7 @@ class ConversationScreen extends Component {
     super(props);
     this.state={
       token: '',
-      partyName: '',
-      partyImageUrl: null,
+      party: null,
       username: null,
       messages: [],
       lastMessageId: null,
@@ -29,7 +29,9 @@ class ConversationScreen extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'مکالمه',
+    title: <Text style={styles.headerTextStyle}>
+        مکالمه با آقای/خانم   {navigation.state.params.party.last_name}
+      </Text>,
     headerTintColor: "#000000",
     headerStyle: {
       backgroundColor: '#F8F8F8',
@@ -51,11 +53,11 @@ class ConversationScreen extends Component {
 
   componentWillMount() {
     this.setState({
-      partyName: this.props.navigation.state.params.partyName,
+      party: this.props.navigation.state.params.party,
       username: this.props.navigation.state.params.username,
       lastMessageId: this.props.navigation.state.params.messageId,
     }, () => this.afterInitial());
-    this.setState({ partyImageUrl: 'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg' });
+    // this.setState({ partyImageUrl: 'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg' });
 
     if (this.props.navigation.state.params.message != null) {
       this.onSend(this.props.navigation.state.params.message);
@@ -151,7 +153,7 @@ class ConversationScreen extends Component {
 
   serverToChatMessage (message) {
     userId = 1;
-    if (message.sender === this.state.partyName) {
+    if (message.sender === this.state.party.username) {
       userId = 2;
     }
     showable_message = {
@@ -183,10 +185,9 @@ class ConversationScreen extends Component {
       body: JSON.stringify({
         message_id: this.state.lastMessageId,
         body: message.text,
-        recipient: this.state.partyName,
+        recipient: this.state.party.username,
         subject: this.state.subject,
         sender: this.state.username,
-        recipient: this.state.partyName,
       }),
     })
     .then((response) => this.onReplyMessageResponseRecieved(response))
@@ -205,13 +206,33 @@ class ConversationScreen extends Component {
     }
   }
 
+  renderProfilePicture () {
+    if (this.state.party.profile_picture != null) {
+      return(
+        <Image style={styles.profileImageStyle} source={{
+          uri: productionURL+this.state.party.profile_picture,
+        }} />
+      );
+    } else {
+      return(
+        <Icon
+          name='account-circle'
+          size={50}
+          color='#c2c2c2'
+          style={styles.profileImageStyle}
+        />
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
         <View style={styles.conversationHeader}>
-          <Text style={styles.text} >{this.state.partyName}</Text>
-          <Image style={styles.profileImageStyle} source={{ uri: this.state.partyImageUrl }} />
+          <Text style={styles.text} >{this.state.party.last_name}</Text>
+          {this.renderProfilePicture()}
         </View>
+
         <GiftedChat
           placeholder={'پیامتان را تایپ کنید...'}
           label={'ارسال'}
@@ -252,6 +273,10 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: 50,
     height: 50,
+  },
+  headerTextStyle: {
+    fontFamily: "Vazir-Light",
+    fontSize:14,
   },
 });
 
