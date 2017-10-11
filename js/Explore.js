@@ -52,8 +52,8 @@ class Explore extends Component {
   }
 
   onFetchHomepageResponseRecieved (response) {
-    console.log('######################');
-    console.log(response);
+    // console.log('######################');
+    // console.log(response);
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       lc = [];

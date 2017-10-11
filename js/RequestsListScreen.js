@@ -64,8 +64,6 @@ class RequestsListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.log('error: $$$$$$$$$$#######################');
-      console.log(error);
       Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
     });
   }

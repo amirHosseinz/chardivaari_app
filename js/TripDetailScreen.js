@@ -60,7 +60,7 @@ class TripDetailScreen extends Component {
       },
       body: JSON.stringify({
         sender: this.state.username,
-        recipient: this.state.trip.room.owner,
+        recipient: this.state.trip.room.owner.username,
         subject: 'رزرو خانه‌ی ' + this.state.trip.room.title,
         body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.trip.room.title,
       }),
@@ -77,7 +77,7 @@ class TripDetailScreen extends Component {
       this.props.navigation.navigate(
         'conversationScreen',
         {
-          partyName: this.state.trip.room.owner,
+          party: this.state.trip.room.owner,
           messageId: body.message_id,
           username: this.state.username,
         }
@@ -116,33 +116,33 @@ class TripDetailScreen extends Component {
         {this.renderStatus()}
       </View>
 
-      <View style={styles.tripDetails} >
-        <View style={styles.tripDetailItem} >
-          <Text style={styles.bodyText} >میزبان: </Text>
-          <Text style={styles.bodyText} >{this.state.trip.room.owner}</Text>
+      <View style={styles.tripDetails}>
+        <View style={styles.tripDetailItem}>
+          <Text style={styles.bodyText}>میزبان: </Text>
+          <Text style={styles.bodyText}>{this.state.trip.room.owner.last_name}</Text>
         </View>
       </View>
 
       <View style={styles.tripDetails}>
         <View style={styles.tripDetailItem}>
-          <Text style={styles.bodyText} >تاریخ ورود: </Text>
-          <Text style={styles.bodyText} >{this.state.trip.start_date}</Text>
+          <Text style={styles.bodyText}>تاریخ ورود: </Text>
+          <Text style={styles.bodyText}>{this.state.trip.start_date}</Text>
         </View>
       </View>
 
       <View style={styles.tripDetails}>
         <View style={styles.tripDetailItem}>
-          <Text style={styles.bodyText} >تاریخ خروج: </Text>
-          <Text style={styles.bodyText} >{this.state.trip.end_date}</Text>
+          <Text style={styles.bodyText}>تاریخ خروج: </Text>
+          <Text style={styles.bodyText}>{this.state.trip.end_date}</Text>
         </View>
       </View>
 
       <View style={styles.tripDetails}>
         <View style={styles.tripDetailItem}>
-          <Text style={styles.bodyText} >قیمت: </Text>
+          <Text style={styles.bodyText}>قیمت: </Text>
           <View style={{flexDirection: 'row-reverse',}}>
-            <Text style={styles.bodyText} >{this.state.trip.total_price}</Text>
-            <Text style={styles.bodyText} > تومان</Text>
+            <Text style={styles.bodyText}>{this.state.trip.total_price}</Text>
+            <Text style={styles.bodyText}> تومان</Text>
           </View>
         </View>
       </View>

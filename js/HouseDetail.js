@@ -103,7 +103,7 @@ class HouseDetail extends Component {
      this.props.navigation.navigate(
        'conversationScreen',
        {
-         partyName: this.state.room.owner.username,
+         party: this.state.room.owner,
          messageId: body.message_id,
          username: this.state.username,
          room: this.state.room,

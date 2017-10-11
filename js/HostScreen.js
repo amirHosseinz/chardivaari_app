@@ -13,7 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import CalendarScreen from './CalendarScreen';
 import InboxScreen from './InboxScreen';
 import ListingsScreen from './ListingsScreen';
-import ProfileScreen from './ProfileScreen';
+// import ProfileScreen from './ProfileScreen';
+import Profile from './Profile';
 
 class HostScreen extends Component {
   state = { tabIndex: 0 };
@@ -30,7 +31,7 @@ class HostScreen extends Component {
       case 2:
         return(<ListingsScreen role={'host'} navigation={this.props.navigation} />);
       case 3:
-        return(<ProfileScreen role={'host'} navigation={this.props.navigation} />);
+        return(<Profile role={'host'} navigation={this.props.navigation} />);
       default:
         return(<InboxScreen role={'host'} navigation={this.props.navigation} />);
       }

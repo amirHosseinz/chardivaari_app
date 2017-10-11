@@ -21,7 +21,9 @@ class TripsRow extends Component {
     return(
       <TouchableOpacity onPress={this.onPress.bind(this)}>
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.tripItem.guest_person}</Text>
+        <Text style={styles.text}>
+          {this.props.tripItem.guest_person}
+        </Text>
         <Text style={styles.text}>{this.props.tripItem.room.title}</Text>
         <Text style={styles.text}>{this.props.tripItem.start_date}</Text>
       </View>

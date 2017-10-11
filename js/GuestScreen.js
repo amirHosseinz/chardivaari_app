@@ -13,7 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
 import TripsScreen from './TripsScreen';
-import ProfileScreen from './ProfileScreen';
+// import ProfileScreen from './ProfileScreen';
+import Profile from './Profile';
 
 // import { fetch } from 'fetch';
 // import { AIRBNB_API } from './data';
@@ -26,7 +27,7 @@ class GuestScreen extends Component {
   renderContent () {
     switch (this.state.tabIndex) {
       case 0:
-        return(<ProfileScreen role={'guest'} navigation={this.props.navigation} />);
+        return(<Profile role={'guest'} navigation={this.props.navigation} />);
       case 1:
         return(<InboxScreen role={'guest'} navigation={this.props.navigation} />);
       case 2:
