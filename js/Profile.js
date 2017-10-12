@@ -84,7 +84,15 @@ class Profile extends Component {
   }
 
   _onEditProfilePress () {
-    // TODO
+    this.setState({
+      editProfileModalVisible: true,
+    });
+  }
+
+  hideEditProfile = () => {
+    this.setState({
+      editProfileModalVisible: false,
+    });
   }
 
   _onChangeToHost () {
@@ -214,7 +222,9 @@ class Profile extends Component {
         visible={this.state.editProfileModalVisible}
         onRequestClose={() => {alert("Modal has been closed.")}}
         >
-         <EditProfile />
+         <EditProfile
+          hideEditProfile={this.hideEditProfile}
+         />
         </Modal>
 
       </View>

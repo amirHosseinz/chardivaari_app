@@ -32,6 +32,7 @@ import AddListingFifteenthStep from './AddListingFifteenthStep';
 
 import RequestScreen from './RequestScreen';
 import RequestBook from './RequestBook';
+import RequestBookScreen from './RequestBookScreen';
 
 import ConversationScreen from './ConversationScreen';
 import EditListingScreen from './EditListingScreen';
@@ -400,6 +401,13 @@ const Routes = ({
         shadowOpacity: 0.2,
       }
     }
+  },
+  requestBookScreen: {
+    screen: RequestBookScreen,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
   },
   editListingScreen: {
     screen: EditListingScreen,

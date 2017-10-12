@@ -205,7 +205,11 @@ export default class Calendar extends Component {
   confirm () {
     const {
       startDate,
-      endDate
+      endDate,
+      startDateText,
+      startWeekdayText,
+      endDateText,
+      endWeekdayText,
     } = this.state;
     let startMoment = startDate ? startDate.clone() : null;
     let endMoment = endDate ? endDate.clone() : null;
@@ -213,7 +217,11 @@ export default class Calendar extends Component {
       startDate: startMoment ? startMoment.toDate() : null,
       endDate: endMoment ? endMoment.toDate() : null,
       startMoment,
-      endMoment
+      endMoment,
+      startDateText,
+      startWeekdayText,
+      endDateText,
+      endWeekdayText,
     });
     this.close();
   }

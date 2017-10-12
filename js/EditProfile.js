@@ -14,6 +14,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class EditProfile extends Component {
+
+  _onPressSave () {
+    // TODO
+    // send information to server and save
+    this.props.hideEditProfile();
+  }
+
   render () {
     return (
       <KeyboardAwareScrollView>
@@ -67,7 +74,9 @@ class EditProfile extends Component {
 
         </View>
         <View style={styles.profilepic}>
-            <TouchableOpacity style={styles.buttontouch}>
+            <TouchableOpacity
+              style={styles.buttontouch}
+              onPress={this._onPressSave.bind(this)}>
             <View style={styles.buttonview}>
             <Text style={styles.reservebuttontext}>ذخیره</Text>
             </View>

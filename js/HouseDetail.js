@@ -115,11 +115,11 @@ class HouseDetail extends Component {
  }
 
  onRequestBookButtonPress () {
+  //  this.props.navigation.navigate(
+  //    'requestBook',{roomId: this.state.room.id}
+  //  );
    this.props.navigation.navigate(
-     'requestBook',
-     {
-       roomId: this.state.room.id,
-     }
+     'requestBookScreen',{room: this.state.room}
    );
  }
 

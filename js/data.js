@@ -6,8 +6,8 @@ export type Listing = {
   price: number,
 };
 
-// export const productionURL = 'https://www.trypinn.com';
-export const productionURL = 'http://192.168.12.102:8000';
+export const productionURL = 'https://www.trypinn.com';
+// export const productionURL = 'http://192.168.1.103:8000';
 export const testURL = 'http://192.168.12.100:8000';
 
 export const guestProfileRowsData = [
