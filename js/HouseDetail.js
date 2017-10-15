@@ -401,6 +401,7 @@ class HouseDetail extends Component {
   customMapStyle={this.mapStyle}
   style={styles.map}
   region={this.state.region}
+  // gestureHandling={'cooperative'}
   onRegionChange={this.onRegionChange.bind(this)}>
   <MapView.Circle
     center={this.state.marker.latlng}

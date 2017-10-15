@@ -9,15 +9,144 @@ import {
   AppRegistry,
   TextInput,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import { testURL, productionURL } from './data';
+
+
 class EditProfile extends Component {
+  constructor (props) {
+    super(props);
+    this.state={
+      firstName: null,
+      lastName: null,
+      cellPhone: null,
+      email: null,
+      nationalID: null,
+      token: null,
+    };
+  }
+
+  componentWillMount () {
+    if (this.props.user.first_name) {
+      this.setState({
+        firstName: this.props.user.first_name,
+      });
+    }
+    if (this.props.user.last_name) {
+      this.setState({
+        lastName: this.props.user.last_name,
+      });
+    }
+    if (this.props.user.cell_phone) {
+      this.setState({
+        cellPhone: this.props.user.cell_phone,
+      });
+    }
+    if (this.props.user.email) {
+      this.setState({
+        email: this.props.user.email,
+      });
+    }
+    if (this.props.user.national_id) {
+      this.setState({
+        nationalID: this.props.user.national_id,
+      });
+    }
+    if (this.props.token) {
+      this.setState({
+        token: this.props.token,
+      });
+    }
+  }
 
   _onPressSave () {
-    // TODO
-    // send information to server and save
+    fetch(productionURL + '/auth/api/user/edit/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        cell_phone: this.state.cellPhone,
+        email: this.state.email,
+        national_id: this.state.nationalID,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+    });
+  }
+
+  onResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (body.successful != false) {
+        this.exitSuccessfully();
+      } else {
+        // TODO
+        // failed
+        for (var i = 0; i < body.errors.length; i++) {
+          if (body.errors[i] === 'email') {
+            this.setState({
+              email: this.props.user.email,
+            });
+          } else if (body.errors[i] === 'cell_phone') {
+            this.setState({
+              cellPhone: this.props.user.cell_phone,
+            });
+          } else if (body.errors[i] === 'national_id') {
+            this.setState({
+              nationalID: this.props.user.national_id,
+            });
+          }
+        }
+        Alert.alert('ذخیره تغییرات با مشکل مواجه شده است.');
+      }
+    } else {
+      // TODO
+      // error handling
+    }
+  }
+
+  _onChangeFirstName (firstName) {
+    this.setState({
+      firstName
+    });
+  }
+
+  _onChangeLastName (lastName) {
+    this.setState({
+      lastName
+    });
+  }
+
+  _onChangeEmail (email) {
+    this.setState({
+      email
+    });
+  }
+
+  _onChangeCellPhone (cellPhone) {
+    this.setState({
+      cellPhone
+    });
+  }
+
+  _onChangeNationalID (nationalID) {
+    this.setState({
+      nationalID
+    });
+  }
+
+  exitSuccessfully () {
     this.props.hideEditProfile();
   }
 
@@ -38,40 +167,54 @@ class EditProfile extends Component {
               style={styles.textInput}
               placeholder="مثال: رضا"
               placeholderTextColor="#acacac"
-              maxLength = {20 }
+              maxLength = {20}
+              value={this.state.firstName}
+              onChangeText={this._onChangeFirstName.bind(this)}
               underlineColorAndroid={'transparent'}
-
-              />
+            />
           <Text style={styles.upfield}>نام خانوادگی</Text>
-              <TextInput
+            <TextInput
               style={styles.textInput}
               placeholder="مثال: رضایی"
               placeholderTextColor="#acacac"
-              maxLength = {30 }
+              maxLength = {30}
+              value={this.state.lastName}
+              onChangeText={this._onChangeLastName.bind(this)}
               underlineColorAndroid={'transparent'}
-              />
-              <Text style={styles.upfield}>موبایل</Text>
-                  <TextInput
-                  style={styles.textInput}
-                  placeholder="09XXXXXXXXX"
-                  placeholderTextColor="#acacac"
-                  maxLength = {11}
-                  keyboardType = 'phone-pad'
-                  underlineColorAndroid={'transparent'}
-
-                  />
-                  <Text style={styles.upfield}>ایمیل</Text>
-                      <TextInput
-                      style={styles.textInput}
-                      placeholder="وارد کردن آدرس ایمیل"
-                      placeholderTextColor="#acacac"
-                      maxLength = {30}
-                      keyboardType = 'email-address'
-                      underlineColorAndroid={'transparent'}
-
-                      />
-
-
+            />
+          <Text style={styles.upfield}>موبایل</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="09XXXXXXXXX"
+              placeholderTextColor="#acacac"
+              maxLength = {11}
+              keyboardType = 'phone-pad'
+              value={this.state.cellPhone}
+              onChangeText={this._onChangeCellPhone.bind(this)}
+              underlineColorAndroid={'transparent'}
+            />
+          <Text style={styles.upfield}>ایمیل</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="وارد کردن آدرس ایمیل"
+              placeholderTextColor="#acacac"
+              maxLength = {50}
+              keyboardType = 'email-address'
+              value={this.state.email}
+              onChangeText={this._onChangeEmail.bind(this)}
+              underlineColorAndroid={'transparent'}
+            />
+          <Text style={styles.upfield}>شماره ملی</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="وارد کردن شماره ملی"
+              placeholderTextColor="#acacac"
+              maxLength = {10}
+              keyboardType = 'numeric'
+              value={this.state.nationalID}
+              onChangeText={this._onChangeNationalID.bind(this)}
+              underlineColorAndroid={'transparent'}
+            />
         </View>
         <View style={styles.profilepic}>
             <TouchableOpacity

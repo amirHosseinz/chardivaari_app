@@ -54,7 +54,7 @@ class LoginScreen extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
-      console.error(error);
+      // console.error(error);
     });
   }
 
