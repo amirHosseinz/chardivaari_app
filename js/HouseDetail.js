@@ -240,6 +240,24 @@ class HouseDetail extends Component {
     }
   }
 
+  renderSpecialRules () {
+    if (this.state.room.special_rules != '') {
+      return(
+        <View>
+        <Text style={styles.h2}>قوانین خاص:</Text>
+        <View style={styles.banbox}>
+          <View style={styles.baniconbox}>
+          <Image style={styles.banicon} source={require("./img/special_rules.png")}/>
+          </View>
+          <Text style={styles.bantext}>{this.state.room.special_rules}</Text>
+        </View>
+        <View style={styles.divider}>
+        </View>
+        </View>
+      );
+    }
+  }
+
   imageSliderFeed () {
     result = [];
     result.push(productionURL + this.state.room.preview);
@@ -247,6 +265,42 @@ class HouseDetail extends Component {
       result.push(productionURL + this.state.room.images[i].image);
     }
     return (result);
+  }
+
+  renderMap () {
+    if (this.props.navigation.state.params.room.latitude != null &&
+      this.props.navigation.state.params.room.longitude != null) {
+        return(
+          <View style={styles.container0}>
+          <View style={styles.container2}>
+
+          <View style={styles.divider}>
+          </View>
+
+          <View style={styles.mapContainer}>
+
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            customMapStyle={this.mapStyle}
+            style={styles.map}
+            region={this.state.region}
+            // gestureHandling={'cooperative'}
+            onRegionChange={this.onRegionChange.bind(this)}>
+            <MapView.Circle
+              center={this.state.marker.latlng}
+              radius={this.state.marker.radius}
+              strokeColor={'green'}
+              strokeWidth={3}
+            />
+          </MapView>
+          </View>
+
+          <View style={styles.divider}>
+          </View>
+          </View>
+          </View>
+        );
+    }
   }
 
   renderProfilePicture () {
@@ -389,33 +443,7 @@ class HouseDetail extends Component {
 </View>
 </View>
 
-<View style={styles.container0}>
-<View style={styles.container2}>
-
-<View style={styles.divider}>
-</View>
-<View style={styles.mapContainer}>
-
-<MapView
-  provider={PROVIDER_GOOGLE}
-  customMapStyle={this.mapStyle}
-  style={styles.map}
-  region={this.state.region}
-  // gestureHandling={'cooperative'}
-  onRegionChange={this.onRegionChange.bind(this)}>
-  <MapView.Circle
-    center={this.state.marker.latlng}
-    radius={this.state.marker.radius}
-    strokeColor={'green'}
-    strokeWidth={3}
-  />
-</MapView>
-</View>
-
-<View style={styles.divider}>
-</View>
-</View>
-</View>
+{this.renderMap()}
 
 <View style={styles.container0}>
   <View style={styles.container2}>
@@ -446,6 +474,7 @@ class HouseDetail extends Component {
     </TouchableOpacity>
     <View style={styles.divider}>
     </View>
+    {this.renderSpecialRules()}
     <View style={styles.contacthost}>
     <Text style={styles.lawstext1}>ارتباط با میزبان درباره این خانه:</Text>
     <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>

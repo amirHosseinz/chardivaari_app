@@ -38,6 +38,7 @@ import ConversationScreen from './ConversationScreen';
 import EditListingScreen from './EditListingScreen';
 import BookedRequestScreen from './BookedRequestScreen';
 import TripDetailScreen from './TripDetailScreen';
+import TripStatusScreen from './TripStatusScreen';
 
 import HouseDetail from './HouseDetail';
 
@@ -452,6 +453,13 @@ const Routes = ({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
       }
+    }
+  },
+  tripStatusScreen: {
+    screen: TripStatusScreen,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
     }
   },
   houseDetail: {

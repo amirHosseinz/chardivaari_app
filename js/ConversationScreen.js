@@ -153,7 +153,7 @@ class ConversationScreen extends Component {
 
   serverToChatMessage (message) {
     userId = 1;
-    if (message.sender === this.state.party.username) {
+    if (message.sender.username === this.state.party.username) {
       userId = 2;
     }
     showable_message = {

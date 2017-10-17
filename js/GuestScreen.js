@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
-import TripsScreen from './TripsScreen';
+// import TripsScreen from './TripsScreen';
+import Trips from './Trips';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
 
@@ -31,7 +32,7 @@ class GuestScreen extends Component {
       case 1:
         return(<InboxScreen role={'guest'} navigation={this.props.navigation} />);
       case 2:
-        return(<TripsScreen role={'guest'} navigation={this.props.navigation} />);
+        return(<Trips role={'guest'} navigation={this.props.navigation} />);
       case 3:
         return(<Explore role={'guest'} navigation={this.props.navigation} />);
       default:
