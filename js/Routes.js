@@ -6,9 +6,12 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MainScreen from './MainScreen';
-import LoginSignupTabView from './LoginSignupTabView';
+// import LoginSignupTabView from './LoginSignupTabView';
+import Login from './Login';
 import SearchRoom from './SearchRoom';
-import VerificationScreen from './LoginVerificationScreen';
+// import VerificationScreen from './LoginVerificationScreen';
+import LoginVerify from './LoginVerify';
+import LoginGetName from './LoginGetName';
 import SearchResultsTabView from './SearchResultsTabView';
 import RoomView from './RoomView';
 import HostScreen from './HostScreen';
@@ -45,8 +48,29 @@ import TripStatusScreen from './TripStatusScreen';
 import HouseDetail from './HouseDetail';
 
 const Routes = ({
-  loginSignupTabView: {
-    screen: LoginSignupTabView,
+  // loginSignupTabView: {
+  //   screen: LoginSignupTabView,
+  //   navigationOptions: {
+  //     header: null,
+  //     gesturesEnabled: false,
+  //   },
+  // },
+  login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
+  loginGetName: {
+    screen: LoginGetName,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
+  loginVerify: {
+    screen: LoginVerify,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,
@@ -67,21 +91,21 @@ const Routes = ({
       }
     }
   },
-  verification: {
-    screen: VerificationScreen,
-    navigationOptions: {
-      title: 'تایید عضویت',
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
-    }
-  },
+  // verification: {
+  //   screen: VerificationScreen,
+  //   navigationOptions: {
+  //     title: 'تایید عضویت',
+  //     headerTintColor: "#000000",
+  //     headerStyle: {
+  //       backgroundColor: '#F8F8F8',
+  //       justifyContent: 'center',
+  //       height: 70,
+  //       shadowColor: '#000',
+  //       shadowOffset: { width: 0, height: 2 },
+  //       shadowOpacity: 0.2,
+  //     }
+  //   }
+  // },
   searchRoom: {
     screen: SearchRoom,
     navigationOptions: {
