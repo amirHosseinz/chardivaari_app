@@ -20,11 +20,11 @@ import moment from 'moment-jalaali';
 import { testURL, productionURL } from './data';
 
 
-class TripStatusScreen extends Component {
+class ReserveStatusScreen extends Component {
   constructor (props) {
     super(props);
     this.state={
-      trip: {},
+      reserve: {},
       token: null,
       username: null,
       role: null,
@@ -33,7 +33,7 @@ class TripStatusScreen extends Component {
 
   componentWillMount () {
     this.setState({
-      trip: this.props.navigation.state.params.trip,
+      reserve: this.props.navigation.state.params.reserve,
       role: this.props.navigation.state.params.role,
     });
     // load token and username from CacheStore
@@ -63,24 +63,26 @@ class TripStatusScreen extends Component {
       },
       body: JSON.stringify({
         sender: this.state.username,
-        recipient: this.state.trip.room.owner.username,
-        subject: 'رزرو خانه‌ی ' + this.state.trip.room.title,
-        body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.trip.room.title,
+        recipient: this.state.reserve.guest_person.username,
+        subject: 'رزرو خانه‌ی ' + this.state.reserve.room.title,
+        body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.reserve.room.title,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      // network error
+      // console.error(error);
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
     });
   }
 
   onResponseRecieved (response) {
-    body = JSON.parse(response._bodyText);
     if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
       this.props.navigation.navigate(
         'conversationScreen',
         {
-          party: this.state.trip.room.owner,
+          party: this.state.reserve.guest_person,
           messageId: body.message_id,
           username: this.state.username,
         }
@@ -90,13 +92,13 @@ class TripStatusScreen extends Component {
     }
   }
 
-  onCancelTripPress () {
+  onCancelReservePress () {
     Alert.alert(
       'درخواست لغو سفر',
       'سفر شما لغو شود؟',
       [
         {text: 'بله', onPress: () => {
-          this.cancelTrip();
+          this.cancelReserve();
         },},
         {text: 'خیر', onPress: () => {},},
       ],
@@ -104,7 +106,7 @@ class TripStatusScreen extends Component {
     );
   }
 
-  cancelTrip () {
+  cancelReserve () {
     fetch(productionURL + '/api/reservation/cancel/', {
       method: 'POST',
       headers: {
@@ -114,17 +116,17 @@ class TripStatusScreen extends Component {
       },
       body: JSON.stringify({
         role: this.state.role,
-        reserve_id: this.state.trip.id,
+        reserve_id: this.state.reserve.id,
       }),
     })
-    .then((response) => this.onCancelTripResponseRecieved(response))
+    .then((response) => this.onCancelReserveResponseRecieved(response))
     .catch((error) => {
       // network error
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نماییدد.');
     });
   }
 
-  onCancelTripResponseRecieved () {
+  onCancelReserveResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
@@ -132,7 +134,7 @@ class TripStatusScreen extends Component {
           this._onBackButtonPress();
         }
       } else {
-        Alert.alert('شما نمی‌توانید سفر را لغو نمایید.');
+        Alert.alert('شما نمی‌توانید رزرو را لغو کنید.');
       }
     } else {
       // TODO
@@ -147,15 +149,15 @@ class TripStatusScreen extends Component {
   }
 
   _onCallHostPress () {
-    Communications.phonecall(this.state.trip.room.owner.cell_phone, true);
+    Communications.phonecall(this.state.reserve.guest_person.cell_phone, true);
   }
 
   renderStatus () {
-    switch(this.state.trip.status) {
+    switch(this.state.reserve.status) {
     case 'IN_PROGRESS':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h1}>وضعیت رزرو</Text>
           <Text style={styles.h2}>در حال انجام</Text>
         </View>
       );
@@ -163,7 +165,7 @@ class TripStatusScreen extends Component {
     case 'DONE':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h1}>وضعیت رزرو</Text>
           <Text style={styles.h2}>انجام شده</Text>
         </View>
       );
@@ -171,7 +173,7 @@ class TripStatusScreen extends Component {
     case 'ISSUED':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h1}>وضعیت رزرو</Text>
           <Text style={styles.h2}>در حال بررسی مشکل</Text>
         </View>
       );
@@ -179,7 +181,7 @@ class TripStatusScreen extends Component {
     case 'CANCELED_BY_HOST':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h1}>وضعیت رزرو</Text>
           <Text style={styles.h2}>لغو شده توسط میزبان</Text>
         </View>
       );
@@ -187,7 +189,7 @@ class TripStatusScreen extends Component {
     case 'CANCELED_BY_GUEST':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h1}>وضعیت رزرو</Text>
           <Text style={styles.h2}>لغو شده توسط مهمان</Text>
         </View>
       );
@@ -209,13 +211,13 @@ class TripStatusScreen extends Component {
   }
 
   renderAccRejButton () {
-    if (this.state.trip.status === 'IN_PROGRESS') {
+    if (this.state.reserve.status === 'IN_PROGRESS') {
       return(
         <View style={styles.downside}>
           <View style={styles.buttonstyle}>
-            <TouchableOpacity style={styles.buttontouch} onPress={this.onCancelTripPress.bind(this)}>
+            <TouchableOpacity style={styles.buttontouch} onPress={this.onCancelReservePress.bind(this)}>
               <View style={styles.buttonview}>
-              <Text style={styles.reservebuttontext}>لغو سفر</Text>
+              <Text style={styles.reservebuttontext}>لغو رزرو</Text>
             </View>
             </TouchableOpacity>
           </View>
@@ -239,20 +241,20 @@ class TripStatusScreen extends Component {
           {this.renderStatus()}
           <View style={styles.cost}>
             <Text style={styles.costtext}>نام اقامتگاه: </Text>
-            <Text style={styles.resulttextbold}>{this.state.trip.room.title}</Text>
+            <Text style={styles.resulttextbold}>{this.state.reserve.room.title}</Text>
           </View>
           <View style={styles.divider}>
           </View>
           <View style={styles.cost1}>
             <Text style={styles.costtext}>آدرس: </Text>
-            <Text style={styles.resulttextbold}>{this.state.trip.room.address}</Text>
+            <Text style={styles.resulttextbold}>{this.state.reserve.room.address}</Text>
           </View>
           <View style={styles.divider}>
           </View>
           <View style={styles.cost}>
-            <Text style={styles.costtext}> میزبان: </Text>
+            <Text style={styles.costtext}> میهمان: </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.trip.room.owner.first_name} {this.state.trip.room.owner.last_name}
+              {this.state.reserve.guest_person.first_name} {this.state.reserve.guest_person.last_name}
             </Text>
           </View>
           <View style={styles.divider}>
@@ -260,7 +262,7 @@ class TripStatusScreen extends Component {
           <View style={styles.cost}>
             <Text style={styles.costtext}> شماره تماس: </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.trip.room.owner.cell_phone}
+              {this.state.reserve.guest_person.cell_phone}
             </Text>
             <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
             <Text style={styles.resulttextbold1}>  تماس</Text>
@@ -272,19 +274,19 @@ class TripStatusScreen extends Component {
           <View style={styles.cost}>
           <Text style={styles.costtext}>تاریخ ورود: </Text>
             <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.trip.start_date)}
+              {this.renderJalaliDate(this.state.reserve.start_date)}
             </Text>
           </View>
           <View style={styles.cost}>
           <Text style={styles.costtext}>تاریخ خروج: </Text>
             <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.trip.end_date)}
+              {this.renderJalaliDate(this.state.reserve.end_date)}
             </Text>
           </View>
           <View style={styles.cost}>
           <Text style={styles.costtext}>مدت اقامت: </Text>
             <Text style={styles.resulttextbold}>
-              {this.renderDuration(this.state.trip.end_date, this.state.trip.start_date)}
+              {this.renderDuration(this.state.reserve.end_date, this.state.reserve.start_date)}
             </Text>
             <Text style={styles.resulttextbold}> روز</Text>
           </View>
@@ -293,7 +295,7 @@ class TripStatusScreen extends Component {
           <View style={styles.cost}>
             <Text style={styles.costtext}>تعداد مسافران: </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.trip.number_of_guests}
+              {this.state.reserve.number_of_guests}
             </Text>
             <Text style={styles.resulttextbold}> نفر </Text>
           </View>
@@ -302,15 +304,15 @@ class TripStatusScreen extends Component {
           <View style={styles.cost}>
             <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.trip.total_price}
+              {this.state.reserve.total_price}
             </Text>
             <Text style={styles.resulttextbold}> تومان</Text>
           </View>
           <View style={styles.divider}>
           </View>
-          <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
+          <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
           <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
-            <Text style={styles.pmtohost}>ارسال پیام به میزبان</Text>
+            <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
           </TouchableOpacity>
 
       </ScrollView>
@@ -424,4 +426,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TripStatusScreen;
+export default ReserveStatusScreen;
