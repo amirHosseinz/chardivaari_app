@@ -10,6 +10,9 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+
+import { testURL, productionURL } from './data';
 
 
 class Login extends Component {
@@ -21,23 +24,81 @@ class Login extends Component {
   }
 
   skipLogin () {
-    // TODO
-    console.log('bikhiiil daaash');
-  }
-
-  checkPhoneNumberFromServer () {
-    console.log('*');
+    this.resetNavigation('guestScreen');
   }
 
   checkPhoneNumber () {
-    if (this.state.cellPhoneNo.length == 11 &&
-      this.state.cellPhoneNo.search('09') == 0) {
+    fetch(productionURL + '/auth/api/signup/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cell_phone: this.state.cellPhoneNo,
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      console.log(error);
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+    });
+  }
+
+  onResponseRecieved(response) {
+    if (response.status === 201) {
+      body = JSON.parse(response._bodyText);
+      this.props.navigation.navigate('loginVerify', {
+        cellPhoneNo: this.state.cellPhoneNo,
+        smsCenter: body.sms_center,
+      });
+    } else if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.props.navigation.navigate('loginVerify', {
+        cellPhoneNo: this.state.cellPhoneNo,
+        smsCenter: body.sms_center,
+      });
+    } else if (response.status === 400) {
+      body = JSON.parse(response._bodyText);
+      if ('confirm_password' in body) {
+        // this.onLoginFail('دو رمز عبور وارد شده یکسان نیست.');
+      } else if ('username' in body) {
+        // this.onLoginFail('این نام کاربری قبلا گرفته شده است.');
+      } else if ('email' in body) {
+        if (body.email === 'email already exists.') {
+          // this.onLoginFail('ایمیل قبلا گرفته شده است.');
+        } else {
+          // this.onLoginFail('ایمیل شما معتبر نمی‌باشد.');
+        }
+      }
+    } else {
+      // this.onLoginFail('خطایی رخ داده');
+    }
+  }
+
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
+  onTextChanged (cellPhoneNo) {
+    this.setState({
+      cellPhoneNo
+    });
+    if (cellPhoneNo.length == 11 &&
+        cellPhoneNo.search('09') == 0) {
         Alert.alert(
           'تایید شماره تلفن',
-          'آیا شماره‌ی شما' + this.state.cellPhoneNo + 'می‌باشد؟',
+          'آیا شماره‌ی شما ' + cellPhoneNo + ' می‌باشد؟',
           [
             {text: 'بله', onPress: () => {
-              this.checkPhoneNumberFromServer();
+              this.checkPhoneNumber();
             },},
             {text: 'خیر', onPress: () => {},},
           ],
@@ -49,15 +110,15 @@ class Login extends Component {
   getConfirmationCode () {
     if (this.state.cellPhoneNo.length < 11) {
       Alert.alert('لطفا شماره همراه خود را کامل وارد نمایید.');
-    } else if (this.state.cellPhoneNo.search('09') > 0) {
+    } else if (this.state.cellPhoneNo.search('09') != 0) {
       Alert.alert('لطفا شماره خود را در قالب گفته شده وارد نمایید.');
     } else {
       Alert.alert(
         'تایید شماره تلفن',
-        'آیا شماره‌ی شما' + this.state.cellPhoneNo + 'می‌باشد؟',
+        'آیا شماره‌ی شما ' + this.state.cellPhoneNo + ' می‌باشد؟',
         [
           {text: 'بله', onPress: () => {
-            this.checkPhoneNumberFromServer();
+            this.checkPhoneNumber();
           },},
           {text: 'خیر', onPress: () => {},},
         ],
@@ -82,8 +143,9 @@ class Login extends Component {
           value={this.state.cellPhoneNo}
           maxLength = {11}
           keyboardType = 'phone-pad'
-          onChange={() => {this.checkPhoneNumber();}}
-          onChangeText={cellPhoneNo => this.setState({ cellPhoneNo })}
+          onChangeText={cellPhoneNo => {
+            this.onTextChanged(cellPhoneNo);
+          }}
           underlineColorAndroid={'transparent'}
         />
 
