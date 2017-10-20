@@ -50,7 +50,6 @@ class LoginVerify extends Component {
 
   componentWillUnMount () {
     this.state.subscription.remove();
-    console.log('subscription.remove #################');
   }
 
   resetNavigation (targetRoute) {
@@ -86,17 +85,16 @@ class LoginVerify extends Component {
   onResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      console.log('body ################');
-      console.log(body);
-      CacheStore.set('token', body.token);
-      CacheStore.set('username', body.user.username);
-      if (body.user.last_name && body.user.last_name != '' &&
-        body.user.first_name && body.user.first_name != '') {
+      if (body.token != null) {
+        CacheStore.set('token', body.token);
+        CacheStore.set('username', body.user.username);
         this.resetNavigation('guestScreen');
       } else {
         this.props.navigation.navigate('loginGetName', {
           firstName: body.user.first_name,
           lastName: body.user.last_name,
+          cellPhoneNo: this.state.cellPhoneNo,
+          verificationCode: this.state.verificationCode,
         });
       }
     } else if (response.status === 401) {
@@ -118,12 +116,91 @@ class LoginVerify extends Component {
   }
 
   onWrongNumberButtonPress () {
+    if (this.state.subscription) {
+      this.state.subscription.remove();
+    }
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
   }
 
   onResendButtonPress () {
-    // TODO
+    this.state.subscription.remove();
+    fetch(productionURL + '/auth/api/signup/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cell_phone: this.state.cellPhoneNo,
+      }),
+    })
+    .then((response) => this.onResendResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      // console.log(error);
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+    });
+  }
+
+  onResendResponseRecieved (response) {
+    if (response.status === 201) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        smsCenter: body.sms_center,
+      }, () => {
+        let sbs = SmsListener.addListener(message => {
+          if (message.originatingAddress == this.state.smsCenter) {
+            this.setState({
+              verificationCode: message.body,
+            }, () => {
+              this.checkVerificationCode();
+            });
+            sbs.remove();
+          }
+        });
+        this.setState({
+          subscription: sbs,
+        });
+      });
+    } else if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        smsCenter: body.sms_center,
+      }, () => {
+        let sbs = SmsListener.addListener(message => {
+          if (message.originatingAddress == this.state.smsCenter) {
+            this.setState({
+              verificationCode: message.body,
+            }, () => {
+              this.checkVerificationCode();
+            });
+            sbs.remove();
+          }
+        });
+        this.setState({
+          subscription: sbs,
+        });
+      });
+    } else if (response.status === 400) {
+      body = JSON.parse(response._bodyText);
+      if ('confirm_password' in body) {
+        // this.onLoginFail('دو رمز عبور وارد شده یکسان نیست.');
+      } else if ('username' in body) {
+        // this.onLoginFail('این نام کاربری قبلا گرفته شده است.');
+      } else if ('email' in body) {
+        if (body.email === 'email already exists.') {
+          // this.onLoginFail('ایمیل قبلا گرفته شده است.');
+        } else {
+          // this.onLoginFail('ایمیل شما معتبر نمی‌باشد.');
+        }
+      }
+    } else {
+      // TODO
+      // error handle
+      // this.onLoginFail('خطایی رخ داده');
+    }
+
   }
 
   render () {
@@ -134,6 +211,7 @@ class LoginVerify extends Component {
 
             <TextInput
             style={styles.textInput}
+            autoFocus={true}
             placeholder="O O O O"
             placeholderTextColor="#acacac"
             value={this.state.verificationCode}

@@ -22,7 +22,8 @@ class LoginGetName extends Component {
     this.state={
       firstName: '',
       lastName: '',
-      token: null,
+      cellPhoneNo: null,
+      verificationCode: null,
     };
   }
 
@@ -30,25 +31,21 @@ class LoginGetName extends Component {
     this.setState({
       firstName: this.props.navigation.state.params.firstName,
       lastName: this.props.navigation.state.params.lastName,
-    });
-    CacheStore.get('token').then((value) => this.setToken(value));
-  }
-
-  setToken (token) {
-    this.setState({
-      token
+      cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
+      verificationCode: this.props.navigation.state.params.verificationCode,
     });
   }
 
   onSubmitButtonPress = () => {
-    fetch(productionURL + '/auth/api/user/edit/', {
+    fetch(productionURL + '/auth/api/signup/set_name/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
       },
       body: JSON.stringify({
+        cell_phone: this.state.cellPhoneNo,
+        verification_code: this.state.verificationCode,
         first_name: this.state.firstName,
         last_name: this.state.lastName,
       }),
@@ -73,6 +70,9 @@ class LoginGetName extends Component {
 
   onResponseRecieved (response) {
     if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      CacheStore.set('token', body.token);
+      CacheStore.set('username', body.user.username);
       this.resetNavigation('guestScreen');
     } else if (response.status === 400) {
       // unauthorized
@@ -92,6 +92,7 @@ class LoginGetName extends Component {
               <Text style={styles.upfield}>نام</Text>
                 <TextInput
                   style={styles.textInput}
+                  autoFocus={true}
                   placeholder="مثال: رضا"
                   placeholderTextColor="#acacac"
                   value={this.state.firstName}

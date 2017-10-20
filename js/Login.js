@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 
 import { testURL, productionURL } from './data';
@@ -24,7 +25,31 @@ class Login extends Component {
   }
 
   skipLogin () {
-    this.resetNavigation('guestScreen');
+    fetch(productionURL + '/auth/api/user/login_guest/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => this.onLoginGuestResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      // console.log(error);
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+    });
+  }
+
+  onLoginGuestResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      CacheStore.set('token', body.token);
+      CacheStore.set('username', body.user.username);
+      this.resetNavigation('guestScreen');
+    } else {
+      // TODO
+      // error handle
+    }
   }
 
   checkPhoneNumber () {
@@ -41,7 +66,7 @@ class Login extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       // network error
-      console.log(error);
+      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
@@ -138,6 +163,7 @@ class Login extends Component {
 
         <TextInput
           style={styles.textInput}
+          autoFocus={true}
           placeholder="09XXXXXXXXX"
           placeholderTextColor="#acacac"
           value={this.state.cellPhoneNo}

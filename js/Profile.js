@@ -76,7 +76,7 @@ class Profile extends Component {
 
   _onExitPress () {
     CacheStore.flush();
-    this.resetNavigation('loginSignupTabView');
+    this.resetNavigation('login');
   }
 
   _onCallUsPress () {

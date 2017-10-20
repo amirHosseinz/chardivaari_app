@@ -29,8 +29,9 @@ class Explore extends Component {
 
   componentWillMount() {
     CacheStore.get('token').then((value) => {
-      this.setState({ token: value });
-      this.fetchHomepage();
+      this.setState({ token: value }, () => {
+        this.fetchHomepage();
+      });
     });
   }
 
@@ -52,8 +53,6 @@ class Explore extends Component {
   }
 
   onFetchHomepageResponseRecieved (response) {
-    // console.log('######################');
-    // console.log(response);
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       lc = [];
