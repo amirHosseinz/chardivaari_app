@@ -3,6 +3,7 @@ import {
   View,
   ScrollView,
   Text,
+  Modal,
   StyleSheet,
   StatusBar,
   Alert,
@@ -19,6 +20,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import Facilities from './Facilities';
 import { testURL, productionURL } from './data';
 
 class HouseDetail extends Component {
@@ -31,6 +33,7 @@ class HouseDetail extends Component {
      room: null,
      region: null,
      marker: null,
+     facilitiesModalVisible: false,
    };
    this.mapStyle = [];
  }
@@ -326,6 +329,18 @@ class HouseDetail extends Component {
     return (timeField.substr(0, 5));
   }
 
+  openFacilities = () => {
+    this.setState({
+      facilitiesModalVisible: true,
+    });
+  }
+
+  closeFacilities = () => {
+    this.setState({
+      facilitiesModalVisible: false,
+    });
+  }
+
   render () {
     var rating = this.state.room.rating;
     if (rating - Math.floor(rating) < 0.5) {
@@ -436,7 +451,7 @@ class HouseDetail extends Component {
     {this.renderWifiFeature()}
     {this.renderHangerFeature()}
     {this.renderWashingMachineFeature()}
-    <TouchableOpacity>
+    <TouchableOpacity onPress={this.openFacilities}>
       <Text style={styles.seemore}>مشاهده بیشتر</Text>
     </TouchableOpacity>
     </View>
@@ -486,6 +501,18 @@ class HouseDetail extends Component {
     </View>
   </View>
 </View>
+
+  <Modal
+    animationType='slide'
+    transparent={false}
+    visible={this.state.facilitiesModalVisible}
+    onRequestClose={() => {
+      this.closeFacilities();
+    }}>
+       <Facilities room={this.state.room} onClose={this.closeFacilities}>
+       </Facilities>
+  </Modal>
+
 </ScrollView>
 
   <View style={styles.bottombar}>

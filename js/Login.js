@@ -24,6 +24,19 @@ class Login extends Component {
     };
   }
 
+  componentWillMount () {
+    // TODO
+    // force updating here
+    CacheStore.get('token').then((value) => {
+      if (value == null) {
+        // proceed normal
+        // console.log('value is null');
+      } else {
+        this.resetNavigation('guestScreen');
+      }
+    });
+  }
+
   skipLogin () {
     fetch(productionURL + '/auth/api/user/login_guest/', {
       method: 'POST',

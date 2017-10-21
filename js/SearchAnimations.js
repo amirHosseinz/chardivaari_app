@@ -315,7 +315,10 @@ class SearchAnimations extends Component {
                    animationType='slide'
                    transparent={false}
                    visible={this.state.capacityModalVisible}
-                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   onRequestClose={() => {
+                     this.setCapacityModalVisible(false);
+                     this.props.doSearchAction();
+                   }}
                    >
                       <View style={styles.modalContainer}>
                       <View style={styles.inputModalStyle}>
@@ -354,7 +357,10 @@ class SearchAnimations extends Component {
                    animationType='slide'
                    transparent={false}
                    visible={this.state.whereModalVisible}
-                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   onRequestClose={() => {
+                     this.setWhereModalVisible(false);
+                     this.props.doSearchAction();
+                   }}
                    >
                     <View style={styles.modalContainer}>
                     <View style={styles.inputModalStyle}>
