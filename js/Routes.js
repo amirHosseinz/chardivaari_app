@@ -33,7 +33,8 @@ import GuestScreen from './GuestScreen';
 // import AddListingFourteenthStep from './AddListingFourteenthStep';
 // import AddListingFifteenthStep from './AddListingFifteenthStep';
 
-import RequestScreen from './RequestScreen';
+// import RequestScreen from './RequestScreen';
+import RequestStatus from './RequestStatus';
 import RequestBook from './RequestBook';
 import RequestBookScreen from './RequestBookScreen';
 
@@ -399,19 +400,26 @@ const Routes = ({
   conversationScreen: {
     screen: ConversationScreen,
   },
-  requestScreen: {
-    screen: RequestScreen,
+  // requestScreen: {
+  //   screen: RequestScreen,
+  //   navigationOptions: {
+  //     title: 'درخواست',
+  //     headerTintColor: "#000000",
+  //     headerStyle: {
+  //       backgroundColor: '#F8F8F8',
+  //       justifyContent: 'center',
+  //       height: 70,
+  //       shadowColor: '#000',
+  //       shadowOffset: { width: 0, height: 2 },
+  //       shadowOpacity: 0.2,
+  //     }
+  //   }
+  // },
+  requestStatus: {
+    screen: RequestStatus,
     navigationOptions: {
-      title: 'درخواست',
-      headerTintColor: "#000000",
-      headerStyle: {
-        backgroundColor: '#F8F8F8',
-        justifyContent: 'center',
-        height: 70,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-      }
+      header: null,
+      gesturesEnabled: false,
     }
   },
   requestBook: {

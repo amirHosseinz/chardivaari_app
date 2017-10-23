@@ -85,7 +85,6 @@ class Trips extends Component {
   _keyExtractor = (item, index) => item.id;
 
   renderTripItem ({item}, navigation) {
-
     switch(item.status) {
     case 'IN_PROGRESS':
       return(
@@ -216,18 +215,41 @@ class Trips extends Component {
     }
   }
 
-  render () {
-    return(
-      <View style={styles.container0}>
-        {this.renderHeader()}
-        <View style={styles.container1}>
+  changeToExploreTab = () => {
+    if (this.props.goToTab) {
+      this.props.goToTab('explore');
+    }
+  }
 
+  renderBody () {
+    if (this.state.count > 0) {
+      return(
+        <View style={styles.container1}>
         <FlatList
           data={this.state.tripList}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderTripItem(item, this.props.navigation)}/>
-
         </View>
+      );
+    } else {
+      return(
+        <View style={styles.container1}>
+        <View style={styles.notlogin}>
+          <Text style={styles.notlogintext}> برای سفر جدید به بخش جستجو مراجعه کنید! </Text>
+          <TouchableOpacity style={styles.logintouch} onPress={this.changeToExploreTab}>
+            <Text style={styles.notlogintext1}> بخش جستجو </Text>
+          </TouchableOpacity>
+        </View>
+        </View>
+      );
+    }
+  }
+
+  render () {
+    return(
+      <View style={styles.container0}>
+        {this.renderHeader()}
+        {this.renderBody()}
       </View>
     );
   }
@@ -282,7 +304,32 @@ const styles = StyleSheet.create({
   tripcardtexts:{
     flex:5,
     marginRight:12,
-  }
+  },
+  notlogin:{
+    alignItems:'center',
+    marginTop:40,
+    width: Dimensions.get('window').width - 20,
+  },
+  notlogintext:{
+    color:'#616161',
+    fontFamily:'Vazir-Light',
+    fontSize:18,
+    textAlign:'center',
+    marginTop:0,
+    marginBottom:0,
+  },
+  notlogintext1:{
+    color:'#f56e4e',
+    fontFamily:'Vazir-Medium',
+    fontSize:18,
+    textAlign:'center',
+    marginTop:0,
+    marginBottom:0,
+  },
+  logintouch:{
+    flexDirection:'row-reverse',
+    alignItems:'center'
+  },
 });
 
 export default Trips;

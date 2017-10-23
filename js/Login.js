@@ -32,7 +32,14 @@ class Login extends Component {
         // proceed normal
         // console.log('value is null');
       } else {
-        this.resetNavigation('guestScreen');
+        CacheStore.get('username').then((value) => {
+          if (value === 'GUEST_USER') {
+            // do nothing
+            // maybe user motivates to login
+          } else {
+            this.resetNavigation('guestScreen');
+          }
+        });
       }
     });
   }

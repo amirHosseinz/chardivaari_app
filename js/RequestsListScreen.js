@@ -5,8 +5,10 @@ import {
   View,
   Text,
   FlatList,
+  Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
 
@@ -15,12 +17,14 @@ import timer from 'react-native-timer';
 import RequestRowScreen from './RequestRowScreen';
 import { testURL, productionURL } from './data';
 
+
 class RequestsListScreen extends Component {
   constructor(props) {
     super(props);
     this.state={
       requests: [],
       token: '',
+      username: null,
       toDoCount: 0,
       refreshing: true,
     };
@@ -28,6 +32,7 @@ class RequestsListScreen extends Component {
 
   componentWillMount() {
     CacheStore.get('token').then((value) => this.setToken(value));
+    CacheStore.get('username').then((value) => this.setUsername(value));
     timer.setInterval(
       this,
       'refreshReqList',
@@ -42,6 +47,12 @@ class RequestsListScreen extends Component {
 
   componentWillUnmount() {
       timer.clearInterval(this);
+  }
+
+  setUsername (username) {
+    this.setState({
+      username
+    });
   }
 
   setToken (token) {
@@ -108,10 +119,36 @@ class RequestsListScreen extends Component {
     });
   }
 
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
+  renderLoginButton = () => {
+    if (this.state.username && this.state.username === 'GUEST_USER') {
+      return(
+        <View style={styles.notlogin}>
+          <Text style={styles.notlogintext}> شما وارد حساب کاربری خود نشده اید.  </Text>
+          <TouchableOpacity style={styles.logintouch} onPress={() => {
+            this.resetNavigation('login');
+          }}>
+            <Text style={styles.notlogintext1}> ورود </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  }
+
   render(){
     return(
       <View style={styles.container}>
         {this._onRefresh()}
+        {this.renderLoginButton()}
         <FlatList
           data={this.state.requests}
           keyExtractor={this._keyExtractor}
@@ -127,6 +164,31 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 70,
     backgroundColor: '#F5FCFF',
+  },
+  notlogin:{
+    alignItems:'center',
+    marginTop:50,
+    width: Dimensions.get('window').width - 20,
+  },
+  notlogintext:{
+    color:'#616161',
+    fontFamily:'Vazir-Light',
+    fontSize:18,
+    textAlign:'center',
+    marginTop:0,
+    marginBottom:0,
+  },
+  notlogintext1:{
+    color:'#f56e4e',
+    fontFamily:'Vazir-Medium',
+    fontSize:18,
+    textAlign:'center',
+    marginTop:0,
+    marginBottom:0,
+  },
+  logintouch:{
+    flexDirection:'row-reverse',
+    alignItems:'center',
   },
 });
 

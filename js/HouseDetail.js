@@ -12,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
 import Button from 'apsl-react-native-button';
 import ImageSlider from 'react-native-image-slider';
@@ -33,6 +34,7 @@ class HouseDetail extends Component {
      room: null,
      region: null,
      marker: null,
+     loginModalVisible: false,
      facilitiesModalVisible: false,
    };
    this.mapStyle = [];
@@ -117,13 +119,27 @@ class HouseDetail extends Component {
    }
  }
 
+ resetNavigation (targetRoute) {
+   const resetAction = NavigationActions.reset({
+     index: 0,
+     actions: [
+       NavigationActions.navigate({ routeName: targetRoute }),
+     ],
+   });
+   this.props.navigation.dispatch(resetAction);
+ }
+
  onRequestBookButtonPress () {
+   if (this.state.username && this.state.username === 'GUEST_USER') {
+     this.openLoginModal();
+   } else {
+     this.props.navigation.navigate(
+       'requestBookScreen',{room: this.state.room}
+     );
+   }
   //  this.props.navigation.navigate(
   //    'requestBook',{roomId: this.state.room.id}
   //  );
-   this.props.navigation.navigate(
-     'requestBookScreen',{room: this.state.room}
-   );
  }
 
   renderHouseType () {
@@ -341,6 +357,18 @@ class HouseDetail extends Component {
     });
   }
 
+  openLoginModal = () => {
+    this.setState({
+      loginModalVisible: true,
+    });
+  }
+
+  closeLoginModal = () => {
+    this.setState({
+      loginModalVisible: false,
+    });
+  }
+
   render () {
     var rating = this.state.room.rating;
     if (rating - Math.floor(rating) < 0.5) {
@@ -531,6 +559,33 @@ class HouseDetail extends Component {
       </View>
     </View>
   </View>
+
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.loginModalVisible}
+    onRequestClose={() => {
+      this.closeLoginModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeLoginModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>برای درخواست رزرو ابتدا وارد حساب کاربری خود شوید.</Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          this.resetNavigation('login');
+        }}>
+        <View style={styles.buttonview1}>
+        <Text style={styles.reservebuttontext}>ورود</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
 </View>
   );
   }
@@ -725,6 +780,16 @@ buttontouch: {
   justifyContent:"center",
   alignItems:"center",
 },
+buttontouch1: {
+  borderColor:"#ffffff",
+  borderRadius: 50,
+  borderWidth : 2,
+  height:48,
+  width: 148,
+  flexDirection: "row-reverse",
+  justifyContent:"center",
+  alignItems:"center",
+},
 buttonview: {
   backgroundColor:"#f56e4e",
   borderRadius: 50,
@@ -804,6 +869,28 @@ mapContainer: {
 },
 map: {
   ...StyleSheet.absoluteFillObject,
+},
+popup:{
+  backgroundColor:  'rgba(0,0,0,0.82)',
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height,
+},
+popuptext:{
+  color:'white',
+  fontFamily:'Vazir-Medium',
+  fontSize:20,
+  textAlign:'center',
+  width: Dimensions.get('window').width - 50,
+  marginTop:180,
+  marginBottom:30,
+},
+popuptextbox:{
+  alignItems:'center'
+},
+backbuttonview:{
+  alignItems:'flex-end',
+  marginRight:25,
+  marginTop:25,
 },
 });
 
