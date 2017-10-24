@@ -158,8 +158,7 @@ class Explore extends Component {
           marginTop: 5,
           marginBottom: 65,
         }}
-        showsHorizontalScrollIndicator={false}
-        >
+        showsHorizontalScrollIndicator={false}>
 
         {this.renderResults()}
 
