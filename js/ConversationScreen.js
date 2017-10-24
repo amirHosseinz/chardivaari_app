@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { NavigationActions } from 'react-navigation';
 import timer from 'react-native-timer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,6 +26,7 @@ class ConversationScreen extends Component {
       messages: [],
       lastMessageId: null,
       subject: null,
+      room: null,
     };
   }
 
@@ -44,7 +46,7 @@ class ConversationScreen extends Component {
     headerRight: navigation.state.params.room ? <TouchableOpacity
     onPress={() => {
       // navigation.navigate('roomView', {room: navigation.state.params.room});
-      navigation.navigate('houseDetail', {room: navigation.state.params.room});
+      navigation.navigate('houseDetailFromChat', {room: navigation.state.params.room});
     }}
     style={{marginRight: 20}}>
     <Text>مشاهده‌ی خانه</Text>
@@ -56,6 +58,7 @@ class ConversationScreen extends Component {
       party: this.props.navigation.state.params.party,
       username: this.props.navigation.state.params.username,
       lastMessageId: this.props.navigation.state.params.messageId,
+      room: this.props.navigation.state.params.room,
     }, () => this.afterInitial());
     // this.setState({ partyImageUrl: 'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg' });
 
@@ -104,6 +107,7 @@ class ConversationScreen extends Component {
       },
       body: JSON.stringify({
         message_id: this.state.lastMessageId,
+        room_id: this.state.room.id,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
@@ -188,6 +192,7 @@ class ConversationScreen extends Component {
         recipient: this.state.party.username,
         subject: this.state.subject,
         sender: this.state.username,
+        room_id: this.state.room.id,
       }),
     })
     .then((response) => this.onReplyMessageResponseRecieved(response))

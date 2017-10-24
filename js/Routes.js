@@ -523,6 +523,13 @@ const Routes = ({
       }
     }
   },
+  houseDetailFromChat: {
+    screen: HouseDetail,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
 });
 
 export default Routes;

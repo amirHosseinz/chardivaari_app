@@ -98,6 +98,7 @@ class PrivateMessageRow extends Component {
         party: this.state.party,
         messageId: this.props.message.id,
         username: this.state.username,
+        room: this.props.message.room,
       }
     );
   }
