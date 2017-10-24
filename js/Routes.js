@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MainScreen from './MainScreen';
 // import LoginSignupTabView from './LoginSignupTabView';
+import Splash from './Splash';
 import Login from './Login';
 import SearchRoom from './SearchRoom';
 // import VerificationScreen from './LoginVerificationScreen';
@@ -56,6 +57,13 @@ const Routes = ({
   //     gesturesEnabled: false,
   //   },
   // },
+  splash: {
+    screen: Splash,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
   login: {
     screen: Login,
     navigationOptions: {

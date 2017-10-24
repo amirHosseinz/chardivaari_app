@@ -25,8 +25,6 @@ class Login extends Component {
   }
 
   componentWillMount () {
-    // TODO
-    // force updating here
     CacheStore.get('token').then((value) => {
       if (value == null) {
         // proceed normal
