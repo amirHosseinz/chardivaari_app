@@ -34,7 +34,7 @@ class LoginVerify extends Component {
       smsCenter: this.props.navigation.state.params.smsCenter,
     });
     let sbs = SmsListener.addListener(message => {
-      if (message.originatingAddress == this.state.smsCenter) {
+      if (message.originatingAddress.indexOf(this.state.smsCenter) > -1 ) {
         this.setState({
           verificationCode: message.body,
         }, () => {
