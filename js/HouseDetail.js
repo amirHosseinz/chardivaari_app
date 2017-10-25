@@ -20,9 +20,11 @@ import StarRating from 'react-native-star-rating';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ViewPager from 'react-native-viewpager';
 
 import Facilities from './Facilities';
 import { testURL, productionURL } from './data';
+
 
 class HouseDetail extends Component {
   constructor(props) {
@@ -31,6 +33,7 @@ class HouseDetail extends Component {
      token: '',
      username: '',
      room: {},
+     imagesData: null,
      region: null,
      marker: null,
      loginModalVisible: false,
@@ -51,7 +54,11 @@ class HouseDetail extends Component {
    CacheStore.get('username').then((value) => this.setUsername(value));
 
    if (this.props.navigation.state.params.room) {
-     this.setState({ room: this.props.navigation.state.params.room });
+     this.setState({
+       room: this.props.navigation.state.params.room,
+     }, () => {
+       this.imagesDataFeed();
+     });
 
      var initRegion = {
        latitude: this.props.navigation.state.params.room.latitude,
@@ -110,7 +117,10 @@ class HouseDetail extends Component {
      body = JSON.parse(response._bodyText);
      this.setState({
        room: body.room,
-     },() => {this.setMapInitials();});
+     },() => {
+       this.setMapInitials();
+       this.imagesDataFeed();
+     });
    }
  }
 
@@ -342,6 +352,41 @@ class HouseDetail extends Component {
     return (result);
   }
 
+  imagesDataFeed () {
+    result = [];
+    result.push(productionURL + this.state.room.preview);
+    if (this.state.room.images) {
+      for (var i = 0; i < this.state.room.images.length; i++) {
+        result.push(productionURL + this.state.room.images[i].image);
+      }
+    }
+    var dataSource = new ViewPager.DataSource ({
+      pageHasChanged: ( p1, p2 ) => p1 !== p2,
+    });
+    this.setState({
+      imagesData: dataSource.cloneWithPages(result),
+    });
+  }
+
+  renderImage (item) {
+    return(
+      <Image
+        style={styles.imageSliderStyle}
+        source={{uri: item}}
+      />
+    );
+  }
+
+  renderViewPager () {
+    if (this.state.imagesData != null) {
+      return(
+        <ViewPager
+          dataSource={this.state.imagesData}
+          renderPage={this.renderImage} />
+      );
+    }
+  }
+
   renderMap () {
     if (this.state.marker && this.state.region) {
         return(
@@ -440,8 +485,7 @@ class HouseDetail extends Component {
       <View style={styles.container}>
       <ScrollView
       showsHorizontalScrollIndicator={false}>
-      <ImageSlider images={this.imageSliderFeed()}
-      height={280}/>
+      {this.renderViewPager()}
 
 <View style={styles.container0}>
 
@@ -948,6 +992,10 @@ backbuttonview:{
   alignItems:'flex-end',
   marginRight:25,
   marginTop:25,
+},
+imageSliderStyle: {
+  width: Dimensions.get('window').width,
+  height: 300,
 },
 });
 

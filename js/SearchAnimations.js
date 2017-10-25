@@ -270,7 +270,7 @@ class SearchAnimations extends Component {
        this.setState({
          capacity: value,
        });
-       this.props.setDestination(value);
+       this.props.setCapacity(value);
      }
 
      renderCapacityModalRow (value) {
