@@ -29,8 +29,9 @@ class Explore extends Component {
 
   componentWillMount() {
     CacheStore.get('token').then((value) => {
-      this.setState({ token: value });
-      this.fetchHomepage();
+      this.setState({ token: value }, () => {
+        this.fetchHomepage();
+      });
     });
   }
 
@@ -52,8 +53,6 @@ class Explore extends Component {
   }
 
   onFetchHomepageResponseRecieved (response) {
-    // console.log('######################');
-    // console.log(response);
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       lc = [];
@@ -79,7 +78,7 @@ class Explore extends Component {
         'Authorization': 'Token ' + this.state.token,
       },
       body: JSON.stringify({
-        district: this.state.destination,
+        location: this.state.destination,
         start_date: (this.state.start_date == null) ? null : this.state.start_date.toISOString(),
         end_date: (this.state.end_date == null) ? null : this.state.end_date.toISOString(),
         capacity: this.state.capacity,
@@ -159,8 +158,7 @@ class Explore extends Component {
           marginTop: 5,
           marginBottom: 65,
         }}
-        showsHorizontalScrollIndicator={false}
-        >
+        showsHorizontalScrollIndicator={false}>
 
         {this.renderResults()}
 

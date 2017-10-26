@@ -51,6 +51,7 @@ class SearchAnimations extends Component {
     this.state = {
       isOpen: false,
       destination: 'هر کجا',
+      dateText: 'هر زمان',
       capacity: 1,
       capacityModalVisible: false,
       whereModalVisible: false,
@@ -62,9 +63,8 @@ class SearchAnimations extends Component {
          backgroundColor: '#636877',
          paddingTop: 5,
       },
-      srartDate: new Date(),
-      endDate: new Date(),
-      sum: '',
+      srartDate: null,
+      endDate: null,
     };
     this.confirmDate = this.confirmDate.bind(this);
     this.openCalendar = this.openCalendar.bind(this);
@@ -100,6 +100,25 @@ class SearchAnimations extends Component {
               paddingTop: 5,
            }
         });
+     }
+
+     renderTripDuration () {
+       if ((this.state.startDate != null) && (this.state.endDate != null)) {
+         var oneDay = 24*60*60*1000;
+         return(Math.round(Math.abs(this.state.endDate - this.state.startDate)/oneDay));
+       }
+     }
+
+     renderSumText () {
+       var sum = '';
+       if (this.state.startDate && this.state.endDate) {
+         sum = this.renderTripDuration() + 'روزه - ';
+       } else {
+         sum = this.state.dateText + ' - ';
+       }
+       sum = sum + this.state.destination + ' - ';
+       sum = sum + this.state.capacity + ' نفر';
+       return sum;
      }
 
      renderLesserIcon () {
@@ -148,7 +167,7 @@ class SearchAnimations extends Component {
                   color='#d5d7dd'
                 />
                 <Text style={styles.button}>
-                {this.state.sum}
+                {this.renderSumText()}
                 </Text>
               </View>
              </TouchableOpacity>
@@ -181,7 +200,7 @@ class SearchAnimations extends Component {
              color='#d5d7dd'
            />
               <Text style={styles.button}>
-              هر زمان
+                {this.state.dateText}
                </Text>
                </View>
            </TouchableOpacity>
@@ -202,7 +221,7 @@ class SearchAnimations extends Component {
              color='#d5d7dd'
            />
               <Text style={styles.button}>
-              {this.state.capacity} نفر
+                {this.state.capacity} نفر
               </Text>
               </View>
            </TouchableOpacity>
@@ -223,10 +242,12 @@ class SearchAnimations extends Component {
        });
      }
 
-     confirmDate({startDate, endDate, startMoment, endMoment}) {
+     confirmDate({startDate, endDate, startMoment, endMoment, startDateText, endDateText}) {
+       var dateText = 'از ' + startDateText + ' تا ' + endDateText;
        this.setState({
          startDate,
-         endDate
+         endDate,
+         dateText: dateText,
        });
        this.props.setStartDate(startDate);
        this.props.setEndDate(endDate);
@@ -249,7 +270,7 @@ class SearchAnimations extends Component {
        this.setState({
          capacity: value,
        });
-       this.props.setDestination(value);
+       this.props.setCapacity(value);
      }
 
      renderCapacityModalRow (value) {
@@ -295,7 +316,8 @@ class SearchAnimations extends Component {
            'save': <Text style={{fontFamily: "Vazir",}}>تایید</Text>,
            'clear': <Text style={{fontFamily: "Vazir",}}>ریست کردن</Text>,
          },
-         'date': 'MM / DD'  // date format
+         // 'date': 'MM / DD'
+         'date': 'jYYYY/jM/jD'  // date format
        };
        // optional property, too.
        let color = {
@@ -315,7 +337,10 @@ class SearchAnimations extends Component {
                    animationType='slide'
                    transparent={false}
                    visible={this.state.capacityModalVisible}
-                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   onRequestClose={() => {
+                     this.setCapacityModalVisible(false);
+                     this.props.doSearchAction();
+                   }}
                    >
                       <View style={styles.modalContainer}>
                       <View style={styles.inputModalStyle}>
@@ -354,7 +379,10 @@ class SearchAnimations extends Component {
                    animationType='slide'
                    transparent={false}
                    visible={this.state.whereModalVisible}
-                   onRequestClose={() => {alert("Modal has been closed.")}}
+                   onRequestClose={() => {
+                     this.setWhereModalVisible(false);
+                     this.props.doSearchAction();
+                   }}
                    >
                     <View style={styles.modalContainer}>
                     <View style={styles.inputModalStyle}>

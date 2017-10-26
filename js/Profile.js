@@ -76,7 +76,7 @@ class Profile extends Component {
 
   _onExitPress () {
     CacheStore.flush();
-    this.resetNavigation('loginSignupTabView');
+    this.resetNavigation('login');
   }
 
   _onCallUsPress () {
@@ -92,6 +92,8 @@ class Profile extends Component {
   hideEditProfile = () => {
     this.setState({
       editProfileModalVisible: false,
+    }, () => {
+      this.fetchUser();
     });
   }
 
@@ -220,10 +222,14 @@ class Profile extends Component {
         animationType='slide'
         transparent={false}
         visible={this.state.editProfileModalVisible}
-        onRequestClose={() => {alert("Modal has been closed.")}}
+        onRequestClose={() => {
+          this.hideEditProfile();
+        }}
         >
          <EditProfile
           hideEditProfile={this.hideEditProfile}
+          user={this.state.user}
+          token={this.state.token}
          />
         </Modal>
 

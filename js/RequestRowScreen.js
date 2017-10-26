@@ -69,7 +69,13 @@ class RequestRowScreen extends Component {
   }
 
   _onPress() {
-    this.props.navigation.navigate('requestScreen',
+    // this.props.navigation.navigate('requestScreen',
+    // {
+    //   request: this.props.requestItem,
+    //   role: this.props.role,
+    //   refresh: this.props.refresh,
+    // });
+    this.props.navigation.navigate('requestStatus',
     {
       request: this.props.requestItem,
       role: this.props.role,
@@ -123,44 +129,44 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   avatar: {
-  flex:5,
-  flexDirection:"row-reverse",
-  alignItems:"center",
-  justifyContent: "center",
-  marginLeft:8,
+    flex:5,
+    flexDirection:"row-reverse",
+    alignItems:"center",
+    justifyContent: "center",
+    marginLeft:8,
   },
   avatarimg: {
     height:55,
     width: 55,
     borderRadius:50,
   },
-textbox: {
-  flex:18,
-  justifyContent:"center",
-  marginRight:8,
-},
-housename: {
-  fontFamily: "Vazir-Medium",
-  fontSize:18,
-},
-hostname: {
-  fontFamily: "Vazir-Light",
-  fontSize:14,
-},
-iconboox:{
-  flexDirection: "row",
-},
-iconbox:{
-  flex:5,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent:'center',
-},
-iconimg:{
-  height:35,
-  width: 35,
-  resizeMode:"contain",
-}
+  textbox: {
+    flex:18,
+    justifyContent:"center",
+    marginRight:8,
+  },
+  housename: {
+    fontFamily: "Vazir-Medium",
+    fontSize:18,
+  },
+  hostname: {
+    fontFamily: "Vazir-Light",
+    fontSize:14,
+  },
+  iconboox:{
+    flexDirection: "row",
+  },
+  iconbox:{
+    flex:5,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:'center',
+  },
+  iconimg:{
+    height:35,
+    width: 35,
+    resizeMode:"contain",
+  },
 });
 
 export default RequestRowScreen;

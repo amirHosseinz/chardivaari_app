@@ -3,6 +3,7 @@ import {
   View,
   ScrollView,
   Text,
+  Modal,
   StyleSheet,
   StatusBar,
   Alert,
@@ -11,6 +12,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
 import Button from 'apsl-react-native-button';
 import ImageSlider from 'react-native-image-slider';
@@ -18,19 +20,24 @@ import StarRating from 'react-native-star-rating';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ViewPager from 'react-native-viewpager';
 
+import Facilities from './Facilities';
 import { testURL, productionURL } from './data';
 
-class HouseDetail extends Component {
 
+class HouseDetail extends Component {
   constructor(props) {
    super(props);
    this.state = {
      token: '',
      username: '',
-     room: null,
+     room: {},
+     imagesData: null,
      region: null,
      marker: null,
+     loginModalVisible: false,
+     facilitiesModalVisible: false,
    };
    this.mapStyle = [];
  }
@@ -40,28 +47,39 @@ class HouseDetail extends Component {
  }
 
  componentWillMount() {
-   this.setState({ room: this.props.navigation.state.params.room });
+ }
 
-   var initRegion = {
-     latitude: this.props.navigation.state.params.room.latitude,
-     longitude: this.props.navigation.state.params.room.longitude,
-     latitudeDelta: 0.05,
-     longitudeDelta: 0.05,
-   };
-   this.setState({ region: initRegion });
-
-   var pointCoordinate = {
-     latitude: this.props.navigation.state.params.room.latitude,
-     longitude: this.props.navigation.state.params.room.longitude,
-   };
-   var circleElement = {
-     latlng: pointCoordinate,
-     radius: 350,
-   };
-   this.setState({ marker: circleElement });
-
+ componentDidMount () {
    CacheStore.get('token').then((value) => this.setToken(value));
    CacheStore.get('username').then((value) => this.setUsername(value));
+
+   if (this.props.navigation.state.params.room) {
+     this.setState({
+       room: this.props.navigation.state.params.room,
+     }, () => {
+       this.imagesDataFeed();
+     });
+
+     var initRegion = {
+       latitude: this.props.navigation.state.params.room.latitude,
+       longitude: this.props.navigation.state.params.room.longitude,
+       latitudeDelta: 0.05,
+       longitudeDelta: 0.05,
+     };
+     this.setState({ region: initRegion });
+
+     var pointCoordinate = {
+       latitude: this.props.navigation.state.params.room.latitude,
+       longitude: this.props.navigation.state.params.room.longitude,
+     };
+     var circleElement = {
+       latlng: pointCoordinate,
+       radius: 350,
+     };
+     this.setState({ marker: circleElement });
+   } else if (this.props.navigation.state.params.roomId) {
+     this.fetchRoom();
+   }
  }
 
  setToken (token) {
@@ -76,6 +94,56 @@ class HouseDetail extends Component {
    });
  }
 
+ fetchRoom () {
+   fetch(productionURL + '/api/get/room/', {
+     method: 'POST',
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+       'Authorization': 'Token ' + this.state.token,
+     },
+     body: JSON.stringify({
+       room_id: this.props.navigation.state.params.roomId,
+     }),
+   })
+   .then((response) => this.onGetRoomResponseRecieved(response))
+   .catch((error) => {
+     Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
+   });
+ }
+
+ onGetRoomResponseRecieved (response) {
+   if (response.status === 200) {
+     body = JSON.parse(response._bodyText);
+     this.setState({
+       room: body.room,
+     },() => {
+       this.setMapInitials();
+       this.imagesDataFeed();
+     });
+   }
+ }
+
+ setMapInitials () {
+   var initRegion = {
+     latitude: this.state.room.latitude,
+     longitude: this.state.room.longitude,
+     latitudeDelta: 0.05,
+     longitudeDelta: 0.05,
+   };
+   this.setState({ region: initRegion });
+
+   var pointCoordinate = {
+     latitude: this.state.room.latitude,
+     longitude: this.state.room.longitude,
+   };
+   var circleElement = {
+     latlng: pointCoordinate,
+     radius: 350,
+   };
+   this.setState({ marker: circleElement });
+ }
+
  onPressContactHost () {
    fetch(productionURL + '/api/message/compose/', {
      method: 'POST',
@@ -88,6 +156,7 @@ class HouseDetail extends Component {
        sender: this.state.username,
        recipient: this.state.room.owner.username,
        subject: this.state.room.title,
+       room_id: this.state.room.id,
        body: ' درخواست صحبت درباره‌ی خانه‌ی ' + this.state.room.title,
      }),
    })
@@ -114,13 +183,27 @@ class HouseDetail extends Component {
    }
  }
 
+ resetNavigation (targetRoute) {
+   const resetAction = NavigationActions.reset({
+     index: 0,
+     actions: [
+       NavigationActions.navigate({ routeName: targetRoute }),
+     ],
+   });
+   this.props.navigation.dispatch(resetAction);
+ }
+
  onRequestBookButtonPress () {
+   if (this.state.username && this.state.username === 'GUEST_USER') {
+     this.openLoginModal();
+   } else {
+     this.props.navigation.navigate(
+       'requestBookScreen',{room: this.state.room}
+     );
+   }
   //  this.props.navigation.navigate(
   //    'requestBook',{roomId: this.state.room.id}
   //  );
-   this.props.navigation.navigate(
-     'requestBookScreen',{room: this.state.room}
-   );
  }
 
   renderHouseType () {
@@ -162,7 +245,7 @@ class HouseDetail extends Component {
   }
 
   renderBreakfastFeature () {
-    if (this.state.room.private_util_options.indexOf('BREAKFAST') > -1) {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('BREAKFAST') > -1) {
       return(
         <Image style={styles.featuresicon} source={require("./img/breakfast.png")}/>
       );
@@ -170,7 +253,7 @@ class HouseDetail extends Component {
   }
 
   renderTVFeature () {
-    if (this.state.room.private_util_options.indexOf('TV') > -1) {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('TV') > -1) {
       return(
         <Image style={styles.featuresicon} source={require("./img/tv.png")}/>
       );
@@ -178,7 +261,7 @@ class HouseDetail extends Component {
   }
 
   renderWifiFeature () {
-    if (this.state.room.private_util_options.indexOf('NET') > -1) {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('NET') > -1) {
       return(
         <Image style={styles.featuresicon} source={require("./img/wifi.png")}/>
       );
@@ -186,7 +269,7 @@ class HouseDetail extends Component {
   }
 
   renderHangerFeature () {
-    if (this.state.room.private_util_options.indexOf('HANGER') > -1) {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('HANGER') > -1) {
       return(
         <Image style={styles.featuresicon} source={require("./img/hanger.png")}/>
       );
@@ -194,7 +277,7 @@ class HouseDetail extends Component {
   }
 
   renderWashingMachineFeature () {
-    if (this.state.room.private_util_options.indexOf('WASHING_MACHINE') > -1) {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('WASHING_MACHINE') > -1) {
       return(
         <Image style={styles.featuresicon} source={require("./img/washing_machine.png")}/>
       );
@@ -240,17 +323,107 @@ class HouseDetail extends Component {
     }
   }
 
+  renderSpecialRules () {
+    if (this.state.room.special_rules != '') {
+      return(
+        <View>
+        <Text style={styles.h2}>قوانین خاص:</Text>
+        <View style={styles.banbox}>
+          <View style={styles.baniconbox}>
+          <Image style={styles.banicon} source={require("./img/special_rules.png")}/>
+          </View>
+          <Text style={styles.bantext}>{this.state.room.special_rules}</Text>
+        </View>
+        <View style={styles.divider}>
+        </View>
+        </View>
+      );
+    }
+  }
+
   imageSliderFeed () {
     result = [];
     result.push(productionURL + this.state.room.preview);
-    for (var i = 0; i < this.state.room.images.length; i++) {
-      result.push(productionURL + this.state.room.images[i].image);
+    if (this.state.room.images) {
+      for (var i = 0; i < this.state.room.images.length; i++) {
+        result.push(productionURL + this.state.room.images[i].image);
+      }
     }
     return (result);
   }
 
+  imagesDataFeed () {
+    result = [];
+    result.push(productionURL + this.state.room.preview);
+    if (this.state.room.images) {
+      for (var i = 0; i < this.state.room.images.length; i++) {
+        result.push(productionURL + this.state.room.images[i].image);
+      }
+    }
+    var dataSource = new ViewPager.DataSource ({
+      pageHasChanged: ( p1, p2 ) => p1 !== p2,
+    });
+    this.setState({
+      imagesData: dataSource.cloneWithPages(result),
+    });
+  }
+
+  renderImage (item) {
+    return(
+      <Image
+        style={styles.imageSliderStyle}
+        source={{uri: item}}
+      />
+    );
+  }
+
+  renderViewPager () {
+    if (this.state.imagesData != null) {
+      return(
+        <ViewPager
+          dataSource={this.state.imagesData}
+          renderPage={this.renderImage} />
+      );
+    }
+  }
+
+  renderMap () {
+    if (this.state.marker && this.state.region) {
+        return(
+          <View style={styles.container0}>
+          <View style={styles.container2}>
+
+          <View style={styles.divider}>
+          </View>
+
+          <View style={styles.mapContainer}>
+
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            customMapStyle={this.mapStyle}
+            style={styles.map}
+            region={this.state.region}
+            // gestureHandling={'cooperative'}
+            onRegionChange={this.onRegionChange.bind(this)}>
+            <MapView.Circle
+              center={this.state.marker.latlng}
+              radius={this.state.marker.radius}
+              strokeColor={'green'}
+              strokeWidth={3}
+            />
+          </MapView>
+          </View>
+
+          <View style={styles.divider}>
+          </View>
+          </View>
+          </View>
+        );
+    }
+  }
+
   renderProfilePicture () {
-    if (this.state.room.owner.profile_picture == null) {
+    if (this.state.room.owner && this.state.room.owner.profile_picture == null) {
       return(
         <View style={styles.accountimage}>
           <Icon
@@ -261,15 +434,43 @@ class HouseDetail extends Component {
         </View>
       );
     }
-    return(
-      <Image style={styles.accountimage} source={{
-        uri: productionURL + this.state.room.owner.profile_picture
-      }}/>
-    );
+    if (this.state.room.owner) {
+      return(
+        <Image style={styles.accountimage} source={{
+          uri: productionURL + this.state.room.owner.profile_picture
+        }}/>
+      );
+    }
   }
 
   renderTimeField (timeField) {
-    return (timeField.substr(0, 5));
+    if (timeField) {
+      return (timeField.substr(0, 5));
+    }
+  }
+
+  openFacilities = () => {
+    this.setState({
+      facilitiesModalVisible: true,
+    });
+  }
+
+  closeFacilities = () => {
+    this.setState({
+      facilitiesModalVisible: false,
+    });
+  }
+
+  openLoginModal = () => {
+    this.setState({
+      loginModalVisible: true,
+    });
+  }
+
+  closeLoginModal = () => {
+    this.setState({
+      loginModalVisible: false,
+    });
   }
 
   render () {
@@ -283,11 +484,8 @@ class HouseDetail extends Component {
     return(
       <View style={styles.container}>
       <ScrollView
-      showsHorizontalScrollIndicator={false}
-      >
-      <ImageSlider images={this.imageSliderFeed()}
-      height={280}
-      />
+      showsHorizontalScrollIndicator={false}>
+      {this.renderViewPager()}
 
 <View style={styles.container0}>
 
@@ -318,7 +516,7 @@ class HouseDetail extends Component {
     <View style={styles.hostname}>
     <Text style={styles.hostnamestatic}>به میزبانی </Text>
     <TouchableOpacity>
-    <Text style={styles.hostnamedynamic}>{this.state.room.owner.first_name} {this.state.room.owner.last_name}</Text>
+    <Text style={styles.hostnamedynamic}>{this.state.room.owner?this.state.room.owner.first_name:''} {this.state.room.owner?this.state.room.owner.last_name:''}</Text>
     </TouchableOpacity>
 
     </View>
@@ -382,39 +580,14 @@ class HouseDetail extends Component {
     {this.renderWifiFeature()}
     {this.renderHangerFeature()}
     {this.renderWashingMachineFeature()}
-    <TouchableOpacity>
+    <TouchableOpacity onPress={this.openFacilities}>
       <Text style={styles.seemore}>مشاهده بیشتر</Text>
     </TouchableOpacity>
     </View>
 </View>
 </View>
 
-<View style={styles.container0}>
-<View style={styles.container2}>
-
-<View style={styles.divider}>
-</View>
-<View style={styles.mapContainer}>
-
-<MapView
-  provider={PROVIDER_GOOGLE}
-  customMapStyle={this.mapStyle}
-  style={styles.map}
-  region={this.state.region}
-  onRegionChange={this.onRegionChange.bind(this)}>
-  <MapView.Circle
-    center={this.state.marker.latlng}
-    radius={this.state.marker.radius}
-    strokeColor={'green'}
-    strokeWidth={3}
-  />
-</MapView>
-</View>
-
-<View style={styles.divider}>
-</View>
-</View>
-</View>
+{this.renderMap()}
 
 <View style={styles.container0}>
   <View style={styles.container2}>
@@ -445,6 +618,7 @@ class HouseDetail extends Component {
     </TouchableOpacity>
     <View style={styles.divider}>
     </View>
+    {this.renderSpecialRules()}
     <View style={styles.contacthost}>
     <Text style={styles.lawstext1}>ارتباط با میزبان درباره این خانه:</Text>
     <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>
@@ -456,6 +630,18 @@ class HouseDetail extends Component {
     </View>
   </View>
 </View>
+
+  <Modal
+    animationType='slide'
+    transparent={false}
+    visible={this.state.facilitiesModalVisible}
+    onRequestClose={() => {
+      this.closeFacilities();
+    }}>
+       <Facilities room={this.state.room} onClose={this.closeFacilities}>
+       </Facilities>
+  </Modal>
+
 </ScrollView>
 
   <View style={styles.bottombar}>
@@ -474,6 +660,33 @@ class HouseDetail extends Component {
       </View>
     </View>
   </View>
+
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.loginModalVisible}
+    onRequestClose={() => {
+      this.closeLoginModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeLoginModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>برای درخواست رزرو ابتدا وارد حساب کاربری خود شوید.</Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          this.resetNavigation('login');
+        }}>
+        <View style={styles.buttonview1}>
+        <Text style={styles.reservebuttontext}>ورود</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
 </View>
   );
   }
@@ -668,6 +881,16 @@ buttontouch: {
   justifyContent:"center",
   alignItems:"center",
 },
+buttontouch1: {
+  borderColor:"#ffffff",
+  borderRadius: 50,
+  borderWidth : 2,
+  height:48,
+  width: 148,
+  flexDirection: "row-reverse",
+  justifyContent:"center",
+  alignItems:"center",
+},
 buttonview: {
   backgroundColor:"#f56e4e",
   borderRadius: 50,
@@ -747,6 +970,32 @@ mapContainer: {
 },
 map: {
   ...StyleSheet.absoluteFillObject,
+},
+popup:{
+  backgroundColor:  'rgba(0,0,0,0.82)',
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height,
+},
+popuptext:{
+  color:'white',
+  fontFamily:'Vazir-Medium',
+  fontSize:20,
+  textAlign:'center',
+  width: Dimensions.get('window').width - 50,
+  marginTop:180,
+  marginBottom:30,
+},
+popuptextbox:{
+  alignItems:'center'
+},
+backbuttonview:{
+  alignItems:'flex-end',
+  marginRight:25,
+  marginTop:25,
+},
+imageSliderStyle: {
+  width: Dimensions.get('window').width,
+  height: 300,
 },
 });
 

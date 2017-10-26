@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
-import TripsScreen from './TripsScreen';
+// import TripsScreen from './TripsScreen';
+import Trips from './Trips';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
 
@@ -27,19 +28,45 @@ class GuestScreen extends Component {
   renderContent () {
     switch (this.state.tabIndex) {
       case 0:
-        return(<Profile role={'guest'} navigation={this.props.navigation} />);
+        return(<Profile role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
       case 1:
-        return(<InboxScreen role={'guest'} navigation={this.props.navigation} />);
+        return(<InboxScreen role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
       case 2:
-        return(<TripsScreen role={'guest'} navigation={this.props.navigation} />);
+        return(<Trips role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
       case 3:
-        return(<Explore role={'guest'} navigation={this.props.navigation} />);
+        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
       default:
-        return(<Explore role={'guest'} navigation={this.props.navigation} />);
+        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
       }
   }
 
-  _onTabChange (newTabIndex){
+  goToTab = (tabName) => {
+    switch(tabName) {
+    case 'profile':
+      this.setState({
+        tabIndex: 0,
+      });
+      break;
+    case 'inboxScreen':
+      this.setState({
+        tabIndex: 1,
+      });
+      break;
+    case 'trips':
+      this.setState({
+        tabIndex: 2,
+      });
+      break;
+    case 'explore':
+      this.setState({
+        tabIndex: 3,
+      });
+      break;
+    default:
+    }
+  }
+
+  _onTabChange (newTabIndex) {
     if (this.state.tabIndex !== newTabIndex){
       this.setState({ tabIndex: newTabIndex});
     }

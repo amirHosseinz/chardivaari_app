@@ -277,8 +277,20 @@ class RequestBookScreen extends Component {
     if (this.state.totalPrice != null) {
       return(
         <View style={styles.cost}>
-          <Text style={styles.costtext}>جمع هزینه ها: </Text>
+          <Text style={styles.costtext}>جمع هزینه‌ها:</Text>
           <Text style={styles.costtext}>{this.state.hostPrice + this.state.trypinnServicePrice}</Text>
+          <Text style={styles.costtext}> تومان</Text>
+        </View>
+      );
+    }
+  }
+
+  renderHostPrice () {
+    if (this.state.totalPrice != null) {
+      return(
+        <View style={styles.cost}>
+          <Text style={styles.costtext}>هزینه‌ی اقامت:</Text>
+          <Text style={styles.costtext}>{this.state.hostPrice}</Text>
           <Text style={styles.costtext}> تومان</Text>
         </View>
       );
@@ -502,8 +514,9 @@ class RequestBookScreen extends Component {
           <View style={styles.divider}>
           </View>
           <View style={styles.costbox}>
-            {this.renderTotalPrice()}
+            {this.renderHostPrice()}
             {this.renderTrypinnShare()}
+            {this.renderTotalPrice()}
             <View style={styles.interdiscount}>
               <Icon size={26} color="#959595" name="add-circle" />
               <Text style={styles.costtext}> ورود کد تخفیف : </Text>

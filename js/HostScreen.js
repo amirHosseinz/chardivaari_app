@@ -10,9 +10,11 @@ import {
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import CalendarScreen from './CalendarScreen';
+// import CalendarScreen from './CalendarScreen';
+import ReserveList from './ReserveList';
 import InboxScreen from './InboxScreen';
-import ListingsScreen from './ListingsScreen';
+// import ListingsScreen from './ListingsScreen';
+import HouseListScreen from './HouseListScreen';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
 
@@ -27,9 +29,9 @@ class HostScreen extends Component {
           navigation={this.props.navigation}
           />);
       case 1:
-        return(<CalendarScreen role={'host'} navigation={this.props.navigation} />);
+        return(<ReserveList role={'host'} navigation={this.props.navigation} />);
       case 2:
-        return(<ListingsScreen role={'host'} navigation={this.props.navigation} />);
+        return(<HouseListScreen role={'host'} navigation={this.props.navigation} />);
       case 3:
         return(<Profile role={'host'} navigation={this.props.navigation} />);
       default:
@@ -49,31 +51,37 @@ class HostScreen extends Component {
         {this.renderContent()}
 
         <BottomNavigation
-                labelColor="white"
-                rippleColor="white"
-                activeTab={this.state.tabIndex}
-                style={styles.buttomNavigation}
-                onTabChange={(newTabIndex) => this._onTabChange(newTabIndex)}
-              >
+          labelColor="#a0a0a0"
+          activeTab={this.state.tabIndex}
+          rippleColor="#f56e4e"
+          activeLabelColor="#f56e4e"
+          style={{ height: 62,  elevation: 8, position: 'absolute', left: 0, bottom: 0, right: 0 }}
+          innerStyle={{ paddingBottom: 0}}
+          onTabChange={(newTabIndex) => this._onTabChange(newTabIndex)}
+          shifting={false}>
                 <Tab
-                  barBackgroundColor="#5D4037"
-                  label="نامه‌ها"
-                  icon={<Icon size={24} color="white" name="mail" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>پیام ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="forum" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="forum" />}
                 />
                 <Tab
-                  barBackgroundColor="#37474F"
-                  label="تقویم"
-                  icon={<Icon size={24} color="white" name="date-range" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>رزرو ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="date-range" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="date-range" />}
                 />
                 <Tab
-                  barBackgroundColor="#00796B"
-                  label="خانه‌ها"
-                  icon={<Icon size={24} color="white" name="account-balance" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>خانه ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="account-balance" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="account-balance" />}
                 />
                 <Tab
-                  barBackgroundColor="#3E2723"
-                  label="نمایه"
-                  icon={<Icon size={24} color="white" name="dashboard" />}
+                  barBackgroundColor="#fff"
+                  label={<Text style={styles.buttomNavFont}>حساب کاربری</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="dashboard" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="dashboard" />}
                 />
         </BottomNavigation>
       </View>
@@ -84,13 +92,16 @@ class HostScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   },
   buttomNavigation: {
     position: 'absolute',
     bottom: 1,
     width: Dimensions.get('screen').width,
     height: 60,
+  },
+  buttomNavFont: {
+    fontFamily: "IRANSans",
+    fontSize: 12,
   },
 });
 
