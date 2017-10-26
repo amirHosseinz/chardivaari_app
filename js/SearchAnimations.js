@@ -60,7 +60,7 @@ class SearchAnimations extends Component {
          flexDirection: 'column',
          alignItems: 'flex-start',
          justifyContent: 'space-around',
-         backgroundColor: '#636877',
+         backgroundColor: '#0ca6c1',
          paddingTop: 5,
       },
       srartDate: null,
@@ -76,7 +76,7 @@ class SearchAnimations extends Component {
         // LayoutAnimation.configureNext(expandLayoutAnimation);
         this.setState({
            myStyle: {
-              backgroundColor: '#636877',
+              backgroundColor: '#0ca6c1',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'space-around',
@@ -96,7 +96,7 @@ class SearchAnimations extends Component {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'space-around',
-              backgroundColor: '#636877',
+              backgroundColor: '#0ca6c1',
               paddingTop: 5,
            }
         });
@@ -128,8 +128,8 @@ class SearchAnimations extends Component {
          <View style={styles.iconbox}>
             <Icon
               name='expand-less'
-              size={35}
-              color='#d5d7dd'
+              size={35  }
+              color='#eaedee'
               onPress={this.collapseElement}
             />
          </View>
@@ -146,8 +146,8 @@ class SearchAnimations extends Component {
              <View style={styles.innerItemStyle}>
              <Icon
                name='public'
-               size={35}
-               color='#d5d7dd'
+               size={32}
+               color='#eaedee'
              />
                 <Text style={styles.button}>
                   {this.state.destination}
@@ -163,8 +163,8 @@ class SearchAnimations extends Component {
               <View style={styles.innerItemStyle}>
                 <Icon
                   name='search'
-                  size={35}
-                  color='#d5d7dd'
+                  size={32}
+                  color='#eaedee'
                 />
                 <Text style={styles.button}>
                 {this.renderSumText()}
@@ -196,8 +196,8 @@ class SearchAnimations extends Component {
            <View style={styles.innerItemStyle}>
            <Icon
              name='date-range'
-             size={35}
-             color='#d5d7dd'
+             size={32}
+             color='#eaedee'
            />
               <Text style={styles.button}>
                 {this.state.dateText}
@@ -217,8 +217,8 @@ class SearchAnimations extends Component {
            <View style={styles.innerItemStyle}>
            <Icon
              name='group-add'
-             size={35}
-             color='#d5d7dd'
+             size={32}
+             color='#eaedee'
            />
               <Text style={styles.button}>
                 {this.state.capacity} نفر
@@ -428,7 +428,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#818591',
+    backgroundColor: '#4fbdd1',
     padding: 2,
     marginTop: 10,
     marginRight: 14,
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#818591',
+    backgroundColor: '#4fbdd1',
     marginRight: 14,
     marginLeft: 14,
   },

@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dddddd',
   },
   filter : {
-    backgroundColor: '#636877',
+    backgroundColor: '#0ca6c1',
     height:10,
     width: Dimensions.get('screen').width,
   },

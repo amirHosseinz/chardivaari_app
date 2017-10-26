@@ -3,6 +3,7 @@ import {
   Alert,
   View,
   StyleSheet,
+  Image,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -119,6 +120,7 @@ class Splash extends Component {
   render () {
     return(
       <View style={styles.container}>
+        <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
       </View>
     );
   }
@@ -127,8 +129,15 @@ class Splash extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: '#12b2ce',
+    alignItems:'center',
+    justifyContent:'center',
   },
+  splashimg:{
+    height:90,
+    resizeMode:'contain',
+    marginBottom:180,
+  }
 });
 
 export default Splash;
