@@ -65,12 +65,15 @@ class TripStatusScreen extends Component {
         sender: this.state.username,
         recipient: this.state.trip.room.owner.username,
         subject: 'رزرو خانه‌ی ' + this.state.trip.room.title,
+        room_id: this.state.trip.room.id,
         body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.trip.room.title,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      console.error(error);
+      // network error
+      // console.error(error);
+      Alert.alert('خطای شبکه، لطفا از اتصال به اینترنت مطمئن شوید.');
     });
   }
 
@@ -83,6 +86,7 @@ class TripStatusScreen extends Component {
           party: this.state.trip.room.owner,
           messageId: body.message_id,
           username: this.state.username,
+          room: this.state.trip.room,
         }
       );
     } else {
@@ -120,11 +124,12 @@ class TripStatusScreen extends Component {
     .then((response) => this.onCancelTripResponseRecieved(response))
     .catch((error) => {
       // network error
+      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نماییدد.');
     });
   }
 
-  onCancelTripResponseRecieved () {
+  onCancelTripResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
