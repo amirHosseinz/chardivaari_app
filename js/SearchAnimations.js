@@ -321,7 +321,7 @@ class SearchAnimations extends Component {
        };
        // optional property, too.
        let color = {
-         mainColor: '#636877'
+         mainColor: '#0ca6c1'
        };
 
        return (
@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     height: 50,
-    backgroundColor: '#636877',
+    backgroundColor: '#0ca6c1',
     padding: 10,
     borderRadius: 5,
   },
@@ -476,7 +476,7 @@ const styles = StyleSheet.create({
   optionText: {
     fontFamily: "Vazir",
     fontSize: 20,
-    color: '#636877',
+    color: '#0ca6c1',
   },
   capacityModalStyle: {
     height: 50,
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
   capacityRowTextStyle: {
     fontFamily: "Vazir",
     fontSize: 20,
-    color: '#636877',
+    color: '#0ca6c1',
   },
 });
 
