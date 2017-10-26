@@ -113,7 +113,7 @@ class InboxScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#636877',
+    backgroundColor:'#0ca6c1',
   },
   labelstyle: {
     fontFamily:'Vazir-Medium',
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
   tabStyle: {
   },
   styletab: {
-    backgroundColor:'#636877',
-    paddingTop:12,
+    backgroundColor:'#0ca6c1',
+    paddingTop:18,
     paddingBottom:3,
   },
   badgeview:{
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginRight:Dimensions.get('screen').width/4 + 50,
   },
   textbadge:{
-    color:'#636877',
+    color:'#0ca6c1',
     fontSize:12,
     fontFamily:'Vazir-Medium',
   },
