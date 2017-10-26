@@ -161,9 +161,9 @@ class RequestsListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
-    marginBottom: 70,
-    backgroundColor: '#F5FCFF',
+    marginTop: 0,
+    marginBottom: 58,
+    backgroundColor: '#ededed',
   },
   notlogin:{
     alignItems:'center',

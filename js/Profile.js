@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#ffffff',
+    backgroundColor:'#ededed',
   },
   container1: {
     flex: 1,
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     marginRight:20,
   },
   usertext:{
-    fontSize: 33,
+    fontSize: 28,
     fontFamily:'Vazir-Medium',
     color:'#4f4f4f',
   },

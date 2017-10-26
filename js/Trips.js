@@ -260,13 +260,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#e5e5e5',
+    backgroundColor:'#ededed',
   },
   headerbar:{
     flexDirection:'row-reverse',
-    height:50,
+    height:80,
     width:Dimensions.get('window').width,
-    backgroundColor:"#636877",
+    backgroundColor:"#0ca6c1",
     alignItems:'center',
     justifyContent:'center',
     marginBottom:4,
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   headertext:{
     color:'#e5e5e5',
     fontFamily:'Vazir-Medium',
-    fontSize:16,
+    fontSize:18,
   },
   tripcard: {
     flexWrap: 'wrap',

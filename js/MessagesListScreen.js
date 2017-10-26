@@ -159,9 +159,9 @@ class MessagesListScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 5,
-    marginBottom: 65,
-    backgroundColor: '#F5FCFF',
+    marginTop: 0,
+    marginBottom: 58,
+    backgroundColor: '#ededed',
   },
   notlogin:{
     alignItems:'center',

@@ -176,11 +176,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#dddddd',
+    backgroundColor: '#ededed',
   },
   filter : {
     backgroundColor: '#0ca6c1',
-    height:10,
+    height:0,
     width: Dimensions.get('screen').width,
   },
   errorTextStyle: {
