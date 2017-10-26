@@ -37,6 +37,7 @@ class HouseDetail extends Component {
      region: null,
      marker: null,
      loginModalVisible: false,
+     contactModalVisible: false,
      facilitiesModalVisible: false,
    };
    this.mapStyle = [];
@@ -145,6 +146,14 @@ class HouseDetail extends Component {
  }
 
  onPressContactHost () {
+   if (this.state.username && this.state.username === 'GUEST_USER') {
+     this.openContactModal();
+   } else {
+     this.contactHost();
+   }
+ }
+
+ contactHost () {
    fetch(productionURL + '/api/message/compose/', {
      method: 'POST',
      headers: {
@@ -162,6 +171,7 @@ class HouseDetail extends Component {
    })
    .then((response) => this.onResponseRecieved(response))
    .catch((error) => {
+     // network error
      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
    });
  }
@@ -473,6 +483,18 @@ class HouseDetail extends Component {
     });
   }
 
+  openContactModal = () => {
+    this.setState({
+      contactModalVisible: true,
+    });
+  }
+
+  closeContactModal = () => {
+    this.setState({
+      contactModalVisible: false,
+    });
+  }
+
   render () {
     var rating = this.state.room.rating;
     if (rating - Math.floor(rating) < 0.5) {
@@ -676,6 +698,32 @@ class HouseDetail extends Component {
    </TouchableOpacity>
     <View style={styles.popuptextbox}>
       <Text style={styles.popuptext}>برای درخواست رزرو ابتدا وارد حساب کاربری خود شوید.</Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          this.resetNavigation('login');
+        }}>
+        <View style={styles.buttonview1}>
+        <Text style={styles.reservebuttontext}>ورود</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.contactModalVisible}
+    onRequestClose={() => {
+      this.closeContactModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeContactModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>برای تماس با میزبان ابتدا باید وارد حساب کاربری خود شوید.</Text>
         <TouchableOpacity style={styles.buttontouch1} onPress={() => {
           this.resetNavigation('login');
         }}>
