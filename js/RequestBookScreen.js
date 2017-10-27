@@ -525,8 +525,7 @@ class RequestBookScreen extends Component {
                     placeholder="XXXXXXXXXXXX"
                     placeholderTextColor="#acacac"
                     maxLength = {15}
-                    onChangeText={this.setDiscountCode}
-                  />
+                    onChangeText={this.setDiscountCode} />
               </View>
               <TouchableOpacity onPress={this._onCheckDiscountCodeButtonPress.bind(this)}>
                 <Text style={styles.checkcodetext}> بررسی کد تخفیف </Text>
@@ -550,8 +549,9 @@ class RequestBookScreen extends Component {
           animationType='slide'
           transparent={false}
           visible={this.state.capacityModalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
-          >
+          onRequestClose={() => {
+            this.setCapacityModalVisible(false);
+          }}>
              <View style={styles.modalContainer}>
              <View style={styles.inputModalStyle}>
              <ModalDropdown
@@ -561,8 +561,7 @@ class RequestBookScreen extends Component {
                style={styles.capacityModalStyle}
                options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                renderRow={this.renderCapacityModalRow}
-               onSelect={this.onSelectCapacity}
-             />
+               onSelect={this.onSelectCapacity} />
                <TouchableHighlight style={styles.confirmButton} onPress={() => {
                  this.setCapacityModalVisible(!this.state.capacityModalVisible);
                }}>
@@ -580,8 +579,7 @@ class RequestBookScreen extends Component {
             color={color}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
-            onConfirm={this.confirmDate}
-          />
+            onConfirm={this.confirmDate} />
         </View>
 
       </View>
