@@ -111,6 +111,10 @@ class Splash extends Component {
         CacheStore.flush();
         this.resetNavigation('login');
       }
+    } else if (response.status === 401) {
+      // invalid token
+      CacheStore.flush();
+      this.resetNavigation('login');
     } else {
       // TODO
       // error handle

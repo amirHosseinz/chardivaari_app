@@ -47,6 +47,7 @@ class Profile extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
+      // network error
       Alert.alert('لطفا پس از اطمینان اتصال اینترنت مجددا تلاش نمایید.');
     });
   }
@@ -106,7 +107,7 @@ class Profile extends Component {
   }
 
   renderChangeSide () {
-    if (this.props.role === 'guest') {
+    if (this.state.user.allowed_host && this.props.role === 'guest') {
       return(
         <View style={styles.innerContainer}>
         <TouchableOpacity onPress={this._onChangeToHost.bind(this)}>
@@ -163,6 +164,16 @@ class Profile extends Component {
     }
   }
 
+  renderEditProfileOption () {
+    if (this.state.user.username != 'GUEST_USER') {
+      return(
+        <TouchableOpacity onPress={this._onEditProfilePress.bind(this)}>
+          <Text style={styles.editprofile}>ویرایش حساب کاربری</Text>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -174,9 +185,7 @@ class Profile extends Component {
               <Text style={styles.usertext}>
                 {this.state.user.first_name} {this.state.user.last_name}
               </Text>
-              <TouchableOpacity onPress={this._onEditProfilePress.bind(this)}>
-                <Text style={styles.editprofile}>ویرایش حساب کاربری</Text>
-              </TouchableOpacity>
+              {this.renderEditProfileOption()}
             </View>
           </View>
 
