@@ -647,9 +647,7 @@ class HouseDetail extends Component {
   <View style={styles.bottombar}>
     <View style={styles.bottombarchild}>
       <View style={styles.bottombarprice}>
-      <Text style={styles.pricetext}>{this.state.room.price}</Text>
-            <Text style={styles.pricetext}> تومان</Text>
-      <Text style={styles.pernighttext}>/ هر شب</Text>
+        <Text style={styles.pricetext} numberOfLines={1}>{this.state.room.price} تومان</Text>
       </View>
       <View style={styles.bottombarbutton}>
       <TouchableOpacity style={styles.buttontouch} onPress={this.onRequestBookButtonPress.bind(this)}>
@@ -826,7 +824,7 @@ seemore: {
 },
 bottombar: {
   width: Dimensions.get('screen').width,
-  height:80,
+  height:65,
   backgroundColor: "#fafafa",
   alignItems: "center",
   justifyContent:"center",
@@ -849,7 +847,7 @@ bottombarbutton: {
   justifyContent:"center",
 },
 pricetext: {
-  fontSize: 20,
+  fontSize: 18,
   fontFamily:"Vazir-Medium",
   color: "#3e3e3e",
   justifyContent: "center",
@@ -966,7 +964,7 @@ mapContainer: {
   justifyContent: 'center',
   alignItems: 'center',
   height: 300,
-  width: Dimensions.get('screen').width-40,
+  width: Dimensions.get('window').width-40,
 },
 map: {
   ...StyleSheet.absoluteFillObject,

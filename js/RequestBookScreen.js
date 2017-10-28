@@ -417,10 +417,10 @@ class RequestBookScreen extends Component {
       return(
         <View style={styles.bottombar}>
           <View style={styles.bottombarchild}>
+          <Text style={styles.mablaghtext}> مبلغ نهایی:</Text>
           <View style={styles.bottombarprice}>
-                <Text style={styles.pricetext}> مبلغ نهایی:</Text>
                 <Text style={styles.pricetext}>{this.state.totalPrice}</Text>
-                <Text style={styles.pricetext}>تومان</Text>
+                <Text style={styles.pricetext}> تومان</Text>
           </View>
             <View style={styles.bottombarbutton}>
                 <TouchableOpacity
@@ -682,7 +682,7 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:70,
+    height:65,
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
@@ -711,11 +711,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  mablaghtext:{
+    fontSize: 12,
+    fontFamily:"Vazir-Light",
+    color: "#3e3e3e",
+    marginTop:6,
+
+  },
   pernighttext: {
     fontSize: 20,
     fontFamily:"Vazir-Medium",
     color: "#787878",
     justifyContent:"flex-end",
+    marginTop:2,
   },
   reservebuttontext: {
     fontSize: 17,

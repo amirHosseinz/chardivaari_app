@@ -265,9 +265,13 @@ const styles = StyleSheet.create({
     marginRight:20,
   },
   usertext:{
-    fontSize: 28,
+    fontSize: 26,
     fontFamily:'Vazir-Medium',
     color:'#4f4f4f',
+    width:Dimensions.get('window').width*(2/3)-30 ,
+    marginTop:10,
+
+
   },
   editprofile:{
     fontSize: 16,
@@ -291,6 +295,7 @@ const styles = StyleSheet.create({
     color:'#4f4f4f',
     marginRight:10,
     marginTop:0,
+
   },
   itemiconcircle:{
     flexDirection:'row-reverse',
