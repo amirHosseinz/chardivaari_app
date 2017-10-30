@@ -6,7 +6,10 @@ import {
   View,
   ScrollView,
   Image,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native';
+import timer from 'react-native-timer';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -23,7 +26,54 @@ import Profile from './Profile';
 
 
 class GuestScreen extends Component {
-  state = { tabIndex: 3 };
+  constructor (props) {
+    super(props);
+    this.state = {
+      tabIndex: 3,
+      backPressedBefor: false,
+    };
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.setState({
+      backPressedBefor: false,
+    });
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    timer.clearTimeout(this);
+  }
+
+  handleBackButton = () => {
+    if (this.state.backPressedBefor === true) {
+      BackHandler.exitApp();
+    } else {
+      ToastAndroid.show(
+        'برای خروج دکمه‌ی بازگشت را مجددا فشار دهید.',
+        ToastAndroid.SHORT,
+      );
+      this.setState({
+        backPressedBefor: true,
+      });
+      timer.setTimeout(
+        this,
+        'resetBackButtonState',
+        () => {
+          this.resetBackButtonState();
+        },
+        1000,
+      );
+    }
+    return true;
+  }
+
+  resetBackButtonState = () => {
+    this.setState({
+      backPressedBefor: false,
+    });
+  }
 
   renderContent () {
     switch (this.state.tabIndex) {
