@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Image,
+  Text,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -125,6 +126,7 @@ class Splash extends Component {
     return(
       <View style={styles.container}>
         <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
+        <Text style={styles.splashtext}>تریپین</Text>
       </View>
     );
   }
@@ -138,9 +140,16 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   splashimg:{
-    height:90,
+    height:120,
     resizeMode:'contain',
+  },
+  splashtext:{
+    fontFamily:'Vazir',
+    fontSize:34,
     marginBottom:180,
+    color:'#ffffff'
+
+
   }
 });
 

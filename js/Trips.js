@@ -270,6 +270,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     marginBottom:4,
+    elevation:3,
   },
   headertext:{
     color:'#e5e5e5',

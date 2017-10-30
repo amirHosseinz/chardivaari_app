@@ -278,14 +278,14 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Medium',
     color:'#4f4f4f',
     width:Dimensions.get('window').width*(2/3)-30 ,
-    marginTop:10,
+    marginTop:5,
 
 
   },
   editprofile:{
     fontSize: 16,
     fontFamily:'Vazir',
-    color:'#00cecc',
+    color:'#22c8d4',
   },
   divider:{
     height: 2,
