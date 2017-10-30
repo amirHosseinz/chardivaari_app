@@ -64,6 +64,7 @@ class SearchAnimations extends Component {
          justifyContent: 'space-around',
          backgroundColor: '#0ca6c1',
          paddingTop: 5,
+         elevation:3
       },
       srartDate: null,
       newStartDate: null,
@@ -86,6 +87,8 @@ class SearchAnimations extends Component {
               justifyContent: 'space-around',
               paddingTop: 5,
               paddingBottom: 5,
+              elevation:3
+
            },
            isOpen: true,
         });
@@ -102,6 +105,8 @@ class SearchAnimations extends Component {
               justifyContent: 'space-around',
               backgroundColor: '#0ca6c1',
               paddingTop: 5,
+              elevation:3
+
            }
         });
      }

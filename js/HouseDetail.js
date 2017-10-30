@@ -400,33 +400,22 @@ class HouseDetail extends Component {
   renderMap () {
     if (this.state.marker && this.state.region) {
         return(
-          <View style={styles.container0}>
-          <View style={styles.container2}>
-
-          <View style={styles.divider}>
-          </View>
-
           <View style={styles.mapContainer}>
-
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            customMapStyle={this.mapStyle}
-            style={styles.map}
-            region={this.state.region}
-            // gestureHandling={'cooperative'}
-            onRegionChange={this.onRegionChange.bind(this)}>
-            <MapView.Circle
-              center={this.state.marker.latlng}
-              radius={this.state.marker.radius}
-              strokeColor={'green'}
-              strokeWidth={3}
-            />
-          </MapView>
-          </View>
-
-          <View style={styles.divider}>
-          </View>
-          </View>
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              customMapStyle={this.mapStyle}
+              style={styles.map}
+              region={this.state.region}
+              // gestureHandling={'cooperative'}
+              onRegionChange={this.onRegionChange.bind(this)}>
+              <MapView.Circle
+                center={this.state.marker.latlng}
+                radius={this.state.marker.radius*3/2}
+                strokeColor={'#12b2ce'}
+                strokeWidth={3}
+                fillColor={'rgba(18,178,206,0.2)	'}
+              />
+            </MapView>
           </View>
         );
     }
@@ -606,13 +595,20 @@ class HouseDetail extends Component {
       <Text style={styles.seemore}>مشاهده بیشتر</Text>
     </TouchableOpacity>
     </View>
+
+    <View style={styles.divider}>
+    </View>
 </View>
 </View>
+
 
 {this.renderMap()}
 
 <View style={styles.container0}>
   <View style={styles.container2}>
+  <View style={styles.divider}>
+  </View>
+
     <View style={styles.checkinbox}>
       <Text style={styles.checktime}>ساعت ورود: از</Text>
       <Text style={styles.h2}>{this.renderTimeField(this.state.room.check_in_from)}</Text>
@@ -669,9 +665,7 @@ class HouseDetail extends Component {
   <View style={styles.bottombar}>
     <View style={styles.bottombarchild}>
       <View style={styles.bottombarprice}>
-      <Text style={styles.pricetext}>{this.state.room.price}</Text>
-            <Text style={styles.pricetext}> تومان</Text>
-      <Text style={styles.pernighttext}>/ هر شب</Text>
+        <Text style={styles.pricetext} numberOfLines={1}>{this.state.room.price} تومان</Text>
       </View>
       <View style={styles.bottombarbutton}>
       <TouchableOpacity style={styles.buttontouch} onPress={this.onRequestBookButtonPress.bind(this)}>
@@ -874,10 +868,12 @@ seemore: {
 },
 bottombar: {
   width: Dimensions.get('screen').width,
-  height:80,
+  height:65,
   backgroundColor: "#fafafa",
   alignItems: "center",
   justifyContent:"center",
+  elevation:9,
+
 },
 bottombarchild: {
   width: Dimensions.get('screen').width-50,
@@ -897,7 +893,7 @@ bottombarbutton: {
   justifyContent:"center",
 },
 pricetext: {
-  fontSize: 20,
+  fontSize: 18,
   fontFamily:"Vazir-Medium",
   color: "#3e3e3e",
   justifyContent: "center",
@@ -1014,7 +1010,7 @@ mapContainer: {
   justifyContent: 'center',
   alignItems: 'center',
   height: 300,
-  width: Dimensions.get('screen').width-40,
+  width: Dimensions.get('window').width,
 },
 map: {
   ...StyleSheet.absoluteFillObject,

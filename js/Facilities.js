@@ -86,7 +86,7 @@ class Facilities extends Component {
           </View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
-            <Text style={styles.Facilityname}>جوب لباسی   </Text>
+            <Text style={styles.Facilityname}>چوب لباسی   </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -116,7 +116,7 @@ class Facilities extends Component {
           </View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
-            <Text style={styles.Facilityname}>میز پینگ پونگ   </Text>
+            <Text style={styles.Facilityname}>میز پینگ پنگ   </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -140,7 +140,7 @@ class Facilities extends Component {
           </View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/tv.png')} />
-            <Text style={styles.Facilityname}> تلوزیون   </Text>
+            <Text style={styles.Facilityname}> تلویزیون   </Text>
           </View>
           <View style={styles.divider}>
           </View>

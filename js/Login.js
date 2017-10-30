@@ -174,7 +174,7 @@ class Login extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.logobox}>
-        <Image source={require('./img/starBlank.png')}
+        <Image source={require('./img/loginlogo.png')}
           style={styles.logo}/>
         </View>
         <Text style={styles.addphonenumber}> لطفا شماره موبایل خود را وارد کنید: </Text>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   buttontouch: {
-    borderColor:"#00cecc",
+    borderColor:"#22c8d4",
     borderRadius: 50,
     borderWidth : 2,
     height:48,
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   buttonview: {
-    backgroundColor:"#00cecc",
+    backgroundColor:"#22c8d4",
     borderRadius: 50,
     height:40,
     width: 180,
@@ -257,8 +257,8 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
   },
   logo:{
-    height:140,
-    width:100,
+    height:100,
+    resizeMode:'contain',
   },
   addphonenumber:{
     fontFamily:'Vazir-Medium',
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   notnow:{
     fontFamily:'Vazir-Medium',
     fontSize:16,
-    color:'#00a8a6',
+    color:'#22c8d4',
   },
   logobox:{
     marginTop:50,

@@ -182,8 +182,9 @@ const styles = StyleSheet.create({
   },
   filter : {
     backgroundColor: '#0ca6c1',
-    height:0,
+    height:5,
     width: Dimensions.get('screen').width,
+    elevation:3,
   },
   errorTextStyle: {
     fontSize: 16,

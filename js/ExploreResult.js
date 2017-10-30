@@ -51,6 +51,7 @@ class ExploreResult extends Component {
                   spacing={0}
                   count={5}
                   starSize={15}
+                  backingColor={'#f9f9f9'}
                   fullStar= {require('./img/starBlank.png')}
                   emptyStar= {require('./img/starFilled.png')}/>
               </View>
