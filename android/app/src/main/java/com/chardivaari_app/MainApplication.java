@@ -2,6 +2,7 @@ package com.chardivaari_app;
 
 import android.app.Application;
 
+import com.chardivaari_app.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -30,13 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SmsListenerPackage(),
-            new RNExitAppPackage(),
-            new RNFSPackage(),
-            new ImageResizerPackage(),
-            new ImagePickerPackage(),
-            new VectorIconsPackage(),
-            new MapsPackage()
+          new SmsListenerPackage(),
+          new RNExitAppPackage(),
+          new RNFSPackage(),
+          new ImageResizerPackage(),
+          new ImagePickerPackage(),
+          new VectorIconsPackage(),
+          new MapsPackage(),
+          new PaymentPackage()
       );
     }
   };
