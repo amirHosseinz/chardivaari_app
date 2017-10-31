@@ -27,6 +27,15 @@ class Profile extends Component {
   }
 
   componentWillMount () {
+    CacheStore.get('user').then((userData) => {
+      if (userData == null) {
+        // TODO
+      } else {
+        this.setState({
+          user: userData,
+        });
+      }
+    });
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 
@@ -58,6 +67,7 @@ class Profile extends Component {
       this.setState({
         user: body.user,
       });
+      CacheStore.set('user', body.user);
     } else {
       // TODO
       // invalid token error

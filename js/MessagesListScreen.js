@@ -36,6 +36,7 @@ class MessagesListScreen extends Component {
   componentWillMount() {
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
+    CacheStore.get('messagesList').then((value) => {this.setMessagesList(value);});
     timer.setInterval(
       this,
       'refreshMsgList',
@@ -50,6 +51,14 @@ class MessagesListScreen extends Component {
 
   componentWillUnmount() {
       timer.clearInterval(this);
+  }
+
+  setMessagesList (messagesList) {
+    if (messagesList != null) {
+      this.setState({
+        messages: messagesList,
+      });
+    }
   }
 
   setUsername (username) {
@@ -87,6 +96,7 @@ class MessagesListScreen extends Component {
         unreadCount: body.count,
         refreshing: false,
       });
+      CacheStore.set('messagesList', body.message_list);
       this.props.setCount(body.count);
     } else {
       // TODO

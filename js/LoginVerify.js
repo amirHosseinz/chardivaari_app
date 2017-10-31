@@ -88,6 +88,7 @@ class LoginVerify extends Component {
       if (body.token != null) {
         CacheStore.set('token', body.token);
         CacheStore.set('username', body.user.username);
+        CacheStore.set('user', body.user);
         this.resetNavigation('guestScreen');
       } else {
         this.props.navigation.navigate('loginGetName', {

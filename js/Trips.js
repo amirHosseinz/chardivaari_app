@@ -26,6 +26,16 @@ class Trips extends Component {
 
   componentWillMount () {
     CacheStore.get('token').then((value) => this.setToken(value));
+    CacheStore.get('tripsList').then((value) => {this.setTripList(value);});
+  }
+
+  setTripList (tripsList) {
+    if (tripsList != null) {
+      this.setState({
+        tripList: tripsList,
+        count: tripsList.length,
+      });
+    }
   }
 
   setToken(token) {
@@ -61,6 +71,7 @@ class Trips extends Component {
         count: body.count,
         tripList: body.reserve_list,
       });
+      CacheStore.set('tripsList', body.reserve_list);
     } else {
       // TODO
       // a eror handle

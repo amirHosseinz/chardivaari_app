@@ -107,6 +107,7 @@ class Splash extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.validated) {
+        CacheStore.set('user', body.user);
         this.resetNavigation('guestScreen');
       } else {
         CacheStore.flush();

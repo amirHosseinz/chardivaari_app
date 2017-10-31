@@ -62,6 +62,7 @@ class Explore extends Component {
         lc.push(body.location[i].text);
       }
       lc.push('هر کجا');
+      lc.reverse();
       this.setState({
         error: null,
         rooms: body.room,

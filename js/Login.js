@@ -63,6 +63,7 @@ class Login extends Component {
       body = JSON.parse(response._bodyText);
       CacheStore.set('token', body.token);
       CacheStore.set('username', body.user.username);
+      CacheStore.set('user', body.user);
       this.resetNavigation('guestScreen');
     } else {
       // TODO
