@@ -332,6 +332,7 @@ class RequestStatus extends Component {
           sender: this.state.request.guest_person.username,
           recipient: this.state.request.room.owner.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
+          room_id: this.state.request.room.id,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
       })
@@ -353,6 +354,7 @@ class RequestStatus extends Component {
           sender: this.state.request.guest_person.username,
           recipient: this.state.request.room.owner.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
+          room_id: this.state.request.room.id,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
       })
@@ -375,6 +377,7 @@ class RequestStatus extends Component {
             party: this.state.request.guest_person,
             messageId: body.message_id,
             username: this.state.request.room.owner.username,
+            room: this.state.request.room,
           }
         );
       } else {
@@ -391,6 +394,7 @@ class RequestStatus extends Component {
             party: this.state.request.room.owner,
             messageId: body.message_id,
             username: this.state.request.guest_person.username,
+            room: this.state.request.room,
           }
         );
       } else {

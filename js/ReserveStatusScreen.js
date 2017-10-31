@@ -65,6 +65,7 @@ class ReserveStatusScreen extends Component {
         sender: this.state.username,
         recipient: this.state.reserve.guest_person.username,
         subject: 'رزرو خانه‌ی ' + this.state.reserve.room.title,
+        room_id: this.state.reserve.room.id,
         body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.reserve.room.title,
       }),
     })
@@ -85,6 +86,7 @@ class ReserveStatusScreen extends Component {
           party: this.state.reserve.guest_person,
           messageId: body.message_id,
           username: this.state.username,
+          room: this.state.reserve.room,
         }
       );
     } else {
