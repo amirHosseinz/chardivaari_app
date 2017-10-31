@@ -101,6 +101,7 @@ class SearchAnimations extends Component {
               justifyContent: 'space-around',
               backgroundColor: '#0ca6c1',
               paddingTop: 5,
+              paddingBottom:10,
               elevation:3
 
            }

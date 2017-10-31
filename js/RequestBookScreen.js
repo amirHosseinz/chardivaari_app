@@ -264,10 +264,14 @@ class RequestBookScreen extends Component {
   renderTrypinnShare () {
     if (this.state.trypinnServicePrice != null) {
       return(
-        <View style={styles.tripincatch}>
-          <Text style={styles.costtext}>حق سرویس تریپین:  </Text>
-          <Text style={styles.costtext}>{this.state.trypinnServicePrice}</Text>
-          <Text style={styles.costtext}> تومان</Text>
+        <View style={styles.cost0}>
+          <View style={styles.cost1}>
+            <Text style={styles.costtext}>حق سرویس تریپین:  </Text>
+          </View>
+          <View style={styles.cost2}>
+            <Text style={styles.costtext}>{this.state.trypinnServicePrice}</Text>
+            <Text style={styles.costtext}> تومان</Text>
+          </View>
         </View>
       );
     }
@@ -276,10 +280,14 @@ class RequestBookScreen extends Component {
   renderTotalPrice () {
     if (this.state.totalPrice != null) {
       return(
-        <View style={styles.cost}>
-          <Text style={styles.costtext}>جمع هزینه‌ها:</Text>
-          <Text style={styles.costtext}>{this.state.hostPrice + this.state.trypinnServicePrice}</Text>
-          <Text style={styles.costtext}> تومان</Text>
+        <View style={styles.cost0}>
+          <View style={styles.cost1}>
+            <Text style={styles.costtext}>جمع هزینه‌ها:</Text>
+          </View>
+          <View style={styles.cost2}>
+            <Text style={styles.costtext}>{this.state.hostPrice + this.state.trypinnServicePrice}</Text>
+            <Text style={styles.costtext}> تومان</Text>
+          </View>
         </View>
       );
     }
@@ -288,10 +296,14 @@ class RequestBookScreen extends Component {
   renderHostPrice () {
     if (this.state.totalPrice != null) {
       return(
-        <View style={styles.cost}>
-          <Text style={styles.costtext}>هزینه‌ی اقامت:</Text>
-          <Text style={styles.costtext}>{this.state.hostPrice}</Text>
-          <Text style={styles.costtext}> تومان</Text>
+          <View style={styles.cost0}>
+            <View style={styles.cost1}>
+              <Text style={styles.costtext}>هزینه‌ی اقامت:</Text>
+            </View>
+            <View style={styles.cost2}>
+              <Text style={styles.costtext}>{this.state.hostPrice}</Text>
+              <Text style={styles.costtext}> تومان</Text>
+            </View>
         </View>
       );
     }
@@ -522,9 +534,9 @@ class RequestBookScreen extends Component {
               <Text style={styles.costtext}> ورود کد تخفیف : </Text>
               <View style={styles.inputstyle}>
                   <TextInput
-                    placeholder="XXXXXXXXXXXX"
+                    placeholder="xxxxxxxxxxxxx"
                     placeholderTextColor="#acacac"
-                    maxLength = {15}
+                    maxLength = {13}
                     onChangeText={this.setDiscountCode} />
               </View>
               <TouchableOpacity onPress={this._onCheckDiscountCodeButtonPress.bind(this)}>
@@ -646,9 +658,19 @@ const styles = StyleSheet.create({
   costbox:{
     alignItems:'flex-end',
   },
-  cost:{
+  cost0:{
     flexDirection:'row-reverse',
-    alignItems:'flex-end',
+    width:Dimensions.get('window').width-50 ,
+    justifyContent:'space-between',
+    marginBottom:5,
+  },
+  cost1:{
+    alignItems:'flex-start',
+    flexDirection:'row-reverse',
+  },
+  cost2:{
+    alignItems:'flex-start',
+    flexDirection:'row-reverse',
   },
   tripincatch:{
     flexDirection:'row-reverse',
@@ -666,7 +688,9 @@ const styles = StyleSheet.create({
     marginTop:5,
   },
   discountresult:{
-    flexDirection:'row-reverse'
+    flexDirection:'row-reverse',
+    alignItems:'flex-end',
+    justifyContent:'flex-end',
   },
   distext:{
     fontFamily:'Vazir-Medium',
@@ -684,6 +708,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
+    elevation:5,
   },
   bottombarchild: {
     width: Dimensions.get('screen').width-50,
@@ -758,7 +783,7 @@ const styles = StyleSheet.create({
     color:'#00a8a6',
   },
   inputstyle:{
-    width:80,
+    width:95,
   },
   backbuttonview:{
     flexDirection:'row-reverse',

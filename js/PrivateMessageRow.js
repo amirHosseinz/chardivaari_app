@@ -158,10 +158,12 @@ textbox: {
 housename: {
   fontFamily: "Vazir-Light",
   fontSize:14,
+  color:'#4f4f4f',
 },
 hostname: {
   fontFamily: "Vazir-Medium",
   fontSize:18,
+  color:'#4f4f4f',
 },
 iconboox:{
   flexDirection: "row",

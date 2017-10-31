@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Text,
+  StatusBar,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -125,6 +126,10 @@ class Splash extends Component {
   render () {
     return(
       <View style={styles.container}>
+      <StatusBar
+        backgroundColor="#007c97"
+        barStyle="light-content"
+      />
         <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
         <Text style={styles.splashtext}>تریپین</Text>
       </View>

@@ -153,6 +153,8 @@ class RequestsListScreen extends Component {
           data={this.state.requests}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderRequest(item, this.props.navigation)} />
+          <View style={{marginBottom:35}}>
+          </View>
       </View>
     );
   }

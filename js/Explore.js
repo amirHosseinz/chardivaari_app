@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  StatusBar,
 } from 'react-native';
 
 import SearchAnimations from './SearchAnimations';
@@ -141,6 +142,10 @@ class Explore extends Component {
   render () {
     return(
       <View style={styles.container}>
+      <StatusBar
+        backgroundColor="#007c97"
+        barStyle="light-content" />
+
         <SearchAnimations
           locations={this.state.locations}
           setStartDate={this.setStartDate}
@@ -151,9 +156,7 @@ class Explore extends Component {
         />
         <View style={styles.filter}>
         </View>
-
         {this.renderError()}
-
         <ScrollView style={{
           marginTop: 5,
           marginBottom: 65,
@@ -181,7 +184,7 @@ const styles = StyleSheet.create({
   filter : {
     backgroundColor: '#0ca6c1',
     height:5,
-    width: Dimensions.get('screen').width,
+    width: Dimensions.get('window').width,
     elevation:3,
   },
   errorTextStyle: {

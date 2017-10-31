@@ -10,6 +10,7 @@ import {
   ListView,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
@@ -145,12 +146,18 @@ class MessagesListScreen extends Component {
   render() {
     return(
       <View style={styles.container}>
+      <StatusBar
+        backgroundColor="#007c97"
+        barStyle="light-content"
+      />
         {this._onRefresh()}
         {this.renderLoginButton()}
         <FlatList
           data={this.state.messages}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderMessage(item, this.props.navigation)} />
+        <View style={{marginBottom:35}}>
+        </View>
       </View>
     );
   }

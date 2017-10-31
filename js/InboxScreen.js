@@ -104,8 +104,8 @@ class InboxScreen extends Component {
         }}
         renderHeader={this._renderHeader}
         onIndexChange={this._handleIndexChange}
-        onRequestChangeTab={this._handleIndexChange}
-      />
+        onRequestChangeTab={this._handleIndexChange}>
+      </TabViewAnimated>
     );
   }
 }

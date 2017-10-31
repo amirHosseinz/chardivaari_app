@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   Modal,
+  StatusBar,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -177,6 +178,10 @@ class Profile extends Component {
   render () {
     return(
       <View style={styles.container0}>
+      <StatusBar
+        backgroundColor="#d7d7d7"
+        barStyle="dark-content"
+      />
         <View style={styles.container1}>
 
           <View style={styles.profilebox}>

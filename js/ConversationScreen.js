@@ -31,25 +31,29 @@ class ConversationScreen extends Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: <Text style={styles.headerTextStyle}>
-        مکالمه با آقای/خانم   {navigation.state.params.party.last_name}
-      </Text>,
-    headerTintColor: "#000000",
+    headerTintColor: "#757575",
     headerStyle: {
-      backgroundColor: '#F8F8F8',
+      backgroundColor: 'rgba(237,237,237,1)',
       justifyContent: 'center',
       height: 70,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
+      elevation:3,
+      // shadowColor: '#757575',
+      // shadowOffset: { width: 0, height: 2 },
+      // shadowOpacity: 0.2,
     },
     headerRight: navigation.state.params.room ? <TouchableOpacity
     onPress={() => {
       // navigation.navigate('roomView', {room: navigation.state.params.room});
       navigation.navigate('houseDetailFromChat', {room: navigation.state.params.room});
     }}
-    style={{marginRight: 20}}>
-    <Text>مشاهده‌ی خانه</Text>
+    style={{flexDirection:'row-reverse'}}>
+    <Icon
+      name='home'
+      size={20}
+      color='#757575'
+      style={{marginRight:15,marginTop:1}}
+    />
+    <Text style={styles.showhouse}>مشاهده‌ی خانه</Text>
     </TouchableOpacity> : null,
   });
 
@@ -211,33 +215,33 @@ class ConversationScreen extends Component {
     }
   }
 
-  renderProfilePicture () {
-    if (this.state.party.profile_picture != null) {
-      return(
-        <Image style={styles.profileImageStyle} source={{
-          uri: productionURL+this.state.party.profile_picture,
-        }} />
-      );
-    } else {
-      return(
-        <Icon
-          name='account-circle'
-          size={50}
-          color='#c2c2c2'
-          style={styles.profileImageStyle}
-        />
-      );
-    }
-  }
-
   render () {
     return(
       <View style={styles.container}>
-        <View style={styles.conversationHeader}>
-          <Text style={styles.text} >{this.state.party.last_name}</Text>
-          {this.renderProfilePicture()}
+        <View style={styles.header0}>
+          <View style={styles.header1}>
+            <View style={styles.backbottomlastname}>
+              <TouchableOpacity>
+                <Icon size={44} color="#4f4f4f" name="keyboard-arrow-right" style={{marginBottom:2}} />
+              </TouchableOpacity>
+              <Text style={styles.headerlastname}>هجرتی</Text>
+            </View>
+            <View style={styles.showhome}>
+              <TouchableOpacity
+              onPress={() => {
+              }}
+              style={{flexDirection:'row-reverse'}}>
+              <Icon
+                name='home'
+                size={20}
+                color='#757575'
+                style={{marginTop:3}}
+              />
+              <Text style={styles.showhouse}>مشاهده‌ی خانه</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-
         <GiftedChat
           placeholder={'پیامتان را تایپ کنید...'}
           label={'ارسال'}
@@ -256,23 +260,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  conversationHeader: {
-    width: Dimensions.get('screen').width,
-    height: 70,
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#fdf5e6',
-    padding: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 5, height: 20 },
-    shadowOpacity: 1,
-    elevation: 2,
-    position: 'relative'
-  },
   text: {
-    fontSize: 30,
+    fontSize: 24,
     color: 'black',
+    fontFamily:'Vazir-Medium',
   },
   profileImageStyle: {
     borderRadius: 25,
@@ -283,6 +274,37 @@ const styles = StyleSheet.create({
     fontFamily: "Vazir-Light",
     fontSize:14,
   },
+  showhouse:{
+    fontSize:16,
+    fontFamily:'Vazir-Light',
+    color:'#4f4f4f',
+    marginRight:5,
+  },
+  header0:{
+    backgroundColor:'#ededed',
+    elevation:1,
+    height:68,
+  },
+  header1:{
+    flex:1,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginRight:20,
+    width:Dimensions.get('screen').width-25,
+  },
+  headerlastname:{
+    fontSize:20,
+    color:'#4f4f4f',
+    fontFamily:'Vazir-Medium',
+    marginTop:3,
+  },
+  backbottomlastname:{
+    flexDirection:'row-reverse',
+  },
+  showhome:{
+    flexDirection:'row-reverse',
+  }
 });
 
 export default ConversationScreen;
