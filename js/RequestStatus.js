@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
 
+import PaymentModule from './common/payment/PaymentModule';
 import { testURL, productionURL } from './data';
 
 
@@ -266,7 +267,23 @@ class RequestStatus extends Component {
     }
   }
 
-  onPayRequestPress = () => {
+  async asyncPayment () {
+    // TODO very much
+    try {
+      var result = await PaymentModule.reactRequestPayment(
+        'جهت تست درگاه',
+        100
+      );
+      console.log('injaaaaaaaaaaaaaa##############');
+      console.log(result);
+      this.payRequestDone();
+    } catch (e) {
+      console.log('Ooooooooonjaaaaaaaaaaaaaa##############');
+      console.log(e);
+    }
+  }
+
+  payRequestDone = () => {
     fetch(productionURL + '/api/request/pay/', {
       method: 'POST',
       headers: {
@@ -283,6 +300,11 @@ class RequestStatus extends Component {
     .catch((error) => {
       Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
     });
+  }
+
+  onPayRequestPress = () => {
+    // TODO
+    this.asyncPayment();
   }
 
   onPayRequestResponseRecieved (response) {
@@ -310,6 +332,7 @@ class RequestStatus extends Component {
           sender: this.state.request.guest_person.username,
           recipient: this.state.request.room.owner.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
+          room_id: this.state.request.room.id,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
       })
@@ -331,6 +354,7 @@ class RequestStatus extends Component {
           sender: this.state.request.guest_person.username,
           recipient: this.state.request.room.owner.username,
           subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
+          room_id: this.state.request.room.id,
           body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
         }),
       })
@@ -353,6 +377,7 @@ class RequestStatus extends Component {
             party: this.state.request.guest_person,
             messageId: body.message_id,
             username: this.state.request.room.owner.username,
+            room: this.state.request.room,
           }
         );
       } else {
@@ -369,6 +394,7 @@ class RequestStatus extends Component {
             party: this.state.request.room.owner,
             messageId: body.message_id,
             username: this.state.request.guest_person.username,
+            room: this.state.request.room,
           }
         );
       } else {

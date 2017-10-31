@@ -65,6 +65,7 @@ class ReserveStatusScreen extends Component {
         sender: this.state.username,
         recipient: this.state.reserve.guest_person.username,
         subject: 'رزرو خانه‌ی ' + this.state.reserve.room.title,
+        room_id: this.state.reserve.room.id,
         body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.reserve.room.title,
       }),
     })
@@ -85,6 +86,7 @@ class ReserveStatusScreen extends Component {
           party: this.state.reserve.guest_person,
           messageId: body.message_id,
           username: this.state.username,
+          room: this.state.reserve.room,
         }
       );
     } else {
@@ -94,8 +96,8 @@ class ReserveStatusScreen extends Component {
 
   onCancelReservePress () {
     Alert.alert(
-      'درخواست لغو سفر',
-      'سفر شما لغو شود؟',
+      'درخواست لغو رزرو',
+      'رزرو شما لغو شود؟',
       [
         {text: 'بله', onPress: () => {
           this.cancelReserve();
@@ -174,10 +176,18 @@ class ReserveStatusScreen extends Component {
       return(
         <View style={styles.header}>
           <Text style={styles.h1}>وضعیت رزرو</Text>
-          <Text style={styles.h2}>در حال بررسی مشکل</Text>
+          <Text style={styles.h2}>صادر شده</Text>
         </View>
       );
       break;
+      case 'RESOLUTION':
+        return(
+          <View style={styles.header}>
+            <Text style={styles.h1}>وضعیت رزرو</Text>
+            <Text style={styles.h2}>در حال بررسی مشکل</Text>
+          </View>
+        );
+        break;
     case 'CANCELED_BY_HOST':
       return(
         <View style={styles.header}>
@@ -211,7 +221,7 @@ class ReserveStatusScreen extends Component {
   }
 
   renderAccRejButton () {
-    if (this.state.reserve.status === 'IN_PROGRESS') {
+    if (this.state.reserve.status === 'ISSUED') {
       return(
         <View style={styles.downside}>
           <View style={styles.buttonstyle}>
@@ -236,8 +246,7 @@ class ReserveStatusScreen extends Component {
             </View>
           </TouchableOpacity>
       <ScrollView
-      showsHorizontalScrollIndicator={false}
-      >
+      showsHorizontalScrollIndicator={false}>
           {this.renderStatus()}
           <View style={styles.cost}>
             <Text style={styles.costtext}>نام اقامتگاه: </Text>

@@ -28,6 +28,16 @@ class ReserveList extends Component {
 
   componentWillMount () {
     CacheStore.get('token').then((value) => this.setToken(value));
+    CacheStore.get('reservesList').then((value) => {this.setReservesList(value);});
+  }
+
+  setReservesList (reservesList) {
+    if (reservesList != null) {
+      this.setState({
+        reserveList: reservesList,
+        count: reservesList.length,
+      });
+    }
   }
 
   setToken = (token) => {
@@ -63,6 +73,7 @@ class ReserveList extends Component {
         count: body.count,
         reserveList: body.reserve_list,
       });
+      CacheStore.set('reservesList', body.reserve_list);
     } else {
       // TODO
       // a eror handle

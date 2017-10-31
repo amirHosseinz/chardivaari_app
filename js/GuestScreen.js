@@ -6,7 +6,10 @@ import {
   View,
   ScrollView,
   Image,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -23,20 +26,49 @@ import Profile from './Profile';
 
 
 class GuestScreen extends Component {
-  state = { tabIndex: 3 };
+  constructor (props) {
+    super(props);
+    this.state = {
+      tabIndex: 3,
+    };
+  }
+
+  componentDidMount() {
+    CacheStore.get('GuestScreen_tabName').then((value) => {
+      if (value != null) {
+        this.goToTab(value);
+        CacheStore.remove('GuestScreen_tabName');
+      }
+    });
+  }
 
   renderContent () {
     switch (this.state.tabIndex) {
       case 0:
-        return(<Profile role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Profile
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 1:
-        return(<InboxScreen role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<InboxScreen
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 2:
-        return(<Trips role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Trips
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 3:
-        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Explore
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       default:
-        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Explore
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       }
   }
 

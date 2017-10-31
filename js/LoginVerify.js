@@ -77,7 +77,6 @@ class LoginVerify extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       // network error
-      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
@@ -88,6 +87,7 @@ class LoginVerify extends Component {
       if (body.token != null) {
         CacheStore.set('token', body.token);
         CacheStore.set('username', body.user.username);
+        CacheStore.set('user', body.user);
         this.resetNavigation('guestScreen');
       } else {
         this.props.navigation.navigate('loginGetName', {

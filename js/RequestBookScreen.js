@@ -212,6 +212,19 @@ class RequestBookScreen extends Component {
     }
   }
 
+  resetNavigation () {
+    CacheStore.set('GuestScreen_tabName', 'inboxScreen');
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'guestScreen',
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   onRequestBookButtonPress () {
     if ((this.state.startDate != null) &&
     (this.state.endDate != null) && (this.state.numberOfGuests != null)) {
@@ -252,7 +265,8 @@ class RequestBookScreen extends Component {
         discountCodeError: body.discount_code_error,
       });
       if (body.is_requested) {
-        this._onBackButtonPress();
+        // this._onBackButtonPress();
+        this.resetNavigation();
         Alert.alert('درخواست با موفقیت ارسال شد.');
       }
     } else {

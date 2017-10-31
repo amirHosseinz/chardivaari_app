@@ -29,7 +29,9 @@ class ExploreResult extends Component {
 
       <TouchableOpacity onPress={() => {
         // this.props.navigation.navigate('roomView', {room: this.props.room});
-        this.props.navigation.navigate('houseDetail', {room: this.props.room});
+        this.props.navigation.navigate('houseDetail', {
+          room: this.props.room,
+        });
       }}>
     <View style={styles.cards}>
         <View style={styles.previewimg}>

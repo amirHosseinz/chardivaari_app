@@ -33,6 +33,7 @@ class RequestsListScreen extends Component {
   componentWillMount() {
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
+    CacheStore.get('requestsList').then((value) => {this.setRequests(value);});
     timer.setInterval(
       this,
       'refreshReqList',
@@ -47,6 +48,14 @@ class RequestsListScreen extends Component {
 
   componentWillUnmount() {
       timer.clearInterval(this);
+  }
+
+  setRequests (requestsList) {
+    if (requestsList != null) {
+      this.setState({
+        requests: requestsList,
+      });
+    }
   }
 
   setUsername (username) {
@@ -87,6 +96,7 @@ class RequestsListScreen extends Component {
         toDoCount: body.count,
         refreshing: false,
       });
+      CacheStore.set('requestsList', body.request_list);
       this.props.setCount(body.count);
     } else {
       // TODO

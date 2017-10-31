@@ -29,11 +29,13 @@ class Explore extends Component {
   };
 
   componentWillMount() {
-    CacheStore.get('token').then((value) => {
-      this.setState({ token: value }, () => {
-        this.fetchHomepage();
+    if (this.state.rooms.length < 1) {
+      CacheStore.get('token').then((value) => {
+        this.setState({ token: value }, () => {
+          this.fetchHomepage();
+        });
       });
-    });
+    }
   }
 
   fetchHomepage () {
@@ -60,6 +62,8 @@ class Explore extends Component {
       for (var i = 0; i < body.location.length; i++) {
         lc.push(body.location[i].text);
       }
+      lc.push('هر کجا');
+      lc.reverse();
       this.setState({
         error: null,
         rooms: body.room,
@@ -152,8 +156,7 @@ class Explore extends Component {
           setEndDate={this.setEndDate}
           setDestination={this.setDestination}
           setCapacity={this.setCapacity}
-          doSearchAction={this.onSearchButtonPress}
-        />
+          doSearchAction={this.onSearchButtonPress} />
         <View style={styles.filter}>
         </View>
         {this.renderError()}

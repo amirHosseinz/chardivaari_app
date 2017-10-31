@@ -51,8 +51,10 @@ class SearchAnimations extends Component {
     this.state = {
       isOpen: false,
       destination: 'هر کجا',
+      newDestination: 'هر کجا',
       dateText: 'هر زمان',
       capacity: 1,
+      newCapacity: 1,
       capacityModalVisible: false,
       whereModalVisible: false,
       myStyle: {
@@ -65,7 +67,9 @@ class SearchAnimations extends Component {
          elevation:3
       },
       srartDate: null,
+      newStartDate: null,
       endDate: null,
+      newEndData: null,
     };
     this.confirmDate = this.confirmDate.bind(this);
     this.openCalendar = this.openCalendar.bind(this);
@@ -249,15 +253,23 @@ class SearchAnimations extends Component {
      }
 
      confirmDate({startDate, endDate, startMoment, endMoment, startDateText, endDateText}) {
-       var dateText = 'از ' + startDateText + ' تا ' + endDateText;
-       this.setState({
-         startDate,
-         endDate,
-         dateText: dateText,
-       });
-       this.props.setStartDate(startDate);
-       this.props.setEndDate(endDate);
-       this.props.doSearchAction();
+       if (startDateText && endDateText) {
+         var dateText = 'از ' + startDateText + ' تا ' + endDateText;
+       } else {
+         var dateText = 'هر زمان';
+       }
+
+       if (this.state.startDate === startDate && this.state.endDate === endDate) {
+       } else {
+         this.setState({
+           startDate,
+           endDate,
+           dateText: dateText,
+         });
+         this.props.setStartDate(startDate);
+         this.props.setEndDate(endDate);
+         this.props.doSearchAction();
+       }
      }
 
      openCalendar() {
@@ -267,16 +279,55 @@ class SearchAnimations extends Component {
 
      onSelectLocation = (index, value) => {
        this.setState({
-         destination: value,
+         newDestination: value,
        });
-       this.props.setDestination(value);
+     }
+
+     onConfirmLocation = () => {
+       if (this.state.destination === this.state.newDestination) {
+       } else {
+         if (this.state.newDestination === 'هر کجا') {
+           this.props.setDestination(null);
+           this.setState({
+             destination: this.state.newDestination,
+           });
+         } else {
+           this.setState({
+             destination: this.state.newDestination,
+           });
+           this.props.setDestination(this.state.newDestination);
+         }
+         this.props.doSearchAction();
+       }
+     }
+
+     onCancelLocation = () => {
+       this.setState({
+         newDestination: this.state.destination,
+       });
      }
 
      onSelectCapacity = (index, value) => {
        this.setState({
-         capacity: value,
+         newCapacity: value,
        });
-       this.props.setCapacity(value);
+     }
+
+     onConfirmCapacity = () => {
+       if (this.state.capacity === this.state.newCapacity) {
+       } else {
+         this.setState({
+           capacity: this.state.newCapacity,
+         });
+         this.props.setCapacity(this.state.newCapacity);
+         this.props.doSearchAction();
+       }
+     }
+
+     onCancelCapacity = () => {
+       this.setState({
+         newCapacity: this.state.capacity,
+       });
      }
 
      renderCapacityModalRow (value) {
@@ -345,9 +396,8 @@ class SearchAnimations extends Component {
                    visible={this.state.capacityModalVisible}
                    onRequestClose={() => {
                      this.setCapacityModalVisible(false);
-                     this.props.doSearchAction();
-                   }}
-                   >
+                     this.onCancelCapacity();
+                   }}>
                       <View style={styles.modalContainer}>
                       <View style={styles.inputModalStyle}>
                       <ModalDropdown
@@ -361,7 +411,7 @@ class SearchAnimations extends Component {
                       />
                         <TouchableHighlight style={styles.confirmButton} onPress={() => {
                           this.setCapacityModalVisible(!this.state.capacityModalVisible);
-                          this.props.doSearchAction();
+                          this.onConfirmCapacity();
                         }}>
                           <Text style={styles.confirmButtonText}>تایید</Text>
                         </TouchableHighlight>
@@ -377,8 +427,7 @@ class SearchAnimations extends Component {
                    color={color}
                    startDate={this.state.startDate}
                    endDate={this.state.endDate}
-                   onConfirm={this.confirmDate}
-                   />
+                   onConfirm={this.confirmDate} />
                    </View>
 
                    <Modal
@@ -387,9 +436,8 @@ class SearchAnimations extends Component {
                    visible={this.state.whereModalVisible}
                    onRequestClose={() => {
                      this.setWhereModalVisible(false);
-                     this.props.doSearchAction();
-                   }}
-                   >
+                     this.onCancelLocation();
+                   }}>
                     <View style={styles.modalContainer}>
                     <View style={styles.inputModalStyle}>
                     <ModalDropdown
@@ -403,7 +451,7 @@ class SearchAnimations extends Component {
                     />
                     <TouchableHighlight style={styles.confirmButton} onPress={() => {
                       this.setWhereModalVisible(!this.state.whereModalVisible);
-                      this.props.doSearchAction();
+                      this.onConfirmLocation();
                     }}>
                       <Text style={styles.confirmButtonText}>تایید</Text>
                     </TouchableHighlight>
