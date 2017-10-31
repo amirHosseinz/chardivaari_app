@@ -140,7 +140,7 @@ class Trips extends Component {
         </TouchableOpacity>
       );
       break;
-    case 'ISSUED':
+    case 'RESOLUTION':
       return(
         <TouchableOpacity onPress={() => {
           this._onTripPress(item);
@@ -161,6 +161,27 @@ class Trips extends Component {
         </TouchableOpacity>
       );
       break;
+      case 'ISSUED':
+        return(
+          <TouchableOpacity onPress={() => {
+            this._onTripPress(item);
+          }}>
+            <View style={styles.tripcard}>
+              <View style={styles.tripcardtexts}>
+                <Text style={styles.cardtext1}>
+                  {item.room.title}
+                </Text>
+                <Text style={styles.cardtext2}>
+                  {item.room.district} ،{item.room.address}
+                </Text>
+              </View>
+              <View style={styles.iconbox}>
+              <Icon size={24} color="#00cecc" name="insert-invitation" />
+              </View>
+            </View>
+          </TouchableOpacity>
+        );
+        break;
     case 'CANCELED_BY_HOST':
       return(
         <TouchableOpacity onPress={() => {
@@ -205,7 +226,6 @@ class Trips extends Component {
       break;
     default:
     }
-
   }
 
   renderHeader () {

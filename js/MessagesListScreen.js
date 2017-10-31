@@ -166,7 +166,7 @@ class MessagesListScreen extends Component {
           data={this.state.messages}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderMessage(item, this.props.navigation)} />
-        <View style={{marginBottom:35}}>
+        <View style={{marginBottom:10}}>
         </View>
       </View>
     );

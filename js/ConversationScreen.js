@@ -30,33 +30,6 @@ class ConversationScreen extends Component {
     };
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTintColor: "#757575",
-    headerStyle: {
-      backgroundColor: 'rgba(237,237,237,1)',
-      justifyContent: 'center',
-      height: 70,
-      elevation:3,
-      // shadowColor: '#757575',
-      // shadowOffset: { width: 0, height: 2 },
-      // shadowOpacity: 0.2,
-    },
-    headerRight: navigation.state.params.room ? <TouchableOpacity
-    onPress={() => {
-      // navigation.navigate('roomView', {room: navigation.state.params.room});
-      navigation.navigate('houseDetailFromChat', {room: navigation.state.params.room});
-    }}
-    style={{flexDirection:'row-reverse'}}>
-    <Icon
-      name='home'
-      size={20}
-      color='#757575'
-      style={{marginRight:15,marginTop:1}}
-    />
-    <Text style={styles.showhouse}>مشاهده‌ی خانه</Text>
-    </TouchableOpacity> : null,
-  });
-
   componentWillMount() {
     this.setState({
       party: this.props.navigation.state.params.party,
@@ -99,6 +72,11 @@ class ConversationScreen extends Component {
     this.setState({
       token
     }, () => this.fetchConversation());
+  }
+
+  onBackButtonPress () {
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
   }
 
   fetchConversation () {
@@ -221,14 +199,17 @@ class ConversationScreen extends Component {
         <View style={styles.header0}>
           <View style={styles.header1}>
             <View style={styles.backbottomlastname}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                this.onBackButtonPress();
+              }}>
                 <Icon size={44} color="#4f4f4f" name="keyboard-arrow-right" style={{marginBottom:2}} />
               </TouchableOpacity>
-              <Text style={styles.headerlastname}>هجرتی</Text>
+              <Text style={styles.headerlastname}>{this.state.party.last_name}</Text>
             </View>
             <View style={styles.showhome}>
               <TouchableOpacity
               onPress={() => {
+                this.props.navigation.navigate('houseDetail', {room: this.state.room});
               }}
               style={{flexDirection:'row-reverse'}}>
               <Icon

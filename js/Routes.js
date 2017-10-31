@@ -407,6 +407,10 @@ const Routes = ({
   // },
   conversationScreen: {
     screen: ConversationScreen,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
   },
   // requestScreen: {
   //   screen: RequestScreen,
@@ -530,13 +534,6 @@ const Routes = ({
         right: 0
       }
     }
-  },
-  houseDetailFromChat: {
-    screen: HouseDetail,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
-    },
   },
 });
 
