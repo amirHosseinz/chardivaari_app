@@ -9,7 +9,7 @@ import {
   BackHandler,
   ToastAndroid,
 } from 'react-native';
-import timer from 'react-native-timer';
+import CacheStore from 'react-native-cache-store';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -30,63 +30,45 @@ class GuestScreen extends Component {
     super(props);
     this.state = {
       tabIndex: 3,
-      backPressedBefor: false,
     };
   }
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.setState({
-      backPressedBefor: false,
-    });
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    timer.clearTimeout(this);
-  }
-
-  handleBackButton = () => {
-    if (this.state.backPressedBefor === true) {
-      BackHandler.exitApp();
-    } else {
-      ToastAndroid.show(
-        'برای خروج دکمه‌ی بازگشت را مجددا فشار دهید.',
-        ToastAndroid.SHORT,
-      );
-      this.setState({
-        backPressedBefor: true,
-      });
-      timer.setTimeout(
-        this,
-        'resetBackButtonState',
-        () => {
-          this.resetBackButtonState();
-        },
-        1000,
-      );
-    }
-    return true;
-  }
-
-  resetBackButtonState = () => {
-    this.setState({
-      backPressedBefor: false,
+    CacheStore.get('GuestScreen_tabName').then((value) => {
+      if (value != null) {
+        this.goToTab(value);
+        CacheStore.remove('GuestScreen_tabName');
+      }
     });
   }
 
   renderContent () {
     switch (this.state.tabIndex) {
       case 0:
-        return(<Profile role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Profile
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 1:
-        return(<InboxScreen role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<InboxScreen
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 2:
-        return(<Trips role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Trips
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       case 3:
-        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Explore
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       default:
-        return(<Explore role={'guest'} goToTab={this.goToTab} navigation={this.props.navigation} />);
+        return(<Explore
+          role={'guest'}
+          goToTab={this.goToTab}
+          navigation={this.props.navigation} />);
       }
   }
 

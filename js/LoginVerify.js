@@ -77,7 +77,6 @@ class LoginVerify extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       // network error
-      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }

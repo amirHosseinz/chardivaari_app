@@ -208,8 +208,9 @@ class HouseDetail extends Component {
      this.openLoginModal();
    } else {
      this.props.navigation.navigate(
-       'requestBookScreen',{room: this.state.room}
-     );
+       'requestBookScreen', {
+         room: this.state.room,
+       });
    }
   //  this.props.navigation.navigate(
   //    'requestBook',{roomId: this.state.room.id}
@@ -631,9 +632,7 @@ class HouseDetail extends Component {
     {this.renderPetRule()}
     {this.renderSmokeRule()}
     {this.renderPartyRule()}
-    <TouchableOpacity>
-      <Text style={styles.laws}>مشاهده تمام قوانین این خانه</Text>
-    </TouchableOpacity>
+
     <View style={styles.divider}>
     </View>
     {this.renderSpecialRules()}
@@ -982,12 +981,6 @@ bantext: {
     marginRight:2,
     alignItems:"center",
     justifyContent:"center",
-},
-laws: {
-  fontSize: 18,
-  fontFamily:'Vazir-Medium',
-  color:"#f56e4e",
-  marginTop:5,
 },
 contacthost: {
   flexDirection: "row-reverse"

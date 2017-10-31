@@ -61,7 +61,6 @@ class Splash extends Component {
     .then((response) => this.onCheckUpdateResponseRecieved(response))
     .catch((error) => {
       // network error
-      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
@@ -98,7 +97,6 @@ class Splash extends Component {
     .then((response) => this.onValidateUserResponseRecieved(response))
     .catch((error) => {
       // network error
-      // console.log(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
