@@ -42,7 +42,7 @@ class ExploreResult extends Component {
         </View>
         <View style={styles.details}>
             <View style={styles.info}>
-              <Text style={styles.h2}>{this.props.room.title}</Text>
+              <Text style={styles.h2} numberOfLines={2} >{this.props.room.title}</Text>
               <Text style={styles.cityfont}>
                 {this.props.room.address}، {this.props.room.district}
               </Text>

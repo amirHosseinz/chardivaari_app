@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Light',
     fontSize: 14,
     color:'#c2c2c2',
+    marginTop:8,
   },
   reservebuttontext: {
     fontSize: 20,

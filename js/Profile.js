@@ -14,6 +14,7 @@ import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import Communications from 'react-native-communications';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AboutUs from './AboutUs';
 
 import { testURL, productionURL } from './data';
 import EditProfile from './EditProfile';
@@ -25,6 +26,7 @@ class Profile extends Component {
       user: {},
       token: null,
       editProfileModalVisible: false,
+      aboutUsModalVisible: false,
     };
   }
 
@@ -90,7 +92,7 @@ class Profile extends Component {
   _onExitPress = () => {
     Alert.alert(
       'درخواست خروج',
-      'از برنامه خارج می‌شوید؟',
+      'از حساب کاربری خود خارج می‌شوید؟',
       [
         {text: 'بله', onPress: () => {
           this.onLoginOptionPress();
@@ -121,6 +123,18 @@ class Profile extends Component {
       editProfileModalVisible: false,
     }, () => {
       this.fetchUser();
+    });
+  }
+
+  openAboutUs = () => {
+    this.setState({
+      aboutUsModalVisible: true,
+    });
+  }
+
+  closeAboutUs = () => {
+    this.setState({
+      aboutUsModalVisible: false,
     });
   }
 
@@ -244,7 +258,9 @@ class Profile extends Component {
             </View>
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            this.openAboutUs();
+          }}>
             <View style={styles.profileitembox}>
                 <View style={styles.itemiconcircle}>
                   <Image source={require('./img/info.png')}
@@ -286,6 +302,18 @@ class Profile extends Component {
           hideEditProfile={this.hideEditProfile}
           user={this.state.user}
           token={this.state.token} />
+        </Modal>
+
+        <Modal
+        animationType='slide'
+        transparent={false}
+        visible={this.state.aboutUsModalVisible}
+        onRequestClose={() => {
+          this.closeAboutUs();
+        }}>
+
+        <AboutUs onCloseModal={this.closeAboutUs}>
+        </AboutUs>
         </Modal>
 
       </View>
