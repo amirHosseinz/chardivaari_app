@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
+import KeepAwake from 'react-native-keep-awake';
 
 import { testURL, productionURL } from './data';
 
@@ -25,6 +26,7 @@ class Login extends Component {
   }
 
   componentWillMount () {
+    KeepAwake.activate();
     CacheStore.get('token').then((value) => {
       if (value == null) {
         // proceed normal

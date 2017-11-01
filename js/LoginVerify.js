@@ -13,6 +13,7 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import SmsListener from 'react-native-android-sms-listener';
+import KeepAwake from 'react-native-keep-awake';
 
 import { testURL, productionURL } from './data';
 
@@ -29,6 +30,7 @@ class LoginVerify extends Component {
   }
 
   componentWillMount () {
+    KeepAwake.activate();
     this.setState({
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       smsCenter: this.props.navigation.state.params.smsCenter,

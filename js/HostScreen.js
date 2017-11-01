@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import KeepAwake from 'react-native-keep-awake';
 
 // import CalendarScreen from './CalendarScreen';
 import ReserveList from './ReserveList';
@@ -20,6 +21,10 @@ import Profile from './Profile';
 
 class HostScreen extends Component {
   state = { tabIndex: 0 };
+
+  componentDidMount () {
+    KeepAwake.activate();
+  }
 
   renderContent() {
     switch (this.state.tabIndex) {

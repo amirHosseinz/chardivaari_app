@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
+import KeepAwake from 'react-native-keep-awake';
 
 import { testURL, productionURL, currentVersion } from './data';
 
@@ -23,6 +24,7 @@ class Splash extends Component {
   }
 
   componentWillMount () {
+    KeepAwake.activate();
     CacheStore.get('token').then((tokenValue) => {
       if (tokenValue == null) {
         // proceed normal

@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 import Routes from './Routes';
 import timer from 'react-native-timer';
+import KeepAwake from 'react-native-keep-awake';
 
 export const AppNavigator = StackNavigator(
   Routes
@@ -55,12 +56,14 @@ class AppWithNavigationState extends Component {
   }
 
   componentWillMount () {
+    KeepAwake.activate();
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress');
     timer.clearTimeout(this);
+    KeepAwake.deactivate();
   }
 
   render () {

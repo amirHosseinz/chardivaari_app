@@ -21,8 +21,9 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import ViewPager from 'react-native-viewpager';
-import ViewPager from './common/custom-viewpager';
+import KeepAwake from 'react-native-keep-awake';
 
+import ViewPager from './common/custom-viewpager';
 import Facilities from './Facilities';
 import { testURL, productionURL } from './data';
 
@@ -49,6 +50,7 @@ class HouseDetail extends Component {
  }
 
  componentWillMount() {
+   KeepAwake.activate();
  }
 
  componentDidMount () {

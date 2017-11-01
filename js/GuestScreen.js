@@ -12,6 +12,7 @@ import {
 import CacheStore from 'react-native-cache-store';
 import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import KeepAwake from 'react-native-keep-awake';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
@@ -34,6 +35,7 @@ class GuestScreen extends Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     CacheStore.get('GuestScreen_tabName').then((value) => {
       if (value != null) {
         this.goToTab(value);

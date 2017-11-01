@@ -12,6 +12,7 @@ import {
 
 import SearchAnimations from './SearchAnimations';
 import CacheStore from 'react-native-cache-store';
+import KeepAwake from 'react-native-keep-awake';
 
 import ExploreResult from './ExploreResult';
 import { testURL, productionURL } from './data';
@@ -29,6 +30,7 @@ class Explore extends Component {
   };
 
   componentWillMount() {
+    KeepAwake.activate();
     if (this.state.rooms.length < 1) {
       CacheStore.get('token').then((value) => {
         this.setState({ token: value }, () => {

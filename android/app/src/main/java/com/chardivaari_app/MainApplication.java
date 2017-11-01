@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.chardivaari_app.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
+import com.corbt.keepawake.KCKeepAwakePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.rnfs.RNFSPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new KCKeepAwakePackage(),
           new SmsListenerPackage(),
           new RNExitAppPackage(),
           new RNFSPackage(),

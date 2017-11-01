@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
+import KeepAwake from 'react-native-keep-awake';
 
 import { testURL, productionURL } from './data';
 
@@ -28,6 +29,7 @@ class LoginGetName extends Component {
   }
 
   componentWillMount () {
+    KeepAwake.activate();
     this.setState({
       firstName: this.props.navigation.state.params.firstName,
       lastName: this.props.navigation.state.params.lastName,
