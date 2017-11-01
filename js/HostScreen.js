@@ -20,7 +20,7 @@ import HouseListScreen from './HouseListScreen';
 import Profile from './Profile';
 
 class HostScreen extends Component {
-  state = { tabIndex: 0 };
+  state = { tabIndex: 3 };
 
   componentDidMount () {
     KeepAwake.activate();
@@ -29,18 +29,18 @@ class HostScreen extends Component {
   renderContent() {
     switch (this.state.tabIndex) {
       case 0:
+        return(<Profile role={'host'} navigation={this.props.navigation} />);
+      case 1:
         return(<InboxScreen
           role={'host'}
           navigation={this.props.navigation}
           />);
-      case 1:
-        return(<ReserveList role={'host'} navigation={this.props.navigation} />);
       case 2:
         return(<HouseListScreen role={'host'} navigation={this.props.navigation} />);
       case 3:
-        return(<Profile role={'host'} navigation={this.props.navigation} />);
+        return(<ReserveList role={'host'} navigation={this.props.navigation} />);
       default:
-        return(<InboxScreen role={'host'} navigation={this.props.navigation} />);
+        return(<ReserveList role={'host'} navigation={this.props.navigation} />);
       }
   }
 
@@ -66,28 +66,24 @@ class HostScreen extends Component {
           shifting={false}>
                 <Tab
                   barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>پیام ها</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="forum" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="forum" />}
-                />
+                  label={<Text style={styles.buttomNavFont}>میزبان تریپین</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="dashboard" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="dashboard" />} />
                 <Tab
                   barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>رزرو ها</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="date-range" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="date-range" />}
-                />
+                  label={<Text style={styles.buttomNavFont}>پیام ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="forum" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="forum" />} />
                 <Tab
                   barBackgroundColor="#fff"
                   label={<Text style={styles.buttomNavFont}>خانه ها</Text>}
                   icon={<Icon size={24} color="#a0a0a0" name="account-balance" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="account-balance" />}
-                />
+                  activeIcon={<Icon size={24} color="#f56e4e" name="account-balance" />} />
                 <Tab
                   barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>میزبان تریپین</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="dashboard" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="dashboard" />}
-                />
+                  label={<Text style={styles.buttomNavFont}>رزرو ها</Text>}
+                  icon={<Icon size={24} color="#a0a0a0" name="date-range" />}
+                  activeIcon={<Icon size={24} color="#f56e4e" name="date-range" />} />
         </BottomNavigation>
       </View>
     );
