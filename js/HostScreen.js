@@ -84,7 +84,7 @@ class HostScreen extends Component {
                 />
                 <Tab
                   barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>حساب کاربری</Text>}
+                  label={<Text style={styles.buttomNavFont}>میزبان تریپین</Text>}
                   icon={<Icon size={24} color="#a0a0a0" name="dashboard" />}
                   activeIcon={<Icon size={24} color="#f56e4e" name="dashboard" />}
                 />

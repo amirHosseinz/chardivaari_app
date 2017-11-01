@@ -91,28 +91,39 @@ class EditProfile extends Component {
       if (body.successful != false) {
         this.exitSuccessfully();
       } else {
-        // TODO
-        // failed
         for (var i = 0; i < body.errors.length; i++) {
-          if (body.errors[i] === 'email') {
+          if (body.errors[i] === 'exist_email') {
             this.setState({
               email: this.props.user.email,
             });
+            Alert.alert('اطلاعات شما دارای مشکل می‌باشد.');
+          } else if (body.errors[i] === 'invalid_email') {
+            this.setState({
+              email: this.props.user.email,
+            });
+            Alert.alert('ایمیل شما معتبر نمی‌باشد.');
           } else if (body.errors[i] === 'cell_phone') {
             this.setState({
               cellPhone: this.props.user.cell_phone,
             });
-          } else if (body.errors[i] === 'national_id') {
+            Alert.alert('اطلاعات شما دارای مشکل می‌باشد.');
+          } else if (body.errors[i] === 'exist_national_id') {
             this.setState({
               nationalID: this.props.user.national_id,
             });
+            Alert.alert('اطلاعات شما دارای مشکل می‌باشد.');
+          } else if (body.errors[i] === 'invalid_national_id') {
+            this.setState({
+              nationalID: this.props.user.national_id,
+            });
+            Alert.alert('شماره ملی شما معتبر نمی‌باشد.');
+          } else {
+            Alert.alert('ذخیره تغییرات با مشکل مواجه شده است.');
           }
         }
-        Alert.alert('ذخیره تغییرات با مشکل مواجه شده است.');
       }
     } else {
-      // TODO
-      // error handling
+      Alert.alert('ذخیره تغییرات با مشکل مواجه شده است.');
     }
   }
 
@@ -153,7 +164,6 @@ class EditProfile extends Component {
   render () {
     return (
       <KeyboardAwareScrollView>
-
       <View style={styles.container0}>
         <View style={styles.profilepic}>
           <Icon size={120} color='#c2c2c2' name='account-circle' />
@@ -170,8 +180,7 @@ class EditProfile extends Component {
               maxLength = {20}
               value={this.state.firstName}
               onChangeText={this._onChangeFirstName.bind(this)}
-              underlineColorAndroid={'transparent'}
-            />
+              underlineColorAndroid={'transparent'} />
           <Text style={styles.upfield}>نام خانوادگی</Text>
             <TextInput
               style={styles.textInput}
@@ -180,8 +189,7 @@ class EditProfile extends Component {
               maxLength = {30}
               value={this.state.lastName}
               onChangeText={this._onChangeLastName.bind(this)}
-              underlineColorAndroid={'transparent'}
-            />
+              underlineColorAndroid={'transparent'} />
           <Text style={styles.upfield}>موبایل</Text>
             <TextInput
               style={styles.textInput}
@@ -191,8 +199,7 @@ class EditProfile extends Component {
               keyboardType = 'phone-pad'
               value={this.state.cellPhone}
               onChangeText={this._onChangeCellPhone.bind(this)}
-              underlineColorAndroid={'transparent'}
-            />
+              underlineColorAndroid={'transparent'} />
           <Text style={styles.upfield}>ایمیل</Text>
             <TextInput
               style={styles.textInput}
@@ -202,8 +209,7 @@ class EditProfile extends Component {
               keyboardType = 'email-address'
               value={this.state.email}
               onChangeText={this._onChangeEmail.bind(this)}
-              underlineColorAndroid={'transparent'}
-            />
+              underlineColorAndroid={'transparent'} />
           <Text style={styles.upfield}>شماره ملی</Text>
             <TextInput
               style={styles.textInput}
@@ -213,8 +219,7 @@ class EditProfile extends Component {
               keyboardType = 'numeric'
               value={this.state.nationalID}
               onChangeText={this._onChangeNationalID.bind(this)}
-              underlineColorAndroid={'transparent'}
-            />
+              underlineColorAndroid={'transparent'} />
         </View>
         <View style={styles.profilepic}>
             <TouchableOpacity

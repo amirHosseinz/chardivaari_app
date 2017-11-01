@@ -494,7 +494,7 @@ class RequestBookScreen extends Component {
     };
     // optional property, too.
     let color = {
-      mainColor: '#636877'
+      mainColor: '#0ca6c1'
     };
 
     return(
@@ -548,7 +548,6 @@ class RequestBookScreen extends Component {
               <Text style={styles.costtext}> ورود کد تخفیف : </Text>
               <View style={styles.inputstyle}>
                   <TextInput
-                    placeholder="xxxxxxxxxxxxx"
                     placeholderTextColor="#acacac"
                     maxLength = {13}
                     onChangeText={this.setDiscountCode} />
@@ -818,13 +817,13 @@ const styles = StyleSheet.create({
   optionText: {
     fontFamily: "Vazir",
     fontSize: 20,
-    color: '#636877',
+    color: '#0ca6c1',
   },
   capacityModalStyle: {
     height: 50,
     width: Dimensions.get('screen').width / 2,
     borderWidth: 0.5,
-    borderColor: '#636877',
+    borderColor: '#0ca6c1',
     borderRadius: 5,
     marginLeft: 10,
     justifyContent: 'center',
@@ -832,7 +831,7 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     height: 50,
-    backgroundColor: '#636877',
+    backgroundColor: '#0ca6c1',
     padding: 10,
     borderRadius: 5,
   },
@@ -850,7 +849,7 @@ const styles = StyleSheet.create({
   capacityRowTextStyle: {
     fontFamily: "Vazir",
     fontSize: 20,
-    color: '#636877',
+    color: '#0ca6c1',
   },
 });
 

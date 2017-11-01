@@ -61,7 +61,7 @@ class Trips extends Component {
     .catch((error) => {
       // network error
       // console.error(error);
-      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نماییدد.');
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نمایید.');
     });
   }
 
@@ -283,8 +283,7 @@ class Trips extends Component {
       <View style={styles.container0}>
       <StatusBar
         backgroundColor="#0094ae"
-        barStyle="light-content"
-      />
+        barStyle="light-content" />
         {this.renderHeader()}
         {this.renderBody()}
       </View>

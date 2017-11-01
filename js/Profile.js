@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   View,
   StyleSheet,
   Text,
@@ -86,7 +87,21 @@ class Profile extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  _onExitPress () {
+  _onExitPress = () => {
+    Alert.alert(
+      'درخواست خروج',
+      'از برنامه خارج می‌شوید؟',
+      [
+        {text: 'بله', onPress: () => {
+          this.onLoginOptionPress();
+        },},
+        {text: 'خیر', onPress: () => {},},
+      ],
+      { cancelable: false }
+    );
+  }
+
+  onLoginOptionPress = () => {
     CacheStore.flush();
     this.resetNavigation('login');
   }
@@ -151,6 +166,32 @@ class Profile extends Component {
     }
   }
 
+  renderLoginOption () {
+    if (this.state.user.username === 'GUEST_USER') {
+      return(
+        <TouchableOpacity onPress={this.onLoginOptionPress}>
+          <View style={styles.profileitembox}>
+              <View style={styles.itemiconcircle}>
+                <Icon size={24} color="white" name="exit-to-app" />
+              </View>
+            <Text style={styles.profileitemtext}>عضویت</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <TouchableOpacity onPress={this._onExitPress}>
+          <View style={styles.profileitembox}>
+              <View style={styles.itemiconcircle}>
+                <Icon size={24} color="white" name="exit-to-app" />
+              </View>
+            <Text style={styles.profileitemtext}>خروج</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   renderAddListing() {
     // TODO
   }
@@ -190,8 +231,7 @@ class Profile extends Component {
       <View style={styles.container0}>
       <StatusBar
         backgroundColor="#d7d7d7"
-        barStyle="dark-content"
-      />
+        barStyle="dark-content" />
         <View style={styles.container1}>
 
           <View style={styles.profilebox}>
@@ -231,14 +271,7 @@ class Profile extends Component {
 
           {this.renderAddListing()}
 
-          <TouchableOpacity onPress={this._onExitPress.bind(this)}>
-            <View style={styles.profileitembox}>
-                <View style={styles.itemiconcircle}>
-                  <Icon size={24} color="white" name="exit-to-app" />
-                </View>
-              <Text style={styles.profileitemtext}>خروج</Text>
-            </View>
-          </TouchableOpacity>
+          {this.renderLoginOption()}
 
         </View>
 
@@ -248,13 +281,11 @@ class Profile extends Component {
         visible={this.state.editProfileModalVisible}
         onRequestClose={() => {
           this.hideEditProfile();
-        }}
-        >
+        }}>
          <EditProfile
           hideEditProfile={this.hideEditProfile}
           user={this.state.user}
-          token={this.state.token}
-         />
+          token={this.state.token} />
         </Modal>
 
       </View>

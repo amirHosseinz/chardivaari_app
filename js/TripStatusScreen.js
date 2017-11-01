@@ -239,8 +239,7 @@ class TripStatusScreen extends Component {
             </View>
           </TouchableOpacity>
       <ScrollView
-      showsHorizontalScrollIndicator={false}
-      >
+      showsHorizontalScrollIndicator={false}>
           {this.renderStatus()}
           <View style={styles.cost}>
             <Text style={styles.costtext}>نام اقامتگاه: </Text>
@@ -250,7 +249,7 @@ class TripStatusScreen extends Component {
           </View>
           <View style={styles.cost1}>
             <Text style={styles.costtext}>آدرس: </Text>
-            <Text style={styles.resulttextbold}>{this.state.trip.room.address}</Text>
+            <Text style={styles.resulttextbold}>{this.state.trip.room.postal_address}</Text>
           </View>
           <View style={styles.divider}>
           </View>
