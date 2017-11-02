@@ -138,8 +138,8 @@ class SearchAnimations extends Component {
          <View style={styles.iconbox}>
             <Icon
               name='expand-less'
-              size={35  }
-              color='#eaedee'
+              size={35}
+              color='#f7f7f7'
               onPress={this.collapseElement}
             />
          </View>
@@ -157,8 +157,7 @@ class SearchAnimations extends Component {
              <Icon
                name='public'
                size={32}
-               color='#eaedee'
-             />
+               color='#f7f7f7' />
                 <Text style={styles.button}>
                   {this.state.destination}
                 </Text>
@@ -174,8 +173,7 @@ class SearchAnimations extends Component {
                 <Icon
                   name='search'
                   size={32}
-                  color='#eaedee'
-                />
+                  color='#f7f7f7' />
                 <Text style={styles.button}>
                 {this.renderSumText()}
                 </Text>
@@ -207,8 +205,7 @@ class SearchAnimations extends Component {
            <Icon
              name='date-range'
              size={32}
-             color='#eaedee'
-           />
+             color='#f7f7f7' />
               <Text style={styles.button}>
                 {this.state.dateText}
                </Text>
@@ -228,8 +225,7 @@ class SearchAnimations extends Component {
            <Icon
              name='group-add'
              size={32}
-             color='#eaedee'
-           />
+             color='#f7f7f7' />
               <Text style={styles.button}>
                 {this.state.capacity} نفر
               </Text>

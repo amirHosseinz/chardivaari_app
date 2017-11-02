@@ -501,6 +501,9 @@ class HouseDetail extends Component {
 
     return(
       <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        translucent={true} />
       <ScrollView
       showsHorizontalScrollIndicator={false}>
       {this.renderViewPager()}
@@ -533,9 +536,7 @@ class HouseDetail extends Component {
     {this.renderHouseType()}
     <View style={styles.hostname}>
     <Text style={styles.hostnamestatic}>به میزبانی </Text>
-    <TouchableOpacity>
     <Text style={styles.hostnamedynamic}>{this.state.room.owner?this.state.room.owner.first_name:''} {this.state.room.owner?this.state.room.owner.last_name:''}</Text>
-    </TouchableOpacity>
 
     </View>
     </View>
@@ -877,8 +878,7 @@ bottombar: {
   backgroundColor: "#fafafa",
   alignItems: "center",
   justifyContent:"center",
-  elevation:9,
-
+  elevation:5,
 },
 bottombarchild: {
   width: Dimensions.get('screen').width-50,

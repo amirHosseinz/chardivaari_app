@@ -15,7 +15,7 @@ class InboxScreen extends Component {
   constructor(props) {
     super(props);
     this.state={
-      index: 0,
+      index: 1,
       routes: [
         { key: '2', title: 'پــیــام هــا', },
         { key: '1', title: 'درخواست‌ها' },
@@ -23,12 +23,6 @@ class InboxScreen extends Component {
       messagesUnreadCount: 0,
       requestsUnreadCount: 0,
     };
-  }
-
-  componentDidMount () {
-    this.setState({
-      index: 1,
-    });
   }
 
   setMessagesUnreadCount = (value) => {
@@ -73,7 +67,7 @@ class InboxScreen extends Component {
     //tabStyle={styles.tabStyle}
     pressColor={'#636877'}
     style={styles.styletab}
-    indicatorStyle={{backgroundColor:'white',height:4,}}
+      indicatorStyle={{backgroundColor:'white',height:2,}}
     renderBadge={this.onRenderBadge}
     {...props}
     />;

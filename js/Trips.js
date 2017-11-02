@@ -315,11 +315,11 @@ const styles = StyleSheet.create({
   },
   tripcard: {
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 20,
+    width: Dimensions.get('window').width - 10,
     height: 65,
     backgroundColor: '#f9f9f9',
     marginTop:5,
-    borderRadius: 3,
+    borderRadius: 1,
     flexDirection: "row-reverse",
     justifyContent:"flex-start",
     alignItems: 'center',

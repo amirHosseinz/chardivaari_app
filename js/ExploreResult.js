@@ -42,7 +42,7 @@ class ExploreResult extends Component {
         </View>
         <View style={styles.details}>
             <View style={styles.info}>
-              <Text style={styles.h2} numberOfLines={2} >{this.props.room.title}</Text>
+              <Text style={styles.h2} numberOfLines={1} >{this.props.room.title}</Text>
               <Text style={styles.cityfont}>
                 {this.props.room.address}، {this.props.room.district}
               </Text>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     height: 110,
     backgroundColor: '#f9f9f9',
     marginTop:5,
-    borderRadius: 3,
+    borderRadius: 1,
     flexDirection: "row",
     justifyContent:"flex-start",
     alignItems: 'center',
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Vazir-Medium",
     color: "#4f4f4f",
+    paddingLeft:10,
   },
   cityfont:{
     fontSize: 10,

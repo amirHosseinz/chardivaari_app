@@ -244,7 +244,7 @@ class Profile extends Component {
     return(
       <View style={styles.container0}>
       <StatusBar
-        backgroundColor="#d7d7d7"
+        backgroundColor="#eeeeee"
         barStyle="dark-content" />
         <View style={styles.container1}>
 
@@ -343,6 +343,7 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse',
     marginTop:60,
     marginBottom:50,
+    alignItems:'center',
   },
   profileboxtext:{
     marginRight:20,
@@ -351,10 +352,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily:'Vazir-Medium',
     color:'#4f4f4f',
-    width:Dimensions.get('window').width*(2/3)-30 ,
-    marginTop:5,
-
-
+    width:Dimensions.get('window').width*(2/3)-30,
   },
   editprofile:{
     fontSize: 16,

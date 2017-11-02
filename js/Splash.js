@@ -128,9 +128,8 @@ class Splash extends Component {
     return(
       <View style={styles.container}>
       <StatusBar
-        backgroundColor="#007c97"
-        barStyle="light-content"
-      />
+        backgroundColor="#0094ae"
+        barStyle="light-content" />
         <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
         <Text style={styles.splashtext}>تریپین</Text>
       </View>
@@ -153,10 +152,8 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir',
     fontSize:34,
     marginBottom:180,
-    color:'#ffffff'
-
-
-  }
+    color:'#ffffff',
+  },
 });
 
 export default Splash;

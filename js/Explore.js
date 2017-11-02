@@ -17,6 +17,7 @@ import KeepAwake from 'react-native-keep-awake';
 import ExploreResult from './ExploreResult';
 import { testURL, productionURL } from './data';
 
+
 class Explore extends Component {
   state={
     error: null,
@@ -149,7 +150,7 @@ class Explore extends Component {
     return(
       <View style={styles.container}>
       <StatusBar
-        backgroundColor="#007c97"
+        backgroundColor="#0094ae"
         barStyle="light-content" />
 
         <SearchAnimations
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
   },
   filter : {
     backgroundColor: '#0ca6c1',
-    height:5,
+    height:6,
     width: Dimensions.get('window').width,
     elevation:3,
   },
