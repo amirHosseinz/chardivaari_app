@@ -14,6 +14,7 @@ import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import SmsListener from 'react-native-android-sms-listener';
 import KeepAwake from 'react-native-keep-awake';
+import timer from 'react-native-timer';
 
 import { testURL, productionURL } from './data';
 
@@ -23,6 +24,7 @@ class LoginVerify extends Component {
     super(props);
     this.state={
       cellPhoneNo: '',
+      counter: 0,
       verificationCode: null,
       smsCenter: null,
       subscription: null,
@@ -31,6 +33,7 @@ class LoginVerify extends Component {
 
   componentWillMount () {
     KeepAwake.activate();
+    this.counterTrigger();
     this.setState({
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       smsCenter: this.props.navigation.state.params.smsCenter,
@@ -52,6 +55,7 @@ class LoginVerify extends Component {
 
   componentWillUnMount () {
     this.state.subscription.remove();
+    timer.clearInterval(this);
   }
 
   resetNavigation (targetRoute) {
@@ -86,6 +90,7 @@ class LoginVerify extends Component {
   onResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
+      timer.clearInterval(this);
       if (body.token != null) {
         CacheStore.set('token', body.token);
         CacheStore.set('username', body.user.username);
@@ -121,12 +126,14 @@ class LoginVerify extends Component {
     if (this.state.subscription) {
       this.state.subscription.remove();
     }
+    timer.clearInterval(this);
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
   }
 
   onResendButtonPress () {
     this.state.subscription.remove();
+    this.counterTrigger();
     fetch(productionURL + '/auth/api/signup/', {
       method: 'POST',
       headers: {
@@ -202,6 +209,55 @@ class LoginVerify extends Component {
       // error handle
       // this.onLoginFail('خطایی رخ داده');
     }
+  }
+
+  counterTrigger () {
+    this.setState({
+      counter: 60,
+    });
+    timer.setInterval(
+      this,
+      'resendCodeCounter',
+      () => {
+        this.counterCount();
+      },
+      1000,
+    );
+  }
+
+  counterCount = () => {
+    if (this.state.counter > 0) {
+      this.setState({
+        counter: this.state.counter - 1,
+      });
+    } else {
+      this.setState({
+        counter: 0,
+      });
+      timer.clearInterval(this);
+    }
+  }
+
+  remainedTimeText () {
+    if (this.state.counter === 0) {
+      return null;
+    } else {
+      return('('+this.state.counter+')');
+    }
+  }
+
+  renderResendCode () {
+    if (this.state.counter === 0) {
+      return(
+        <TouchableOpacity onPress={this.onResendButtonPress.bind(this)}>
+          <Text style={styles.notnow}>دریافت مجدد کد</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <Text style={styles.resendtext1}>دریافت مجدد کد {this.remainedTimeText()}</Text>
+      );
+    }
 
   }
 
@@ -230,9 +286,7 @@ class LoginVerify extends Component {
               <Text style={styles.resendtext}>ارسال شد. لطفا آن را وارد کنید.</Text>
             </View>
 
-            <TouchableOpacity onPress={this.onResendButtonPress.bind(this)}>
-              <Text style={styles.notnow}>دریافت مجدد کد</Text>
-            </TouchableOpacity>
+            {this.renderResendCode()}
 
             <TouchableOpacity onPress={this.onWrongNumberButtonPress.bind(this)}>
               <Text style={styles.notnow}>شماره را اشتباه وارد کرده اید؟</Text>

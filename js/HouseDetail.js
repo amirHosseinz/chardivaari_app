@@ -455,6 +455,28 @@ class HouseDetail extends Component {
     }
   }
 
+  renderRating () {
+    if (this.state.room.rating_no > 0) {
+      var rating = this.state.room.rating;
+      if (rating - Math.floor(rating) < 0.5) {
+        rating = Math.floor(rating);
+      } else {
+        rating = Math.ceil(rating);
+      }
+      return(
+        <View style={styles.stars1}>
+        <Stars
+       value={5-rating}
+       spacing={0}
+       count={5}
+       starSize={20}
+       fullStar= {require('./img/starBlank.png')}
+       emptyStar= {require('./img/starFilled.png')}/>
+          </View>
+      );
+    }
+  }
+
   openFacilities = () => {
     this.setState({
       facilitiesModalVisible: true,
@@ -492,13 +514,6 @@ class HouseDetail extends Component {
   }
 
   render () {
-    var rating = this.state.room.rating;
-    if (rating - Math.floor(rating) < 0.5) {
-      rating = Math.floor(rating);
-    } else {
-      rating = Math.ceil(rating);
-    }
-
     return(
       <View style={styles.container}>
       <ScrollView
@@ -514,15 +529,8 @@ class HouseDetail extends Component {
     <Text style={styles.city1}>، </Text>
     <Text style={styles.city1}>{this.state.room.address}</Text>
   </View>
-  <View style={styles.stars1}>
-  <Stars
- value={5-rating}
- spacing={0}
- count={5}
- starSize={20}
- fullStar= {require('./img/starBlank.png')}
- emptyStar= {require('./img/starFilled.png')}/>
-    </View>
+
+  {this.renderRating()}
 
 <View style={styles.divider}>
 </View>
