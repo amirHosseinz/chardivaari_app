@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   buttontouch: {
-    borderColor:"#00cecc",
+    borderColor:"#22c8d4",
     borderRadius: 50,
     borderWidth : 2,
     height:48,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   buttonview: {
-    backgroundColor:"#00cecc",
+    backgroundColor:"#22c8d4",
     borderRadius: 50,
     height:40,
     width: 140,
