@@ -513,6 +513,21 @@ class HouseDetail extends Component {
     });
   }
 
+  renderUtilities () {
+    return(
+      <View style={styles.features}>
+      {this.renderBreakfastFeature()}
+      {this.renderTVFeature()}
+      {this.renderWifiFeature()}
+      {this.renderHangerFeature()}
+      {this.renderWashingMachineFeature()}
+      <TouchableOpacity onPress={this.openFacilities}>
+        <Text style={styles.seemore}>مشاهده بیشتر</Text>
+      </TouchableOpacity>
+      </View>
+    );
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -601,16 +616,7 @@ class HouseDetail extends Component {
 
 <Text style={styles.h2}>سایر امکانات</Text>
 
-    <View style={styles.features}>
-    {this.renderBreakfastFeature()}
-    {this.renderTVFeature()}
-    {this.renderWifiFeature()}
-    {this.renderHangerFeature()}
-    {this.renderWashingMachineFeature()}
-    <TouchableOpacity onPress={this.openFacilities}>
-      <Text style={styles.seemore}>مشاهده بیشتر</Text>
-    </TouchableOpacity>
-    </View>
+    {this.renderUtilities()}
 
     <View style={styles.divider}>
     </View>
