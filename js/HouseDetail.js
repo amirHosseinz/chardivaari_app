@@ -533,7 +533,7 @@ class HouseDetail extends Component {
       <View style={styles.container}>
       <StatusBar
         barStyle="light-content"
-        translucent={true} />
+         />
       <ScrollView
       showsHorizontalScrollIndicator={false}>
       {this.renderViewPager()}
@@ -615,9 +615,30 @@ class HouseDetail extends Component {
 </View>
 
 <Text style={styles.h2}>سایر امکانات</Text>
-
-    {this.renderUtilities()}
-
+  <View style={styles.morefacilities}>
+    <Image style={styles.icon} source={require('./img/facilities/refrigerator.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/parking.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/Barbecue.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/blanket.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/canape.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/conditioner.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/dinnertable.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/elevator.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/foosball.png')} />
+    <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
+</View>
+<View style={styles.morefacilities}>
+  <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/mircowave.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/pavilion.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/pool.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/stove.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/teamaker.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
+  <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+  <Text style={{fontSize:18,fontFamily:'Vazir-Medium',color:'#00b1ce'}}>12+ </Text>
+</View>
     <View style={styles.divider}>
     </View>
 </View>
@@ -840,7 +861,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:"row-reverse",
     alignItems:'center',
-    justifyContent:"center",
+    justifyContent:"space-around",
+    marginTop:10,
+
   },
   detailicontextbox: {
     flexDirection:'row-reverse',
@@ -966,6 +989,7 @@ buttonview: {
 checkinbox:{
   flexDirection: "row-reverse",
   alignItems: "flex-start",
+  marginBottom:5,
 },
 checktime:{
   fontSize: 18,
@@ -1006,13 +1030,13 @@ contacthost: {
   flexDirection: "row-reverse"
 },
 lawstext1: {
-  fontSize: 18,
+  fontSize: 16,
   fontFamily:'Vazir-Medium',
   color:"#3e3e3e",
   marginLeft:5,
 },
 lawstext2: {
-  fontSize: 18,
+  fontSize: 16,
   fontFamily:'Vazir-Medium',
   color:"#00cecc",
   marginLeft:5,
@@ -1054,6 +1078,23 @@ imageSliderStyle: {
   width: Dimensions.get('window').width,
   height: 300,
 },
+morefacilities:{
+  flexDirection:'row-reverse',
+  alignItems:'center',
+  justifyContent:'center',
+  marginTop:15,
+  marginLeft:15,
+  marginRight:15,
+},
+icon:{
+  height:30,
+  width:20,
+  resizeMode:"contain",
+  marginLeft:6,
+  marginRight:6,
+  opacity:0.75,
+},
+
 });
 
 export default HouseDetail;
