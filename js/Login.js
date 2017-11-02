@@ -173,48 +173,58 @@ class Login extends Component {
 
   render () {
     return(
-      <View style={styles.container}>
-        <View style={styles.logobox}>
-        <Image source={require('./img/loginlogo.png')}
-          style={styles.logo}/>
-        </View>
-        <Text style={styles.addphonenumber}> لطفا شماره موبایل خود را وارد کنید: </Text>
+      <View style={styles.container0}>
+      <StatusBar
+        backgroundColor="#eeeeee"
+        barStyle="dark-content" />
+      <TouchableOpacity onPress={this.skipLogin.bind(this)}>
+        <Text style={styles.notnow}>فعلا بیخیال</Text>
+      </TouchableOpacity>
+        <View style={styles.container}>
 
-        <TextInput
-          style={styles.textInput}
-          autoFocus={true}
-          placeholder="09XXXXXXXXX"
-          placeholderTextColor="#acacac"
-          value={this.state.cellPhoneNo}
-          maxLength = {11}
-          keyboardType = 'phone-pad'
-          onChangeText={cellPhoneNo => {
-            this.onTextChanged(cellPhoneNo);
-          }}
-          underlineColorAndroid={'transparent'}
-        />
-
-        <TouchableOpacity style={styles.buttontouch} onPress={this.getConfirmationCode.bind(this)}>
-          <View style={styles.buttonview}>
-            <Text style={styles.reservebuttontext}>دریافت کد ورود</Text>
+          <View style={styles.logobox}>
+          <Image source={require('./img/aboutlogo.png')}
+            style={styles.logo}/>
           </View>
-        </TouchableOpacity>
+          <Text style={styles.addphonenumber}> لطفا شماره موبایل خود را وارد کنید: </Text>
 
-        <TouchableOpacity onPress={this.skipLogin.bind(this)}>
-          <Text style={styles.notnow}>فعلا بیخیال</Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.textInput}
+            autoFocus={true}
+            placeholder="09XXXXXXXXX"
+            placeholderTextColor="#acacac"
+            value={this.state.cellPhoneNo}
+            maxLength = {11}
+            keyboardType = 'phone-pad'
+            onChangeText={cellPhoneNo => {
+              this.onTextChanged(cellPhoneNo);
+            }}
+            underlineColorAndroid={'transparent'}
+          />
+
+          <TouchableOpacity style={styles.buttontouch} onPress={this.getConfirmationCode.bind(this)}>
+            <View style={styles.buttonview}>
+              <Text style={styles.reservebuttontext}>دریافت کد ورود</Text>
+            </View>
+          </TouchableOpacity>
+
+
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container0: {
     flex: 1,
     backgroundColor: '#ffffff',
-    alignItems: 'center',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
   },
   textInput: {
     height: 52,
@@ -271,7 +281,9 @@ const styles = StyleSheet.create({
   notnow:{
     fontFamily:'Vazir-Medium',
     fontSize:16,
-    color:'#22c8d4',
+    color:'#12b2ce',
+    marginRight:25,
+    marginTop:25,
   },
   logobox:{
     marginTop:50,

@@ -157,9 +157,8 @@ class MessagesListScreen extends Component {
     return(
       <View style={styles.container}>
       <StatusBar
-        backgroundColor="#007c97"
-        barStyle="light-content"
-      />
+        backgroundColor="#0094ae"
+        barStyle="light-content" />
         {this._onRefresh()}
         {this.renderLoginButton()}
         <FlatList

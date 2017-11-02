@@ -507,7 +507,7 @@ class RequestStatus extends Component {
           <View style={styles.bottombarbutton}>
               <TouchableOpacity style={styles.buttontouch1} onPress={this.onCancelRequestButtonPress}>
                 <View style={styles.buttonview1}>
-                <Text style={styles.reservebuttontext}>لغو کردن درخواست</Text>
+                <Text style={styles.reservebuttontext}>لغو درخواست</Text>
               </View>
               </TouchableOpacity>
           </View>
@@ -533,7 +533,7 @@ class RequestStatus extends Component {
           </View>
         </TouchableOpacity>
           {this.renderStatus()}
-
+        <ScrollView>
           <View style={styles.costbox}>
             {this.renderTitle()}
             <View style={styles.tripincatch}>
@@ -596,6 +596,10 @@ class RequestStatus extends Component {
           </View>
 
           {this.renderContactToUser()}
+            <View  style={{marginBottom:25}}>
+            </View>
+          </ScrollView>
+
         </View>
 
         <View style={styles.bottombar}>
@@ -630,7 +634,7 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Medium',
     color:'#3e3e3e',
     marginTop:16,
-    marginBottom:30,
+    marginBottom:20,
   },
   interperson:{
     marginTop: 40,
@@ -703,9 +707,10 @@ const styles = StyleSheet.create({
     justifyContent:"center",
   },
   bottombarchild: {
-    width: Dimensions.get('screen').width-50,
+    width: Dimensions.get('screen').width-30,
     flex:1,
     flexDirection: "row-reverse",
+    justifyContent:'space-between',
   },
   bottombarprice: {
     flex:3,
@@ -733,7 +738,7 @@ const styles = StyleSheet.create({
     justifyContent:"flex-end",
   },
   reservebuttontext: {
-    fontSize: 17,
+    fontSize: 16,
     fontFamily:"Vazir-Medium",
     color: "#ffffff",
     paddingTop:4,
@@ -747,7 +752,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth : 2,
     height:48,
-    width: 168,
+    width: (Dimensions.get('screen').width-70)/2,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
@@ -757,7 +762,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth : 2,
     height:48,
-    width: 168,
+    width: (Dimensions.get('screen').width-70)/2,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
@@ -766,7 +771,7 @@ const styles = StyleSheet.create({
     backgroundColor:"#00cecc",
     borderRadius: 50,
     height:40,
-    width: 160,
+    width: (Dimensions.get('screen').width-86)/2,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
@@ -775,7 +780,7 @@ const styles = StyleSheet.create({
     backgroundColor:"#bebebe",
     borderRadius: 50,
     height:40,
-    width: 160,
+    width: (Dimensions.get('screen').width-86)/2,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",

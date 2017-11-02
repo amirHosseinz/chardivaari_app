@@ -168,7 +168,7 @@ class EditProfile extends Component {
         <View style={styles.profilepic}>
           <Icon size={120} color='#c2c2c2' name='account-circle' />
           <TouchableOpacity>
-            <Text style={styles.editpic}>انتخاب تصویر</Text>
+            <Text style={styles.editpic}></Text>
           </TouchableOpacity>
         </View>
         <View style={styles.container1}>
@@ -260,9 +260,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   textInput: {
-    height: 52,
+    height: 48,
     width:Dimensions.get('window').width-50 ,
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Vazir',
     textAlign: 'right',
     color: '#4f4f4f',
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Light',
     fontSize: 14,
     color:'#c2c2c2',
-    marginTop:8,
+    marginTop:11,
   },
   reservebuttontext: {
     fontSize: 20,
