@@ -130,9 +130,15 @@ class Splash extends Component {
       <StatusBar
         backgroundColor="#0094ae"
         barStyle="light-content" />
-        <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
-        <Text style={styles.splashtext}>تریپین</Text>
+        <View style={styles.container1}>
+          <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
+          <Text style={styles.splashtext}>تریپین</Text>
       </View>
+      <View style={styles.container2}>
+        <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
+      </View>
+      </View>
+
     );
   }
 }
@@ -142,17 +148,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#12b2ce',
     alignItems:'center',
-    justifyContent:'center',
+    justifyContent:'space-between',
   },
   splashimg:{
     height:120,
     resizeMode:'contain',
   },
   splashtext:{
-    fontFamily:'Vazir',
+    fontFamily:'Vazir-Medium',
     fontSize:34,
     marginBottom:180,
     color:'#ffffff',
+  },
+  container1:{
+    alignItems:'center',
+justifyContent:'center',
+marginTop:100,
+  },
+  container2:{
+    alignItems:'center',
+justifyContent:'center',
+marginBottom:45,
   },
 });
 

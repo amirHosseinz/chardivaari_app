@@ -255,7 +255,7 @@ class LoginVerify extends Component {
       );
     } else {
       return(
-        <Text style={styles.resendtext1}>دریافت مجدد کد {this.remainedTimeText()}</Text>
+        <Text style={styles.resendtext2}>دریافت مجدد کد {this.remainedTimeText()}</Text>
       );
     }
 
@@ -292,14 +292,8 @@ class LoginVerify extends Component {
               <Text style={styles.notnow}>شماره را اشتباه وارد کرده اید؟</Text>
             </TouchableOpacity>
           </View>
-
-        <View style={styles.downside}>
-          <TouchableOpacity style={styles.buttontouch} onPress={this.checkVerificationCode.bind(this)}>
-            <View style={styles.buttonview}>
-              <Text style={styles.reservebuttontext}>ادامه</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.downside}>
+          </View>
 
       </View>
     );
@@ -336,7 +330,7 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   buttontouch: {
-    borderColor:"#00cecc",
+    borderColor:"#22c8d4",
     borderRadius: 50,
     borderWidth : 2,
     height:48,
@@ -347,7 +341,7 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   buttonview: {
-    backgroundColor:"#00cecc",
+    backgroundColor:"#22c8d4",
     borderRadius: 50,
     height:40,
     width: 140,
@@ -369,8 +363,8 @@ const styles = StyleSheet.create({
   notnow:{
     fontFamily:'Vazir-Medium',
     fontSize:16,
-    color:'#00a8a6',
-    marginBottom:10,
+    color:'#12b2ce',
+    marginBottom:6,
   },
   logobox:{
     marginTop:50,
@@ -380,12 +374,22 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontSize:16,
     fontFamily:'Vazir-Light',
+    color:'#3e3e3e',
   },
   resendtext1:{
     width:Dimensions.get('window').width*2/3 ,
     textAlign:'center',
     fontSize:16,
     fontFamily:'Vazir-Medium',
+    color:'#3e3e3e',
+  },
+  resendtext2:{
+    width:Dimensions.get('window').width*2/3 ,
+    textAlign:'center',
+    fontSize:16,
+    fontFamily:'Vazir-Medium',
+    color:'#acacac',
+    marginBottom:8,
   },
   sendcodeplz:{
     marginTop:20,

@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
   },
   imagestyle:{
     flex:2,
-    resizeMode:'contain',
   },
   housetitle:{
     fontSize:18,

@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttomNavFont: {
-    fontFamily: "IRANSans",
+    fontFamily: "Vazir-Light",
     fontSize: 12,
   }
 });

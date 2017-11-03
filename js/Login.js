@@ -191,7 +191,7 @@ class Login extends Component {
           <TextInput
             style={styles.textInput}
             autoFocus={true}
-            placeholder="09XXXXXXXXX"
+            placeholder="09120000000"
             placeholderTextColor="#acacac"
             value={this.state.cellPhoneNo}
             maxLength = {11}
@@ -202,11 +202,6 @@ class Login extends Component {
             underlineColorAndroid={'transparent'}
           />
 
-          <TouchableOpacity style={styles.buttontouch} onPress={this.getConfirmationCode.bind(this)}>
-            <View style={styles.buttonview}>
-              <Text style={styles.reservebuttontext}>دریافت کد ورود</Text>
-            </View>
-          </TouchableOpacity>
 
 
         </View>
@@ -248,7 +243,7 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   buttontouch: {
-    borderColor:"#22c8d4",
+    borderColor:"#22bdd4",
     borderRadius: 50,
     borderWidth : 2,
     height:48,
@@ -259,7 +254,7 @@ const styles = StyleSheet.create({
     marginTop:15,
   },
   buttonview: {
-    backgroundColor:"#22c8d4",
+    backgroundColor:"#22bdd4",
     borderRadius: 50,
     height:40,
     width: 180,
@@ -281,7 +276,7 @@ const styles = StyleSheet.create({
   notnow:{
     fontFamily:'Vazir-Medium',
     fontSize:16,
-    color:'#12b2ce',
+    color:'#22bdd4',
     marginRight:25,
     marginTop:25,
   },

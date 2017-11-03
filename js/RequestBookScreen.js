@@ -10,6 +10,7 @@ import {
   Image,
   TextInput,
   Modal,
+  StatusBar,
 } from 'react-native';
 import {
   KeyboardAwareScrollView
@@ -499,6 +500,9 @@ class RequestBookScreen extends Component {
 
     return(
       <View style={styles.container0}>
+      <StatusBar
+        backgroundColor="#eeeeee"
+        barStyle="dark-content" />
       <KeyboardAwareScrollView>
 
         <View style={styles.container1}>
@@ -545,15 +549,19 @@ class RequestBookScreen extends Component {
             {this.renderTotalPrice()}
             <View style={styles.interdiscount}>
               <Icon size={26} color="#959595" name="add-circle" />
+              <Icon size={26} color="#29daaa" name="check-circle" />
+              <Icon size={26} color="#ff6f4d" name="error" />
               <Text style={styles.costtext}> ورود کد تخفیف : </Text>
               <View style={styles.inputstyle}>
                   <TextInput
+                    style={styles.textInput}
                     placeholderTextColor="#acacac"
+                    placeholder='oooooooooooo'
                     maxLength = {13}
                     onChangeText={this.setDiscountCode} />
               </View>
               <TouchableOpacity onPress={this._onCheckDiscountCodeButtonPress.bind(this)}>
-                <Text style={styles.checkcodetext}> بررسی کد تخفیف </Text>
+                <Text style={styles.checkcodetext}>بررسی</Text>
               </TouchableOpacity>
             </View>
 
@@ -795,8 +803,20 @@ const styles = StyleSheet.create({
     fontSize:14,
     color:'#00a8a6',
   },
-  inputstyle:{
+  textInput:{
+    height:40,
     width:95,
+    fontSize: 14,
+    fontFamily: 'Vazir',
+    textAlign: 'center',
+    color: '#4f4f4f',
+    marginTop:5,
+
+
+  },
+  inputstyle:{
+    marginLeft:5,
+    marginRight:5,
   },
   backbuttonview:{
     flexDirection:'row-reverse',
