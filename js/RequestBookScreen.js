@@ -367,7 +367,7 @@ class RequestBookScreen extends Component {
       return(
         <View style={styles.discountdetail}>
           <Text style={styles.disdetatiltext}>
-            متاسفانه این خانه برای این زمان قابل رزور نمی‌باشد.
+            متاسفانه این خانه برای این زمان قابل رزرو نمی‌باشد.
           </Text>
         </View>
       );
