@@ -399,7 +399,7 @@ class HouseDetail extends Component {
           renderPage={this.renderImage}
           renderPageIndicator={this.renderIndicator}
           isLoop={true}
-          initialPage={0} />
+          initialPage={0}/>
       );
     }
   }
@@ -417,8 +417,8 @@ class HouseDetail extends Component {
               onRegionChange={this.onRegionChange.bind(this)}>
               <MapView.Circle
                 center={this.state.marker.latlng}
-                radius={this.state.marker.radius*3/2}
-                strokeColor={'#12b2ce'}
+                radius={this.state.marker.radius*4/2}
+                strokeColor={'#43cee6'}
                 strokeWidth={3}
                 fillColor={'rgba(18,178,206,0.2)	'}
               />
@@ -534,18 +534,13 @@ class HouseDetail extends Component {
       <StatusBar
         barStyle="light-content"
          />
-      <ScrollView
-      showsHorizontalScrollIndicator={false}>
+      <ScrollView>
       {this.renderViewPager()}
-
 <View style={styles.container0}>
-
 <View style={styles.container2}>
   <Text style={styles.housename}>{this.state.room.title}</Text>
   <View style={styles.city}>
-    <Text style={styles.city1}>{this.state.room.district}</Text>
-    <Text style={styles.city1}>، </Text>
-    <Text style={styles.city1}>{this.state.room.address}</Text>
+    <Text style={styles.city1} numberOfLines={1}>{this.state.room.district} ، {this.state.room.address}</Text>
   </View>
 
   {this.renderRating()}
@@ -1092,7 +1087,7 @@ icon:{
   resizeMode:"contain",
   marginLeft:6,
   marginRight:6,
-  opacity:0.75,
+  opacity:0.78,
 },
 
 });

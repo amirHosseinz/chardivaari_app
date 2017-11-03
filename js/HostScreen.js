@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   buttomNavFont: {
-    fontFamily: "IRANSans",
+    fontFamily: "Vazir-Light",
     fontSize: 12,
   },
 });

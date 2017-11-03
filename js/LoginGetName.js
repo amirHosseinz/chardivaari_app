@@ -107,7 +107,7 @@ class LoginGetName extends Component {
                   />
               <Text style={styles.upfield}>نام خانوادگی</Text>
                   <TextInput
-                  style={styles.textInput}
+                  style={styles.textInput1}
                   placeholder="مثال: رضایی"
                   placeholderTextColor="#acacac"
                   value={this.state.lastName}
@@ -143,70 +143,71 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   textInput: {
-    height: 52,
+    height: 48,
     width:Dimensions.get('window').width-50 ,
-    fontSize: 18,
+    fontSize: 14,
     fontFamily: 'Vazir',
     textAlign: 'right',
     color: '#4f4f4f',
     marginBottom:12,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1.5,
+    borderBottomColor:'#acacac',
+  },
+  textInput1: {
+    height: 48,
+    width:Dimensions.get('window').width-50 ,
+    fontSize: 14,
+    fontFamily: 'Vazir',
+    textAlign: 'right',
+    color: '#4f4f4f',
+    marginBottom:5,
+    borderBottomWidth: 1.5,
     borderBottomColor:'#acacac',
   },
   upfield: {
     fontFamily:'Vazir-Light',
-    fontSize: 14,
+    fontSize: 12,
     color:'#c2c2c2',
   },
   reservebuttontext: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily:"Vazir-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
     paddingRight:12,
     paddingLeft:12,
-    marginBottom:5,
+    marginBottom:4,
   },
   buttontouch: {
     borderColor:"#22c8d4",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
-    width: 148,
+    height:44,
+    width: 144,
     justifyContent:"center",
     alignItems:"center",
-    marginBottom:15,
-    marginTop:15,
+    marginBottom:25,
+    marginTop:10,
   },
   buttonview: {
     backgroundColor:"#22c8d4",
     borderRadius: 50,
-    height:40,
-    width: 140,
+    height:36,
+    width: 136,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
   },
-  logo:{
-    height:140,
-    width:100,
-  },
   addphonenumber:{
     fontFamily:'Vazir-Medium',
     fontSize:18,
-    marginTop:40,
+    marginTop:30,
     marginBottom:10,
     color:'#3e3e3e',
   },
-  notnow:{
-    fontFamily:'Vazir-Medium',
-    fontSize:16,
-    color:'#00a8a6',
-    marginBottom:10,
-  },
   logobox:{
-    marginTop:50,
+    marginTop:35,
   },
   resendtext:{
     width:Dimensions.get('window').width*2/3 ,

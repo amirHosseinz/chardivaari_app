@@ -293,11 +293,6 @@ class LoginVerify extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.downside}>
-            <TouchableOpacity style={styles.buttontouch} onPress={this.checkVerificationCode.bind(this)}>
-              <View style={styles.buttonview}>
-                <Text style={styles.reservebuttontext}>ادامه</Text>
-              </View>
-            </TouchableOpacity>
           </View>
 
       </View>
@@ -369,7 +364,7 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Medium',
     fontSize:16,
     color:'#12b2ce',
-    marginBottom:10,
+    marginBottom:6,
   },
   logobox:{
     marginTop:50,
@@ -394,6 +389,7 @@ const styles = StyleSheet.create({
     fontSize:16,
     fontFamily:'Vazir-Medium',
     color:'#acacac',
+    marginBottom:8,
   },
   sendcodeplz:{
     marginTop:20,
