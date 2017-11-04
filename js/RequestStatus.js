@@ -491,7 +491,7 @@ class RequestStatus extends Component {
             <View style={styles.bottombarbutton}>
                 <TouchableOpacity style={styles.buttontouch1} onPress={this.onCancelRequestButtonPress}>
                   <View style={styles.buttonview1}>
-                  <Text style={styles.reservebuttontext}>لغو کردن درخواست</Text>
+                  <Text style={styles.reservebuttontext}>لغو درخواست</Text>
                 </View>
                 </TouchableOpacity>
             </View>

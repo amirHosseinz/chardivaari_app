@@ -9,12 +9,14 @@ import {
   Image,
   Modal,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import Communications from 'react-native-communications';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AboutUs from './AboutUs';
+import Termconditions from './Termconditions';
 
 import { testURL, productionURL } from './data';
 import EditProfile from './EditProfile';
@@ -27,6 +29,7 @@ class Profile extends Component {
       token: null,
       editProfileModalVisible: false,
       aboutUsModalVisible: false,
+      termsConditionsModalVisible: false,
     };
   }
 
@@ -109,7 +112,7 @@ class Profile extends Component {
   }
 
   _onCallUsPress () {
-    Communications.phonecall('09124642386', true);
+    Communications.phonecall('02188573037', true);
   }
 
   _onEditProfilePress () {
@@ -131,10 +134,21 @@ class Profile extends Component {
       aboutUsModalVisible: true,
     });
   }
-
   closeAboutUs = () => {
     this.setState({
       aboutUsModalVisible: false,
+    });
+  }
+
+  openTermconditions = () => {
+    this.setState({
+      termsConditionsModalVisible: true,
+    });
+  }
+
+  closeTermconditions = () => {
+    this.setState({
+      termsConditionsModalVisible: false,
     });
   }
 
@@ -188,7 +202,7 @@ class Profile extends Component {
               <View style={styles.itemiconcircle}>
                 <Icon size={24} color="white" name="exit-to-app" />
               </View>
-            <Text style={styles.profileitemtext}>عضویت</Text>
+            <Text style={styles.profileitemtext}>ورود یا عضویت</Text>
           </View>
         </TouchableOpacity>
       );
@@ -199,7 +213,7 @@ class Profile extends Component {
               <View style={styles.itemiconcircle}>
                 <Icon size={24} color="white" name="exit-to-app" />
               </View>
-            <Text style={styles.profileitemtext}>خروج</Text>
+            <Text style={styles.profileitemtext}>خروج از حساب کاربری</Text>
           </View>
         </TouchableOpacity>
       );
@@ -243,6 +257,7 @@ class Profile extends Component {
   render () {
     return(
       <View style={styles.container0}>
+      <ScrollView>
       <StatusBar
         backgroundColor="#eeeeee"
         barStyle="dark-content" />
@@ -267,6 +282,18 @@ class Profile extends Component {
                   style={styles.infopng}/>
                 </View>
               <Text style={styles.profileitemtext}>درباره ما</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.divider}>
+          </View>
+          <TouchableOpacity onPress={() => {
+            this.openTermconditions();
+          }}>
+            <View style={styles.profileitembox}>
+                <View style={styles.itemiconcircle}>
+                <Icon size={24} color="white" name="subject" />
+                </View>
+              <Text style={styles.profileitemtext}>شرایط و قوانین استفاده</Text>
             </View>
           </TouchableOpacity>
           <View style={styles.divider}>
@@ -316,6 +343,18 @@ class Profile extends Component {
         </AboutUs>
         </Modal>
 
+        <Modal
+        animationType='slide'
+        transparent={false}
+        visible={this.state.termsConditionsModalVisible}
+        onRequestClose={() => {
+          this.closeTermconditions();
+        }}>
+
+        <Termconditions onCloseModal={this.closeTermconditions}>
+        </Termconditions>
+        </Modal>
+        </ScrollView>
       </View>
     );
   }
