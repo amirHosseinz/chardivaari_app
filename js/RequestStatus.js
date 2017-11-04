@@ -268,23 +268,21 @@ class RequestStatus extends Component {
   }
 
   async asyncPayment () {
-    // TODO very much
     try {
       var {
         isPaymentSuccess,
         refID,
       } = await PaymentModule.reactRequestPayment(
         'جهت تست درگاه',
-        100
+        100,
+        this.state.token,
+        this.state.request.id
       );
-      console.log('injaaaaaaaaaaaaaa##############');
-      console.log(refID);
       if (isPaymentSuccess) {
-        Alert.alert('this is refID: '+refID);
-        this.payRequestDone();
+        Alert.alert('کد پیگیری: '+refID);
+        // this.payRequestDone();
       }
     } catch (e) {
-      console.log('Ooooooooonjaaaaaaaaaaaaaa##############');
       console.log(e);
     }
   }
@@ -309,8 +307,8 @@ class RequestStatus extends Component {
   }
 
   onPayRequestPress = () => {
-    // TODO
     this.asyncPayment();
+    // this.backNavigation();
   }
 
   onPayRequestResponseRecieved (response) {

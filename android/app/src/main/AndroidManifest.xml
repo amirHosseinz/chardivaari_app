@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chardivaari_app"
+    package="com.trypinn"
     android:versionCode="1"
     android:versionName="1.0">
 
     <permission
-        android:name="com.chardivaari_app.permission.MAPS_RECEIVE"
+        android:name="com.trypinn.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="com.chardivaari_app.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="com.trypinn.permission.MAPS_RECEIVE"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -35,6 +35,10 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="trypinn" android:host="guestScreen" />
         </intent-filter>
       </activity>
 
@@ -43,7 +47,7 @@
             <action android:name="android.intent.action.VIEW"/>
             <category android:name="android.intent.category.DEFAULT"/>
             <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:scheme="myapp" android:host="zarinpalpayment" />
+            <data android:scheme="trypinn" android:host="zarinpalpayment" />
         </intent-filter>
       </activity>
 
