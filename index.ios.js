@@ -7,4 +7,4 @@
 import { AppRegistry } from 'react-native';
 import App from './js/app';
 
-AppRegistry.registerComponent('Trypinn', () => App);
+AppRegistry.registerComponent('trypinn', () => App);
