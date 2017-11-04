@@ -227,7 +227,7 @@ class HouseDetail extends Component {
       result = 'سوییت ';
       break;
     case 'VILLA':
-      result = 'ویلا ';
+      result = 'ویلای ';
       break;
     case 'HOUSE':
       result = 'خانه ';
@@ -532,8 +532,7 @@ class HouseDetail extends Component {
     return(
       <View style={styles.container}>
       <StatusBar
-        barStyle="light-content"
-         />
+        barStyle="light-content" />
       <ScrollView>
       {this.renderViewPager()}
 <View style={styles.container0}>
@@ -810,6 +809,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "column",
     paddingTop:10,
+    color:"#3e3e3e"
   },
   accountimage: {
     height: 75,
