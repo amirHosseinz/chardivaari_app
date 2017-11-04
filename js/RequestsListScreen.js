@@ -33,7 +33,11 @@ class RequestsListScreen extends Component {
   componentWillMount() {
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
-    CacheStore.get('requestsList').then((value) => {this.setRequests(value);});
+    if (this.props.role === 'host') {
+      CacheStore.get('host_requestsList').then((value) => {this.setRequests(value);});
+    } else if (this.props.role === 'guest') {
+      CacheStore.get('guest_requestsList').then((value) => {this.setRequests(value);});
+    }
     timer.setInterval(
       this,
       'refreshReqList',
@@ -96,7 +100,11 @@ class RequestsListScreen extends Component {
         toDoCount: body.count,
         refreshing: false,
       });
-      CacheStore.set('requestsList', body.request_list);
+      if (this.props.role === 'host') {
+        CacheStore.set('host_requestsList', body.request_list);
+      } else if (this.props.role === 'guest') {
+        CacheStore.set('guest_requestsList', body.request_list);
+      }
       this.props.setCount(body.count);
     } else {
       // TODO
@@ -145,6 +153,7 @@ class RequestsListScreen extends Component {
         <View style={styles.notlogin}>
           <Text style={styles.notlogintext}> شما وارد حساب کاربری خود نشده اید.  </Text>
           <TouchableOpacity style={styles.logintouch} onPress={() => {
+            timer.clearInterval(this);
             this.resetNavigation('login');
           }}>
             <Text style={styles.notlogintext1}> ورود </Text>

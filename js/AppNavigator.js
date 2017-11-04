@@ -30,10 +30,6 @@ class AppWithNavigationState extends Component {
     if (this.state.backPressedBefore === true) {
       BackHandler.exitApp();
     } else {
-      ToastAndroid.show(
-        'برای خروج دکمه‌ی بازگشت را مجددا فشار دهید.',
-        ToastAndroid.SHORT,
-      );
       this.setState({
         backPressedBefore: true,
       });

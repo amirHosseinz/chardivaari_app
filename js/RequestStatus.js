@@ -270,13 +270,19 @@ class RequestStatus extends Component {
   async asyncPayment () {
     // TODO very much
     try {
-      var result = await PaymentModule.reactRequestPayment(
+      var {
+        isPaymentSuccess,
+        refID,
+      } = await PaymentModule.reactRequestPayment(
         'جهت تست درگاه',
         100
       );
       console.log('injaaaaaaaaaaaaaa##############');
-      console.log(result);
-      this.payRequestDone();
+      console.log(refID);
+      if (isPaymentSuccess) {
+        Alert.alert('this is refID: '+refID);
+        this.payRequestDone();
+      }
     } catch (e) {
       console.log('Ooooooooonjaaaaaaaaaaaaaa##############');
       console.log(e);
