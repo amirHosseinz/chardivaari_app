@@ -363,6 +363,22 @@ class RequestBookScreen extends Component {
     }
   }
 
+  renderDiscountIcon () {
+    if (Number(this.state.totalDiscount) > 0) {
+      return(
+        <Icon size={26} color="#29daaa" name="check-circle" />
+      );
+    } else if (this.state.discountCodeError == false) {
+      return(
+        <Icon size={26} color="#959595" name="add-circle" />
+      );
+    } else {
+      return(
+        <Icon size={26} color="#ff6f4d" name="error" />
+      );
+    }
+  }
+
   renderUnavailableError () {
     if (this.state.unAvailableError) {
       return(
@@ -526,6 +542,7 @@ class RequestBookScreen extends Component {
             </TouchableOpacity>
             {this.renderCapacity()}
           </View>
+          {this.renderCapacityError()}
           <View style={styles.divider}>
           </View>
           <View style={styles.interdate}>
@@ -541,6 +558,7 @@ class RequestBookScreen extends Component {
               {this.renderStartDate()}
               {this.renderEndDate()}
           </View>
+          {this.renderUnavailableError()}
           <View style={styles.divider}>
           </View>
           <View style={styles.costbox}>
@@ -548,9 +566,7 @@ class RequestBookScreen extends Component {
             {this.renderTrypinnShare()}
             {this.renderTotalPrice()}
             <View style={styles.interdiscount}>
-              <Icon size={26} color="#959595" name="add-circle" />
-              <Icon size={26} color="#29daaa" name="check-circle" />
-              <Icon size={26} color="#ff6f4d" name="error" />
+              {this.renderDiscountIcon()}
               <Text style={styles.costtext}> ورود کد تخفیف : </Text>
               <View style={styles.inputstyle}>
                   <TextInput
@@ -566,8 +582,6 @@ class RequestBookScreen extends Component {
             </View>
 
             {this.renderDiscount()}
-            {this.renderUnavailableError()}
-            {this.renderCapacityError()}
             {this.renderDiscountCodeError()}
 
           </View>

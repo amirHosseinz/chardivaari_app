@@ -34,6 +34,7 @@ class HouseDetail extends Component {
    this.state = {
      token: '',
      username: '',
+     user: null,
      room: {},
      imagesData: null,
      region: null,
@@ -41,6 +42,7 @@ class HouseDetail extends Component {
      loginModalVisible: false,
      contactModalVisible: false,
      facilitiesModalVisible: false,
+     nationalIdModalVisible: false,
    };
    this.mapStyle = [];
  }
@@ -56,10 +58,15 @@ class HouseDetail extends Component {
  componentDidMount () {
    CacheStore.get('token').then((value) => this.setToken(value));
    CacheStore.get('username').then((value) => this.setUsername(value));
+   CacheStore.get('user').then((value) => {
+     if (value != null) {
+       this.setState({
+         user: value,
+       });
+     }
+   });
 
    if (this.props.navigation.state.params.room) {
-     console.log('##########################');
-     console.log(this.props.navigation.state.params.room);
      this.setState({
        room: this.props.navigation.state.params.room,
      }, () => {
@@ -211,7 +218,9 @@ class HouseDetail extends Component {
  onRequestBookButtonPress () {
    if (this.state.username && this.state.username === 'GUEST_USER') {
      this.openLoginModal();
-   } else {
+   } else if (this.state.user && this.state.user.national_id == null || this.state.user.national_id === "" ) {
+     this.openNationalIdModal();
+   } else if (this.state.user && this.state.username) {
      this.props.navigation.navigate(
        'requestBookScreen', {
          room: this.state.room,
@@ -639,6 +648,23 @@ class HouseDetail extends Component {
     });
   }
 
+  openNationalIdModal = () => {
+    this.setState({
+      nationalIdModalVisible: true,
+    });
+  }
+
+  closeNationalIdModal = () => {
+    this.setState({
+      nationalIdModalVisible: false,
+    });
+  }
+
+  resetProfilePage = () => {
+    CacheStore.set('GuestScreen_tabName', 'profile');
+    this.resetNavigation('guestScreen');
+  }
+
   openContactModal = () => {
     this.setState({
       contactModalVisible: true,
@@ -871,6 +897,33 @@ class HouseDetail extends Component {
         }}>
         <View style={styles.buttonview1}>
         <Text style={styles.reservebuttontext}>ورود</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.nationalIdModalVisible}
+    onRequestClose={() => {
+      this.closeNationalIdModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeNationalIdModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>برای درخواست رزرو باید وارد ویرایش حساب کاربری شده و شماره ملی خود را وارد نمایید.</Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          this.closeNationalIdModal();
+          this.resetProfilePage();
+        }}>
+        <View style={styles.buttonview1}>
+        <Text style={styles.reservebuttontext}>حساب کاربری</Text>
       </View>
       </TouchableOpacity>
     </View>

@@ -20,6 +20,7 @@ class Splash extends Component {
     this.state={
       token: null,
       username: null,
+      retryButtonVisible: false,
     };
   }
 
@@ -53,6 +54,12 @@ class Splash extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
+  setRetryButtonVisible () {
+    this.setState({
+      retryButtonVisible: true,
+    });
+  }
+
   checkAppUpdate () {
     fetch(productionURL + '/api/check_update/', {
       method: 'POST',
@@ -64,6 +71,7 @@ class Splash extends Component {
     .then((response) => this.onCheckUpdateResponseRecieved(response))
     .catch((error) => {
       // network error
+      this.setRetryButtonVisible();
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
@@ -100,6 +108,7 @@ class Splash extends Component {
     .then((response) => this.onValidateUserResponseRecieved(response))
     .catch((error) => {
       // network error
+      this.setRetryButtonVisible();
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
   }
@@ -124,6 +133,20 @@ class Splash extends Component {
     }
   }
 
+  renderRetryButton () {
+    if (this.state.retryButtonVisible) {
+      return(
+        <View style={styles.container2}>
+          <TouchableOpacity onPress={() =>{
+            this.checkAppUpdate();
+          }}>
+          <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -134,9 +157,7 @@ class Splash extends Component {
           <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
           <Text style={styles.splashtext}>تریپین</Text>
       </View>
-      <View style={styles.container2}>
-        <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
-      </View>
+      {this.renderRetryButton()}
       </View>
 
     );
