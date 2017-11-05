@@ -58,6 +58,8 @@ class HouseDetail extends Component {
    CacheStore.get('username').then((value) => this.setUsername(value));
 
    if (this.props.navigation.state.params.room) {
+     console.log('##########################');
+     console.log(this.props.navigation.state.params.room);
      this.setState({
        room: this.props.navigation.state.params.room,
      }, () => {
@@ -274,6 +276,142 @@ class HouseDetail extends Component {
     }
   }
 
+  renderRefrig () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('FRIDGE') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/refrigerator.png')} />
+      );
+    }
+  }
+
+  renderParking () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PARKING') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/parking.png')} />
+      );
+    }
+  }
+
+  renderBarbecue () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('BARBECUE') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/Barbecue.png')} />
+      );
+    }
+  }
+
+  renderBlanket () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('EXTRA_SLEEP_UTILS') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/blanket.png')} />
+      );
+    }
+  }
+
+  renderCanape () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('SOFA') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/canape.png')} />
+      );
+    }
+  }
+
+  renderConditioner () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('COOLER') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/conditioner.png')} />
+      );
+    }
+  }
+
+  renderDinnerTable () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('DINING_TABLE') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/dinnertable.png')} />
+      );
+    }
+  }
+
+  renderElevator () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('ELEVATOR') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/elevator.png')} />
+      );
+    }
+  }
+
+  renderFoosball () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('TABLE_FOOTBALL') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/foosball.png')} />
+      );
+    }
+  }
+
+  renderKitchenware () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('KITCHEN_DISH') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
+      );
+    }
+  }
+
+  renderMicrowave () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('MICROWAVE_OVEN') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/mircowave.png')} />
+      );
+    }
+  }
+
+  renderPavilion () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PERGOLA') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/pavilion.png')} />
+      );
+    }
+  }
+
+  renderPingpong () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PING_PONG') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
+      );
+    }
+  }
+
+  renderPool () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('POOL') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/pool.png')} />
+      );
+    }
+  }
+
+  renderStove () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('OVEN') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/stove.png')} />
+      );
+    }
+  }
+
+  renderTeamaker () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('TEA_MAKER') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/teamaker.png')} />
+      );
+    }
+  }
+
+  renderForeigntoilet () {
+    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('FOREIGN_TOILET') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
+      );
+    }
+  }
+
   renderWifiFeature () {
     if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('NET') > -1) {
       return(
@@ -282,10 +420,10 @@ class HouseDetail extends Component {
     }
   }
 
-  renderHangerFeature () {
+  renderHanger () {
     if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('HANGER') > -1) {
       return(
-        <Image style={styles.featuresicon} source={require("./img/hanger.png")}/>
+        <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
       );
     }
   }
@@ -519,7 +657,7 @@ class HouseDetail extends Component {
       {this.renderBreakfastFeature()}
       {this.renderTVFeature()}
       {this.renderWifiFeature()}
-      {this.renderHangerFeature()}
+      {this.renderHanger()}
       {this.renderWashingMachineFeature()}
       <TouchableOpacity onPress={this.openFacilities}>
         <Text style={styles.seemore}>مشاهده بیشتر</Text>
@@ -590,7 +728,7 @@ class HouseDetail extends Component {
   <View style={styles.deatilitembox}>
     <Image style={styles.detailiconimg} source={require("./img/beds.png")}/>
     <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {this.state.room.beds_number}</Text>
+    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + Number(this.state.room.double_beds_number)}</Text>
     <Text style={styles.detailicontext}>تخت</Text>
     </View>
   </View>
@@ -608,30 +746,31 @@ class HouseDetail extends Component {
 <View style={styles.divider}>
 </View>
 
-<Text style={styles.h2}>سایر امکانات</Text>
+<Text style={styles.h2}>امکانات</Text>
   <View style={styles.morefacilities}>
-    <Image style={styles.icon} source={require('./img/facilities/refrigerator.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/parking.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/Barbecue.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/blanket.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/canape.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/conditioner.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/dinnertable.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/elevator.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/foosball.png')} />
-    <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
+    {this.renderRefrig()}
+    {this.renderParking()}
+    {this.renderBarbecue()}
+    {this.renderBlanket()}
+    {this.renderCanape()}
+    {this.renderConditioner()}
+    {this.renderDinnerTable()}
+    {this.renderElevator()}
+    {this.renderFoosball()}
+    {this.renderHanger()}
 </View>
 <View style={styles.morefacilities}>
-  <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/mircowave.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/pavilion.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/pool.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/stove.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/teamaker.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
-  <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
-  <Text style={{fontSize:18,fontFamily:'Vazir-Medium',color:'#00b1ce'}}>12+ </Text>
+  {this.renderKitchenware()}
+  {this.renderMicrowave()}
+  {this.renderPavilion()}
+  {this.renderPingpong()}
+  {this.renderPool()}
+  {this.renderStove()}
+  {this.renderTeamaker()}
+  {this.renderForeigntoilet()}
+  <TouchableOpacity onPress={this.openFacilities}>
+    <Text style={{fontSize:18,fontFamily:'Vazir-Medium',color:'#00b1ce'}}> + </Text>
+  </TouchableOpacity>
 </View>
     <View style={styles.divider}>
     </View>
