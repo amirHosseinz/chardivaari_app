@@ -27,6 +27,7 @@ class Profile extends Component {
     this.state={
       user: {},
       token: null,
+      callCenter: null,
       editProfileModalVisible: false,
       aboutUsModalVisible: false,
       termsConditionsModalVisible: false,
@@ -44,6 +45,13 @@ class Profile extends Component {
       }
     });
     CacheStore.get('token').then((value) => this.setToken(value));
+    CacheStore.get('call_center').then((value) => {
+      if (value != null) {
+        this.setState({
+          callCenter: value,
+        });
+      }
+    });
   }
 
   setToken (token) {
@@ -73,8 +81,10 @@ class Profile extends Component {
       body = JSON.parse(response._bodyText);
       this.setState({
         user: body.user,
+        callCenter: body.call_center,
       });
       CacheStore.set('user', body.user);
+      CacheStore.set('call_center', body.call_center);
     } else {
       // TODO
       // invalid token error
@@ -112,7 +122,8 @@ class Profile extends Component {
   }
 
   _onCallUsPress () {
-    Communications.phonecall('02188573037', true);
+    // 02188573037
+    Communications.phonecall({this.state.callCenter}, true);
   }
 
   _onEditProfilePress () {
