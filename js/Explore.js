@@ -113,23 +113,39 @@ class Explore extends Component {
   }
 
   setStartDate = (startDate) => {
-    this.setState({
-      start_date: startDate,
-    });
+    if (this.state.start_date != startDate) {
+      this.setState({
+        start_date: startDate,
+      }, () => {
+        this.onSearchButtonPress();
+      });
+    }
   }
 
   setEndDate = (endDate) => {
-    this.setState({
-      end_date: endDate,
-    });
+    if (this.state.end_date != endDate) {
+      this.setState({
+        end_date: endDate,
+      }, () => {
+        this.onSearchButtonPress();
+      });
+    }
   }
 
   setDestination = (destination) => {
-    this.setState({ destination });
+    if (this.state.destination != destination) {
+      this.setState({ destination }, () => {
+        this.onSearchButtonPress();
+      });
+    }
   }
 
   setCapacity = (capacity) => {
-    this.setState({ capacity });
+    if (this.state.capacity != capacity) {
+      this.setState({ capacity }, () => {
+        this.onSearchButtonPress();
+      });
+    }
   }
 
   renderResults () {
@@ -158,8 +174,7 @@ class Explore extends Component {
           setStartDate={this.setStartDate}
           setEndDate={this.setEndDate}
           setDestination={this.setDestination}
-          setCapacity={this.setCapacity}
-          doSearchAction={this.onSearchButtonPress} />
+          setCapacity={this.setCapacity} />
         <View style={styles.filter}>
         </View>
         {this.renderError()}

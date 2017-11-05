@@ -87,8 +87,7 @@ class SearchAnimations extends Component {
               justifyContent: 'space-around',
               paddingTop: 5,
               paddingBottom: 5,
-              elevation:3
-
+              elevation:3,
            },
            isOpen: true,
         });
@@ -264,7 +263,7 @@ class SearchAnimations extends Component {
          });
          this.props.setStartDate(startDate);
          this.props.setEndDate(endDate);
-         this.props.doSearchAction();
+         // this.props.doSearchAction();
        }
      }
 
@@ -293,7 +292,7 @@ class SearchAnimations extends Component {
            });
            this.props.setDestination(this.state.newDestination);
          }
-         this.props.doSearchAction();
+         // this.props.doSearchAction();
        }
      }
 
@@ -316,7 +315,7 @@ class SearchAnimations extends Component {
            capacity: this.state.newCapacity,
          });
          this.props.setCapacity(this.state.newCapacity);
-         this.props.doSearchAction();
+         // this.props.doSearchAction();
        }
      }
 

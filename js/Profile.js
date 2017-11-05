@@ -123,7 +123,7 @@ class Profile extends Component {
 
   _onCallUsPress () {
     // 02188573037
-    Communications.phonecall({this.state.callCenter}, true);
+    Communications.phonecall(this.state.callCenter, true);
   }
 
   _onEditProfilePress () {
