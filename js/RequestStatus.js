@@ -274,7 +274,7 @@ class RequestStatus extends Component {
         refID,
       } = await PaymentModule.reactRequestPayment(
         'جهت تست درگاه',
-        100,
+        Number(this.state.request.total_price),
         this.state.token,
         this.state.request.id
       );
