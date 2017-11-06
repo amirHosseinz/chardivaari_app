@@ -703,7 +703,7 @@ class HouseDetail extends Component {
 <View style={styles.container2}>
   <Text style={styles.housename}>{this.state.room.title}</Text>
   <View style={styles.city}>
-    <Text style={styles.city1} numberOfLines={1}>{this.state.room.district} ، {this.state.room.address}</Text>
+    <Text style={styles.city1} numberOfLines={1}>{this.state.room.address}</Text>
   </View>
 
   {this.renderRating()}
