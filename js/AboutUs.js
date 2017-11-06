@@ -40,7 +40,9 @@ class AboutUs extends Component {
         <Text style={{fontSize:14,fontFamily:'Vazir-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>ویرایش : 0 . 1 . 0  </Text>
         <Text style={styles.aboutustext}>
 تریپین در سال 1396 کار خود را آغاز نموده است.
-تیم تریپین متشکل از جمعی از دانشجویان دانشگاه صنعتی شریف است که گرد هم آمده اند تا با ایجاد امکان اجاره انواع فضاهای اقامتی، تجربه سفر را برای کاربران ایرانی از همیشه شیرین تر نمایند.
+تیم تریپین گرد هم آمده‌اند تا با ایجاد امکان اجاره انواع فضاهای اقامتی،
+تجربه سفر را برای کاربران ایرانی
+شیرین‌تر از همیشه نمایند.
         </Text>
         <TouchableOpacity onPress={() => {
           this.handleURL();

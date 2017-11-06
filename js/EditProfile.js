@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -89,6 +90,7 @@ class EditProfile extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
+        CacheStore.set('user', body.user);
         this.exitSuccessfully();
       } else {
         for (var i = 0; i < body.errors.length; i++) {
