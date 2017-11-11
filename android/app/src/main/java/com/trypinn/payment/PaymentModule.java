@@ -74,15 +74,12 @@ public class PaymentModule extends ReactContextBaseJavaModule {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
             if (requestCode == PAYMENT_REQUEST_CODE) {
-                System.out.println("in prev. Activity ");
+                // System.out.println("in prev. Activity ");
                 if (paymentPromise != null) {
-                    System.out.println("promis is not null");
                     if (resultCode == Activity.RESULT_CANCELED) {
-                        System.out.println("chera cancel $$$$$$$$$");
                         paymentPromise.reject(E_PAYMENT_CANCELLED, "Payment was cancelled");
                     }
                     if (resultCode == Activity.RESULT_OK) {
-                        System.out.println("Activity.result is ok &&&&&&&&");
                         Uri uri = intent.getData();
                         if (uri == null) {
                             paymentPromise.reject(E_NO_PAYMENT_DATA_FOUND, "No payment data found");
@@ -155,16 +152,16 @@ public class PaymentModule extends ReactContextBaseJavaModule {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 if (response.isSuccessful()) {
-                                    System.out.println("response.body().string()");
-                                    System.out.println(response.body().string());
+                                    // System.out.println("response.body().string()");
+                                    // System.out.println(response.body().string());
                                     if (response.code() == 200) {
                                         // getCurrentActivity().startActivityForResult(intent, PAYMENT_REQUEST_CODE);
                                         getCurrentActivity().startActivity(intent);
                                     }
                                 } else {
-                                    System.out.println("in onResponse");
-                                    System.out.println(response.body().string());
-                                    System.out.println(response.code());
+                                    // System.out.println("in onResponse");
+                                    // System.out.println(response.body().string());
+                                    // System.out.println(response.code());
                                 }
                             }
                         });
