@@ -14,8 +14,11 @@ import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 class ReserveList extends Component {
   constructor (props) {
@@ -28,6 +31,8 @@ class ReserveList extends Component {
   }
 
   componentWillMount () {
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('ReserveList');
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('reservesList').then((value) => {this.setReservesList(value);});
   }

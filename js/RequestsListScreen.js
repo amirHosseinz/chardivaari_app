@@ -15,7 +15,7 @@ import timer from 'react-native-timer';
 // import RequestsListHeader from './RequestsListHeader';
 // import RequestRow from './RequestRow';
 import RequestRowScreen from './RequestRowScreen';
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class RequestsListScreen extends Component {

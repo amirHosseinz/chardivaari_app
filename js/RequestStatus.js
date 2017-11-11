@@ -15,9 +15,12 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
 import PaymentModule from './common/payment/PaymentModule';
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class RequestStatus extends Component {
@@ -28,13 +31,16 @@ class RequestStatus extends Component {
       role: null,
       token: null,
       username: null,
+      tracker: null,
     };
   }
 
   componentWillMount() {
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
     this.setState({
       request: this.props.navigation.state.params.request,
       role: this.props.navigation.state.params.role,
+      tracker: tracker,
     });
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
@@ -165,6 +171,12 @@ class RequestStatus extends Component {
   }
 
   cancelRequest () {
+    if (this.state.tracker != null) {
+      this.state.tracker.trackEvent('requestBook', 'cancelRequest', {
+        label: this.state.request.status,
+        value: this.state.request.id,
+      });
+    }
     fetch(productionURL + '/api/request/cancel/', {
       method: 'POST',
       headers: {
@@ -240,6 +252,12 @@ class RequestStatus extends Component {
   }
 
   rejectRequest () {
+    if (this.state.tracker != null) {
+      this.state.tracker.trackEvent('requestBook', 'rejectRequest', {
+        label: this.state.request.status,
+        value: this.state.request.id
+      });
+    }
     fetch(productionURL + '/api/request/reject/', {
       method: 'POST',
       headers: {

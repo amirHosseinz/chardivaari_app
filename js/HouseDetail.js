@@ -22,10 +22,13 @@ import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import ViewPager from 'react-native-viewpager';
 import KeepAwake from 'react-native-keep-awake';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
 import ViewPager from './common/custom-viewpager';
 import Facilities from './Facilities';
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class HouseDetail extends Component {
@@ -43,6 +46,7 @@ class HouseDetail extends Component {
      contactModalVisible: false,
      facilitiesModalVisible: false,
      nationalIdModalVisible: false,
+     tracker: null,
    };
    this.mapStyle = [];
  }
@@ -53,6 +57,11 @@ class HouseDetail extends Component {
 
  componentWillMount() {
    KeepAwake.activate();
+   let tracker = new GoogleAnalyticsTracker(GATrackerId);
+   tracker.trackScreenView('HouseDetail');
+   this.setState({
+     tracker: tracker,
+   });
  }
 
  componentDidMount () {
@@ -166,6 +175,10 @@ class HouseDetail extends Component {
  }
 
  contactHost () {
+   this.state.tracker.trackEvent('Messaging', 'contactHost', {
+     label: this.state.username + ' to ' + this.state.room.owner.username,
+     value: this.state.room.id,
+   });
    fetch(productionURL + '/api/message/compose/', {
      method: 'POST',
      headers: {
@@ -217,10 +230,22 @@ class HouseDetail extends Component {
 
  onRequestBookButtonPress () {
    if (this.state.username && this.state.username === 'GUEST_USER') {
+     this.state.tracker.trackEvent('requestBook', 'buttonPress', {
+       label: 'GUEST_USER forbidden',
+       value: 0
+     });
      this.openLoginModal();
    } else if (this.state.user && this.state.user.national_id == null || this.state.user.national_id === "" ) {
+     this.state.tracker.trackEvent('requestBook', 'buttonPress', {
+       label: this.state.user.username,
+       value: 1
+     });
      this.openNationalIdModal();
    } else if (this.state.user && this.state.username) {
+     this.stat.tracker.trackEvent('requestBook', 'buttonPress', {
+       label: this.state.user.username,
+       value: 200
+     });
      this.props.navigation.navigate(
        'requestBookScreen', {
          room: this.state.room,
@@ -1066,222 +1091,222 @@ const styles = StyleSheet.create({
   deatilitembox:{
     alignItems:'center',
   },
-h2:{  fontSize: 18,
-  fontFamily:'Vazir-Medium',
-  color:"#3e3e3e",
-},
-explanation: {
-  fontSize: 14,
-  fontFamily:'Vazir-Light',
-  color:"#3e3e3e",
-},
-mapstyle: {
-width: Dimensions.get('screen').width,
-resizeMode: 'contain' ,
-},
-features: {
-  flexWrap: 'wrap',
-  flexDirection: "row-reverse",
-  alignItems: "flex-start",
-  marginTop:10,
-},
-featuresicon: {
-  width:30,
-  height:30,
-  resizeMode: 'contain' ,
-  marginLeft: 10,
-},
-seemore: {
-  fontSize: 20,
-  fontFamily:"Vazir",
-  color: "#00b1ce"
-},
-bottombar: {
-  width: Dimensions.get('screen').width,
-  height:65,
-  backgroundColor: "#fafafa",
-  alignItems: "center",
-  justifyContent:"center",
-  elevation:5,
-},
-bottombarchild: {
-  width: Dimensions.get('screen').width-50,
-  flex:1,
-  flexDirection: "row-reverse",
-},
-bottombarprice: {
-  flex:3,
-  flexDirection:"row-reverse",
-  justifyContent:"center",
-  alignItems:'center',
-  marginBottom:5,
-},
-bottombarbutton: {
-  flex: 2,
-  alignItems:'center',
-  justifyContent:"center",
-},
-pricetext: {
-  fontSize: 18,
-  fontFamily:"Vazir-Medium",
-  color: "#3e3e3e",
-  justifyContent: "center",
-  alignItems: "center",
-},
-pernighttext: {
-  fontSize: 20,
-  fontFamily:"Vazir-Medium",
-  color: "#787878",
-  justifyContent:"center",
-},
-reservebuttontext: {
-  fontSize: 20,
-  fontFamily:"Vazir-Medium",
-  color: "#ffffff",
-  paddingTop:4,
-  paddingBottom:4,
-  paddingRight:12,
-  paddingLeft:12,
-  marginBottom:5,
-},
-buttontouch: {
-  borderColor:"#f56e4e",
-  borderRadius: 50,
-  borderWidth : 2,
-  height:48,
-  width: 148,
-  flexDirection: "row-reverse",
-  justifyContent:"center",
-  alignItems:"center",
-},
-buttontouch1: {
-  borderColor:"#ffffff",
-  borderRadius: 50,
-  borderWidth : 2,
-  height:48,
-  width: 148,
-  flexDirection: "row-reverse",
-  justifyContent:"center",
-  alignItems:"center",
-},
-buttonview: {
-  backgroundColor:"#f56e4e",
-  borderRadius: 50,
+  h2:{
+    fontSize: 18,
+    fontFamily:'Vazir-Medium',
+    color:"#3e3e3e",
+  },
+  explanation: {
+    fontSize: 14,
+    fontFamily:'Vazir-Light',
+    color:"#3e3e3e",
+  },
+  mapstyle: {
+    width: Dimensions.get('screen').width,
+    resizeMode: 'contain' ,
+  },
+  features: {
+    flexWrap: 'wrap',
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
+    marginTop:10,
+  },
+  featuresicon: {
+    width:30,
+    height:30,
+    resizeMode: 'contain' ,
+    marginLeft: 10,
+  },
+  seemore: {
+    fontSize: 20,
+    fontFamily:"Vazir",
+    color: "#00b1ce"
+  },
+  bottombar: {
+    width: Dimensions.get('screen').width,
+    height:65,
+    backgroundColor: "#fafafa",
+    alignItems: "center",
+    justifyContent:"center",
+    elevation:5,
+  },
+  bottombarchild: {
+    width: Dimensions.get('screen').width-50,
+    flex:1,
+    flexDirection: "row-reverse",
+  },
+  bottombarprice: {
+    flex:3,
+    flexDirection:"row-reverse",
+    justifyContent:"center",
+    alignItems:'center',
+    marginBottom:5,
+  },
+  bottombarbutton: {
+    flex: 2,
+    alignItems:'center',
+    justifyContent:"center",
+  },
+  pricetext: {
+    fontSize: 18,
+    fontFamily:"Vazir-Medium",
+    color: "#3e3e3e",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pernighttext: {
+    fontSize: 20,
+    fontFamily:"Vazir-Medium",
+    color: "#787878",
+    justifyContent:"center",
+  },
+  reservebuttontext: {
+    fontSize: 20,
+    fontFamily:"Vazir-Medium",
+    color: "#ffffff",
+    paddingTop:4,
+    paddingBottom:4,
+    paddingRight:12,
+    paddingLeft:12,
+    marginBottom:5,
+  },
+  buttontouch: {
+    borderColor:"#f56e4e",
+    borderRadius: 50,
+    borderWidth : 2,
+    height:48,
+    width: 148,
+    flexDirection: "row-reverse",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  buttontouch1: {
+    borderColor:"#ffffff",
+    borderRadius: 50,
+    borderWidth : 2,
+    height:48,
+    width: 148,
+    flexDirection: "row-reverse",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  buttonview: {
+    backgroundColor:"#f56e4e",
+    borderRadius: 50,
     height:40,
     width: 140,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
-},
-checkinbox:{
-  flexDirection: "row-reverse",
-  alignItems: "flex-start",
-  marginBottom:5,
-},
-checktime:{
-  fontSize: 18,
-  fontFamily:'Vazir-Medium',
-  color:"#3e3e3e",
-  marginLeft:8,
-},
-banbox: {
-  flexDirection:"row-reverse" ,
-  alignItems:"flex-start",
-  marginTop:5,
-},
-baniconbox: {
-  backgroundColor: "#f3f3f3",
-  borderRadius:50,
-  height:40,
-  width:40,
-  alignItems:"center",
-  justifyContent:"center",
-  marginLeft:10,
-},
-banicon: {
-  height:25,
-  width:25,
-  alignItems:"center",
-  justifyContent:"center",
-  resizeMode: "contain"
-},
-bantext: {
-  fontSize: 18,
+  },
+  checkinbox:{
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
+    marginBottom:5,
+  },
+  checktime:{
+    fontSize: 18,
+    fontFamily:'Vazir-Medium',
+    color:"#3e3e3e",
+    marginLeft:8,
+  },
+  banbox: {
+    flexDirection:"row-reverse" ,
+    alignItems:"flex-start",
+    marginTop:5,
+  },
+  baniconbox: {
+    backgroundColor: "#f3f3f3",
+    borderRadius:50,
+    height:40,
+    width:40,
+    alignItems:"center",
+    justifyContent:"center",
+    marginLeft:10,
+  },
+  banicon: {
+    height:25,
+    width:25,
+    alignItems:"center",
+    justifyContent:"center",
+    resizeMode: "contain"
+  },
+  bantext: {
+    fontSize: 18,
     fontFamily:'Vazir-Light',
     color:"#3e3e3e",
     marginRight:2,
     alignItems:"center",
     justifyContent:"center",
-},
-contacthost: {
-  flexDirection: "row-reverse"
-},
-lawstext1: {
-  fontSize: 16,
-  fontFamily:'Vazir-Medium',
-  color:"#3e3e3e",
-  marginLeft:5,
-},
-lawstext2: {
-  fontSize: 16,
-  fontFamily:'Vazir-Medium',
-  color:"#00cecc",
-  marginLeft:5,
-},
-mapContainer: {
-  flex: 1,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: 300,
-  width: Dimensions.get('window').width,
-},
-map: {
-  ...StyleSheet.absoluteFillObject,
-},
-popup:{
-  backgroundColor:  'rgba(0,0,0,0.82)',
-  width: Dimensions.get('window').width,
-  height: Dimensions.get('window').height,
-},
-popuptext:{
-  color:'white',
-  fontFamily:'Vazir-Medium',
-  fontSize:20,
-  textAlign:'center',
-  width: Dimensions.get('window').width - 50,
-  marginTop:180,
-  marginBottom:30,
-},
-popuptextbox:{
-  alignItems:'center'
-},
-backbuttonview:{
-  alignItems:'flex-end',
-  marginRight:25,
-  marginTop:25,
-},
-imageSliderStyle: {
-  width: Dimensions.get('window').width,
-  height: 300,
-},
-morefacilities:{
-  flexDirection:'row-reverse',
-  alignItems:'center',
-  justifyContent:'center',
-  marginTop:15,
-  marginLeft:15,
-  marginRight:15,
-},
-icon:{
-  height:30,
-  width:20,
-  resizeMode:"contain",
-  marginLeft:6,
-  marginRight:6,
-  opacity:0.78,
-},
-
+  },
+  contacthost: {
+    flexDirection: "row-reverse"
+  },
+  lawstext1: {
+    fontSize: 16,
+    fontFamily:'Vazir-Medium',
+    color:"#3e3e3e",
+    marginLeft:5,
+  },
+  lawstext2: {
+    fontSize: 16,
+    fontFamily:'Vazir-Medium',
+    color:"#00cecc",
+    marginLeft:5,
+  },
+  mapContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 300,
+    width: Dimensions.get('window').width,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  popup:{
+    backgroundColor:  'rgba(0,0,0,0.82)',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  popuptext:{
+    color:'white',
+    fontFamily:'Vazir-Medium',
+    fontSize:20,
+    textAlign:'center',
+    width: Dimensions.get('window').width - 50,
+    marginTop:180,
+    marginBottom:30,
+  },
+  popuptextbox:{
+    alignItems:'center'
+  },
+  backbuttonview:{
+    alignItems:'flex-end',
+    marginRight:25,
+    marginTop:25,
+  },
+  imageSliderStyle: {
+    width: Dimensions.get('window').width,
+    height: 300,
+  },
+  morefacilities:{
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:15,
+    marginLeft:15,
+    marginRight:15,
+  },
+  icon:{
+    height:30,
+    width:20,
+    resizeMode:"contain",
+    marginLeft:6,
+    marginRight:6,
+    opacity:0.78,
+  },
 });
 
 export default HouseDetail;

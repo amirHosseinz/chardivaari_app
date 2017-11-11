@@ -12,6 +12,8 @@ export const testURL = 'http://192.168.12.100:8000';
 
 export const currentVersion = 1;
 
+export const GATrackerId = "UA-109336934-1";
+
 export const guestProfileRowsData = [
   {
     'data': {

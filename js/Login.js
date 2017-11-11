@@ -13,8 +13,11 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import KeepAwake from 'react-native-keep-awake';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class Login extends Component {
@@ -27,6 +30,8 @@ class Login extends Component {
 
   componentWillMount () {
     KeepAwake.activate();
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('Login');
     CacheStore.get('token').then((value) => {
       if (value == null) {
         // proceed normal
@@ -201,8 +206,6 @@ class Login extends Component {
             }}
             underlineColorAndroid={'transparent'}
           />
-
-
 
         </View>
       </View>

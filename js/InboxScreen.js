@@ -6,7 +6,11 @@ import {
   Dimensions,
 } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
+import { GATrackerId } from './data';
 import MessagesListScreen from './MessagesListScreen';
 import RequestsListScreen from './RequestsListScreen';
 
@@ -22,7 +26,16 @@ class InboxScreen extends Component {
       ],
       messagesUnreadCount: 0,
       requestsUnreadCount: 0,
+      tracker: null,
     };
+  }
+
+  componentWillMount () {
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('RequestsListScreen');
+    this.setState({
+      tracker: tracker,
+    });
   }
 
   setMessagesUnreadCount = (value) => {
@@ -37,7 +50,14 @@ class InboxScreen extends Component {
     });
   }
 
-  _handleIndexChange = index => this.setState({ index });
+  _handleIndexChange = (index) => {
+    if (index === 0) {
+      this.state.tracker.trackScreenView('MessagesListScreen');
+    } else if (index === 1) {
+      this.state.tracker.trackScreenView('RequestsListScreen');
+    }
+    this.setState({ index });
+  }
 
   onRenderBadge = (scene) => {
     if (scene.index === 1) {

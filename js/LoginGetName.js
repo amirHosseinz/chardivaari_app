@@ -13,8 +13,11 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import KeepAwake from 'react-native-keep-awake';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { GATrackerId, productionURL } from './data';
 
 
 class LoginGetName extends Component {
@@ -25,16 +28,20 @@ class LoginGetName extends Component {
       lastName: '',
       cellPhoneNo: null,
       verificationCode: null,
+      tracker: null,
     };
   }
 
   componentWillMount () {
     KeepAwake.activate();
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('LoginGetName');
     this.setState({
       firstName: this.props.navigation.state.params.firstName,
       lastName: this.props.navigation.state.params.lastName,
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       verificationCode: this.props.navigation.state.params.verificationCode,
+      tracker: tracker,
     });
   }
 
@@ -76,6 +83,7 @@ class LoginGetName extends Component {
       CacheStore.set('token', body.token);
       CacheStore.set('username', body.user.username);
       CacheStore.set('user', body.user);
+      tihs.state.tracker.setUser(body.user.username);
       this.resetNavigation('guestScreen');
     } else if (response.status === 400) {
       // unauthorized

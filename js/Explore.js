@@ -13,9 +13,12 @@ import {
 import SearchAnimations from './SearchAnimations';
 import CacheStore from 'react-native-cache-store';
 import KeepAwake from 'react-native-keep-awake';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
 import ExploreResult from './ExploreResult';
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class Explore extends Component {
@@ -28,9 +31,15 @@ class Explore extends Component {
     destination: null,
     rooms: [],
     locations: [],
+    tracker: null,
   };
 
   componentWillMount() {
+    let GAtracker = new GoogleAnalyticsTracker(GATrackerId);
+    GAtracker.trackScreenView('Explore');
+    this.setState({
+      tracker: GAtracker,
+    });
     KeepAwake.activate();
     if (this.state.rooms.length < 1) {
       CacheStore.get('token').then((value) => {
@@ -117,6 +126,12 @@ class Explore extends Component {
       this.setState({
         start_date: startDate,
       }, () => {
+        if (this.state.tracker != null) {
+          this.state.tracker.trackEvent('Search', 'date', {
+            label: this.state.start_date + ' untill ' + this.state.end_date,
+            value: 200
+          });
+        }
         this.onSearchButtonPress();
       });
     }
@@ -127,6 +142,12 @@ class Explore extends Component {
       this.setState({
         end_date: endDate,
       }, () => {
+        if (this.state.tracker != null) {
+          this.state.tracker.trackEvent('Search', 'date', {
+            label: this.state.start_date + ' untill ' + this.state.end_date,
+            value: 200
+          });
+        }
         this.onSearchButtonPress();
       });
     }
@@ -135,6 +156,12 @@ class Explore extends Component {
   setDestination = (destination) => {
     if (this.state.destination != destination) {
       this.setState({ destination }, () => {
+        if (this.state.tracker != null) {
+          this.state.tracker.trackEvent('Search', 'destination', {
+            label: this.state.destination,
+            value: 200
+          });
+        }
         this.onSearchButtonPress();
       });
     }
@@ -143,6 +170,12 @@ class Explore extends Component {
   setCapacity = (capacity) => {
     if (this.state.capacity != capacity) {
       this.setState({ capacity }, () => {
+        if (this.state.tracker != null) {
+          this.state.tracker.trackEvent('Search', 'capacity', {
+            label: this.state.start_date + ' untill ' + this.state.end_date,
+            value: this.state.capacity
+          });
+        }
         this.onSearchButtonPress();
       });
     }
