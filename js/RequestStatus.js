@@ -291,13 +291,13 @@ class RequestStatus extends Component {
         isPaymentSuccess,
         refID,
       } = await PaymentModule.reactRequestPayment(
-        'جهت تست درگاه',
+        'جهت رزرو ' + this.state.request.room.title,
         Number(this.state.request.total_price),
         this.state.token,
         this.state.request.id
       );
       if (isPaymentSuccess) {
-        Alert.alert('کد پیگیری: '+refID);
+        Alert.alert('کد پیگیری: ' + refID);
         // this.payRequestDone();
       }
     } catch (e) {
