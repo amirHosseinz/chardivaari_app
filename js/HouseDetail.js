@@ -242,7 +242,7 @@ class HouseDetail extends Component {
      });
      this.openNationalIdModal();
    } else if (this.state.user && this.state.username) {
-     this.stat.tracker.trackEvent('requestBook', 'buttonPress', {
+     this.state.tracker.trackEvent('requestBook', 'buttonPress', {
        label: this.state.user.username,
        value: 200
      });
