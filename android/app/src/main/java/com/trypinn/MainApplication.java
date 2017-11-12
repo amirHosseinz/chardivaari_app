@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
+import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new GoogleAnalyticsBridgePackage(),
           new KCKeepAwakePackage(),
           new SmsListenerPackage(),
           new RNExitAppPackage(),

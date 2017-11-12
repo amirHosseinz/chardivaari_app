@@ -12,8 +12,11 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class HouseListScreen extends Component {
@@ -28,6 +31,8 @@ class HouseListScreen extends Component {
   }
 
   componentWillMount() {
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('HouseListScreen');
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 

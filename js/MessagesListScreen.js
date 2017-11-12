@@ -19,7 +19,7 @@ import timer from 'react-native-timer';
 // import InboxRow from './InboxRow';
 // import InboxHeader from './InboxHeader';
 import PrivateMessageRow from './PrivateMessageRow';
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class MessagesListScreen extends Component {

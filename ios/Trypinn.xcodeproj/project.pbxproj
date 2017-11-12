@@ -67,6 +67,11 @@
 		93BF356B17C644E78A9CC88E /* Iransans_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE99E215BDCD43A5ADDDF262 /* Iransans_Bold.ttf */; };
 		8876A7400A504710A05285D5 /* Iransans_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12B6ED3737014E29A564F078 /* Iransans_Light.ttf */; };
 		95F5544FF7AE4923AA310950 /* Iransans_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B73424AECAC24331B2D31E46 /* Iransans_Medium.ttf */; };
+		6885D6CB039D4C6DA57938F1 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CD6CD83D7E489D9A2BB020 /* libRCTGoogleAnalyticsBridge.a */; };
+		EF78EB77613F44C496B0D576 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A5114E89E6447BBD377129 /* CoreData.framework */; };
+		26B00FB116F54C37A2697328 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0770891B474B4839A5697A0D /* SystemConfiguration.framework */; };
+		B72EC5283FC6455C9A2BB602 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E7297F159E534EE4BD3FF1D3 /* libz.tbd */; };
+		933E1BCF1CE44BA38E68F632 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2238384F6F00493F96A1EDBB /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,6 +373,12 @@
 		AE99E215BDCD43A5ADDDF262 /* Iransans_Bold.ttf */ = {isa = PBXFileReference; name = "Iransans_Bold.ttf"; path = "../assets/fonts/Iransans_Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		12B6ED3737014E29A564F078 /* Iransans_Light.ttf */ = {isa = PBXFileReference; name = "Iransans_Light.ttf"; path = "../assets/fonts/Iransans_Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B73424AECAC24331B2D31E46 /* Iransans_Medium.ttf */ = {isa = PBXFileReference; name = "Iransans_Medium.ttf"; path = "../assets/fonts/Iransans_Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C2D73CC0A1B24A2D864C5EBF /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; name = "RCTGoogleAnalyticsBridge.xcodeproj"; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		02CD6CD83D7E489D9A2BB020 /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; name = "libRCTGoogleAnalyticsBridge.a"; path = "libRCTGoogleAnalyticsBridge.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		88A5114E89E6447BBD377129 /* CoreData.framework */ = {isa = PBXFileReference; name = "CoreData.framework"; path = "System/Library/Frameworks/CoreData.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0770891B474B4839A5697A0D /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		E7297F159E534EE4BD3FF1D3 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		2238384F6F00493F96A1EDBB /* libsqlite3.0.tbd */ = {isa = PBXFileReference; name = "libsqlite3.0.tbd"; path = "usr/lib/libsqlite3.0.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +412,11 @@
 				B0F386C4B2D741889F5C4084 /* libRNFS.a in Frameworks */,
 				ED577295207A4914B4A6874E /* libRNExitApp.a in Frameworks */,
 				B3CAB3DCBAFE494B9248930D /* libKCKeepAwake.a in Frameworks */,
+				6885D6CB039D4C6DA57938F1 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
+				EF78EB77613F44C496B0D576 /* CoreData.framework in Frameworks */,
+				26B00FB116F54C37A2697328 /* SystemConfiguration.framework in Frameworks */,
+				B72EC5283FC6455C9A2BB602 /* libz.tbd in Frameworks */,
+				933E1BCF1CE44BA38E68F632 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +611,7 @@
 				659BEA152E8E4F178738D8FB /* AirMaps.xcodeproj */,
 				839746BD86D24AC9896AB35E /* RNExitApp.xcodeproj */,
 				896B89EC249941E78C095CD0 /* KCKeepAwake.xcodeproj */,
+				C2D73CC0A1B24A2D864C5EBF /* RCTGoogleAnalyticsBridge.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -616,6 +633,7 @@
 				00E356EF1AD99517003FC87E /* TrypinnTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				C035B0C1C0F9461B88E5968A /* Resources */,
+				D071D88BD91B40F48C021FE1 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -663,6 +681,18 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
+		};
+		D071D88BD91B40F48C021FE1 /* Frameworks */ = {
+			isa = "PBXGroup";
+			children = (
+				88A5114E89E6447BBD377129 /* CoreData.framework */,
+				0770891B474B4839A5697A0D /* SystemConfiguration.framework */,
+				E7297F159E534EE4BD3FF1D3 /* libz.tbd */,
+				2238384F6F00493F96A1EDBB /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1228,12 +1258,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = TrypinnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1266,12 +1298,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = TrypinnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1305,6 +1339,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = Trypinn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1335,6 +1370,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = Trypinn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1372,11 +1408,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = "Trypinn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1418,11 +1456,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 				);
 				INFOPLIST_FILE = "Trypinn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1465,6 +1505,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Trypinn-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1489,6 +1530,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

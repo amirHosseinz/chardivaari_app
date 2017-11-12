@@ -17,8 +17,11 @@ import Communications from 'react-native-communications';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AboutUs from './AboutUs';
 import Termconditions from './Termconditions';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { productionURL, GATrackerId } from './data';
 import EditProfile from './EditProfile';
 
 class Profile extends Component {
@@ -35,6 +38,8 @@ class Profile extends Component {
   }
 
   componentWillMount () {
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('Profile');
     CacheStore.get('user').then((userData) => {
       if (userData == null) {
         // TODO

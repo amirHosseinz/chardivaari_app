@@ -10,8 +10,11 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import KeepAwake from 'react-native-keep-awake';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL, currentVersion } from './data';
+import { productionURL, currentVersion, GATrackerId } from './data';
 
 
 class Splash extends Component {
@@ -21,11 +24,16 @@ class Splash extends Component {
       token: null,
       username: null,
       retryButtonVisible: false,
+      tracker: null,
     };
   }
 
   componentWillMount () {
     KeepAwake.activate();
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    this.setState({
+      tracker: tracker,
+    });
     CacheStore.get('token').then((tokenValue) => {
       if (tokenValue == null) {
         // proceed normal
@@ -118,6 +126,7 @@ class Splash extends Component {
       body = JSON.parse(response._bodyText);
       if (body.validated) {
         CacheStore.set('user', body.user);
+        this.state.tracker.setUser(body.user.username);
         this.resetNavigation('guestScreen');
       } else {
         CacheStore.flush();

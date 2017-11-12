@@ -15,8 +15,11 @@ import { NavigationActions } from 'react-navigation';
 import SmsListener from 'react-native-android-sms-listener';
 import KeepAwake from 'react-native-keep-awake';
 import timer from 'react-native-timer';
+import {
+  GoogleAnalyticsTracker,
+} from 'react-native-google-analytics-bridge';
 
-import { testURL, productionURL } from './data';
+import { GATrackerId, productionURL } from './data';
 
 
 class LoginVerify extends Component {
@@ -28,15 +31,19 @@ class LoginVerify extends Component {
       verificationCode: null,
       smsCenter: null,
       subscription: null,
+      tracker: null,
     };
   }
 
   componentWillMount () {
     KeepAwake.activate();
     this.counterTrigger();
+    let tracker = new GoogleAnalyticsTracker(GATrackerId);
+    tracker.trackScreenView('LoginVerify');
     this.setState({
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       smsCenter: this.props.navigation.state.params.smsCenter,
+      tracker: tracker,
     });
     let sbs = SmsListener.addListener(message => {
       if (message.originatingAddress.indexOf(this.state.smsCenter) > -1 ) {
@@ -95,6 +102,7 @@ class LoginVerify extends Component {
         CacheStore.set('token', body.token);
         CacheStore.set('username', body.user.username);
         CacheStore.set('user', body.user);
+        this.state.tracker.setUser(body.user.username);
         this.resetNavigation('guestScreen');
       } else {
         this.props.navigation.navigate('loginGetName', {
@@ -406,7 +414,7 @@ const styles = StyleSheet.create({
   downside:{
     flex:1,
     marginTop:20,
-  }
+  },
 });
 
 export default LoginVerify;
