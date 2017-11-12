@@ -178,7 +178,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this._onChangeToHost.bind(this)}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircleh2g}>
-                <Icon size={27} color="white" name="swap-vert" />
+                <Icon size={23} color="white" name="swap-vert" />
               </View>
             <Text style={styles.profileitemtexth2g}>ورود به پنل میزبان</Text>
           </View>
@@ -193,7 +193,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this._onChangeToGuest.bind(this)}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircleh2g}>
-                <Icon size={27} color="white" name="swap-vert" />
+                <Icon size={23} color="white" name="swap-vert" />
               </View>
             <Text style={styles.profileitemtexth2g}>ورود به پنل مهمان</Text>
           </View>
@@ -211,7 +211,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this.onLoginOptionPress}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircle}>
-                <Icon size={24} color="white" name="exit-to-app" />
+                <Icon size={18} color="white" name="exit-to-app" />
               </View>
             <Text style={styles.profileitemtext}>ورود یا عضویت</Text>
           </View>
@@ -222,7 +222,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this._onExitPress}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircle}>
-                <Icon size={24} color="white" name="exit-to-app" />
+                <Icon size={18} color="white" name="exit-to-app" />
               </View>
             <Text style={styles.profileitemtext}>خروج از حساب کاربری</Text>
           </View>
@@ -247,7 +247,7 @@ class Profile extends Component {
       return(
         <Icon
           name='account-circle'
-          size={100}
+          size={90}
           color='#c2c2c2'
           style={styles.profilepicture}
         />
@@ -267,13 +267,12 @@ class Profile extends Component {
 
   render () {
     return(
-      <View style={styles.container0}>
-      <ScrollView>
+      <ScrollView style={styles.container0}>
+      <View style={{alignItems:'center'}}>
       <StatusBar
         backgroundColor="#eeeeee"
         barStyle="dark-content" />
         <View style={styles.container1}>
-
           <View style={styles.profilebox}>
             {this.renderProfilePicture()}
             <View style={styles.profileboxtext}>
@@ -283,7 +282,6 @@ class Profile extends Component {
               {this.renderEditProfileOption()}
             </View>
           </View>
-
           <TouchableOpacity onPress={() => {
             this.openAboutUs();
           }}>
@@ -302,7 +300,7 @@ class Profile extends Component {
           }}>
             <View style={styles.profileitembox}>
                 <View style={styles.itemiconcircle}>
-                <Icon size={24} color="white" name="subject" />
+                <Icon size={18} color="white" name="subject" />
                 </View>
               <Text style={styles.profileitemtext}>شرایط و قوانین استفاده</Text>
             </View>
@@ -313,7 +311,7 @@ class Profile extends Component {
           <TouchableOpacity onPress={this._onCallUsPress.bind(this)}>
             <View style={styles.profileitembox}>
                 <View style={styles.itemiconcircle}>
-                  <Icon size={24} color="white" name="mail-outline" />
+                  <Icon size={18} color="white" name="mail-outline" />
                 </View>
               <Text style={styles.profileitemtext}>تماس با ما</Text>
             </View>
@@ -326,7 +324,6 @@ class Profile extends Component {
           {this.renderAddListing()}
 
           {this.renderLoginOption()}
-
         </View>
 
         <Modal
@@ -365,8 +362,9 @@ class Profile extends Component {
         <Termconditions onCloseModal={this.closeTermconditions}>
         </Termconditions>
         </Modal>
-        </ScrollView>
       </View>
+      </ScrollView>
+
     );
   }
 }
@@ -375,7 +373,6 @@ const styles = StyleSheet.create({
   container0: {
     flex: 1,
     flexDirection:'column',
-    alignItems:'center',
     backgroundColor:'#ededed',
   },
   container1: {
@@ -385,43 +382,43 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   profilepicture: {
-    width: 100,
-    height: 100,
-    borderRadius:100,
+    width: 90,
+    height: 90,
+    borderRadius:45,
   },
   profilebox:{
     flexDirection:'row-reverse',
-    marginTop:60,
-    marginBottom:50,
+    marginTop:36,
+    marginBottom:28,
     alignItems:'center',
   },
   profileboxtext:{
     marginRight:20,
   },
   usertext:{
-    fontSize: 26,
+    fontSize: 21,
     fontFamily:'Vazir-Medium',
     color:'#4f4f4f',
     width:Dimensions.get('window').width*(2/3)-30,
   },
   editprofile:{
-    fontSize: 16,
+    fontSize: 13,
     fontFamily:'Vazir',
-    color:'#22c8d4',
+    color:'#0ca6c0',
   },
   divider:{
-    height: 2,
+    height: 1,
     width:Dimensions.get('window').width-50 ,
     backgroundColor: '#d7d7d7',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 16,
+    marginBottom: 16,
   },
   profileitembox:{
     flexDirection:'row-reverse',
     justifyContent:'center',
   },
   profileitemtext:{
-    fontSize: 19,
+    fontSize: 16,
     fontFamily:'Vazir',
     color:'#4f4f4f',
     marginRight:10,
@@ -431,30 +428,30 @@ const styles = StyleSheet.create({
   itemiconcircle:{
     flexDirection:'row-reverse',
     justifyContent:'center',
-    height: 38,
-    width: 38,
-    borderRadius: 44,
+    height: 28,
+    width: 28,
+    borderRadius: 14,
     backgroundColor:'#9e9e9e',
     alignItems:'center',
   },
   itemiconcircleh2g:{
     flexDirection:'row-reverse',
     justifyContent:'center',
-    height: 38,
-    width: 38,
-    borderRadius: 44,
+    height: 28,
+    width: 28,
+    borderRadius: 14,
     backgroundColor:'#f56e4e',
     alignItems:'center',
   },
   profileitemtexth2g:{
-    fontSize: 19,
+    fontSize: 18,
     fontFamily:'Vazir',
     color:'#f56e4e',
     marginRight:10,
     marginTop:4,
   },
   infopng:{
-    height:18,
+    height:16,
     resizeMode:'contain',
   },
   innerContainer: {

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
   },
   cityfont:{
-    fontSize: 10,
+    fontSize: 11,
     fontFamily: "Vazir",
     color: "#4f4f4f",
   },
@@ -132,18 +132,18 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
   },
   pricetext: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Vazir",
     color: "#f56e4e"
   },
   toman: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Vazir",
     color: "#f56e4e",
     marginRight:2,
   },
   night: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Vazir",
     color: "#acacac",
     marginRight:2,

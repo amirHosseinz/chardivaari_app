@@ -181,8 +181,10 @@ class Explore extends Component {
         <ScrollView style={{
           marginTop: 5,
           marginBottom: 65,
-        }}
-        showsHorizontalScrollIndicator={false}>
+          paddingRight:10,
+          marginLeft:5,
+
+        }}>
 
         {this.renderResults()}
 
