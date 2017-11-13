@@ -77,6 +77,9 @@ class Trips extends Component {
         count: body.count,
         tripList: body.reserve_list,
       });
+      if (this.props.setTripsBadgeNum) {
+        this.props.setTripsBadgeNum(body.attention_count);
+      }
       CacheStore.set('tripsList', body.reserve_list);
     } else {
       // TODO

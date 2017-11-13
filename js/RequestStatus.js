@@ -50,6 +50,8 @@ class RequestStatus extends Component {
   setToken (token) {
     this.setState({
       token
+    }, () => {
+      this.checkRequest();
     });
   }
 
@@ -57,6 +59,34 @@ class RequestStatus extends Component {
     this.setState({
       username
     });
+  }
+
+  checkRequest () {
+    fetch(productionURL + '/api/request/check/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: this.state.role,
+        request_id: this.state.request.id,
+      }),
+    })
+    .then((response) => this.onCheckResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
+    });
+  }
+
+  onCheckResponseRecieved (response) {
+    if (response.status === 200) {
+      // successful
+      this.props.navigation.state.params.refresh();
+    } else {
+      // failure
+    }
   }
 
   backNavigation = () => {
@@ -305,24 +335,24 @@ class RequestStatus extends Component {
     }
   }
 
-  payRequestDone = () => {
-    fetch(productionURL + '/api/request/pay/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        request_id: this.state.request.id,
-        role: this.state.role,
-      }),
-    })
-    .then((response) => this.onPayRequestResponseRecieved(response))
-    .catch((error) => {
-      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
-    });
-  }
+  // payRequestDone = () => {
+  //   fetch(productionURL + '/api/request/pay/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Token ' + this.state.token,
+  //     },
+  //     body: JSON.stringify({
+  //       request_id: this.state.request.id,
+  //       role: this.state.role,
+  //     }),
+  //   })
+  //   .then((response) => this.onPayRequestResponseRecieved(response))
+  //   .catch((error) => {
+  //     Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+  //   });
+  // }
 
   onPayRequestPress = () => {
     this.asyncPayment();

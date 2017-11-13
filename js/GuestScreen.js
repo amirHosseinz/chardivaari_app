@@ -10,9 +10,11 @@ import {
   ToastAndroid,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
-import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
+// import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
+import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import KeepAwake from 'react-native-keep-awake';
+import CacheStore from 'react-native-cache-store';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
@@ -20,6 +22,8 @@ import InboxScreen from './InboxScreen';
 import Trips from './Trips';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
+
+import { productionURL } from './data';
 
 // import { fetch } from 'fetch';
 // import { AIRBNB_API } from './data';
@@ -30,8 +34,16 @@ class GuestScreen extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      tabIndex: 3,
+      selectedTab: 'explore',
+      requestsBadgeNum: 0,
+      messagesBadgeNum: 0,
+      tripsBadgeNum: 0,
+      token: null,
     };
+  }
+
+  componentWillMount () {
+    CacheStore.get('token').then((value) => this.setToken(value));
   }
 
   componentDidMount() {
@@ -44,104 +56,182 @@ class GuestScreen extends Component {
     });
   }
 
-  renderContent () {
-    switch (this.state.tabIndex) {
-      case 0:
-        return(<Profile
-          role={'guest'}
-          goToTab={this.goToTab}
-          navigation={this.props.navigation} />);
-      case 1:
-        return(<InboxScreen
-          role={'guest'}
-          goToTab={this.goToTab}
-          navigation={this.props.navigation} />);
-      case 2:
-        return(<Trips
-          role={'guest'}
-          goToTab={this.goToTab}
-          navigation={this.props.navigation} />);
-      case 3:
-        return(<Explore
-          role={'guest'}
-          goToTab={this.goToTab}
-          navigation={this.props.navigation} />);
-      default:
-        return(<Explore
-          role={'guest'}
-          goToTab={this.goToTab}
-          navigation={this.props.navigation} />);
-      }
+  setToken (token) {
+    if (token != null) {
+      this.setState({
+        token: token,
+      }, () => {
+        this.fetchBadges();
+      });
+    }
+  }
+
+  fetchBadges () {
+    fetch(productionURL + '/api/main_screen/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: 'guest',
+      }),
+    })
+    .then((response) => this.onResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+    });
+  }
+
+  onResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        requestsBadgeNum: body.requests_count,
+        messagesBadgeNum: body.messages_count,
+        tripsBadgeNum: body.trips_count,
+      });
+    } else {
+      // TODO
+      // an eror handler
+    }
+  }
+
+  setRequestsBadgeNum = (value) => {
+    this.setState({
+      requestsBadgeNum: value,
+    });
+  }
+
+  setMessagesBadgeNum = (value) => {
+    this.setState({
+      messagesBadgeNum: value,
+    });
+  }
+
+  setTripsBadgeNum = (value) => {
+    this.setState({
+      tripsBadgeNum: value,
+    });
   }
 
   goToTab = (tabName) => {
     switch(tabName) {
     case 'profile':
       this.setState({
-        tabIndex: 0,
+        selectedTab: tabName,
       });
       break;
     case 'inboxScreen':
       this.setState({
-        tabIndex: 1,
+        selectedTab: tabName,
       });
       break;
     case 'trips':
       this.setState({
-        tabIndex: 2,
+        selectedTab: tabName,
       });
       break;
     case 'explore':
       this.setState({
-        tabIndex: 3,
+        selectedTab: tabName,
       });
       break;
     default:
     }
   }
 
-  _onTabChange (newTabIndex) {
-    if (this.state.tabIndex !== newTabIndex){
-      this.setState({ tabIndex: newTabIndex});
-    }
-  }
-
   render () {
     return (
       <View style={styles.container}>
+        <TabNavigator
+        tabBarStyle={{height:49}}>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'profile'}
+            title="حساب کاربری"
+            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+            renderIcon={() => <Icon size={22} color="#bbbbbb" name="account-circle" />}
+            renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="account-circle" />}
+            onPress={() => this.setState({ selectedTab: 'profile' })}>
+            <Profile
+              role={'guest'}
+              goToTab={this.goToTab}
+              navigation={this.props.navigation}
+            />
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'inboxScreen'}
+            title="پیام‌ها"
+            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
+            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+            renderIcon={() => <Icon size={20} color="#bbbbbb" name="forum"/>}
+            renderSelectedIcon={() => <Icon size={20} color="#f56e4e" name="forum" />}
+            onPress={() => this.setState({ selectedTab: 'inboxScreen' })}
+            renderBadge={() => {
+              if ((this.state.requestsBadgeNum + this.state.messagesBadgeNum) > 0) {
+                return(
+                  <View style={{paddingTop:1}}>
+                    <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:26,paddingBottom:2,}}>
+                      <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{this.state.requestsBadgeNum + this.state.messagesBadgeNum}</Text>
+                    </View>
+                  </View>
+                );
+              }
+            }}>
+            <InboxScreen
+              role={'guest'}
+              goToTab={this.goToTab}
+              setMessagesBadgeNum={this.setMessagesBadgeNum}
+              setRequestsBadgeNum={this.setRequestsBadgeNum}
+              navigation={this.props.navigation}
+            />
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'trips'}
+            // tabStyle={{flex: 1, flexDirection: 'column', justifyContent:'flex-end'}}
+            title="سفرها"
+            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+            renderIcon={() => <Icon size={21} color="#bbbbbb" name="public"/>}
+            renderSelectedIcon={() => <Icon size={21} color="#f56e4e" name="public" />}
+            onPress={() => this.setState({ selectedTab: 'trips' })}
+            renderBadge={() => {
+              if (this.state.tripsBadgeNum > 0) {
+                return(
+                  <View style={{paddingTop:1}}>
+                    <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:27,paddingBottom:2,}}>
+                      <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{this.state.tripsBadgeNum}</Text>
+                    </View>
+                  </View>
+                );
+              }
+            }}>
+            <Trips
+              role={'guest'}
+              goToTab={this.goToTab}
+              setTripsBadgeNum={this.setTripsBadgeNum}
+              navigation={this.props.navigation}
+            />
+          </TabNavigator.Item>
+          <TabNavigator.Item
+            selected={this.state.selectedTab === 'explore'}
+            title="جستجو"
+            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+            renderIcon={() => <Icon size={24} color="#bbbbbb" name="search" />}
+            renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="search" />}
+            onPress={() => this.setState({ selectedTab: 'explore' })}>
+            <Explore
+              role={'guest'}
+              goToTab={this.goToTab}
+              navigation={this.props.navigation}
+            />
+          </TabNavigator.Item>
+        </TabNavigator>
 
-        {this.renderContent()}
-
-        <BottomNavigation
-              labelColor="#a0a0a0"
-              activeTab={this.state.tabIndex}
-              rippleColor="#f56e4e"
-              activeLabelColor="#f56e4e"
-              style={{ height: 62,  elevation: 8, position: 'absolute', left: 0, bottom: 0, right: 0 }}
-              innerStyle={{ paddingBottom: 0}}
-              onTabChange={(newTabIndex) => this._onTabChange(newTabIndex)}
-              shifting={false}>
-                <Tab
-                  barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>حساب کاربری</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="account-circle" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="account-circle" />} />
-                <Tab
-                  barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>پیام ها</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="forum" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="forum" />} />
-                <Tab
-                  barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>سفرها</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="public" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="public" />} />
-                <Tab
-                  barBackgroundColor="#fff"
-                  label={<Text style={styles.buttomNavFont}>جستجو</Text>}
-                  icon={<Icon size={24} color="#a0a0a0" name="search" />}
-                  activeIcon={<Icon size={24} color="#f56e4e" name="search" />} />
-        </BottomNavigation>
       </View>
     );
   }
@@ -151,10 +241,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  buttomNavFont: {
-    fontFamily: "Vazir-Light",
-    fontSize: 12,
-  }
 });
 
 export default GuestScreen;

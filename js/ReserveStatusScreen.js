@@ -44,6 +44,8 @@ class ReserveStatusScreen extends Component {
   setToken (token) {
     this.setState({
       token
+    }, () => {
+      this.checkReserve();
     });
   }
 
@@ -51,6 +53,35 @@ class ReserveStatusScreen extends Component {
     this.setState({
       username
     });
+  }
+
+  checkReserve () {
+    fetch(productionURL + '/api/reservation/check/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: 'host',
+        reserve_id: this.state.reserve.id,
+      }),
+    })
+    .then((response) => this.onCheckResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نمایید.');
+    });
+  }
+
+  onCheckResponseRecieved (response) {
+    if (response.status === 200) {
+      // successful
+      this.props.navigation.state.params.refresh();
+    } else {
+      // failure
+    }
   }
 
   onMessageToUserButtonPress () {

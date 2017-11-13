@@ -44,6 +44,8 @@ class TripStatusScreen extends Component {
   setToken (token) {
     this.setState({
       token
+    }, () => {
+      this.checkTrip();
     });
   }
 
@@ -51,6 +53,35 @@ class TripStatusScreen extends Component {
     this.setState({
       username
     });
+  }
+
+  checkTrip () {
+    fetch(productionURL + '/api/reservation/check/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: 'guest',
+        reserve_id: this.state.trip.id,
+      }),
+    })
+    .then((response) => this.onCheckResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نمایید.');
+    });
+  }
+
+  onCheckResponseRecieved (response) {
+    if (response.status === 200) {
+      // successful
+      this.props.navigation.state.params.refresh();
+    } else {
+      // failure
+    }
   }
 
   onMessageToUserButtonPress () {

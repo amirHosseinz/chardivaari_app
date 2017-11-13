@@ -15,7 +15,6 @@ import MessagesListScreen from './MessagesListScreen';
 import RequestsListScreen from './RequestsListScreen';
 
 class InboxScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state={
@@ -42,12 +41,18 @@ class InboxScreen extends Component {
     this.setState({
       messagesUnreadCount: value,
     });
+    if (this.props.setMessagesBadgeNum) {
+      this.props.setMessagesBadgeNum(value);
+    }
   }
 
   setRequestsUnreadCount = (value) => {
     this.setState({
       requestsUnreadCount: value,
     });
+    if (this.props.setRequestsBadgeNum) {
+      this.props.setRequestsBadgeNum(value);
+    }
   }
 
   _handleIndexChange = (index) => {

@@ -79,6 +79,9 @@ class ReserveList extends Component {
         count: body.count,
         reserveList: body.reserve_list,
       });
+      if (this.props.setReservesBadgeNum) {
+        this.props.setReservesBadgeNum(body.attention_count);
+      }
       CacheStore.set('reservesList', body.reserve_list);
     } else {
       // TODO
