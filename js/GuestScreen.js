@@ -170,7 +170,7 @@ class GuestScreen extends Component {
             renderSelectedIcon={() => <Icon size={20} color="#f56e4e" name="forum" />}
             onPress={() => this.setState({ selectedTab: 'inboxScreen' })}
             renderBadge={() => {
-              if ((this.state.requestsBadgeNum + this.state.messagesBadgeNum) > 0) {
+              if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
                 return(
                   <View style={{paddingTop:1}}>
                     <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:26,paddingBottom:2,}}>
@@ -198,7 +198,7 @@ class GuestScreen extends Component {
             renderSelectedIcon={() => <Icon size={21} color="#f56e4e" name="public" />}
             onPress={() => this.setState({ selectedTab: 'trips' })}
             renderBadge={() => {
-              if (this.state.tripsBadgeNum > 0) {
+              if (Number(this.state.tripsBadgeNum) > 0) {
                 return(
                   <View style={{paddingTop:1}}>
                     <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:27,paddingBottom:2,}}>
