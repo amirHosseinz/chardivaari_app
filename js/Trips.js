@@ -112,6 +112,12 @@ class Trips extends Component {
           this._onTripPress(item);
         }}>
           <View style={styles.tripcard}>
+          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+            {item.is_guest_attention_needed ?
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View> :
+              null}
+          </View>
             <View style={styles.tripcardtexts}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
@@ -133,6 +139,12 @@ class Trips extends Component {
           this._onTripPress(item);
         }}>
           <View style={styles.tripcard}>
+          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+            {item.is_guest_attention_needed ?
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View> :
+              null}
+          </View>
             <View style={styles.tripcardtexts}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
@@ -154,6 +166,12 @@ class Trips extends Component {
           this._onTripPress(item);
         }}>
           <View style={styles.tripcard}>
+          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+            {item.is_guest_attention_needed ?
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View> :
+              null}
+          </View>
             <View style={styles.tripcardtexts}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
@@ -176,8 +194,10 @@ class Trips extends Component {
           }}>
             <View style={styles.tripcard}>
             <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View>
+              {item.is_guest_attention_needed ?
+                <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+                </View> :
+                null}
             </View>
               <View style={styles.tripcardtexts}>
                 <Text style={styles.cardtext1}>
@@ -200,6 +220,12 @@ class Trips extends Component {
           this._onTripPress(item);
         }}>
           <View style={styles.tripcard}>
+          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+            {item.is_guest_attention_needed ?
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View> :
+              null}
+          </View>
             <View style={styles.tripcardtexts}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
@@ -221,6 +247,12 @@ class Trips extends Component {
           this._onTripPress(item);
         }}>
           <View style={styles.tripcard}>
+          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+            {item.is_guest_attention_needed ?
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View> :
+              null}
+          </View>
             <View style={styles.tripcardtexts}>
               <Text style={styles.cardtext1}>
                 {item.room.title}

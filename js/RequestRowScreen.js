@@ -83,6 +83,26 @@ class RequestRowScreen extends Component {
     });
   }
 
+  renderAttentionBadge () {
+    if (this.props.role === 'host') {
+      if (this.props.requestItem.is_host_attention_needed &&
+        this.props.requestItem.is_host_attention_needed == true) {
+        return(
+          <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+          </View>
+        );
+      }
+    } else if (this.props.role === 'guest') {
+      if (this.props.requestItem.is_guest_attention_needed &&
+        this.props.requestItem.is_guest_attention_needed == true) {
+          return(
+            <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+            </View>
+          );
+      }
+    }
+  }
+
   render () {
     return(
     <View style={styles.container}>
@@ -90,8 +110,7 @@ class RequestRowScreen extends Component {
         <View style={styles.msgcards}>
             <View style={{flexDirection:'row-reverse'}}>
               <View style={{width:8,marginRight:5,marginTop:5,}}>
-                <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-                </View>
+                {this.renderAttentionBadge()}
               </View>
               {this.renderRoomPhoto()}
               <View style={styles.textbox}>
