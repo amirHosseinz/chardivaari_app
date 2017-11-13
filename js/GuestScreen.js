@@ -145,15 +145,16 @@ class GuestScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
+
         <TabNavigator
-        tabBarStyle={{height:49}}>
+        tabBarStyle={{height:51}}>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
             title="حساب کاربری"
             selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-            renderIcon={() => <Icon size={22} color="#bbbbbb" name="account-circle" />}
-            renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="account-circle" />}
+            renderIcon={() => <Icon size={23} color="#bbbbbb" name="account-circle" />}
+            renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="account-circle" />}
             onPress={() => this.setState({ selectedTab: 'profile' })}>
             <Profile
               role={'guest'}
@@ -166,8 +167,8 @@ class GuestScreen extends Component {
             title="پیام‌ها"
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
             selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            renderIcon={() => <Icon size={20} color="#bbbbbb" name="forum"/>}
-            renderSelectedIcon={() => <Icon size={20} color="#f56e4e" name="forum" />}
+            renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
+            renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
             onPress={() => this.setState({ selectedTab: 'inboxScreen' })}
             renderBadge={() => {
               if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
@@ -193,8 +194,8 @@ class GuestScreen extends Component {
             title="سفرها"
             selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            renderIcon={() => <Icon size={21} color="#bbbbbb" name="public"/>}
-            renderSelectedIcon={() => <Icon size={21} color="#f56e4e" name="public" />}
+            renderIcon={() => <Icon size={23} color="#bbbbbb" name="public"/>}
+            renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="public" />}
             onPress={() => this.setState({ selectedTab: 'trips' })}
             renderBadge={() => {
               if (Number(this.state.tripsBadgeNum) > 0) {
