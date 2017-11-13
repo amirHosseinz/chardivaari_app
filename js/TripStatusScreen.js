@@ -204,11 +204,19 @@ class TripStatusScreen extends Component {
         </View>
       );
       break;
-    case 'ISSUED':
+    case 'RESOLUTION':
       return(
         <View style={styles.header}>
           <Text style={styles.h1}>وضعیت سفر</Text>
           <Text style={styles.h2}>در حال بررسی مشکل</Text>
+        </View>
+      );
+      break;
+    case 'ISSUED':
+      return(
+        <View style={styles.header}>
+          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>صادر شده</Text>
         </View>
       );
       break;
@@ -245,7 +253,7 @@ class TripStatusScreen extends Component {
   }
 
   renderAccRejButton () {
-    if (this.state.trip.status === 'IN_PROGRESS') {
+    if (this.state.trip.status === 'ISSUED') {
       return(
         <View style={styles.downside}>
           <View style={styles.buttonstyle}>
