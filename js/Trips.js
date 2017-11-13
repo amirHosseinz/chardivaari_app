@@ -175,6 +175,10 @@ class Trips extends Component {
             this._onTripPress(item);
           }}>
             <View style={styles.tripcard}>
+            <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+              </View>
+            </View>
               <View style={styles.tripcardtexts}>
                 <Text style={styles.cardtext1}>
                   {item.room.title}
@@ -348,7 +352,7 @@ const styles = StyleSheet.create({
   },
   tripcardtexts:{
     flex:5,
-    marginRight:12,
+    marginRight:5,
   },
   notlogin:{
     alignItems:'center',

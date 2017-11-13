@@ -173,12 +173,12 @@ class GuestScreen extends Component {
               if ((this.state.requestsBadgeNum + this.state.messagesBadgeNum) > 0) {
                 return(
                   <View style={{paddingTop:1}}>
-                    <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:26,paddingBottom:2,}}>
-                      <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{this.state.requestsBadgeNum + this.state.messagesBadgeNum}</Text>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:29,paddingBottom:2,}}>
                     </View>
                   </View>
                 );
               }
+
             }}>
             <InboxScreen
               role={'guest'}
@@ -200,13 +200,13 @@ class GuestScreen extends Component {
             renderBadge={() => {
               if (this.state.tripsBadgeNum > 0) {
                 return(
-                  <View style={{paddingTop:1}}>
-                    <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:27,paddingBottom:2,}}>
-                      <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{this.state.tripsBadgeNum}</Text>
+                  <View style={{paddingTop:2}}>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:30,paddingBottom:0,}}>
                     </View>
                   </View>
                 );
               }
+
             }}>
             <Trips
               role={'guest'}

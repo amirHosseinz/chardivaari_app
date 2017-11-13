@@ -213,7 +213,7 @@ class Explore extends Component {
         {this.renderError()}
         <ScrollView style={{
           marginTop: 5,
-          marginBottom: 65,
+          marginBottom: 0,
           paddingRight:10,
           marginLeft:5,
 

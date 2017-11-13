@@ -140,8 +140,8 @@ class HostScreen extends Component {
           title='میزبان تریپین'
           selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-          renderIcon={() => <Icon size={22} color="#bbbbbb" name="dashboard" />}
-          renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="dashboard" />}
+          renderIcon={() => <Icon size={21} color="#bbbbbb" name="dashboard" />}
+          renderSelectedIcon={() => <Icon size={21} color="#f56e4e" name="dashboard" />}
           onPress={() => this.setState({ selectedTab: 'profile' })}>
           <Profile role={'host'} navigation={this.props.navigation}/>
         </TabNavigator.Item>
@@ -157,9 +157,8 @@ class HostScreen extends Component {
             if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
               return(
                 <View style={{paddingTop:1}}>
-                <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:26,paddingBottom:2,}}>
-                <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)}</Text>
-                </View>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:29,paddingBottom:2,}}>
+                  </View>
                 </View>
               );
             }
@@ -177,8 +176,8 @@ class HostScreen extends Component {
           title='خانه‌ها'
           selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          renderIcon={() => <Icon size={21} color="#bbbbbb" name="account-balance"/>}
-          renderSelectedIcon={() => <Icon size={21} color="#f56e4e" name="account-balance" />}
+          renderIcon={() => <Icon size={20} color="#bbbbbb" name="account-balance"/>}
+          renderSelectedIcon={() => <Icon size={20} color="#f56e4e" name="account-balance" />}
           onPress={() => this.setState({ selectedTab: 'listings' })}>
           <HouseListScreen
             role={'host'}
@@ -190,15 +189,14 @@ class HostScreen extends Component {
           title='رزروها'
           selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          renderIcon={() => <Icon size={24} color="#bbbbbb" name="date-range" />}
-          renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="date-range" />}
+          renderIcon={() => <Icon size={22} color="#bbbbbb" name="date-range" />}
+          renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="date-range" />}
           onPress={() => this.setState({ selectedTab: 'reserves' })}
           renderBadge={() => {
             if (Number(this.state.reservesBadgeNum) > 0) {
               return(
                 <View style={{paddingTop:1}}>
-                  <View style={{backgroundColor:'#f56e4e',height:13,width:13,borderRadius:7,borderColor:"#f8f8f8",borderWidth:1,alignItems:'center',justifyContent:'center',marginRight:27,paddingBottom:2,}}>
-                    <Text style={{fontFamily:'Vazir-Medium',fontSize:9,color:'white',}}>{Number(this.state.reservesBadgeNum)}</Text>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:29,paddingBottom:2,}}>
                   </View>
                 </View>
               );

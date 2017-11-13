@@ -88,12 +88,20 @@ class RequestRowScreen extends Component {
     <View style={styles.container}>
       <TouchableOpacity onPress={this._onPress.bind(this)}>
         <View style={styles.msgcards}>
-          {this.renderRoomPhoto()}
-          <View style={styles.textbox}>
-            <Text style={styles.housename}>{this.props.requestItem.room.title}</Text>
-            {this.renderName()}
-          </View>
-          {this.renderRequestStatus()}
+            <View style={{flexDirection:'row-reverse'}}>
+              <View style={{width:8,marginRight:5,marginTop:5,}}>
+                <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+                </View>
+              </View>
+              {this.renderRoomPhoto()}
+              <View style={styles.textbox}>
+                <Text style={styles.housename}>{this.props.requestItem.room.title}</Text>
+                {this.renderName()}
+              </View>
+            </View>
+            <View style={{justifyContent:'center',marginLeft:4,}}>
+              {this.renderRequestStatus()}
+            </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
     marginTop:5,
     borderRadius: 1,
     flexDirection: "row-reverse",
-    justifyContent:"flex-start",
+    justifyContent:"space-between",
   },
   cardbadgebox: {
     width:16,
@@ -129,11 +137,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   avatar: {
-    flex:5,
     flexDirection:"row-reverse",
     alignItems:"center",
     justifyContent: "center",
-    marginLeft:8,
+    marginLeft:3,
   },
   avatarimg: {
     height:55,
@@ -141,7 +148,6 @@ const styles = StyleSheet.create({
     borderRadius:50,
   },
   textbox: {
-    flex:18,
     justifyContent:"center",
     marginRight:8,
   },
@@ -159,7 +165,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   iconbox:{
-    flex:5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent:'center',

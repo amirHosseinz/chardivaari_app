@@ -139,6 +139,10 @@ class ReserveList extends Component {
         this._onReservePress(item);
       }}>
         <View style={styles.tripcard}>
+        <View style={{width:8,marginRight:5,paddingBottom:48,}}>
+          <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
+          </View>
+        </View>
           <View style={styles.tripcardtexts}>
             <Text style={styles.cardtext1}>{item.room.title}</Text>
             <View style={styles.guestnames}>
