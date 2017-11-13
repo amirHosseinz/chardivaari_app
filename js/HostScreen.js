@@ -75,9 +75,9 @@ class HostScreen extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({
-        requestsBadgeNum: body.requests_count,
-        messagesBadgeNum: body.messages_count,
-        reservesBadgeNum: body.reserves_count,
+        requestsBadgeNum: Number(body.requests_count),
+        messagesBadgeNum: Number(body.messages_count),
+        reservesBadgeNum: Number(body.reserves_count),
       });
     } else {
       // TODO

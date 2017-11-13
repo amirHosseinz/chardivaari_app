@@ -114,7 +114,7 @@ class RequestStatus extends Component {
     case 'HOST_REJECTED':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>لغو شده توسط میزبان</Text>
+          <Text style={styles.h1}>رد شده توسط میزبان</Text>
         </View>
       );
       break;
@@ -142,7 +142,7 @@ class RequestStatus extends Component {
     case 'HOST_ACCEPTED_GUEST_PAYED':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}></Text>
+          <Text style={styles.h1}>پرداخت شده توسط مهمان</Text>
         </View>
       );
       break;
