@@ -14,7 +14,6 @@ import CacheStore from 'react-native-cache-store';
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import KeepAwake from 'react-native-keep-awake';
-import CacheStore from 'react-native-cache-store';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
