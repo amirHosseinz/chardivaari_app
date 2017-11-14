@@ -8,7 +8,6 @@ import {
   Dimensions,
   FlatList,
   Image,
-  StatusBar,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -172,9 +171,7 @@ class HouseListScreen extends Component {
   render () {
     return(
       <View style={styles.container0}>
-      <StatusBar
-        backgroundColor="#0094ae"
-        barStyle="light-content" />
+
         {this.renderHeader()}
         <View style={styles.container1}>
 

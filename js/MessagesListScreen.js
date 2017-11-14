@@ -10,7 +10,6 @@ import {
   ListView,
   TouchableOpacity,
   FlatList,
-  StatusBar,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
@@ -156,9 +155,6 @@ class MessagesListScreen extends Component {
   render() {
     return(
       <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#0094ae"
-        barStyle="light-content" />
         {this._onRefresh()}
         {this.renderLoginButton()}
         <FlatList

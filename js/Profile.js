@@ -8,7 +8,6 @@ import {
   Dimensions,
   Image,
   Modal,
-  StatusBar,
   ScrollView,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
@@ -274,9 +273,6 @@ class Profile extends Component {
     return(
       <ScrollView style={styles.container0}>
       <View style={{alignItems:'center'}}>
-      <StatusBar
-        backgroundColor="#eeeeee"
-        barStyle="dark-content" />
         <View style={styles.container1}>
           <View style={styles.profilebox}>
             {this.renderProfilePicture()}

@@ -4,10 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   Dimensions,
   Image,
-  StatusBar,
 } from 'react-native';
 
 import SearchAnimations from './SearchAnimations';
@@ -198,9 +196,6 @@ class Explore extends Component {
   render () {
     return(
       <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#0094ae"
-        barStyle="light-content" />
 
         <SearchAnimations
           locations={this.state.locations}
@@ -216,11 +211,8 @@ class Explore extends Component {
           marginBottom: 0,
           paddingRight:10,
           marginLeft:5,
-
         }}>
-
         {this.renderResults()}
-
         </ScrollView>
 
       </View>

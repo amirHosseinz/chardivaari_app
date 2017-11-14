@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   Image,
+  StatusBar,
   BackHandler,
   ToastAndroid,
 } from 'react-native';
@@ -142,10 +143,31 @@ class GuestScreen extends Component {
     }
   }
 
+  renderStatusBar () {
+    if (this.state.selectedTab === 'profile') {
+      StatusBar.setBackgroundColor('#eeeeee');
+      StatusBar.setBarStyle('dark-content');
+      // return(
+      //   <StatusBar
+      //     backgroundColor="#eeeeee"
+      //     barStyle="dark-content" />
+      // );
+    } else {
+      StatusBar.setBackgroundColor('#0094ae');
+      StatusBar.setBarStyle('light-content');
+      // return(
+      //   <StatusBar
+      //     backgroundColor="#0094ae"
+      //     barStyle="light-content" />
+      // );
+    }
+  }
+
   render () {
     return (
       <View style={styles.container}>
 
+        {this.renderStatusBar()}
         <TabNavigator
         tabBarStyle={{height:51}}>
           <TabNavigator.Item
