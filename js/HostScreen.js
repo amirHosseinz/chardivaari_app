@@ -36,6 +36,7 @@ class HostScreen extends Component {
   }
 
   componentWillMount () {
+    this.updateStatusBar();
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 
@@ -128,10 +129,13 @@ class HostScreen extends Component {
       break;
     default:
     }
+    this.updateStatusBar();
   }
 
-  renderStatusBar () {
+  updateStatusBar = () => {
     if (this.state.selectedTab === 'profile') {
+      StatusBar.setHidden(false);
+      StatusBar.setTranslucent(false);
       StatusBar.setBackgroundColor('#eeeeee');
       StatusBar.setBarStyle('dark-content');
       // return(
@@ -140,6 +144,8 @@ class HostScreen extends Component {
       //     barStyle="dark-content" />
       // );
     } else {
+      StatusBar.setHidden(false);
+      StatusBar.setTranslucent(false);
       StatusBar.setBackgroundColor('#0094ae');
       StatusBar.setBarStyle('light-content');
       // return(
@@ -154,7 +160,6 @@ class HostScreen extends Component {
     return (
       <View style={styles.container}>
 
-      {this.renderStatusBar()}
       <TabNavigator
         tabBarStyle={{height:51}}>
         <TabNavigator.Item
@@ -164,7 +169,7 @@ class HostScreen extends Component {
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="dashboard" />}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="dashboard" />}
-          onPress={() => this.setState({ selectedTab: 'profile' })}>
+          onPress={() => this.setState({ selectedTab: 'profile' }, this.updateStatusBar)}>
           <Profile role={'host'} navigation={this.props.navigation}/>
         </TabNavigator.Item>
         <TabNavigator.Item
@@ -174,7 +179,7 @@ class HostScreen extends Component {
           selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
           renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
-          onPress={() => this.setState({ selectedTab: 'inboxScreen' })}
+          onPress={() => this.setState({ selectedTab: 'inboxScreen' }, this.updateStatusBar)}
           renderBadge={() => {
             if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
               return(
@@ -200,7 +205,7 @@ class HostScreen extends Component {
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={22} color="#bbbbbb" name="account-balance"/>}
           renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="account-balance" />}
-          onPress={() => this.setState({ selectedTab: 'listings' })}>
+          onPress={() => this.setState({ selectedTab: 'listings' }, this.updateStatusBar)}>
           <HouseListScreen
             role={'host'}
             navigation={this.props.navigation}
@@ -213,7 +218,7 @@ class HostScreen extends Component {
           titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="date-range" />}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="date-range" />}
-          onPress={() => this.setState({ selectedTab: 'reserves' })}
+          onPress={() => this.setState({ selectedTab: 'reserves' }, this.updateStatusBar)}
           renderBadge={() => {
             if (Number(this.state.reservesBadgeNum) > 0) {
               return(

@@ -4,7 +4,6 @@ import {
   ScrollView,
   Text,
   StyleSheet,
-  StatusBar,
   Alert,
   Image,
   Dimensions,

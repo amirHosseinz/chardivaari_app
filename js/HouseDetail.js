@@ -5,7 +5,6 @@ import {
   Text,
   Modal,
   StyleSheet,
-  StatusBar,
   Alert,
   TextInput,
   Image,
@@ -720,8 +719,6 @@ class HouseDetail extends Component {
   render () {
     return(
       <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content" />
       <ScrollView>
       {this.renderViewPager()}
 <View style={styles.container0}>
@@ -1026,7 +1023,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "column",
     paddingTop:10,
-    color:"#3e3e3e"
   },
   accountimage: {
     height: 75,

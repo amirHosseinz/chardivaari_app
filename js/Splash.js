@@ -29,6 +29,7 @@ class Splash extends Component {
   }
 
   componentWillMount () {
+    StatusBar.setHidden(true);
     KeepAwake.activate();
     let tracker = new GoogleAnalyticsTracker(GATrackerId);
     this.setState({
@@ -159,9 +160,6 @@ class Splash extends Component {
   render () {
     return(
       <View style={styles.container}>
-      <StatusBar
-        backgroundColor="#0094ae"
-        barStyle="light-content" />
         <View style={styles.container1}>
           <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
           <Text style={styles.splashtext}>تریپین</Text>

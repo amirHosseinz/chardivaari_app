@@ -44,6 +44,7 @@ class GuestScreen extends Component {
 
   componentWillMount () {
     CacheStore.get('token').then((value) => this.setToken(value));
+    this.updateStatusBar();
   }
 
   componentDidMount() {
@@ -141,10 +142,13 @@ class GuestScreen extends Component {
       break;
     default:
     }
+    this.updateStatusBar();
   }
 
-  renderStatusBar () {
+  updateStatusBar = () => {
     if (this.state.selectedTab === 'profile') {
+      StatusBar.setHidden(false);
+      StatusBar.setTranslucent(false);
       StatusBar.setBackgroundColor('#eeeeee');
       StatusBar.setBarStyle('dark-content');
       // return(
@@ -153,6 +157,8 @@ class GuestScreen extends Component {
       //     barStyle="dark-content" />
       // );
     } else {
+      StatusBar.setHidden(false);
+      StatusBar.setTranslucent(false);
       StatusBar.setBackgroundColor('#0094ae');
       StatusBar.setBarStyle('light-content');
       // return(
@@ -167,7 +173,6 @@ class GuestScreen extends Component {
     return (
       <View style={styles.container}>
 
-        {this.renderStatusBar()}
         <TabNavigator
         tabBarStyle={{height:51}}>
           <TabNavigator.Item
@@ -177,7 +182,9 @@ class GuestScreen extends Component {
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
             renderIcon={() => <Icon size={23} color="#bbbbbb" name="account-circle" />}
             renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="account-circle" />}
-            onPress={() => this.setState({ selectedTab: 'profile' })}>
+            onPress={() => {
+              this.setState({ selectedTab: 'profile' }, this.updateStatusBar);
+            }}>
             <Profile
               role={'guest'}
               goToTab={this.goToTab}
@@ -191,7 +198,9 @@ class GuestScreen extends Component {
             selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
             renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
             renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
-            onPress={() => this.setState({ selectedTab: 'inboxScreen' })}
+            onPress={() => {
+              this.setState({ selectedTab: 'inboxScreen' }, this.updateStatusBar);
+            }}
             renderBadge={() => {
               if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
                 return(
@@ -218,7 +227,9 @@ class GuestScreen extends Component {
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
             renderIcon={() => <Icon size={23} color="#bbbbbb" name="public"/>}
             renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="public" />}
-            onPress={() => this.setState({ selectedTab: 'trips' })}
+            onPress={() => {
+              this.setState({ selectedTab: 'trips' }, this.updateStatusBar);
+            }}
             renderBadge={() => {
               if (Number(this.state.tripsBadgeNum) > 0) {
                 return(
@@ -243,7 +254,7 @@ class GuestScreen extends Component {
             titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
             renderIcon={() => <Icon size={24} color="#bbbbbb" name="search" />}
             renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="search" />}
-            onPress={() => this.setState({ selectedTab: 'explore' })}>
+            onPress={() => this.setState({ selectedTab: 'explore' }, this.updateStatusBar)}>
             <Explore
               role={'guest'}
               goToTab={this.goToTab}

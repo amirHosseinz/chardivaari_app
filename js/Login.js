@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  StatusBar,
   Alert,
   TextInput,
   Image,
@@ -179,9 +178,6 @@ class Login extends Component {
   render () {
     return(
       <View style={styles.container0}>
-      <StatusBar
-        backgroundColor="#eeeeee"
-        barStyle="dark-content" />
       <TouchableOpacity onPress={this.skipLogin.bind(this)}>
         <Text style={styles.notnow}>فعلا بیخیال</Text>
       </TouchableOpacity>

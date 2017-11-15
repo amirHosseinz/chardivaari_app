@@ -10,7 +10,6 @@ import {
   Image,
   TextInput,
   Modal,
-  StatusBar,
 } from 'react-native';
 import {
   KeyboardAwareScrollView
@@ -516,9 +515,6 @@ class RequestBookScreen extends Component {
 
     return(
       <View style={styles.container0}>
-      <StatusBar
-        backgroundColor="#eeeeee"
-        barStyle="dark-content" />
       <KeyboardAwareScrollView>
 
         <View style={styles.container1}>
