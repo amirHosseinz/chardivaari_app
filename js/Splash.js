@@ -161,10 +161,16 @@ class Splash extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.container1}>
-          <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
-          <Text style={styles.splashtext}>تریپین</Text>
-      </View>
-      {this.renderRetryButton()}
+          <View>
+          </View>
+          <View style={{marginBottom:0}}>
+            <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
+            <Text style={styles.splashtext}>تریپین</Text>
+          </View>
+          <View>
+          {this.renderRetryButton()}
+          </View>
+        </View>
       </View>
 
     );
@@ -185,18 +191,17 @@ const styles = StyleSheet.create({
   splashtext:{
     fontFamily:'Vazir-Medium',
     fontSize:34,
-    marginBottom:180,
     color:'#ffffff',
+    textAlign:'center',
   },
   container1:{
-    alignItems:'center',
-justifyContent:'center',
-marginTop:100,
+    flex:1,
+    flexDirection:'column',
+    justifyContent:'space-between',
   },
   container2:{
     alignItems:'center',
 justifyContent:'center',
-marginBottom:45,
   },
 });
 
