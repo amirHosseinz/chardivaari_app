@@ -21,7 +21,7 @@ export default StyleSheet.create({
   ctrl: {
     flex: 1.5,
     justifyContent: 'space-between',
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     alignItems: 'flex-end',
     paddingHorizontal: 15
   },
@@ -105,6 +105,6 @@ export default StyleSheet.create({
   },
   closeIcon: {
     width: iconSize,
-    height: iconSize
+    height: iconSize,
   }
 });
