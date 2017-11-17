@@ -1,7 +1,10 @@
 package com.trypinn;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.react.shell.MainPackageConfig;
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
@@ -31,8 +34,19 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+      Context context = getApplicationContext();
+      ImagePipelineConfig frescoConfig = ImagePipelineConfig
+              .newBuilder(context)
+              .setBitmapMemoryCacheParamsSupplier(new CustomBitmapMemoryCacheParamsSupplier(context))
+              .build();
+
+      MainPackageConfig appConfig = new MainPackageConfig
+              .Builder()
+              .setFrescoConfig(frescoConfig)
+              .build();
+
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+          new MainReactPackage(appConfig),
           new GoogleAnalyticsBridgePackage(),
           new KCKeepAwakePackage(),
           new SmsListenerPackage(),

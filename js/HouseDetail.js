@@ -776,7 +776,7 @@ class HouseDetail extends Component {
   <View style={styles.deatilitembox}>
     <Image style={styles.detailiconimg} source={require("./img/beds.png")}/>
     <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + Number(this.state.room.double_beds_number)}</Text>
+    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + 2 * Number(this.state.room.double_beds_number)}</Text>
     <Text style={styles.detailicontext}>تخت</Text>
     </View>
   </View>
