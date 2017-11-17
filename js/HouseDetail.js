@@ -719,7 +719,8 @@ class HouseDetail extends Component {
   render () {
     return(
       <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+      >
       {this.renderViewPager()}
 <View style={styles.container0}>
 <View style={styles.container2}>
@@ -1120,7 +1121,7 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:65,
+    height:56,
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
@@ -1136,7 +1137,6 @@ const styles = StyleSheet.create({
     flexDirection:"row-reverse",
     justifyContent:"center",
     alignItems:'center',
-    marginBottom:5,
   },
   bottombarbutton: {
     flex: 2,

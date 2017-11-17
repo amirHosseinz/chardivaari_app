@@ -10,6 +10,7 @@ import {
   Image,
   TextInput,
   Modal,
+  StatusBar,
 } from 'react-native';
 import {
   KeyboardAwareScrollView
@@ -515,73 +516,84 @@ class RequestBookScreen extends Component {
 
     return(
       <View style={styles.container0}>
-      <KeyboardAwareScrollView>
-
-        <View style={styles.container1}>
-          <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
-            <View style={styles.backbuttonview}>
-            <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
-          </View>
-        </TouchableOpacity>
-          <View style={styles.header}>
-            <Text style={styles.h1}>ورود جزییات سفر</Text>
-            <Text style={styles.h2}>{this.state.room.title}</Text>
-          </View>
-          <View style={styles.interperson}>
-          <TouchableOpacity onPress={this._onCapacityChoosePress.bind(this)}>
-            <View style={styles.interperson1}>
-              <View style={styles.plusicon}>
-                <Icon size={32} color="#00cecc" name="add-circle" />
-              </View>
-              <Text style={styles.addtext}>انتخاب تعداد افراد</Text>
-            </View>
+        <StatusBar
+          backgroundColor="#0094ae"
+          barStyle="light-content"
+        />
+        <View style={styles.header0}>
+          <View style={styles.header00}>
+            <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
+                <Icon size={28} color="#ffffff" name="arrow-forward" />
             </TouchableOpacity>
-            {this.renderCapacity()}
+            <Text style={styles.h1}>ورود جزییات سفر</Text>
+            <View style={{width:28}}></View>
           </View>
-          {this.renderCapacityError()}
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.interdate}>
-          <TouchableOpacity onPress={this.openCalendar}>
-            <View style={styles.interperson1}>
+        </View>
+      <KeyboardAwareScrollView>
+        <View style={styles.housebox0}>
+            <View style={styles.housebox}>
+              <Image
+              source={require("./img/account.jpg")}
+              style={styles.image}>
+              </Image>
+              <View>
+                <Text style={styles.h2}>{this.state.room.title}</Text>
+                <Text style={styles.h3}>اسم شهر و محله</Text>
+              </View>
+            </View>
+        </View>
+        <View style={{alignItems:'center',marginTop:20,}}>
+          <View style={styles.container1}>
+            <TouchableOpacity onPress={this._onCapacityChoosePress.bind(this)}>
+              <View style={styles.interperson1}>
                 <View style={styles.plusicon}>
                   <Icon size={32} color="#00cecc" name="add-circle" />
-                  </View>
-                  <Text style={styles.addtext}>انتخاب تاریخ ورود و خروج</Text>
                 </View>
-              </TouchableOpacity>
-              {this.renderTripDuration()}
-              {this.renderStartDate()}
-              {this.renderEndDate()}
-          </View>
-          {this.renderUnavailableError()}
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.costbox}>
-            {this.renderHostPrice()}
-            {this.renderTrypinnShare()}
-            {this.renderTotalPrice()}
-            <View style={styles.interdiscount}>
-              {this.renderDiscountIcon()}
-              <Text style={styles.costtext}> ورود کد تخفیف : </Text>
-              <View style={styles.inputstyle}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholderTextColor="#acacac"
-                    placeholder='oooooooooooo'
-                    maxLength = {13}
-                    onChangeText={this.setDiscountCode} />
+                <Text style={styles.addtext}>انتخاب تعداد افراد</Text>
               </View>
-              <TouchableOpacity onPress={this._onCheckDiscountCodeButtonPress.bind(this)}>
-                <Text style={styles.checkcodetext}>بررسی</Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
+            {this.renderCapacity()}
+            {this.renderCapacityError()}
+              <View style={styles.divider}>
+              </View>
+            <TouchableOpacity onPress={this.openCalendar}>
+              <View style={styles.interperson1}>
+                  <View style={styles.plusicon}>
+                    <Icon size={32} color="#00cecc" name="add-circle" />
+                    </View>
+                    <Text style={styles.addtext}>انتخاب تاریخ ورود و خروج</Text>
+                  </View>
+            </TouchableOpacity>
+            {this.renderTripDuration()}
+            {this.renderStartDate()}
+            {this.renderEndDate()}
+            {this.renderUnavailableError()}
+            <View style={styles.divider}>
             </View>
-
-            {this.renderDiscount()}
-            {this.renderDiscountCodeError()}
-
-          </View>
-          <View style={styles.buttombox}>
+            <View style={styles.costbox}>
+              {this.renderHostPrice()}
+              {this.renderTrypinnShare()}
+              {this.renderTotalPrice()}
+              <View style={styles.interdiscount}>
+                {this.renderDiscountIcon()}
+                <Text style={styles.costtext}> ورود کد تخفیف : </Text>
+                <View style={styles.inputstyle}>
+                    <TextInput
+                      style={styles.textInput}
+                      placeholderTextColor="#acacac"
+                      placeholder='oooooooooooo'
+                      maxLength = {13}
+                      onChangeText={this.setDiscountCode} />
+                </View>
+                <TouchableOpacity onPress={this._onCheckDiscountCodeButtonPress.bind(this)}>
+                  <Text style={styles.checkcodetext}>بررسی</Text>
+                </TouchableOpacity>
+              </View>
+              {this.renderDiscount()}
+              {this.renderDiscountCodeError()}
+            </View>
+            <View style={styles.buttombox}>
+            </View>
           </View>
         </View>
         </KeyboardAwareScrollView>
@@ -635,34 +647,51 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#ffffff',
+    backgroundColor:'#f9f9f9',
   },
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('screen').width-50 ,
+    width: Dimensions.get('window').width-36,
+    marginBottom:15,
   },
-  header:{
-    justifyContent:'center',
+  housebox0:{
     alignItems:'center',
+    backgroundColor:'white',
+    borderBottomWidth:0.5,
+    borderColor:'#e1e1e1',
+    width: Dimensions.get('window').width,
+  },
+  housebox:{
+    flex:1,
+    flexDirection:'row-reverse',
+    height:120,
+    width:Dimensions.get('window').width-36 ,
+    justifyContent:"flex-start",
+    marginTop:5,
   },
   h1:{
-    fontSize:24,
+    fontSize:20,
     fontFamily:'Vazir-Medium',
-    color:'#000000',
-    marginTop:16,
+    color:'#ffffff',
   },
   h2:{
-    fontSize:18,
-    fontFamily:'Vazir-Thin',
+    fontSize:16,
+    fontFamily:'Vazir-Medium',
     color:'#000000',
+    marginRight:10,
+    marginTop:8,
+
   },
   interperson:{
     marginTop: 40,
+    alignItems:'center',
   },
   interperson1:{
     flexDirection:'row-reverse',
     alignItems:'flex-start',
+    width:Dimensions.get('window').width-36 ,
+
   },
   addtext:{
     color:'#00a9a6',
@@ -680,11 +709,11 @@ const styles = StyleSheet.create({
     color:'#000000',
   },
   divider:{
-    height: 2,
-    width:Dimensions.get('window').width-50 ,
-    backgroundColor: '#d7d7d7',
-    marginTop: 14,
-    marginBottom: 16,
+    height:1,
+    width:Dimensions.get('window').width-36,
+    backgroundColor:'#d7d7d7',
+    marginTop:12,
+    marginBottom:12,
   },
   costbox:{
     alignItems:'flex-end',
@@ -716,7 +745,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:5,
   },
   discountresult:{
     flexDirection:'row-reverse',
@@ -735,8 +763,8 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:65,
-    backgroundColor: "#fafafa",
+    height:56,
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
@@ -751,7 +779,7 @@ const styles = StyleSheet.create({
     flexDirection:"row-reverse",
     justifyContent:"flex-start",
     alignItems:'center',
-    marginBottom:5,
+    marginBottom:3,
   },
   bottombarbutton: {
     flex: 2,
@@ -793,7 +821,7 @@ const styles = StyleSheet.create({
     borderColor:"#00cecc",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height:46,
     width: 148,
     flexDirection: "row-reverse",
     justifyContent:"center",
@@ -802,8 +830,8 @@ const styles = StyleSheet.create({
   buttonview: {
     backgroundColor:"#00cecc",
     borderRadius: 50,
-    height:40,
-    width: 140,
+    height:38,
+    width: 139,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
@@ -815,7 +843,7 @@ const styles = StyleSheet.create({
   },
   textInput:{
     height:40,
-    width:95,
+    width:105,
     fontSize: 14,
     fontFamily: 'Vazir',
     textAlign: 'center',
@@ -881,6 +909,35 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#0ca6c1',
   },
+  header0:{
+    backgroundColor:'#0ca6c1',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:5,
+  },
+  h3:{
+    fontSize:14,
+    fontFamily:'Vazir-Light',
+    color:'#000000',
+    marginRight:10,
+  },
+  header00:{
+    width: Dimensions.get('window').width-40,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:5,
+  },
+  image:{
+    height:90,
+    width:90 ,
+    resizeMode:"contain",
+    marginTop:15,
+  },
+
 });
 
 export default RequestBookScreen;

@@ -206,7 +206,8 @@ class Explore extends Component {
         <View style={styles.filter}>
         </View>
         {this.renderError()}
-        <ScrollView style={{
+        <ScrollView
+        style={{
           marginTop: 5,
           marginBottom: 0,
           paddingRight:10,
