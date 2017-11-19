@@ -171,107 +171,97 @@ class GuestScreen extends Component {
 
   render () {
     return (
-      <View style={styles.container}>
-
-        <TabNavigator
-        tabBarStyle={{height:51}}>
-          <TabNavigator.Item
-            selected={this.state.selectedTab === 'profile'}
-            title="حساب کاربری"
-            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-            renderIcon={() => <Icon size={23} color="#bbbbbb" name="account-circle" />}
-            renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="account-circle" />}
-            onPress={() => {
-              this.setState({ selectedTab: 'profile' }, this.updateStatusBar);
-            }}>
-            <Profile
-              role={'guest'}
-              goToTab={this.goToTab}
-              navigation={this.props.navigation}
-            />
-          </TabNavigator.Item>
-          <TabNavigator.Item
-            selected={this.state.selectedTab === 'inboxScreen'}
-            title="پیام‌ها"
-            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
-            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
-            renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
-            onPress={() => {
-              this.setState({ selectedTab: 'inboxScreen' }, this.updateStatusBar);
-            }}
-            renderBadge={() => {
-              if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
-                return(
-                  <View style={{paddingTop:1}}>
-                    <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:29,paddingBottom:2,}}>
-                    </View>
+      <TabNavigator
+      tabBarStyle={{height:51}}>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'profile'}
+          title="حساب کاربری"
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+          renderIcon={() => <Icon size={23} color="#bbbbbb" name="account-circle" />}
+          renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="account-circle" />}
+          onPress={() => {
+            this.setState({ selectedTab: 'profile' }, this.updateStatusBar);
+          }}>
+          <Profile
+            role={'guest'}
+            goToTab={this.goToTab}
+            navigation={this.props.navigation}
+          />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'inboxScreen'}
+          title="پیام‌ها"
+          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
+          renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
+          onPress={() => {
+            this.setState({ selectedTab: 'inboxScreen' }, this.updateStatusBar);
+          }}
+          renderBadge={() => {
+            if ((Number(this.state.requestsBadgeNum) + Number(this.state.messagesBadgeNum)) > 0) {
+              return(
+                <View style={{paddingTop:1}}>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:29,paddingBottom:2,}}>
                   </View>
-                );
-              }
-            }}>
-            <InboxScreen
-              role={'guest'}
-              goToTab={this.goToTab}
-              setMessagesBadgeNum={this.setMessagesBadgeNum}
-              setRequestsBadgeNum={this.setRequestsBadgeNum}
-              navigation={this.props.navigation}
-            />
-          </TabNavigator.Item>
-          <TabNavigator.Item
-            selected={this.state.selectedTab === 'trips'}
-            // tabStyle={{flex: 1, flexDirection: 'column', justifyContent:'flex-end'}}
-            title="سفرها"
-            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            renderIcon={() => <Icon size={23} color="#bbbbbb" name="public"/>}
-            renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="public" />}
-            onPress={() => {
-              this.setState({ selectedTab: 'trips' }, this.updateStatusBar);
-            }}
-            renderBadge={() => {
-              if (Number(this.state.tripsBadgeNum) > 0) {
-                return(
-                  <View style={{paddingTop:2}}>
-                    <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:30,paddingBottom:0,}}>
-                    </View>
+                </View>
+              );
+            }
+          }}>
+          <InboxScreen
+            role={'guest'}
+            goToTab={this.goToTab}
+            setMessagesBadgeNum={this.setMessagesBadgeNum}
+            setRequestsBadgeNum={this.setRequestsBadgeNum}
+            navigation={this.props.navigation}
+          />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'trips'}
+          // tabStyle={{flex: 1, flexDirection: 'column', justifyContent:'flex-end'}}
+          title="سفرها"
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          renderIcon={() => <Icon size={23} color="#bbbbbb" name="public"/>}
+          renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="public" />}
+          onPress={() => {
+            this.setState({ selectedTab: 'trips' }, this.updateStatusBar);
+          }}
+          renderBadge={() => {
+            if (Number(this.state.tripsBadgeNum) > 0) {
+              return(
+                <View style={{paddingTop:2}}>
+                  <View style={{backgroundColor:'#f56e4e',height:6,width:6,borderRadius:3,borderColor:"#f8f8f8",borderWidth:0,alignItems:'center',justifyContent:'center',marginRight:30,paddingBottom:0,}}>
                   </View>
-                );
-              }
-            }}>
-            <Trips
-              role={'guest'}
-              goToTab={this.goToTab}
-              setTripsBadgeNum={this.setTripsBadgeNum}
-              navigation={this.props.navigation}
-            />
-          </TabNavigator.Item>
-          <TabNavigator.Item
-            selected={this.state.selectedTab === 'explore'}
-            title="جستجو"
-            selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-            renderIcon={() => <Icon size={24} color="#bbbbbb" name="search" />}
-            renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="search" />}
-            onPress={() => this.setState({ selectedTab: 'explore' }, this.updateStatusBar)}>
-            <Explore
-              role={'guest'}
-              goToTab={this.goToTab}
-              navigation={this.props.navigation}
-            />
-          </TabNavigator.Item>
-        </TabNavigator>
-
-      </View>
+                </View>
+              );
+            }
+          }}>
+          <Trips
+            role={'guest'}
+            goToTab={this.goToTab}
+            setTripsBadgeNum={this.setTripsBadgeNum}
+            navigation={this.props.navigation}
+          />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'explore'}
+          title="جستجو"
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          renderIcon={() => <Icon size={24} color="#bbbbbb" name="search" />}
+          renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="search" />}
+          onPress={() => this.setState({ selectedTab: 'explore' }, this.updateStatusBar)}>
+          <Explore
+            role={'guest'}
+            goToTab={this.goToTab}
+            navigation={this.props.navigation}
+          />
+        </TabNavigator.Item>
+      </TabNavigator>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default GuestScreen;
