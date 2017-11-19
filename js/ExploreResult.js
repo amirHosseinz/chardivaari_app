@@ -25,8 +25,6 @@ class ExploreResult extends Component {
     }
 
     return(
-      <View style={styles.container}>
-
       <TouchableOpacity onPress={() => {
         // this.props.navigation.navigate('roomView', {room: this.props.room});
         this.props.navigation.navigate('houseDetail', {
@@ -67,7 +65,6 @@ class ExploreResult extends Component {
         </View>
     </View>
     </TouchableOpacity>
-      </View>
     );
   }
 

@@ -26,18 +26,17 @@ class Termconditions extends Component {
     return(
       <View style={styles.container}>
 
-        <View style={styles.container1}>
-          <TouchableOpacity onPress={() => {
-            this.props.onCloseModal();
-          }}>
-            <View style={styles.backbuttonview}>
-            <Icon size={36} color="#3e3e3e" name="close" />
-          </View>
-        </TouchableOpacity>
+      <View style={styles.header0}>
+        <View style={styles.header00}>
+          <TouchableOpacity onPress={() => {this.props.onCloseModal()}}>
+              <Icon size={28} color="#3e3e3e" name="close" />
+          </TouchableOpacity>
+          <Text style={styles.h1}>قوانین و مقررات</Text>
+          <View style={{width:28}}></View>
+        </View>
       </View>
       <ScrollView>
       <View style={styles.container2}>
-        <Text style={{fontSize:22,fontFamily:'Vazir-Medium',textAlign:'center',color:'#3e3e3e'}}>قوانین و مقررات  </Text>
         <Text style={styles.aboutustext}>
         نرم افزار  تریپین که توسط شرکت "طراحی و راهبری فناوران دانش سامان آریا"   برای تسهیل اقامت مسافران طراحی گردیده ، تحت شرایط زیر خدمات مربوطه را ارائه می‌نماید؛ لذا این شرایط به عنوان یک قرارداد الزام‌آور بر روابط بین کاربران و شرکت حاکم خواهد بود. بر این اساس ضروری است پیش از استفاده از خدمات، این شروط را به دقت مطالعه فرمایید . استفاده از این نرم افزار به منزله قبول تمامی شرایط ذیل است و هرگونه ادعا یا اعتراض آتی در این خصوص را فاقد اعتبار می‌داند . شرکت ممکن است شرایط و سطح خدمات خود  را در طول زمان تغییر دهد . این تغییرات از طریق نرم‌افزار و وب سایت به تمامی کاربران اطلاع داده خواهد شد؛ صرف ادامه استفاده کاربر از خدمات نرم افزار، اعلام رضایت نسبت به شرایط جدید و قبول آن تلقی می‌گردد. تمامی تصاویر، علامات و نشان های الکترونیکی از سمت کاربران که به منظور تایید این سند و عضویت در تریپین باشد به منزله امضای الکترونیک وهمانند امضای دست‌نویس معتبر خواهد بود و امضاکننده را به مفاد سند ملتزم می‌نماید.
         </Text>
@@ -216,9 +215,6 @@ class Termconditions extends Component {
      الف) سهم میزبان از اجاره اولین شب رزرو بلافاصله پس از کامل شدن رزرو به حساب میزبان واریز خواهد شد.
      </Text>
      <Text style={styles.aboutustext}>
-     الف) سهم میزبان از اجاره اولین شب رزرو بلافاصله پس از کامل شدن رزرو به حساب میزبان واریز خواهد شد.
-     </Text>
-     <Text style={styles.aboutustext}>
      ب) مابقی سهم میزبان از مبلغ اجاره پس از پایان زمان اجاره و تحویل کارت شناسایی مهمان برای میزبان واریز خواهد شد.
     </Text>
     <Text style={styles.aboutustext2}>
@@ -231,7 +227,7 @@ class Termconditions extends Component {
     ب) در صورتی که مهمان قبل از دریافت کلید و در زمانی کمتر از ۴۸ ساعت به آغاز زمان تحویل کلید رزرو را کنسل کند، کل مبلغ اجاره به غیر از هزینه شب اول به وی بازگردانده می شود.
     </Text>
     <Text style={styles.aboutustext}>
-    ج) در صورتی که مهمان پس از زمان تحویل کلید رزرو را کنسل کند، هزینه‌ی اقامت در آن واحد برای کمترین مقدار بین ۴۸ ساعت آینده یا تا پایان مدت رزرو از مهمان کثر می‌گردد و مابقی وجه استرداد می‌گردد.
+    ج) در صورتی که مهمان پس از زمان تحویل کلید رزرو را کنسل کند، هزینه‌ی اقامت در آن واحد برای کمترین مقدار بین ۴۸ ساعت آینده یا تا پایان مدت رزرو از مهمان کسر می‌گردد و مابقی وجه استرداد می‌گردد.
     </Text>
     <Text style={styles.aboutustext}>
     د) در صورتی که میزبان رزرو را کنسل کند، تمامی مبلغ اجاره به مهمان بازگردانده می‌شود. در این موقعیت میزبان موظف است مبلغ دریافتی جهت اجاره شب اول را ظرف مدت ۲۴ ساعت برای شرکت واریز نماید.
@@ -304,7 +300,6 @@ class Termconditions extends Component {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor: 'white',
   },
   container1:{
     marginTop:15,
@@ -313,8 +308,10 @@ const styles = StyleSheet.create({
 
   },
   container2:{
-    marginTop:55,
+    marginTop:25,
     alignItems:'center',
+    backgroundColor: 'white',
+
   },
   backbuttonview:{
     flexDirection:'row-reverse',
@@ -357,7 +354,28 @@ const styles = StyleSheet.create({
     marginTop:20,
     marginRight:0,
     width: Dimensions.get('window').width - 90,
-  }
+  },
+  header0:{
+    backgroundColor:'#ffffff',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:3,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:3,
+  },
+  h1:{
+    fontSize:18,
+    fontFamily:"Vazir-Medium",
+    color:"#3e3e3e",
+  },
 });
 
 export default Termconditions;

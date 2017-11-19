@@ -6,6 +6,8 @@ import {
   Image,
   Text,
   StatusBar,
+  NetInfo,
+  ToastAndroid,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -39,19 +41,44 @@ class Splash extends Component {
       if (tokenValue == null) {
         // proceed normal
         // console.log('value is null');
-        this.checkAppUpdate();
+        this.trigger();
       } else {
         CacheStore.get('username').then((usernameValue) => {
           this.setState({
             token: tokenValue,
             username: usernameValue,
           }, () => {
-            this.checkAppUpdate();
+            this.trigger();
           });
         });
       }
     });
   }
+
+  handleFirstConnectivityChange = (isConnected) => {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.handleFirstConnectivityChange
+    );
+    this.checkAppUpdate();
+  }
+
+  trigger () {
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if (isConnected) {
+        this.checkAppUpdate();
+      } else {
+        this.setRetryButtonVisible();
+        ToastAndroid.show(
+          'لطفا تلفن همراه خود را به اینترنت متصل نمایید.',
+          ToastAndroid.LONG
+        );
+        NetInfo.isConnected.addEventListener(
+          'change',
+          this.handleFirstConnectivityChange
+        );
+      }});
+    }
 
   resetNavigation (targetRoute) {
     const resetAction = NavigationActions.reset({
@@ -63,7 +90,7 @@ class Splash extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  setRetryButtonVisible () {
+  setRetryButtonVisible = () => {
     this.setState({
       retryButtonVisible: true,
     });
@@ -147,8 +174,8 @@ class Splash extends Component {
     if (this.state.retryButtonVisible) {
       return(
         <View style={styles.container2}>
-          <TouchableOpacity onPress={() =>{
-            this.checkAppUpdate();
+          <TouchableOpacity onPress={() => {
+            this.trigger();
           }}>
           <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
           </TouchableOpacity>

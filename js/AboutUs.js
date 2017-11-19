@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Linking,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,14 +26,14 @@ class AboutUs extends Component {
     return(
       <View style={styles.container}>
 
-        <View style={styles.container1}>
-          <TouchableOpacity onPress={() => {
-            this.props.onCloseModal();
-          }}>
-            <View style={styles.backbuttonview}>
-            <Icon size={36} color="#3e3e3e" name="close" />
-          </View>
-        </TouchableOpacity>
+      <View style={styles.header0}>
+        <View style={styles.header00}>
+          <TouchableOpacity onPress={() => {this.props.onCloseModal()}}>
+              <Icon size={28} color="#3e3e3e" name="close" />
+          </TouchableOpacity>
+          <Text style={styles.h1}>درباره تریپین</Text>
+          <View style={{width:28}}></View>
+        </View>
       </View>
       <View style={styles.container2}>
         <Image style={styles.logostyle} source={require('./img/aboutlogo.png')}/>
@@ -85,7 +86,28 @@ const styles = StyleSheet.create({
     color:'#4f4f4f',
     marginTop:25,
     width: Dimensions.get('window').width - 90,
-  }
+  },
+  header0:{
+    backgroundColor:'#ffffff',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:3,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:3,
+  },
+  h1:{
+    fontSize:18,
+    fontFamily:"Vazir-Medium",
+    color:"#3e3e3e",
+  },
 });
 
 export default AboutUs;

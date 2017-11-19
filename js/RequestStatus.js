@@ -161,8 +161,7 @@ class RequestStatus extends Component {
                 {this.state.request.room.title}
               </Text>
             </View>
-            <View style={styles.divider}>
-            </View>
+
           </View>
         );
       }
@@ -471,7 +470,7 @@ class RequestStatus extends Component {
         <View>
           <Text style={styles.resulttext}>پیرامون درخواست خود از میزبان سوال دارید؟</Text>
           <TouchableOpacity onPress={this.onContactToUserPress}>
-            <Text style={styles.pmtohost}>ارسال پیام به میزبان</Text>
+            <Text style={styles.pmtohost}> پیام به میزبان</Text>
           </TouchableOpacity>
         </View>
       );
@@ -579,89 +578,99 @@ class RequestStatus extends Component {
     return(
       <View style={styles.container0}>
         <View style={styles.container1}>
-          <TouchableOpacity onPress={this.backNavigation}>
-            <View style={styles.backbuttonview}>
-            <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
+        <View style={styles.header0}>
+          <View style={styles.header00}>
+            <TouchableOpacity onPress={this.backNavigation}>
+                <Icon size={28} color="#ffffff" name="arrow-forward" />
+            </TouchableOpacity>
+            <Text style={styles.h01}>وضعیت درخواست</Text>
+            <View style={{width:28}}></View>
           </View>
-        </TouchableOpacity>
-          {this.renderStatus()}
+        </View>
         <ScrollView>
-          <View style={styles.costbox}>
-            {this.renderTitle()}
-            <View style={styles.tripincatch}>
-            <Text style={styles.costtext}>میهمان: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.request.guest_person.last_name}
-            </Text>
-            </View>
-            <View style={styles.divider}>
-            </View>
-            <View style={styles.tripincatch}>
-            <Text style={styles.costtext}>میزبان: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.request.room.owner.last_name}
-            </Text>
-            </View>
-            <View style={styles.divider}>
-            </View>
-            <View style={styles.interpersonresult}>
-            <Text style={styles.resulttext}>تاریخ ورود: </Text>
-              <Text style={styles.resulttextbold}>
-                {this.renderJalaliDate(this.state.request.start_date)}
-              </Text>
-            </View>
-            <View style={styles.interpersonresult}>
-            <Text style={styles.resulttext}>تاریخ خروج: </Text>
-              <Text style={styles.resulttextbold}>
-                {this.renderJalaliDate(this.state.request.end_date)}
-              </Text>
-            </View>
-            {this.renderCancelationDate()}
-            <View style={styles.interpersonresult}>
-            <Text style={styles.resulttext}>مدت اقامت: </Text>
-              <Text style={styles.resulttextbold}>
-                {this.state.request.duration}
-              </Text>
-              <Text style={styles.resulttextbold}> روز</Text>
-            </View>
+          <View style={styles.main0}>
+            <View style={styles.main1}>
+              {this.renderStatus()}
+              <View style={styles.costbox}>
+                {this.renderTitle()}
+                <View style={styles.divider}>
+                </View>
+                <View style={styles.tripincatch}>
+                <Text style={styles.costtext}>میهمان: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.request.guest_person.last_name}
+                </Text>
+                </View>
+                <View style={styles.divider}>
+                </View>
+                <View style={styles.tripincatch}>
+                <Text style={styles.costtext}>میزبان: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.request.room.owner.last_name}
+                </Text>
+                </View>
+                <View style={styles.divider}>
+                </View>
+                <View style={styles.interpersonresult}>
+                <Text style={styles.resulttext}>تاریخ ورود: </Text>
+                  <Text style={styles.resulttextbold}>
+                    {this.renderJalaliDate(this.state.request.start_date)}
+                  </Text>
+                </View>
+                <View style={styles.interpersonresult}>
+                <Text style={styles.resulttext}>تاریخ خروج: </Text>
+                  <Text style={styles.resulttextbold}>
+                    {this.renderJalaliDate(this.state.request.end_date)}
+                  </Text>
+                </View>
+                {this.renderCancelationDate()}
+                <View style={styles.interpersonresult}>
+                <Text style={styles.resulttext}>مدت اقامت: </Text>
+                  <Text style={styles.resulttextbold}>
+                    {this.state.request.duration}
+                  </Text>
+                  <Text style={styles.resulttextbold}> روز</Text>
+                </View>
+                  <View style={styles.divider}>
+                  </View>
+              </View>
+
+              <View style={styles.interpersonresult}>
+              <Text style={styles.resulttext}>تعداد مسافران: </Text>
+                <Text style={styles.resulttext}>
+                  {this.state.request.number_of_guests}
+                </Text>
+              </View>
               <View style={styles.divider}>
               </View>
-          </View>
 
-          <View style={styles.interpersonresult}>
-          <Text style={styles.resulttext}>تعداد مسافران: </Text>
-            <Text style={styles.resulttext}>
-              {this.state.request.number_of_guests}
-            </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
+              <View style={styles.interpersonresult}>
+                <Text style={styles.costtextfinal}>هزینه قابل پرداخت: </Text>
+                <Text style={styles.costtextfinal}>
+                  {this.state.request.total_price}
+                </Text>
+                <Text style={styles.costtextfinal}> تومان</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
 
-          <View style={styles.interpersonresult}>
-            <Text style={styles.costtextfinal}>هزینه قابل پرداخت: </Text>
-            <Text style={styles.costtextfinal}>
-              {this.state.request.total_price}
-            </Text>
-            <Text style={styles.costtextfinal}> تومان</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-
-          {this.renderContactToUser()}
-            <View  style={{marginBottom:25}}>
+              {this.renderContactToUser()}
+                <View  style={{marginBottom:25}}>
+                </View>
+              </View>
             </View>
           </ScrollView>
-
-        </View>
-
-        <View style={styles.bottombar}>
-          <View style={styles.bottombarchild}>
-            {this.renderRejectCancelButton()}
-            {this.renderAcceptPayButton()}
-          </View>
-        </View>
       </View>
-    );
+
+
+      <View style={styles.bottombar}>
+             <View style={styles.bottombarchild}>
+               {this.renderRejectCancelButton()}
+               {this.renderAcceptPayButton()}
+             </View>
+           </View>
+   </View>
+     );
   }
 }
 
@@ -670,19 +679,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#ffffff',
   },
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('screen').width-50 ,
   },
   header:{
     justifyContent:'center',
     alignItems:'center',
   },
   h1:{
-    fontSize:24,
+    fontSize:22,
     fontFamily:'Vazir-Medium',
     color:'#3e3e3e',
     marginTop:16,
@@ -711,14 +718,16 @@ const styles = StyleSheet.create({
     color:'#000000',
   },
   divider:{
-    height: 2,
-    width:Dimensions.get('window').width-50 ,
+    height: 1,
+    width:Dimensions.get('window').width-36 ,
     backgroundColor: '#d7d7d7',
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: 11,
+    marginBottom: 11,
   },
   costbox:{
     alignItems:'flex-end',
+    width:Dimensions.get('window').width-18 ,
+
   },
   cost:{
     flexDirection:'row-reverse',
@@ -753,7 +762,7 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:70,
+    height:56,
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
@@ -803,7 +812,7 @@ const styles = StyleSheet.create({
     borderColor:"#00cecc",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height:46,
     width: (Dimensions.get('screen').width-70)/2,
     flexDirection: "row-reverse",
     justifyContent:"center",
@@ -813,7 +822,7 @@ const styles = StyleSheet.create({
     borderColor:"#bebebe",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height:46,
     width: (Dimensions.get('screen').width-70)/2,
     flexDirection: "row-reverse",
     justifyContent:"center",
@@ -822,7 +831,7 @@ const styles = StyleSheet.create({
   buttonview: {
     backgroundColor:"#00cecc",
     borderRadius: 50,
-    height:40,
+    height:38,
     width: (Dimensions.get('screen').width-86)/2,
     alignItems:"center",
     justifyContent:"center",
@@ -831,7 +840,7 @@ const styles = StyleSheet.create({
   buttonview1: {
     backgroundColor:"#bebebe",
     borderRadius: 50,
-    height:40,
+    height:38,
     width: (Dimensions.get('screen').width-86)/2,
     alignItems:"center",
     justifyContent:"center",
@@ -863,6 +872,35 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Medium',
     fontSize:16,
     color:'#00a8a6',
+  },
+  header0:{
+    backgroundColor:'#0ca6c1',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:5,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:5,
+  },
+  h01:{
+    fontSize:20,
+    fontFamily:'Vazir-Medium',
+    color:'#ffffff',
+  },
+  main0:{
+    flex:1,
+    backgroundColor:'white',
+    alignItems:'center',
+  },
+  main1:{
+    width: Dimensions.get('window').width-36,
   },
 });
 

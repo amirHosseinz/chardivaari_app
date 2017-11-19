@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -191,7 +192,7 @@ class TripStatusScreen extends Component {
     case 'IN_PROGRESS':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>در حال انجام</Text>
         </View>
       );
@@ -199,7 +200,7 @@ class TripStatusScreen extends Component {
     case 'DONE':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>انجام شده</Text>
         </View>
       );
@@ -207,7 +208,7 @@ class TripStatusScreen extends Component {
     case 'RESOLUTION':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>در حال بررسی مشکل</Text>
         </View>
       );
@@ -215,7 +216,7 @@ class TripStatusScreen extends Component {
     case 'ISSUED':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>صادر شده</Text>
         </View>
       );
@@ -223,7 +224,7 @@ class TripStatusScreen extends Component {
     case 'CANCELED_BY_HOST':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>لغو شده توسط میزبان</Text>
         </View>
       );
@@ -231,7 +232,7 @@ class TripStatusScreen extends Component {
     case 'CANCELED_BY_GUEST':
       return(
         <View style={styles.header}>
-          <Text style={styles.h1}>وضعیت سفر</Text>
+          <Text style={styles.h2}>وضعیت: </Text>
           <Text style={styles.h2}>لغو شده توسط مهمان</Text>
         </View>
       );
@@ -272,93 +273,107 @@ class TripStatusScreen extends Component {
     return(
       <View style={styles.container0}>
         <View style={styles.container1}>
-          <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
-            <View style={styles.backbuttonview}>
-              <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
+          <View style={styles.header0}>
+            <View style={styles.header00}>
+              <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
+                  <Icon size={28} color="#ffffff" name="arrow-forward" />
+              </TouchableOpacity>
+              <Text style={styles.h1}>وضعیت سفر</Text>
+              <View style={{width:28}}></View>
             </View>
-          </TouchableOpacity>
-      <ScrollView
-      showsHorizontalScrollIndicator={false}>
-          {this.renderStatus()}
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>نام اقامتگاه: </Text>
-            <Text style={styles.resulttextbold}>{this.state.trip.room.title}</Text>
           </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost1}>
-            <Text style={styles.costtext}>آدرس: </Text>
-            <Text style={styles.resulttextbold}>{this.state.trip.room.postal_address}</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}> میزبان: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.trip.room.owner.first_name} {this.state.trip.room.owner.last_name}
-            </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}> شماره تماس: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.trip.room.owner.cell_phone}
-            </Text>
-            <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
-            <Text style={styles.resulttextbold1}>  تماس</Text>
-            </TouchableOpacity>
 
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>تاریخ ورود: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.trip.start_date)}
-            </Text>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>تاریخ خروج: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.trip.end_date)}
-            </Text>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>مدت اقامت: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderDuration(this.state.trip.end_date, this.state.trip.start_date)}
-            </Text>
-            <Text style={styles.resulttextbold}> روز</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>تعداد مسافران: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.trip.number_of_guests}
-            </Text>
-            <Text style={styles.resulttextbold}> نفر </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.trip.total_price}
-            </Text>
-            <Text style={styles.resulttextbold}> تومان</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
-          <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
-            <Text style={styles.pmtohost}>ارسال پیام به میزبان</Text>
-          </TouchableOpacity>
+          <View style={styles.main}>
+            <View style={styles.mainchild}>
+            <ScrollView>
 
-      </ScrollView>
+              {this.renderStatus()}
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>نام اقامتگاه: </Text>
+                <Text style={styles.resulttextbold}>{this.state.trip.room.title}</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>آدرس: </Text>
+                <Text style={styles.resulttextbold}>{this.state.trip.room.postal_address}</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}> میزبان: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.trip.room.owner.first_name} {this.state.trip.room.owner.last_name}
+                </Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}> شماره تماس: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.trip.room.owner.cell_phone}
+                </Text>
+                <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
+                <Text style={styles.resulttextbold1}>  تماس</Text>
+                </TouchableOpacity>
 
-        {this.renderAccRejButton()}
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>تاریخ ورود: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderJalaliDate(this.state.trip.start_date)}
+                </Text>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>تاریخ خروج: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderJalaliDate(this.state.trip.end_date)}
+                </Text>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>مدت اقامت: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderDuration(this.state.trip.end_date, this.state.trip.start_date)}
+                </Text>
+                <Text style={styles.resulttextbold}> روز</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>تعداد مسافران: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.trip.number_of_guests}
+                </Text>
+                <Text style={styles.resulttextbold}> نفر </Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.trip.total_price}
+                </Text>
+                <Text style={styles.resulttextbold}> تومان</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
+                <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
+                  <Text style={styles.pmtohost}>  ارسال پیام </Text>
+                </TouchableOpacity>
+              </View>
+
+              {this.renderAccRejButton()}
+              </ScrollView>
+            </View>
+          </View>
+
+
         </View>
       </View>
     );
@@ -370,32 +385,32 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#ffffff',
   },
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('screen').width-50 ,
+    width:Dimensions.get('screen').width ,
   },
   backbuttonview:{
     flexDirection:'row-reverse',
     marginTop:14,
   },
   header:{
-    justifyContent:'center',
+    flexDirection:'row-reverse',
+    justifyContent:'flex-start',
     alignItems:'center',
   },
   h1:{
-    fontSize:24,
+    fontSize:20,
     fontFamily:'Vazir-Medium',
-    color:'#3e3e3e',
-    marginTop:16,
+    color:'#ffffff',
   },
   h2:{
-    fontSize:18,
-    fontFamily:'Vazir-Thin',
+    fontSize:16,
+    fontFamily:'Vazir-Medium',
     color:'#3e3e3e',
-    marginBottom:30,
+    marginTop:15,
+    textAlign:'center',
   },
   cost:{
     flexDirection:'row-reverse',
@@ -417,11 +432,11 @@ const styles = StyleSheet.create({
     color:'#00a8a6',
   },
   divider:{
-    height: 2,
-    width:Dimensions.get('window').width-50 ,
+    height: 1,
+    width:Dimensions.get('window').width-36 ,
     backgroundColor: '#d7d7d7',
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: 11,
+    marginBottom: 11,
   },
   pmtohost:{
     fontFamily:'Vazir-Medium',
@@ -432,7 +447,7 @@ const styles = StyleSheet.create({
     borderColor:"#f56e4e",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height:46,
     width: 168,
     justifyContent:"center",
     alignItems:"center",
@@ -450,7 +465,7 @@ const styles = StyleSheet.create({
   buttonview: {
     backgroundColor:"#f56e4e",
     borderRadius: 50,
-    height:40,
+    height:38,
     width: 160,
     alignItems:"center",
     justifyContent:"center",
@@ -459,12 +474,38 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection:'column-reverse',
     alignItems:'center',
-    marginBottom:70,
-    marginTop:20,
+    justifyContent:'center',
+    marginTop:30,
   },
   buttonstyle:{
     alignItems:'center',
-  }
+  },
+  header0:{
+    backgroundColor:'#0ca6c1',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:5,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:5,
+  },
+  main:{
+    flex:1,
+    backgroundColor:'#ffffff',
+    alignItems:'center',
+    height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
+
+  },
+  mainchild:{
+    width: Dimensions.get('window').width-36,
+  },
 });
 
 export default TripStatusScreen;

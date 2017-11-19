@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import { OptimizedFlatList } from 'react-native-optimized-flatlist';
 
 import SearchAnimations from './SearchAnimations';
 import CacheStore from 'react-native-cache-store';
@@ -179,9 +180,17 @@ class Explore extends Component {
     }
   }
 
+  _keyExtractor = (item, index) => item.id;
+
   renderResults () {
     return this.state.rooms.map(room =>
       <ExploreResult key={room.id} room={room} navigation={this.props.navigation} />
+    );
+  }
+
+  renderItem ({item}, navigation) {
+    return(
+      <ExploreResult room={item} navigation={navigation} />
     );
   }
 
@@ -206,15 +215,18 @@ class Explore extends Component {
         <View style={styles.filter}>
         </View>
         {this.renderError()}
-        <ScrollView
-        style={{
+        <View style={{
           marginTop: 5,
-          marginBottom: 0,
+          marginBottom: 65,
           paddingRight:10,
           marginLeft:5,
         }}>
-        {this.renderResults()}
-        </ScrollView>
+
+        <OptimizedFlatList
+          data={this.state.rooms}
+          keyExtractor={this._keyExtractor}
+          renderItem={(item) => this.renderItem(item, this.props.navigation)} />
+        </View>
 
       </View>
     );
@@ -224,11 +236,9 @@ class Explore extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#ededed',
+      // backgroundColor: '#ededed',s
   },
   filter : {
     backgroundColor: '#0ca6c1',

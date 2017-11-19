@@ -205,7 +205,7 @@ class ConversationScreen extends Component {
               <TouchableOpacity onPress={() => {
                 this.onBackButtonPress();
               }}>
-                <Icon size={44} color="#4f4f4f" name="keyboard-arrow-right" style={{marginBottom:2}} />
+                <Icon size={28} color="#4f4f4f" name="arrow-forward" style={{marginTop:5,marginLeft:5,}} />
               </TouchableOpacity>
               <Text style={styles.headerlastname}>{this.state.party.last_name}</Text>
             </View>
@@ -217,7 +217,7 @@ class ConversationScreen extends Component {
               style={{flexDirection:'row-reverse'}}>
               <Icon
                 name='home'
-                size={20}
+                size={18}
                 color='#757575'
                 style={{marginTop:3}}
               />
@@ -226,6 +226,8 @@ class ConversationScreen extends Component {
             </View>
           </View>
         </View>
+
+
         <GiftedChat
           placeholder={'پیامتان را تایپ کنید...'}
           label={'ارسال'}
@@ -259,36 +261,34 @@ const styles = StyleSheet.create({
     fontSize:14,
   },
   showhouse:{
-    fontSize:16,
+    fontSize:14,
     fontFamily:'Vazir-Light',
     color:'#4f4f4f',
     marginRight:5,
   },
   header0:{
-    backgroundColor:'#ededed',
-    elevation:1,
-    height:68,
+    backgroundColor:'#ffffff',
+    elevation:3,
+    height:56,
+    alignItems:'center',
   },
   header1:{
     flex:1,
     flexDirection:'row-reverse',
     alignItems:'center',
     justifyContent:'space-between',
-    marginRight:20,
-    width:Dimensions.get('screen').width-25,
+    width:Dimensions.get('screen').width-36,
   },
   headerlastname:{
-    fontSize:20,
+    fontSize:18,
     color:'#4f4f4f',
     fontFamily:'Vazir-Medium',
-    marginTop:3,
   },
   backbottomlastname:{
     flexDirection:'row-reverse',
   },
   showhome:{
     flexDirection:'row-reverse',
-  }
+  },
 });
-
 export default ConversationScreen;

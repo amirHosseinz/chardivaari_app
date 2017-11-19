@@ -719,8 +719,7 @@ class HouseDetail extends Component {
   render () {
     return(
       <View style={styles.container}>
-      <ScrollView
-      >
+      <ScrollView>
       {this.renderViewPager()}
 <View style={styles.container0}>
 <View style={styles.container2}>
@@ -777,7 +776,7 @@ class HouseDetail extends Component {
   <View style={styles.deatilitembox}>
     <Image style={styles.detailiconimg} source={require("./img/beds.png")}/>
     <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + Number(this.state.room.double_beds_number)}</Text>
+    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + 2 * Number(this.state.room.double_beds_number)}</Text>
     <Text style={styles.detailicontext}>تخت</Text>
     </View>
   </View>
@@ -1121,7 +1120,7 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:56,
+    height:65,
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
@@ -1137,6 +1136,7 @@ const styles = StyleSheet.create({
     flexDirection:"row-reverse",
     justifyContent:"center",
     alignItems:'center',
+    marginBottom:5,
   },
   bottombarbutton: {
     flex: 2,
