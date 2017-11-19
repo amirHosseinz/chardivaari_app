@@ -240,7 +240,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: '#ededed',
   },
   filter : {
     backgroundColor: '#0ca6c1',
