@@ -18,7 +18,7 @@ import Communications from 'react-native-communications';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class TripStatusScreen extends Component {
@@ -373,7 +373,6 @@ class TripStatusScreen extends Component {
             </View>
           </View>
 
-
         </View>
       </View>
     );
@@ -501,7 +500,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffffff',
     alignItems:'center',
     height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
-
   },
   mainchild:{
     width: Dimensions.get('window').width-36,
