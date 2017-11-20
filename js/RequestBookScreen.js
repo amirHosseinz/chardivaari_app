@@ -21,7 +21,7 @@ import Calendar from './common/calendar/Calendar';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class RequestBookScreen extends Component {
@@ -533,12 +533,13 @@ class RequestBookScreen extends Component {
         <View style={styles.housebox0}>
             <View style={styles.housebox}>
               <Image
-              source={require("./img/account.jpg")}
-              style={styles.image}>
-              </Image>
+                style={styles.image}
+                source={{
+                  uri: productionURL + this.state.room.preview
+                }} />
               <View>
                 <Text style={styles.h2}>{this.state.room.title}</Text>
-                <Text style={styles.h3}>اسم شهر و محله</Text>
+                <Text style={styles.h3}>{this.state.room.address}</Text>
               </View>
             </View>
         </View>
@@ -798,7 +799,6 @@ const styles = StyleSheet.create({
     fontFamily:"Vazir-Light",
     color: "#3e3e3e",
     marginTop:6,
-
   },
   pernighttext: {
     fontSize: 20,
@@ -849,8 +849,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#4f4f4f',
     marginTop:5,
-
-
   },
   inputstyle:{
     marginLeft:5,
@@ -931,13 +929,12 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     elevation:5,
   },
-  image:{
-    height:90,
-    width:90 ,
-    resizeMode:"contain",
-    marginTop:15,
+  image: {
+    height: 90,
+    width: 90,
+    resizeMode: "cover",
+    marginTop: 15,
   },
-
 });
 
 export default RequestBookScreen;
