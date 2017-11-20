@@ -77,9 +77,8 @@ const styles = StyleSheet.create({
   },
   cards: {
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 10,
+    width: Dimensions.get('window').width - 0,
     height: 110,
-    backgroundColor: '#f9f9f9',
     marginTop:5,
     borderRadius: 1,
     flexDirection: "row",
@@ -101,6 +100,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems:"flex-end",
     marginRight:10,
+    paddingRight:20,
+    backgroundColor:'white',
   },
   info: {
     flex:3,
