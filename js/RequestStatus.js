@@ -574,6 +574,20 @@ class RequestStatus extends Component {
     }
   }
 
+  renderButtonSection () {
+    withButtonStatuses = ['WAIT_FOR_GUEST_PAY', 'WAIT_FOR_HOST']
+    if (withButtonStatuses.indexOf(this.state.request.status) > -1) {
+      return(
+        <View style={styles.bottombar}>
+           <View style={styles.bottombarchild}>
+             {this.renderRejectCancelButton()}
+             {this.renderAcceptPayButton()}
+           </View>
+        </View>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -662,13 +676,7 @@ class RequestStatus extends Component {
           </ScrollView>
       </View>
 
-
-      <View style={styles.bottombar}>
-             <View style={styles.bottombarchild}>
-               {this.renderRejectCancelButton()}
-               {this.renderAcceptPayButton()}
-             </View>
-           </View>
+      {this.renderButtonSection()}
    </View>
      );
   }
@@ -726,8 +734,7 @@ const styles = StyleSheet.create({
   },
   costbox:{
     alignItems:'flex-end',
-    width:Dimensions.get('window').width-18 ,
-
+    width:Dimensions.get('window').width-18,
   },
   cost:{
     flexDirection:'row-reverse',
