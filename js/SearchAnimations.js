@@ -14,8 +14,10 @@ import {
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Calendar from './common/calendar/Calendar';
 import ModalDropdown from 'react-native-modal-dropdown';
+
+import Calendar from './common/calendar/Calendar';
+import LocationSelectScreen from './LocationSelectScreen';
 
 const { UIManager } = NativeModules;
 
@@ -272,9 +274,11 @@ class SearchAnimations extends Component {
        this.calendar && this.calendar.open();
      }
 
-     onSelectLocation = (index, value) => {
+     onSelectLocation = (value) => {
        this.setState({
          newDestination: value,
+       }, () => {
+         this.onConfirmLocation();
        });
      }
 
@@ -294,11 +298,14 @@ class SearchAnimations extends Component {
          }
          // this.props.doSearchAction();
        }
+       this.setWhereModalVisible(false);
      }
 
      onCancelLocation = () => {
        this.setState({
          newDestination: this.state.destination,
+       }, () => {
+         this.setWhereModalVisible(false);
        });
      }
 
@@ -329,14 +336,6 @@ class SearchAnimations extends Component {
        return(
          <View style={styles.capacityRowStyle}>
           <Text style={styles.capacityRowTextStyle}>{value} نفر</Text>
-         </View>
-       );
-     }
-
-     renderLocationModalRow (value) {
-       return(
-         <View style={styles.capacityRowStyle}>
-          <Text style={styles.capacityRowTextStyle}>{value}</Text>
          </View>
        );
      }
@@ -430,28 +429,13 @@ class SearchAnimations extends Component {
                    transparent={false}
                    visible={this.state.whereModalVisible}
                    onRequestClose={() => {
-                     this.setWhereModalVisible(false);
                      this.onCancelLocation();
                    }}>
-                    <View style={styles.modalContainer}>
-                    <View style={styles.inputModalStyle}>
-                    <ModalDropdown
-                      options={this.props.locations}
+                    <LocationSelectScreen
+                      locations={this.props.locations}
                       onSelect={this.onSelectLocation}
-                      defaultValue={'مقصد سفر'}
-                      showsVerticalScrollIndicator={false}
-                      textStyle={styles.optionText}
-                      style={styles.capacityModalStyle}
-                      renderRow={this.renderLocationModalRow}
-                    />
-                    <TouchableHighlight style={styles.confirmButton} onPress={() => {
-                      this.setWhereModalVisible(!this.state.whereModalVisible);
-                      this.onConfirmLocation();
-                    }}>
-                      <Text style={styles.confirmButtonText}>تایید</Text>
-                    </TouchableHighlight>
-                    </View>
-                    </View>
+                      onCancel={this.onCancelLocation}>
+                    </LocationSelectScreen>
                    </Modal>
            </View>
         );
