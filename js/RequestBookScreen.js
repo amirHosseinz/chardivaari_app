@@ -460,11 +460,11 @@ class RequestBookScreen extends Component {
       return(
         <View style={styles.bottombar}>
           <View style={styles.bottombarchild}>
-          <Text style={styles.mablaghtext}> مبلغ نهایی:</Text>
-          <View style={styles.bottombarprice}>
-                <Text style={styles.pricetext}>{this.state.totalPrice}</Text>
-                <Text style={styles.pricetext}> تومان</Text>
-          </View>
+                <Text style={styles.mablaghtext}> مبلغ نهایی:</Text>
+                <View style={styles.bottombarprice}>
+                      <Text style={styles.pricetext}>{this.state.totalPrice}</Text>
+                      <Text style={styles.pricetext}> تومان</Text>
+                </View>
             <View style={styles.bottombarbutton}>
                 <TouchableOpacity
                   style={styles.buttontouch}
@@ -648,13 +648,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    // backgroundColor:'#f9f9f9',
+    backgroundColor:'#f9f9f9',
   },
   container1: {
     flex: 1,
     flexDirection:'column',
     width: Dimensions.get('window').width-36,
     marginBottom:15,
+
   },
   housebox0:{
     alignItems:'center',
@@ -662,6 +663,7 @@ const styles = StyleSheet.create({
     borderBottomWidth:0.5,
     borderColor:'#e1e1e1',
     width: Dimensions.get('window').width,
+    justifyContent:'center',
   },
   housebox:{
     flex:1,
@@ -670,6 +672,7 @@ const styles = StyleSheet.create({
     width:Dimensions.get('window').width-36 ,
     justifyContent:"flex-start",
     marginTop:5,
+    marginRight:18,
   },
   h1:{
     fontSize:20,
@@ -774,7 +777,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width-50,
     flex:1,
     flexDirection: "row-reverse",
-  },
+    marginRight:15,
+    },
   bottombarprice: {
     flex:3,
     flexDirection:"row-reverse",
