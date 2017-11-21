@@ -205,7 +205,7 @@ class ConversationScreen extends Component {
               <TouchableOpacity onPress={() => {
                 this.onBackButtonPress();
               }}>
-                <Icon size={28} color="#4f4f4f" name="arrow-forward" style={{marginTop:5,marginLeft:5,}} />
+                <Icon size={28} color="#ffffff" name="arrow-forward" style={{marginTop:5,marginLeft:5,}} />
               </TouchableOpacity>
               <Text style={styles.headerlastname}>{this.state.party.last_name}</Text>
             </View>
@@ -218,7 +218,7 @@ class ConversationScreen extends Component {
               <Icon
                 name='home'
                 size={18}
-                color='#757575'
+                color='#ffffff'
                 style={{marginTop:3}}
               />
               <Text style={styles.showhouse}>مشاهده‌ی خانه</Text>
@@ -263,11 +263,11 @@ const styles = StyleSheet.create({
   showhouse:{
     fontSize:14,
     fontFamily:'Vazir-Light',
-    color:'#4f4f4f',
+    color:'#ffffff',
     marginRight:5,
   },
   header0:{
-    backgroundColor:'#ffffff',
+    backgroundColor:'#0ca6c1',
     elevation:3,
     height:56,
     alignItems:'center',
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   },
   headerlastname:{
     fontSize:18,
-    color:'#4f4f4f',
+    color:'#ffffff',
     fontFamily:'Vazir-Medium',
   },
   backbottomlastname:{

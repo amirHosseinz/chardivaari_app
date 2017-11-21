@@ -141,78 +141,78 @@ class EditHouse extends Component {
 
   render () {
     return (
-      <KeyboardAwareScrollView>
-        <View style={styles.backstyle}>
-          <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
-            <View style={styles.backbuttonview}>
-              <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
+        <View>
+            <View style={styles.header0}>
+              <View style={styles.header00}>
+                <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
+                    <Icon size={28} color="#ffffff" name="arrow-forward" />
+                </TouchableOpacity>
+                <Text style={styles.h01}>وضعیت درخواست</Text>
+                <View style={{width:28}}></View>
+              </View>
             </View>
-          </TouchableOpacity>
-        </View>
-      <View style={styles.container0}>
+          <KeyboardAwareScrollView>
+          <View style={styles.container0}>
+          <View style={styles.header}>
+            <Text style={styles.h2}>{this.state.listing.title}</Text>
+          </View>
+            <View style={styles.container1}>
+              <Text style={styles.upfield}>اجاره بها در روز عادی (تومان)</Text>
+                <TextInput
+                  style={styles.textInput}
+                  placeholder="25000"
+                  value={String(this.state.price)}
+                  placeholderTextColor="#818181"
+                  keyboardType = 'numeric'
+                  maxLength = {9}
+                  onChangeText={price => this.setState({ price })}
+                  underlineColorAndroid={'transparent'}
+                  />
+              <Text style={styles.upfield}>اجاره بها در آخر هفته (تومان)</Text>
+                  <TextInput
+                  style={styles.textInput}
+                  placeholder="30000"
+                  value={String(this.state.weekendPrice)}
+                  placeholderTextColor="#818181"
+                  keyboardType = 'numeric'
+                  maxLength = {9}
+                  onChangeText={weekendPrice => this.setState({ weekendPrice })}
+                  underlineColorAndroid={'transparent'}
+                  />
+              <Text style={styles.upfield}>اجاره بها در روزهای خاص (تومان)</Text>
+                  <TextInput
+                  style={styles.textInput}
+                  placeholder="40000"
+                  value={String(this.state.specialOfferPrice)}
+                  placeholderTextColor="#818181"
+                  keyboardType = 'numeric'
+                  maxLength = {9}
+                  onChangeText={specialOfferPrice => this.setState({ specialOfferPrice })}
+                  underlineColorAndroid={'transparent'}
 
-      <View style={styles.header}>
-        <Text style={styles.h1}>ویرایش اطلاعات</Text>
-        <Text style={styles.h2}>{this.state.listing.title}</Text>
-      </View>
-
-
-        <View style={styles.container1}>
-          <Text style={styles.upfield}>اجاره بها در روز عادی (تومان)</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="25000"
-              value={String(this.state.price)}
-              placeholderTextColor="#818181"
-              keyboardType = 'numeric'
-              maxLength = {9}
-              onChangeText={price => this.setState({ price })}
-              underlineColorAndroid={'transparent'}
-              />
-          <Text style={styles.upfield}>اجاره بها در آخر هفته (تومان)</Text>
-              <TextInput
-              style={styles.textInput}
-              placeholder="30000"
-              value={String(this.state.weekendPrice)}
-              placeholderTextColor="#818181"
-              keyboardType = 'numeric'
-              maxLength = {9}
-              onChangeText={weekendPrice => this.setState({ weekendPrice })}
-              underlineColorAndroid={'transparent'}
-              />
-          <Text style={styles.upfield}>اجاره بها در روزهای خاص (تومان)</Text>
-              <TextInput
-              style={styles.textInput}
-              placeholder="40000"
-              value={String(this.state.specialOfferPrice)}
-              placeholderTextColor="#818181"
-              keyboardType = 'numeric'
-              maxLength = {9}
-              onChangeText={specialOfferPrice => this.setState({ specialOfferPrice })}
-              underlineColorAndroid={'transparent'}
-
-              />
-          <Text style={styles.upfield}>درصد تخفیف هفتگی</Text>
-              <TextInput
-              style={styles.textInput}
-              placeholder="10"
-              value={String(this.state.discountPerWeek)}
-              placeholderTextColor="#818181"
-              maxLength = {3}
-              keyboardType = 'numeric'
-              onChangeText={discountPerWeek => this.setState({ discountPerWeek })}
-              underlineColorAndroid={'transparent'}
-              />
-        </View>
-        <View style={styles.profilepic}>
-            <TouchableOpacity style={styles.buttontouch} onPress={this.onSaveButtonPress.bind(this)}>
-            <View style={styles.buttonview}>
-            <Text style={styles.reservebuttontext}>ذخیره</Text>
+                  />
+              <Text style={styles.upfield}>درصد تخفیف هفتگی</Text>
+                  <TextInput
+                  style={styles.textInput}
+                  placeholder="10"
+                  value={String(this.state.discountPerWeek)}
+                  placeholderTextColor="#818181"
+                  maxLength = {3}
+                  keyboardType = 'numeric'
+                  onChangeText={discountPerWeek => this.setState({ discountPerWeek })}
+                  underlineColorAndroid={'transparent'}
+                  />
             </View>
-            </TouchableOpacity>
+            <View style={styles.profilepic}>
+                <TouchableOpacity style={styles.buttontouch} onPress={this.onSaveButtonPress.bind(this)}>
+                <View style={styles.buttonview}>
+                <Text style={styles.reservebuttontext}>ذخیره</Text>
+                </View>
+                </TouchableOpacity>
+            </View>
+          </View>
+          </KeyboardAwareScrollView>
         </View>
-      </View>
-      </KeyboardAwareScrollView>
     );
   }
 }
@@ -222,7 +222,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    marginTop:10,
+    paddingTop:10,
+    paddingBottom:45,
+    backgroundColor:'white',
   },
   container1: {
     flex: 1,
@@ -266,7 +268,7 @@ const styles = StyleSheet.create({
   buttontouch: {
     borderColor:"#00cecc",
     borderRadius: 50,
-    borderWidth : 2,
+    borderWidth : 1,
     height:48,
     width: 148,
     justifyContent:"center",
@@ -289,10 +291,12 @@ const styles = StyleSheet.create({
     marginTop:16,
   },
   h2:{
-    fontSize:18,
-    fontFamily:'Vazir-Thin',
+    fontSize:16,
+    fontFamily:'Vazir',
     color:'#3e3e3e',
-    marginBottom:30,
+    marginBottom:20,
+    marginTop:20,
+
   },
   header:{
     justifyContent:'center',
@@ -302,6 +306,27 @@ const styles = StyleSheet.create({
     alignItems:"flex-end",
     marginRight:10,
     marginTop:20,
+  },
+  header0:{
+    backgroundColor:'#0ca6c1',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:5,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:5,
+  },
+  h01:{
+    fontSize:20,
+    fontFamily:'Vazir-Medium',
+    color:'#ffffff',
   },
 });
 

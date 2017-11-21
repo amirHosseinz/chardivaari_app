@@ -15,7 +15,7 @@ import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class EditProfile extends Component {
@@ -165,75 +165,88 @@ class EditProfile extends Component {
 
   render () {
     return (
-      <KeyboardAwareScrollView>
-      <View style={styles.container0}>
-        <View style={styles.profilepic}>
-          <Icon size={120} color='#c2c2c2' name='account-circle' />
-          <TouchableOpacity>
-            <Text style={styles.editpic}></Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.container1}>
-          <Text style={styles.upfield}>نام</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="مثال: رضا"
-              placeholderTextColor="#acacac"
-              maxLength = {20}
-              value={this.state.firstName}
-              onChangeText={this._onChangeFirstName.bind(this)}
-              underlineColorAndroid={'transparent'} />
-          <Text style={styles.upfield}>نام خانوادگی</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="مثال: رضایی"
-              placeholderTextColor="#acacac"
-              maxLength = {30}
-              value={this.state.lastName}
-              onChangeText={this._onChangeLastName.bind(this)}
-              underlineColorAndroid={'transparent'} />
-          <Text style={styles.upfield}>موبایل</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="09XXXXXXXXX"
-              placeholderTextColor="#acacac"
-              maxLength = {11}
-              keyboardType = 'phone-pad'
-              value={this.state.cellPhone}
-              onChangeText={this._onChangeCellPhone.bind(this)}
-              underlineColorAndroid={'transparent'} />
-          <Text style={styles.upfield}>ایمیل</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="وارد کردن آدرس ایمیل"
-              placeholderTextColor="#acacac"
-              maxLength = {50}
-              keyboardType = 'email-address'
-              value={this.state.email}
-              onChangeText={this._onChangeEmail.bind(this)}
-              underlineColorAndroid={'transparent'} />
-          <Text style={styles.upfield}>شماره ملی</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="وارد کردن شماره ملی"
-              placeholderTextColor="#acacac"
-              maxLength = {10}
-              keyboardType = 'numeric'
-              value={this.state.nationalID}
-              onChangeText={this._onChangeNationalID.bind(this)}
-              underlineColorAndroid={'transparent'} />
-        </View>
-        <View style={styles.profilepic}>
-            <TouchableOpacity
-              style={styles.buttontouch}
-              onPress={this._onPressSave.bind(this)}>
-            <View style={styles.buttonview}>
-            <Text style={styles.reservebuttontext}>ذخیره</Text>
-            </View>
+      <View>
+        <View style={styles.header0}>
+          <View style={styles.header00}>
+            <TouchableOpacity onPress={() => {
+              this.props.hideEditProfile();
+            }}>
+                <Icon size={28} color="#3e3e3e" name="arrow-forward" />
             </TouchableOpacity>
+            <Text style={styles.h01}>ویرایش حساب کابری</Text>
+            <View style={{width:28}}></View>
+          </View>
         </View>
+        <KeyboardAwareScrollView>
+        <View style={styles.container0}>
+          <View style={styles.profilepic}>
+            <Icon size={120} color='#c2c2c2' name='account-circle' />
+            <TouchableOpacity>
+              <Text style={styles.editpic}></Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.container1}>
+            <Text style={styles.upfield}>نام</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="مثال: رضا"
+                placeholderTextColor="#acacac"
+                maxLength = {20}
+                value={this.state.firstName}
+                onChangeText={this._onChangeFirstName.bind(this)}
+                underlineColorAndroid={'transparent'} />
+            <Text style={styles.upfield}>نام خانوادگی</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="مثال: رضایی"
+                placeholderTextColor="#acacac"
+                maxLength = {30}
+                value={this.state.lastName}
+                onChangeText={this._onChangeLastName.bind(this)}
+                underlineColorAndroid={'transparent'} />
+            <Text style={styles.upfield}>موبایل</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="09XXXXXXXXX"
+                placeholderTextColor="#acacac"
+                maxLength = {11}
+                keyboardType = 'phone-pad'
+                value={this.state.cellPhone}
+                onChangeText={this._onChangeCellPhone.bind(this)}
+                underlineColorAndroid={'transparent'} />
+            <Text style={styles.upfield}>ایمیل</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="وارد کردن آدرس ایمیل"
+                placeholderTextColor="#acacac"
+                maxLength = {50}
+                keyboardType = 'email-address'
+                value={this.state.email}
+                onChangeText={this._onChangeEmail.bind(this)}
+                underlineColorAndroid={'transparent'} />
+            <Text style={styles.upfield}>شماره ملی</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="وارد کردن شماره ملی"
+                placeholderTextColor="#acacac"
+                maxLength = {10}
+                keyboardType = 'numeric'
+                value={this.state.nationalID}
+                onChangeText={this._onChangeNationalID.bind(this)}
+                underlineColorAndroid={'transparent'} />
+          </View>
+          <View style={styles.profilepic}>
+              <TouchableOpacity
+                style={styles.buttontouch}
+                onPress={this._onPressSave.bind(this)}>
+              <View style={styles.buttonview}>
+              <Text style={styles.reservebuttontext}>ذخیره</Text>
+              </View>
+              </TouchableOpacity>
+          </View>
+        </View>
+        </KeyboardAwareScrollView>
       </View>
-      </KeyboardAwareScrollView>
     );
   }
 }
@@ -244,6 +257,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     marginTop:45,
+    marginBottom:45,
   },
   container1: {
     flex: 1,
@@ -306,6 +320,27 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
+  },
+  header0:{
+    backgroundColor:'#ffffff',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:3,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:3,
+  },
+  h01:{
+    fontSize:16,
+    fontFamily:'Vazir-Medium',
+    color:"#3e3e3e",
   },
 });
 

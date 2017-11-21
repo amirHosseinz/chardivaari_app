@@ -216,16 +216,14 @@ class Explore extends Component {
         </View>
         {this.renderError()}
         <View style={{
-          marginTop: 5,
-          marginBottom: 65,
-          paddingRight:10,
-          marginLeft:5,
+          paddingBottom:176,
         }}>
-
         <OptimizedFlatList
           data={this.state.rooms}
           keyExtractor={this._keyExtractor}
-          renderItem={(item) => this.renderItem(item, this.props.navigation)} />
+          renderItem={(item) => this.renderItem(item, this.props.navigation)}
+          style={{paddingRight:5,marginLeft:5}}
+           />
         </View>
 
       </View>

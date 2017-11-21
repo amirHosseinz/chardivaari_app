@@ -154,15 +154,12 @@ class RequestStatus extends Component {
     if (this.state.request.room &&
       this.state.request.room.title != '') {
         return(
-          <View>
-            <View style={styles.cost}>
+            <View style={styles.interpersonresult}>
               <Text style={styles.costtext}>نام اقامتگاه: </Text>
               <Text style={styles.resulttextbold}>
                 {this.state.request.room.title}
               </Text>
             </View>
-
-          </View>
         );
       }
   }
@@ -687,6 +684,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
+    backgroundColor:'white',
+
   },
   container1: {
     flex: 1,
@@ -697,7 +696,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   h1:{
-    fontSize:22,
+    fontSize:20,
     fontFamily:'Vazir-Medium',
     color:'#3e3e3e',
     marginTop:16,
@@ -734,7 +733,7 @@ const styles = StyleSheet.create({
   },
   costbox:{
     alignItems:'flex-end',
-    width:Dimensions.get('window').width-18,
+    width:Dimensions.get('window').width-36,
   },
   cost:{
     flexDirection:'row-reverse',
@@ -773,12 +772,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
+    elevation:5,
   },
   bottombarchild: {
     width: Dimensions.get('screen').width-30,
     flex:1,
     flexDirection: "row-reverse",
     justifyContent:'space-between',
+    elevation:5,
   },
   bottombarprice: {
     flex:3,
@@ -903,7 +904,6 @@ const styles = StyleSheet.create({
   },
   main0:{
     flex:1,
-    backgroundColor:'white',
     alignItems:'center',
   },
   main1:{

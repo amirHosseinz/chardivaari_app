@@ -817,7 +817,7 @@ class HouseDetail extends Component {
   {this.renderTeamaker()}
   {this.renderForeigntoilet()}
   <TouchableOpacity onPress={this.openFacilities}>
-    <Text style={{fontSize:18,fontFamily:'Vazir-Medium',color:'#00b1ce'}}> + </Text>
+    <Text style={{fontSize:16,fontFamily:'Vazir-Medium',color:'#00b1ce'}}> + بیشتر </Text>
   </TouchableOpacity>
 </View>
     <View style={styles.divider}>
@@ -870,7 +870,6 @@ class HouseDetail extends Component {
     </View>
   </View>
 </View>
-
   <Modal
     animationType='slide'
     transparent={false}
@@ -881,9 +880,7 @@ class HouseDetail extends Component {
        <Facilities room={this.state.room} onClose={this.closeFacilities}>
        </Facilities>
   </Modal>
-
 </ScrollView>
-
   <View style={styles.bottombar}>
     <View style={styles.bottombarchild}>
       <View style={styles.bottombarprice}>
@@ -1120,7 +1117,7 @@ const styles = StyleSheet.create({
   },
   bottombar: {
     width: Dimensions.get('screen').width,
-    height:65,
+    height:56,
     backgroundColor: "#fafafa",
     alignItems: "center",
     justifyContent:"center",
@@ -1130,6 +1127,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width-50,
     flex:1,
     flexDirection: "row-reverse",
+    elevation:5,
+
   },
   bottombarprice: {
     flex:3,
@@ -1232,8 +1231,9 @@ const styles = StyleSheet.create({
     fontFamily:'Vazir-Light',
     color:"#3e3e3e",
     marginRight:2,
-    alignItems:"center",
     justifyContent:"center",
+    marginLeft:50,
+
   },
   contacthost: {
     flexDirection: "row-reverse"
