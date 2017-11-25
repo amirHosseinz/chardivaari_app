@@ -881,20 +881,24 @@ class HouseDetail extends Component {
        </Facilities>
   </Modal>
 </ScrollView>
-  <View style={styles.bottombar}>
-    <View style={styles.bottombarchild}>
-      <View style={styles.bottombarprice}>
-        <Text style={styles.pricetext} numberOfLines={1}>{this.state.room.price} تومان</Text>
-      </View>
-      <View style={styles.bottombarbutton}>
-      <TouchableOpacity style={styles.buttontouch} onPress={this.onRequestBookButtonPress.bind(this)}>
-      <View style={styles.buttonview}>
-      <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
-      </View>
-      </TouchableOpacity>
+<View style={styles.bottombar}>
+      <View style={styles.bottombarchild}>
+            <Text style={styles.mablaghtext}>هزینه هر شب</Text>
+            <View style={styles.bottombarprice}>
+            <Text style={styles.pricetext} numberOfLines={1}>{this.state.room.price} تومان</Text>
+            </View>
+        <View style={styles.bottombarbutton}>
+            <TouchableOpacity
+              style={styles.buttontouch}
+              onPress={this.onRequestBookButtonPress.bind(this)}>
+              <View style={styles.buttonview}>
+              <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
+            </View>
+            </TouchableOpacity>
+        </View>
       </View>
     </View>
-  </View>
+
 
   <Modal
     animationType="slide"
@@ -1118,7 +1122,7 @@ const styles = StyleSheet.create({
   bottombar: {
     width: Dimensions.get('screen').width,
     height:56,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
@@ -1127,15 +1131,14 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width-50,
     flex:1,
     flexDirection: "row-reverse",
-    elevation:5,
-
-  },
+    marginRight:15,
+    },
   bottombarprice: {
     flex:3,
     flexDirection:"row-reverse",
-    justifyContent:"center",
+    justifyContent:"flex-start",
     alignItems:'center',
-    marginBottom:5,
+    marginTop:3,
   },
   bottombarbutton: {
     flex: 2,
@@ -1148,15 +1151,23 @@ const styles = StyleSheet.create({
     color: "#3e3e3e",
     justifyContent: "center",
     alignItems: "center",
+    marginTop:5,
+  },
+  mablaghtext:{
+    fontSize: 12,
+    fontFamily:"Vazir-Light",
+    color: "#3e3e3e",
+    marginTop:6,
   },
   pernighttext: {
     fontSize: 20,
     fontFamily:"Vazir-Medium",
     color: "#787878",
-    justifyContent:"center",
+    justifyContent:"flex-end",
+    marginTop:2,
   },
   reservebuttontext: {
-    fontSize: 20,
+    fontSize: 19,
     fontFamily:"Vazir-Medium",
     color: "#ffffff",
     paddingTop:4,
@@ -1169,7 +1180,7 @@ const styles = StyleSheet.create({
     borderColor:"#f56e4e",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height:46,
     width: 148,
     flexDirection: "row-reverse",
     justifyContent:"center",
@@ -1188,8 +1199,8 @@ const styles = StyleSheet.create({
   buttonview: {
     backgroundColor:"#f56e4e",
     borderRadius: 50,
-    height:40,
-    width: 140,
+    height:38,
+    width: 139,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
@@ -1258,7 +1269,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: Dimensions.get('window').width,
   },
-  map: {
+  map:{
     ...StyleSheet.absoluteFillObject,
   },
   popup:{
