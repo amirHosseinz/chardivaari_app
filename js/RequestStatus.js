@@ -453,6 +453,11 @@ class RequestStatus extends Component {
   }
 
   renderContactToUser () {
+    var forbiddenStates = ['HOST_REJECTED', 'HOST_ACCEPTED_GUEST_CANCELED',
+      'HOST_ACCEPTED_GUEST_PAYED', 'HOST_ACCEPTED_HOST_CANCELED', ];
+    if (forbiddenStates.indexOf(this.state.request.status) >= 0) {
+      return null;
+    }
     if (this.state.role === 'host') {
       return(
         <View>
@@ -573,6 +578,8 @@ class RequestStatus extends Component {
 
   renderButtonSection () {
     withButtonStatuses = ['WAIT_FOR_GUEST_PAY', 'WAIT_FOR_HOST']
+    deleteOptionStates = ['HOST_REJECTED', 'HOST_ACCEPTED_GUEST_CANCELED',
+      'HOST_ACCEPTED_HOST_CANCELED', 'HOST_ACCEPTED_GUEST_PAYED'];
     if (withButtonStatuses.indexOf(this.state.request.status) > -1) {
       return(
         <View style={styles.bottombar}>
@@ -582,6 +589,148 @@ class RequestStatus extends Component {
            </View>
         </View>
       );
+    } else if (deleteOptionStates.indexOf(this.state.request.status) > -1) {
+      return(
+        <View style={styles.bottombar}>
+           <View style={styles.bottombarchild}>
+             <View style={styles.bottombarbutton}>
+                 <TouchableOpacity style={styles.buttontouch} onPress={() => {
+                   Alert.alert('مثلن حذف شد!');
+                 }}>
+                   <View style={styles.buttonview}>
+                   <Text style={styles.reservebuttontext}>
+                    حذف کردن
+                   </Text>
+                 </View>
+                 </TouchableOpacity>
+             </View>
+           </View>
+        </View>
+      );
+    }
+  }
+
+  renderDescription () {
+    switch (this.state.request.status) {
+      case 'WAIT_FOR_HOST':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              بعد از تایید این درخواست توسط شما،
+              در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
+              و به اطلاع شما می‌رسد.
+              در صورت لغو توسط شما یا مهمان بعد از پرداخت
+              قوانین لغو
+              اعمال می‌شود.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              درخواست شما در انتظار تایید میزبان است
+              و پس از تایید میزبان،
+              می‌توانید هزینه را پرداخت کنید و رزرو خود را
+              نهایی کنید.
+            </Text>
+          );
+        }
+        break;
+      case 'GUEST_CANCELED':
+        break;
+      case 'HOST_REJECTED':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              این درخواست توسط شما مورد قبول واقع
+              نشده است.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              متاسفانه درخواست شما توسط میزبان مورد تایید
+              قرار نگرفت.
+            </Text>
+          );
+        }
+        break;
+      case 'WAIT_FOR_GUEST_PAY':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              این درخواست توسط شما تایید شده است
+              و در انتظار پرداخت هزینه توسط مهمان است.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              درخواست شما تایید شده است،
+              با پرداخت هزینه رزرو خود را نهایی کنید.
+              در صورت لغو توسط شما و یا میزبان
+              بعد از پرداخت هزینه،
+              قوانین لغو
+              اعمال می‌شود.
+            </Text>
+          );
+        }
+        break;
+      case 'HOST_ACCEPTED_GUEST_CANCELED':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              این درخواست توسط مهمان قبل از
+              پرداخت هزینه لغو شد.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              این درخواست توسط شما لغو گردید.
+            </Text>
+          );
+        }
+        break;
+      case 'HOST_ACCEPTED_HOST_CANCELED':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              این درخواست توسط شما
+              قبل از پرداخت هزینه لغو شد.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              متاسفانه درخواست شما
+              توسط میزبان
+              مورد تایید قرار نگرفت.
+            </Text>
+          );
+        }
+        break;
+      case 'HOST_ACCEPTED_GUEST_PAYED':
+        if (this.state.role === 'host') {
+          return(
+            <Text style={styles.resulttext}>
+              این رزرو نهایی شده است، برای مشاهده‌ی جزئیات آن
+              به بخش
+              رزروها
+              مراجعه کنید.
+            </Text>
+          );
+        } else if (this.state.role === 'guest') {
+          return(
+            <Text style={styles.resulttext}>
+              این رزرو نهایی شده است،
+              برای مشاهده‌ی جزئیات آن به بخش
+              سفرها
+              مراجعه کنید.
+            </Text>
+          );
+        }
+        break;
+      default:
     }
   }
 
@@ -661,6 +810,15 @@ class RequestStatus extends Component {
                   {this.state.request.total_price}
                 </Text>
                 <Text style={styles.costtextfinal}> تومان</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+
+              <View style={styles.interpersonresult}>
+              <Text style={styles.resulttext}>توضیحات: </Text>
+                <Text style={styles.resulttext}>
+                  {this.renderDescription()}
+                </Text>
               </View>
               <View style={styles.divider}>
               </View>

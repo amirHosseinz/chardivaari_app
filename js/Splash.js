@@ -199,7 +199,6 @@ class Splash extends Component {
           </View>
         </View>
       </View>
-
     );
   }
 }

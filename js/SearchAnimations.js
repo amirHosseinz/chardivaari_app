@@ -14,10 +14,11 @@ import {
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ModalDropdown from 'react-native-modal-dropdown';
+// import ModalDropdown from 'react-native-modal-dropdown';
 
 import Calendar from './common/calendar/Calendar';
 import LocationSelectScreen from './LocationSelectScreen';
+import NumberSelectScreen from './NumberSelectScreen';
 
 const { UIManager } = NativeModules;
 
@@ -309,7 +310,7 @@ class SearchAnimations extends Component {
        });
      }
 
-     onSelectCapacity = (index, value) => {
+     onSelectCapacity = (value) => {
        this.setState({
          newCapacity: value,
        });
@@ -324,12 +325,14 @@ class SearchAnimations extends Component {
          this.props.setCapacity(this.state.newCapacity);
          // this.props.doSearchAction();
        }
+       this.setCapacityModalVisible(false);
      }
 
      onCancelCapacity = () => {
        this.setState({
          newCapacity: this.state.capacity,
        });
+       this.setCapacityModalVisible(false);
      }
 
      renderCapacityModalRow (value) {
@@ -389,28 +392,14 @@ class SearchAnimations extends Component {
                    transparent={false}
                    visible={this.state.capacityModalVisible}
                    onRequestClose={() => {
-                     this.setCapacityModalVisible(false);
                      this.onCancelCapacity();
                    }}>
-                      <View style={styles.modalContainer}>
-                      <View style={styles.inputModalStyle}>
-                      <ModalDropdown
-                        defaultValue={'تعداد نفرات'}
-                        showsVerticalScrollIndicator={false}
-                        textStyle={styles.optionText}
-                        style={styles.capacityModalStyle}
-                        options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-                        renderRow={this.renderCapacityModalRow}
+                      <NumberSelectScreen
+                        capacity={this.state.capacity}
                         onSelect={this.onSelectCapacity}
-                      />
-                        <TouchableHighlight style={styles.confirmButton} onPress={() => {
-                          this.setCapacityModalVisible(!this.state.capacityModalVisible);
-                          this.onConfirmCapacity();
-                        }}>
-                          <Text style={styles.confirmButtonText}>تایید</Text>
-                        </TouchableHighlight>
-                        </View>
-                      </View>
+                        onConfirm={this.onConfirmCapacity}
+                        onCancel={this.onCancelCapacity}>
+                      </NumberSelectScreen>
                  </Modal>
 
                  <View>
