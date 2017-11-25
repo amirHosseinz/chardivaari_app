@@ -89,6 +89,35 @@ class RequestStatus extends Component {
     }
   }
 
+  archiveRequest () {
+    fetch(productionURL + '/api/request/archive/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        role: this.state.role,
+        request_id: this.state.request.id,
+      }),
+    })
+    .then((response) => this.onArchiveResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
+    });
+  }
+
+  onArchiveResponseRecieved (response) {
+    if (response.status === 200) {
+      // successful
+      this.props.navigation.state.params.refresh();
+      Alert.alert('درخواست شما حذف گردید.');
+    } else {
+      // failure
+    }
+  }
+
   backNavigation = () => {
     this.props.navigation.state.params.refresh();
     const backAction = NavigationActions.back();
@@ -595,7 +624,7 @@ class RequestStatus extends Component {
            <View style={styles.bottombarchild}>
              <View style={styles.bottombarbutton}>
                  <TouchableOpacity style={styles.buttontouch} onPress={() => {
-                   Alert.alert('مثلن حذف شد!');
+                   this.archiveRequest();
                  }}>
                    <View style={styles.buttonview}>
                    <Text style={styles.reservebuttontext}>
