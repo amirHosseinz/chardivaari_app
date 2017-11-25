@@ -347,19 +347,17 @@ class Facilities extends Component {
   render () {
     return(
           <View style={styles.container0}>
-            <View style={styles.container1}>
-              <TouchableOpacity onPress={this.props.onClose}>
-                <View style={styles.backbuttonview}>
-                  <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
-                </View>
-              </TouchableOpacity>
-          <ScrollView
-          showsHorizontalScrollIndicator={false}
-          >
-          <View style={styles.header}>
-            <Text style={styles.h1}>لیست کامل امکانات</Text>
-          </View>
-
+                  <View style={styles.header0}>
+                    <View style={styles.header00}>
+                      <TouchableOpacity onPress={this.props.onClose}>
+                          <Icon size={28} color="#3e3e3e" name="close" />
+                      </TouchableOpacity>
+                      <Text style={styles.h01}>امکانات خانه</Text>
+                      <View style={{width:28}}></View>
+                    </View>
+                  </View>
+          <ScrollView>
+          <View style={{alignItems:'center',width:Dimensions.get('window').width,}}>
           <View style={styles.container}>
             {this.renderRefrig()}
             {this.renderWifi()}
@@ -384,9 +382,8 @@ class Facilities extends Component {
             {this.renderForeigntoilet()}
             {this.renderIranitoilet()}
           </View>
-
+          </View>
       </ScrollView>
-        </View>
       </View>
     );
   }
@@ -398,11 +395,12 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     backgroundColor:'#ffffff',
+
   },
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('screen').width-50,
+
   },
   backbuttonview:{
     flexDirection:'row-reverse',
@@ -431,8 +429,8 @@ const styles = StyleSheet.create({
     alignItems:'flex-end',
 },
   divider:{
-    height: 2,
-    width:Dimensions.get('window').width-50 ,
+    height: 1,
+    width:Dimensions.get('window').width-36 ,
     backgroundColor: '#d7d7d7',
     marginTop: 12,
     marginBottom: 12,
@@ -455,6 +453,28 @@ const styles = StyleSheet.create({
   },
   container:{
     marginBottom:60,
+    width: Dimensions.get('window').width-36,
+  },
+  header0:{
+    backgroundColor:'#ffffff',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:3,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:3,
+  },
+  h01:{
+    fontSize:18,
+    fontFamily:"Vazir-Medium",
+    color:"#3e3e3e",
   },
 });
 

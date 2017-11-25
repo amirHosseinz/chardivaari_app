@@ -102,8 +102,8 @@ class ReserveList extends Component {
     } else {
       return(
         <View style={styles.headerbar}>
-          <Text style={styles.headertext}>شما </Text>
-          <Text style={styles.headertext}> رزرو تایید شده‌ای ندارید</Text>
+          <Text style={styles.headertext}>شما</Text>
+          <Text style={styles.headertext}> رزرو تایید شده‌ای ندارید.</Text>
         </View>
       );
     }
@@ -185,11 +185,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#e5e5e5',
   },
   headerbar:{
     flexDirection:'row-reverse',
-    height:80,
+    height:56,
     width:Dimensions.get('window').width,
     backgroundColor:"#0ca6c1",
     alignItems:'center',
@@ -198,9 +197,9 @@ const styles = StyleSheet.create({
     elevation:3,
   },
   headertext:{
-    color:'#e5e5e5',
+    color:'#ffffff',
     fontFamily:'Vazir-Medium',
-    fontSize:16,
+    fontSize:14,
   },
   tripcard: {
     flexWrap: 'wrap',

@@ -83,14 +83,14 @@ class HouseListScreen extends Component {
         <View style={styles.headerbar}>
           <Text style={styles.headertext}> شما </Text>
           <Text style={styles.headertext}>{this.state.count}</Text>
-          <Text style={styles.headertext}> خانه ثبت شده دارید </Text>
+          <Text style={styles.headertext}> خانه ثبت شده دارید. </Text>
         </View>
       );
     } else {
       return(
         <View style={styles.headerbar}>
           <Text style={styles.headertext}> شما </Text>
-          <Text style={styles.headertext}> خانه ثبت شده‌ای ندارید</Text>
+          <Text style={styles.headertext}> خانه ثبت شده‌ای ندارید. </Text>
         </View>
       );
     }
@@ -147,11 +147,8 @@ class HouseListScreen extends Component {
       <TouchableOpacity onPress={() => {
         this._onListingPress(item);
       }}>
+      <View style={{width: Dimensions.get('window').width,alignItems:'center'}}>
         <View style={styles.cards}>
-          <View style={styles.previewimg}>
-            <Image source={{ uri: productionURL + item.preview }}
-              style={styles.image} />
-          </View>
             <View style={styles.details}>
               <Text style={styles.housetitle}>{item.title}</Text>
               <View style={styles.housedetail}>
@@ -163,7 +160,10 @@ class HouseListScreen extends Component {
                 <Text style={styles.detailtexts}>تومان</Text>
               </View>
             </View>
+            <Image source={{ uri: productionURL + item.preview }}
+              style={styles.image} />
           </View>
+        </View>
       </TouchableOpacity>
     );
   }
@@ -171,16 +171,14 @@ class HouseListScreen extends Component {
   render () {
     return(
       <View style={styles.container0}>
-
         {this.renderHeader()}
         <View style={styles.container1}>
-
           <FlatList
+           contentContainerStyle={{paddingBottom:8}}
             data={this.state.listings}
             keyExtractor={this._keyExtractor}
             renderItem={(item) => this.renderListing(item, this.props.navigation)} />
-
-        </View>
+          </View>
       </View>
     );
   }
@@ -191,11 +189,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'#e5e5e5',
   },
   headerbar:{
     flexDirection:'row-reverse',
-    height:80,
+    height:56,
     width:Dimensions.get('window').width,
     backgroundColor:"#0ca6c1",
     alignItems:'center',
@@ -204,9 +201,9 @@ const styles = StyleSheet.create({
     elevation:3,
   },
   headertext:{
-    color:'#e5e5e5',
+    color:'#ffffff',
     fontFamily:'Vazir-Medium',
-    fontSize:16,
+    fontSize:14,
   },
   card1:{
     flex:1,
@@ -216,48 +213,50 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse',
   },
   textbox:{
-    flex:4,
   },
   houseimagebox:{
-    flex:2,
   },
   imagestyle:{
-    flex:2,
   },
   housetitle:{
-    fontSize:18,
+    fontSize:16,
     fontFamily:"Vazir-Medium",
     color:"#3e3e3e"
   },
   cards: {
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 20,
+    width: Dimensions.get('window').width - 10,
     height: 80,
-    backgroundColor: '#f9f9f9',
     marginTop:5,
     borderRadius: 3,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     alignItems: 'center',
   },
   previewimg : {
-    flex: 1,
     alignItems: 'center',
   },
   image : {
     height: 80,
     width: 80,
-    resizeMode:'contain',
+    resizeMode:'cover',
   },
   details: {
-    flex: 4,
-    marginRight:10,
+    backgroundColor: '#f9f9f9',
+    flex:1,
+    height:80,
+    width: Dimensions.get('window').width - 70,
+    paddingRight:10,
   },
   detailtexts:{
-    fontSize:14,
+    fontSize:12,
     fontFamily:"Vazir-Light",
     color:"#3e3e3e",
     marginLeft:5,
-  }
+  },
+  container1:{
+    paddingBottom:61,
+    alignItems:'center',
+  },
 });
 
 export default HouseListScreen;
