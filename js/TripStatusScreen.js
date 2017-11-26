@@ -250,7 +250,10 @@ class TripStatusScreen extends Component {
     startDate = Moment(startDate, 'YYYY-M-DTHH:mm:ssZ').clone();
     start = startDate.toDate();
     endDate = Moment(endDate, 'YYYY-M-DTHH:mm:ssZ').clone().toDate();
-    return(Math.round(Math.abs(endDate - start)/oneDay));
+    if (start > endDate) {
+      return 0;
+    }
+    return(Math.ceil(Math.abs(endDate - start)/oneDay));
   }
 
   renderAccRejButton () {
@@ -266,6 +269,110 @@ class TripStatusScreen extends Component {
           </View>
         </View>
       );
+    }
+  }
+
+  renderCancelationDate () {
+    if (this.state.trip.is_canceled == true) {
+      return(
+        <View>
+          <View style={styles.cost}>
+          <Text style={styles.costtext}>تاریخ لغو: </Text>
+            <Text style={styles.resulttextbold}>
+              {this.renderJalaliDate(this.state.trip.canceled_date)}
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  renderCancelByGuestDescription () {
+    if (this.renderDuration(this.state.trip.canceled_date, this.state.trip.start_date) <= 2) {
+      return(
+        <Text style={styles.resulttextbold}>
+          این سفر توسط مهمان لغو گردید.
+        </Text>
+      );
+    } else {
+      return(
+        <Text style={styles.resulttextbold}>
+          متاسفانه مهمان این سفر را لغو کرد،
+          با توجه به مقررات لغو رزرو
+          لطفا هزینه‌ی
+          شب اول را
+          توسط این لینک
+          بازپرداخت نمایید.
+        </Text>
+      );
+    }
+  }
+
+  renderDescription () {
+    switch(this.state.trip.status) {
+    case 'IN_PROGRESS':
+      return(
+        <Text style={styles.resulttextbold}>
+          این سفر در حال انجام است،
+          در صورت بروز هرگونه مشکل
+          با پشتیبانی
+          تماس بگیرید.
+        </Text>
+      );
+      break;
+    case 'DONE':
+      return(
+        <Text style={styles.resulttextbold}>
+          این سفر انجام شده است،
+          امیدواریم سفر خوبی را تجربه
+          کرده باشید.
+        </Text>
+      );
+      break;
+    case 'ISSUED':
+      return(
+        <Text style={styles.resulttextbold}>
+          این رزرو نهایی شده است،
+          تریپین سفر خوبی را
+          برای شما آرزو می‌کند.
+          برای داشتن بهترین
+          تجربه‌ی سفر مقررات
+          تحویل خانه را مطالعه کنید.
+        </Text>
+      );
+      break;
+      case 'RESOLUTION':
+        return(
+          <Text style={styles.resulttextbold}>
+            در حال پیگیری موضوع
+            مسئله مطرح شده از سمت
+            شما هستیم،
+            به محض حل مسئله پیش آمده
+            شما را در جریان
+            قرار خواهیم داد.
+            در صورت داشتن هرگونه سوال
+            پشتیبانی ما در خدمت شما
+            خواهد بود.
+            تماس با پشتیبانی
+          </Text>
+        );
+        break;
+    case 'CANCELED_BY_HOST':
+      return(
+        <Text style={styles.resulttextbold}>
+          متاسفانه اقامت‌گاه موردنظر شما
+          امکان میزبانی شما را نخواهد داشت،
+          مبلغ پرداختی شما در اسرع وقت بازپرداخت
+          می‌شود.
+        </Text>
+      );
+      break;
+    case 'CANCELED_BY_GUEST':
+      return this.renderCancelByGuestDescription();
+      break;
+    default:
     }
   }
 
@@ -336,7 +443,7 @@ class TripStatusScreen extends Component {
                   <View style={styles.cost}>
                   <Text style={styles.costtext}>مدت اقامت: </Text>
                     <Text style={styles.resulttextbold}>
-                      {this.renderDuration(this.state.trip.end_date, this.state.trip.start_date)}
+                      {this.renderDuration(this.state.trip.start_date, this.state.trip.end_date)}
                     </Text>
                     <Text style={styles.resulttextbold}> روز</Text>
                   </View>
@@ -360,6 +467,16 @@ class TripStatusScreen extends Component {
                   </View>
                   <View style={styles.divider}>
                   </View>
+
+                  {this.renderCancelationDate()}
+
+                  <View style={styles.cost}>
+                    <Text style={styles.costtext}>توضیحات: </Text>
+                    {this.renderDescription()}
+                  </View>
+                  <View style={styles.divider}>
+                  </View>
+
                   <View style={styles.cost}>
                     <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
                     <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
