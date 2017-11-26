@@ -17,6 +17,7 @@ import Communications from 'react-native-communications';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
 
+import PaymentModule from './common/payment/PaymentModule';
 import { productionURL } from './data';
 
 
@@ -28,6 +29,7 @@ class ReserveStatusScreen extends Component {
       token: null,
       username: null,
       role: null,
+      callCenter: null,
     };
   }
 
@@ -39,6 +41,11 @@ class ReserveStatusScreen extends Component {
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
+    CacheStore.get('call_center').then((value) => {
+      this.setState({
+        callCenter: value,
+      });
+    });
   }
 
   setToken (token) {
@@ -185,6 +192,34 @@ class ReserveStatusScreen extends Component {
     Communications.phonecall(this.state.reserve.guest_person.cell_phone, true);
   }
 
+  _onCallUsPress () {
+    Communications.phonecall(this.state.callCenter, true);
+  }
+
+  _onHostRefundPress =  () => {
+    this.asyncRefundPayment();
+  }
+
+  async asyncRefundPayment () {
+    try {
+      var {
+        isPaymentSuccess,
+        refID,
+      } = await PaymentModule.reactReserveRefund(
+        'بازپرداخت رزرو' + this.state.reserve.room.title,
+        Number(this.state.reserve.room.price),
+        this.state.token,
+        this.state.reserve.id
+      );
+      if (isPaymentSuccess) {
+        Alert.alert('کد پیگیری: ' + refID);
+        // this.payRequestDone();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   renderStatus () {
     switch(this.state.reserve.status) {
     case 'IN_PROGRESS':
@@ -296,14 +331,23 @@ class ReserveStatusScreen extends Component {
       );
     } else {
       return(
-        <Text style={styles.resulttextbold}>
-          متاسفانه مهمان این سفر را لغو کرد،
-          با توجه به مقررات لغو رزرو
-          لطفا هزینه‌ی
-          شب اول را
-          توسط این لینک
-          بازپرداخت نمایید.
-        </Text>
+        <View style={styles.cost}>
+          <Text style={styles.resulttextbold}>
+            متاسفانه مهمان این سفر را لغو کرد،
+            با توجه به مقررات لغو رزرو
+            لطفا هزینه‌ی
+            شب اول را
+            توسط
+          </Text>
+          <TouchableOpacity onPress={this._onHostRefundPress}>
+            <Text style={styles.resulttextbold1}>
+              این لینک
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.resulttextbold}>
+            بازپرداخت نمایید.
+          </Text>
+        </View>
       );
     }
   }
@@ -312,12 +356,21 @@ class ReserveStatusScreen extends Component {
     switch(this.state.reserve.status) {
     case 'IN_PROGRESS':
       return(
-        <Text style={styles.resulttextbold}>
-          این سفر در حال انجام است،
-          در صورت بروز هرگونه مشکل با
-          پشتیبانی تماس
-          بگیرید.
-        </Text>
+        <View style={styles.cost}>
+          <Text style={styles.resulttextbold}>
+            این سفر در حال انجام است،
+            در صورت بروز هرگونه مشکل با
+          </Text>
+          <TouchableOpacity onPress={this._onCallUsPress}>
+            <Text style={styles.resulttextbold}>
+              پشتیبانی
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.resulttextbold}>
+            تماس
+            بگیرید.
+          </Text>
+        </View>
       );
       break;
     case 'DONE':
@@ -330,30 +383,44 @@ class ReserveStatusScreen extends Component {
       break;
     case 'ISSUED':
       return(
-        <Text style={styles.resulttextbold}>
-          این رزرو نهایی شده است
-          و در تاریخ رزرو
-          پذیرای مهمان گرامی باشید.
-          برای بهترین میزبانی
-          قوانین تحویل خانه
-          را مشاهده کنید.
-        </Text>
+        <View style={styles.cost}>
+          <Text style={styles.resulttextbold}>
+            این رزرو نهایی شده است
+            و در تاریخ رزرو
+            پذیرای مهمان گرامی باشید.
+            برای بهترین میزبانی
+          </Text>
+          <TouchableOpacity>
+            <Text style={styles.resulttextbold}>
+              قوانین تحویل خانه
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.resulttextbold}>
+            را مشاهده کنید.
+          </Text>
+        </View>
       );
       break;
       case 'RESOLUTION':
         return(
-          <Text style={styles.resulttextbold}>
-            در حال پیگیری موضوع
-            مسئله مطرح شده از سمت
-            شما هستیم،
-            به محض حل مسئله پیش آمده
-            شما را در جریان
-            قرار خواهیم داد.
-            در صورت داشتن هرگونه سوال
-            پشتیبانی ما در خدمت شما
-            خواهد بود.
-            تماس با پشتیبانی
-          </Text>
+          <View style={styles.cost}>
+            <Text style={styles.resulttextbold}>
+              در حال پیگیری موضوع
+              مسئله مطرح شده از سمت
+              شما هستیم،
+              به محض حل مسئله پیش آمده
+              شما را در جریان
+              قرار خواهیم داد.
+              در صورت داشتن هرگونه سوال
+              پشتیبانی ما در خدمت شما
+              خواهد بود.
+            </Text>
+            <TouchableOpacity onPress={this._onCallUsPress}>
+              <Text style={styles.resulttextbold1}>
+                تماس با پشتیبانی
+              </Text>
+            </TouchableOpacity>
+          </View>
         );
         break;
     case 'CANCELED_BY_HOST':
@@ -361,7 +428,11 @@ class ReserveStatusScreen extends Component {
         <Text style={styles.resulttextbold}>
           این سفر توسط شما لغو گردید،
           از طریق
-          درگاه پرداخت
+          <TouchableOpacity onPress={this._onHostRefundPress}>
+            <Text style={styles.resulttextbold1}>
+              درگاه پرداخت
+            </Text>
+          </TouchableOpacity>
           می‌توانید هزینه‌ی شب اول
           را بازگردانید.
         </Text>

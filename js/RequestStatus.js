@@ -398,17 +398,17 @@ class RequestStatus extends Component {
     // this.backNavigation();
   }
 
-  onPayRequestResponseRecieved (response) {
-    if (response.status === 200) {
-      this.backNavigation();
-      Alert.alert('درخواست پرداخت گردید.');
-    } else if (response.status === 203) {
-      // NON_AUTHORITATIVE_INFORMATION
-      Alert.alert('خطای اطلاعات ناقص');
-    } else {
-      Alert.alert('خطایی رخ داده.');
-    }
-  }
+  // onPayRequestResponseRecieved (response) {
+  //   if (response.status === 200) {
+  //     this.backNavigation();
+  //     Alert.alert('درخواست پرداخت گردید.');
+  //   } else if (response.status === 203) {
+  //     // NON_AUTHORITATIVE_INFORMATION
+  //     Alert.alert('خطای اطلاعات ناقص');
+  //   } else {
+  //     Alert.alert('خطایی رخ داده.');
+  //   }
+  // }
 
   onContactToUserPress = () => {
     if (this.state.role === 'guest') {
