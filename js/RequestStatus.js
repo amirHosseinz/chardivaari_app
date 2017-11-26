@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  Modal,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -21,6 +22,7 @@ import {
 
 import PaymentModule from './common/payment/PaymentModule';
 import { productionURL, GATrackerId } from './data';
+import RejectTerms from './RejectTerms';
 
 
 class RequestStatus extends Component {
@@ -32,6 +34,7 @@ class RequestStatus extends Component {
       token: null,
       username: null,
       tracker: null,
+      rejectTermsModalVisible: false,
     };
   }
 
@@ -122,6 +125,17 @@ class RequestStatus extends Component {
     this.props.navigation.state.params.refresh();
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
+  }
+
+  openRejectTerms = () => {
+    this.setState({
+      rejectTermsModalVisible: true,
+    });
+  }
+  closeRejectTerms = () => {
+    this.setState({
+      rejectTermsModalVisible: false,
+    });
   }
 
   renderStatus () {
@@ -294,8 +308,8 @@ class RequestStatus extends Component {
 
   onRejectRequestButtonPress = () => {
     Alert.alert(
-      'رد کردن درخواست',
-      'درخواست را رد می‌کنید؟',
+      'رد درخواست',
+      'این درخواست را رد می‌کنید؟',
       [
         {text: 'بله', onPress: () => {
           this.rejectRequest();
@@ -563,7 +577,7 @@ class RequestStatus extends Component {
             <View style={styles.bottombarbutton}>
                 <TouchableOpacity style={styles.buttontouch1} onPress={this.onRejectRequestButtonPress}>
                   <View style={styles.buttonview1}>
-                  <Text style={styles.reservebuttontext}>رد کردن درخواست</Text>
+                  <Text style={styles.reservebuttontext}>رد درخواست</Text>
                 </View>
                 </TouchableOpacity>
             </View>
@@ -623,10 +637,10 @@ class RequestStatus extends Component {
         <View style={styles.bottombar}>
            <View style={styles.bottombarchild}>
              <View style={styles.bottombarbutton}>
-                 <TouchableOpacity style={styles.buttontouch} onPress={() => {
+                 <TouchableOpacity style={styles.buttontouch2} onPress={() => {
                    this.archiveRequest();
                  }}>
-                   <View style={styles.buttonview}>
+                   <View style={styles.buttonview2}>
                    <Text style={styles.reservebuttontext}>
                     حذف کردن
                    </Text>
@@ -644,6 +658,7 @@ class RequestStatus extends Component {
       case 'WAIT_FOR_HOST':
         if (this.state.role === 'host') {
           return(
+
             <Text style={styles.resulttext}>
               بعد از تایید این درخواست توسط شما،
               در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
@@ -844,10 +859,20 @@ class RequestStatus extends Component {
               </View>
 
               <View style={styles.interpersonresult}>
-              <Text style={styles.resulttext}>توضیحات: </Text>
+              <Text style={styles.resulttextbold}>توضیحات: </Text>
+              </View>
+              <View style={styles.interpersonresult}>
+
                 <Text style={styles.resulttext}>
                   {this.renderDescription()}
                 </Text>
+              </View>
+              <View style={styles.interpersonresult}>
+                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                  <Text style={styles.resulttext2}>
+                  مشاهده قوانین لغو
+                  </Text>
+                </TouchableOpacity>
               </View>
               <View style={styles.divider}>
               </View>
@@ -858,6 +883,17 @@ class RequestStatus extends Component {
               </View>
             </View>
           </ScrollView>
+
+          <Modal
+          animationType='slide'
+          transparent={false}
+          visible={this.state.rejectTermsModalVisible}
+          onRequestClose={() => {
+            this.closeRejectTerms();
+          }}>
+          <RejectTerms onCloseModal={this.closeRejectTerms}>
+          </RejectTerms>
+          </Modal>
       </View>
 
       {this.renderButtonSection()}
@@ -1023,6 +1059,16 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
   },
+  buttontouch2: {
+    borderColor:"#f56e4e",
+    borderRadius: 50,
+    borderWidth : 2,
+    height:46,
+    width: (Dimensions.get('screen').width-70)/2,
+    flexDirection: "row-reverse",
+    justifyContent:"center",
+    alignItems:"center",
+  },
   buttonview: {
     backgroundColor:"#00cecc",
     borderRadius: 50,
@@ -1034,6 +1080,15 @@ const styles = StyleSheet.create({
   },
   buttonview1: {
     backgroundColor:"#bebebe",
+    borderRadius: 50,
+    height:38,
+    width: (Dimensions.get('screen').width-86)/2,
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection: "row-reverse",
+  },
+  buttonview2: {
+    backgroundColor:"#f57253",
     borderRadius: 50,
     height:38,
     width: (Dimensions.get('screen').width-86)/2,
@@ -1095,6 +1150,11 @@ const styles = StyleSheet.create({
   },
   main1:{
     width: Dimensions.get('window').width-36,
+  },
+  resulttext2:{
+    fontFamily:"Vazir-Medium",
+    fontSize:14,
+    color:"#f56e4e"
   },
 });
 
