@@ -992,7 +992,7 @@ const styles = StyleSheet.create({
   bottombar: {
     width: Dimensions.get('screen').width,
     height:56,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent:"center",
     elevation:5,

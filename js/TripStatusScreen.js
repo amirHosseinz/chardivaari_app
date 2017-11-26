@@ -472,6 +472,8 @@ class TripStatusScreen extends Component {
 
                   <View style={styles.cost}>
                     <Text style={styles.costtext}>توضیحات: </Text>
+                  </View>
+                  <View style={styles.cost}>
                     {this.renderDescription()}
                   </View>
                   <View style={styles.divider}>
@@ -483,6 +485,7 @@ class TripStatusScreen extends Component {
                       <Text style={styles.pmtohost}>  ارسال پیام </Text>
                     </TouchableOpacity>
                   </View>
+                  <View style={{ marginBottom:25,}}></View>
 
                   {this.renderAccRejButton()}
                 </View>
