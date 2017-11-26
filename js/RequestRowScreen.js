@@ -117,9 +117,7 @@ class RequestRowScreen extends Component {
                 {this.renderName()}
               </View>
             </View>
-            <View style={{justifyContent:'center',marginLeft:4,}}>
-              {this.renderRequestStatus()}
-            </View>
+
         </View>
       </TouchableOpacity>
     </View>
