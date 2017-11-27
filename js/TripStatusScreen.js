@@ -376,6 +376,17 @@ class TripStatusScreen extends Component {
     }
   }
 
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -461,7 +472,7 @@ class TripStatusScreen extends Component {
                   <View style={styles.cost}>
                     <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
                     <Text style={styles.resulttextbold}>
-                      {this.state.trip.total_price}
+                      {this.renderPrice(String(this.state.trip.total_price))}
                     </Text>
                     <Text style={styles.resulttextbold}> تومان</Text>
                   </View>

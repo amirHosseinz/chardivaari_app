@@ -213,7 +213,6 @@ class ReserveStatusScreen extends Component {
       );
       if (isPaymentSuccess) {
         Alert.alert('کد پیگیری: ' + refID);
-        // this.payRequestDone();
       }
     } catch (e) {
       console.log(e);
@@ -445,6 +444,17 @@ class ReserveStatusScreen extends Component {
     }
   }
 
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -522,7 +532,7 @@ class ReserveStatusScreen extends Component {
           <View style={styles.cost}>
             <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.reserve.total_price}
+              {this.renderPrice(String(this.state.reserve.total_price))}
             </Text>
             <Text style={styles.resulttextbold}> تومان</Text>
           </View>

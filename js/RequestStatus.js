@@ -778,6 +778,17 @@ class RequestStatus extends Component {
     }
   }
 
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -851,7 +862,7 @@ class RequestStatus extends Component {
               <View style={styles.interpersonresult}>
                 <Text style={styles.costtextfinal}>هزینه قابل پرداخت: </Text>
                 <Text style={styles.costtextfinal}>
-                  {this.state.request.total_price}
+                  {this.renderPrice(String(this.state.request.total_price))}
                 </Text>
                 <Text style={styles.costtextfinal}> تومان</Text>
               </View>

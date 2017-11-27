@@ -716,6 +716,17 @@ class HouseDetail extends Component {
     );
   }
 
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -885,7 +896,9 @@ class HouseDetail extends Component {
       <View style={styles.bottombarchild}>
             <Text style={styles.mablaghtext}>هزینه هر شب</Text>
             <View style={styles.bottombarprice}>
-            <Text style={styles.pricetext} numberOfLines={1}>{this.state.room.price} تومان</Text>
+            <Text style={styles.pricetext} numberOfLines={1}>
+              {this.renderPrice(String(this.state.room.price))} تومان
+            </Text>
             </View>
         <View style={styles.bottombarbutton}>
             <TouchableOpacity
