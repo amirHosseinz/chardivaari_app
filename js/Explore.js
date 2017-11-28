@@ -215,16 +215,14 @@ class Explore extends Component {
         <View style={styles.filter}>
         </View>
         {this.renderError()}
-        <View style={{
-          paddingBottom:176,
-        }}>
+
         <OptimizedFlatList
           data={this.state.rooms}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderItem(item, this.props.navigation)}
           style={{paddingRight:5,marginLeft:5}}
-           />
-        </View>
+          />
+
 
       </View>
     );
@@ -234,6 +232,7 @@ class Explore extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
       // backgroundColor: '#ededed',s
