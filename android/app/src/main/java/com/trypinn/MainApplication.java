@@ -47,7 +47,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(appConfig),
           new GoogleAnalyticsBridgePackage(),
-          new KCKeepAwakePackage(),
           new SmsListenerPackage(),
           new RNExitAppPackage(),
           new RNFSPackage(),
