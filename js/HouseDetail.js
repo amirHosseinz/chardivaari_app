@@ -20,7 +20,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import ViewPager from 'react-native-viewpager';
-import KeepAwake from 'react-native-keep-awake';
+// import KeepAwake from 'react-native-keep-awake';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -55,7 +55,6 @@ class HouseDetail extends Component {
  }
 
  componentWillMount() {
-   KeepAwake.activate();
    let tracker = new GoogleAnalyticsTracker(GATrackerId);
    tracker.trackScreenView('HouseDetail');
    this.setState({

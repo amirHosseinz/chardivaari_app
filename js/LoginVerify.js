@@ -13,7 +13,6 @@ import {
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import SmsListener from 'react-native-android-sms-listener';
-import KeepAwake from 'react-native-keep-awake';
 import timer from 'react-native-timer';
 import {
   GoogleAnalyticsTracker,
@@ -36,7 +35,6 @@ class LoginVerify extends Component {
   }
 
   componentWillMount () {
-    KeepAwake.activate();
     this.counterTrigger();
     let tracker = new GoogleAnalyticsTracker(GATrackerId);
     tracker.trackScreenView('LoginVerify');

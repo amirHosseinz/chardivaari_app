@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
-import KeepAwake from 'react-native-keep-awake';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -32,7 +31,6 @@ class Splash extends Component {
 
   componentWillMount () {
     StatusBar.setHidden(true);
-    KeepAwake.activate();
     let tracker = new GoogleAnalyticsTracker(GATrackerId);
     this.setState({
       tracker: tracker,

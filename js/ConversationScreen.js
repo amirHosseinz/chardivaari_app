@@ -13,9 +13,8 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { NavigationActions } from 'react-navigation';
 import timer from 'react-native-timer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import KeepAwake from 'react-native-keep-awake';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class ConversationScreen extends Component {
@@ -33,7 +32,6 @@ class ConversationScreen extends Component {
   }
 
   componentWillMount() {
-    KeepAwake.activate();
     this.setState({
       party: this.props.navigation.state.params.party,
       username: this.props.navigation.state.params.username,

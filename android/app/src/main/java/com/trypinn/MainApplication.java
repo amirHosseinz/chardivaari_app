@@ -8,7 +8,6 @@ import com.facebook.react.shell.MainPackageConfig;
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
-import com.corbt.keepawake.KCKeepAwakePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.rnfs.RNFSPackage;

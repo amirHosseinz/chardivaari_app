@@ -11,7 +11,6 @@ import {
 // import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import KeepAwake from 'react-native-keep-awake';
 import CacheStore from 'react-native-cache-store';
 
 // import CalendarScreen from './CalendarScreen';
@@ -38,10 +37,6 @@ class HostScreen extends Component {
   componentWillMount () {
     this.updateStatusBar();
     CacheStore.get('token').then((value) => this.setToken(value));
-  }
-
-  componentDidMount () {
-    KeepAwake.activate();
   }
 
   setToken (value) {
