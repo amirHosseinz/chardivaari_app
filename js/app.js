@@ -4,7 +4,16 @@ import { View, Text } from 'react-native';
 import AppNavigator from './AppNavigator';
 
 class App extends Component {
-  render(){
+
+  componentWillMount () {
+    try {
+      ReactNative.I18nManager.allowRTL(false);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  render () {
     return (
       <AppNavigator />
     );
