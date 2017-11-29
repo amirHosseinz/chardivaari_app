@@ -658,15 +658,23 @@ class RequestStatus extends Component {
       case 'WAIT_FOR_HOST':
         if (this.state.role === 'host') {
           return(
-
-            <Text style={styles.resulttext}>
-              بعد از تایید این درخواست توسط شما،
-              در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
-              و به اطلاع شما می‌رسد.
-              در صورت لغو توسط شما یا مهمان بعد از پرداخت
-              قوانین لغو
-              اعمال می‌شود.
-            </Text>
+            <View>
+              <Text style={styles.resulttext}>
+                بعد از تایید این درخواست توسط شما،
+                در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
+                و به اطلاع شما می‌رسد.
+                در صورت لغو توسط شما یا مهمان بعد از پرداخت
+                قوانین لغو
+                اعمال می‌شود.
+              </Text>
+              <View style={styles.interpersonresult}>
+                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                  <Text style={styles.resulttext2}>
+                  مشاهده قوانین لغو
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         } else if (this.state.role === 'guest') {
           return(
@@ -708,14 +716,23 @@ class RequestStatus extends Component {
           );
         } else if (this.state.role === 'guest') {
           return(
-            <Text style={styles.resulttext}>
-              درخواست شما تایید شده است،
-              با پرداخت هزینه رزرو خود را نهایی کنید.
-              در صورت لغو توسط شما و یا میزبان
-              بعد از پرداخت هزینه،
-              قوانین لغو
-              اعمال می‌شود.
-            </Text>
+            <View>
+              <Text style={styles.resulttext}>
+                درخواست شما تایید شده است،
+                با پرداخت هزینه رزرو خود را نهایی کنید.
+                در صورت لغو توسط شما و یا میزبان
+                بعد از پرداخت هزینه،
+                قوانین لغو
+                اعمال می‌شود.
+              </Text>
+              <View style={styles.interpersonresult}>
+                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                  <Text style={styles.resulttext2}>
+                  مشاهده قوانین لغو
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         }
         break;
@@ -874,16 +891,7 @@ class RequestStatus extends Component {
               </View>
               <View style={styles.interpersonresult}>
 
-                <Text style={styles.resulttext}>
-                  {this.renderDescription()}
-                </Text>
-              </View>
-              <View style={styles.interpersonresult}>
-                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
-                  <Text style={styles.resulttext2}>
-                  مشاهده قوانین لغو
-                  </Text>
-                </TouchableOpacity>
+              {this.renderDescription()}
               </View>
               <View style={styles.divider}>
               </View>
