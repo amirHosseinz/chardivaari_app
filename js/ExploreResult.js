@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems:"flex-end",
     marginRight:10,
     paddingRight:20,
-    backgroundColor:'white',
+    backgroundColor:'#f9f9f9',
   },
   info: {
     flex:3,
