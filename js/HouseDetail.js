@@ -35,7 +35,6 @@ class HouseDetail extends Component {
    super(props);
    this.state = {
      token: '',
-     username: '',
      user: null,
      room: {},
      imagesData: null,
@@ -64,7 +63,6 @@ class HouseDetail extends Component {
 
  componentDidMount () {
    CacheStore.get('token').then((value) => this.setToken(value));
-   CacheStore.get('username').then((value) => this.setUsername(value));
    CacheStore.get('user').then((value) => {
      if (value != null) {
        this.setState({
@@ -105,12 +103,6 @@ class HouseDetail extends Component {
  setToken (token) {
    this.setState({
      token
-   });
- }
-
- setUsername (username) {
-   this.setState({
-     username
    });
  }
 
@@ -165,7 +157,7 @@ class HouseDetail extends Component {
  }
 
  onPressContactHost () {
-   if (this.state.username && this.state.username === 'GUEST_USER') {
+   if (this.state.user && this.state.user.username === 'GUEST_USER') {
      this.openContactModal();
    } else {
      this.contactHost();
@@ -174,7 +166,7 @@ class HouseDetail extends Component {
 
  contactHost () {
    this.state.tracker.trackEvent('Messaging', 'contactHost', {
-     label: this.state.username + ' to ' + this.state.room.owner.username,
+     label: this.state.user.username + ' to ' + this.state.room.owner.username,
      value: this.state.room.id,
    });
    fetch(productionURL + '/api/message/compose/', {
@@ -185,7 +177,7 @@ class HouseDetail extends Component {
        'Authorization': 'Token ' + this.state.token,
      },
      body: JSON.stringify({
-       sender: this.state.username,
+       sender: this.state.user.username,
        recipient: this.state.room.owner.username,
        subject: this.state.room.title,
        room_id: this.state.room.id,
@@ -207,7 +199,7 @@ class HouseDetail extends Component {
        {
          party: this.state.room.owner,
          messageId: body.message_id,
-         username: this.state.username,
+         username: this.state.user.username,
          room: this.state.room,
        }
      );
@@ -226,8 +218,20 @@ class HouseDetail extends Component {
    this.props.navigation.dispatch(resetAction);
  }
 
+ updateUser () {
+   CacheStore.get('user').then((value) => {
+     if (value != null) {
+       this.setState({
+         user: value,
+       }, () => {
+         this.onRequestBookButtonPress();
+       });
+     }
+   });
+ }
+
  onRequestBookButtonPress () {
-   if (this.state.username && this.state.username === 'GUEST_USER') {
+   if (this.state.user && this.state.user.username === 'GUEST_USER') {
      this.state.tracker.trackEvent('requestBook', 'buttonPress', {
        label: 'GUEST_USER forbidden',
        value: 0
@@ -239,7 +243,7 @@ class HouseDetail extends Component {
        value: 1
      });
      this.openNationalIdModal();
-   } else if (this.state.user && this.state.username) {
+   } else if (this.state.user) {
      this.state.tracker.trackEvent('requestBook', 'buttonPress', {
        label: this.state.user.username,
        value: 200
@@ -685,7 +689,7 @@ class HouseDetail extends Component {
 
   resetProfilePage = () => {
     CacheStore.set('GuestScreen_tabName', 'profile');
-    this.resetNavigation('guestScreen');
+    this.props.navigation.navigate('guestScreen');
   }
 
   openContactModal = () => {
@@ -902,7 +906,7 @@ class HouseDetail extends Component {
         <View style={styles.bottombarbutton}>
             <TouchableOpacity
               style={styles.buttontouch}
-              onPress={this.onRequestBookButtonPress.bind(this)}>
+              onPress={this.updateUser.bind(this)}>
               <View style={styles.buttonview}>
               <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
             </View>

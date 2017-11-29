@@ -73,6 +73,15 @@ class AppWithNavigationState extends Component {
     timer.clearTimeout(this);
   }
 
+  prepareBackButtonState (curState) {
+    if (!curState) {
+      // todo
+    }
+    if (curState.index === 0) {
+      // todo
+    }
+  }
+
   render () {
     return(
       <AppNavigator
@@ -118,6 +127,8 @@ class AppWithNavigationState extends Component {
                 break;
               default:
           }}
+
+          this.prepareBackButtonState(currentState);
         }}
       />
     );
