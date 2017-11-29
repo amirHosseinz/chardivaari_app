@@ -64,10 +64,6 @@ class Splash extends Component {
 
   dispatchConnected = (isConnected) => {
     if (isConnected) {
-      NetInfo.isConnected.removeEventListener(
-        'change',
-        this.dispatchConnected
-      );
       this.checkAppUpdate();
     } else {
       this.setRetryButtonVisible();
@@ -79,7 +75,13 @@ class Splash extends Component {
   }
 
   trigger () {
-    NetInfo.isConnected.fetch().then().done(() => {
+    NetInfo.isConnected.fetch().then((isConnected) => {
+      if (isConnected) {
+        this.checkAppUpdate();
+      } else {
+        this.setRetryButtonVisible();
+      }
+    }).done(() => {
       NetInfo.isConnected.addEventListener('change', this.dispatchConnected);
     });
   }
@@ -117,6 +119,10 @@ class Splash extends Component {
   }
 
   onCheckUpdateResponseRecieved (response) {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.dispatchConnected
+    );
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (Number(currentVersion) < Number(body.version.min_version)) {
