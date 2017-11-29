@@ -9,6 +9,8 @@ import {
   Image,
   TextInput,
   ScrollView,
+  StatusBar,
+  Modal,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -19,6 +21,7 @@ import moment from 'moment-jalaali';
 
 import PaymentModule from './common/payment/PaymentModule';
 import { productionURL } from './data';
+import DeliverTerms from './DeliverTerms';
 
 
 class ReserveStatusScreen extends Component {
@@ -30,6 +33,7 @@ class ReserveStatusScreen extends Component {
       username: null,
       role: null,
       callCenter: null,
+      deliverTermsModalVisible: false,
     };
   }
 
@@ -182,6 +186,17 @@ class ReserveStatusScreen extends Component {
     }
   }
 
+    openDeliverTerms = () => {
+      this.setState({
+        deliverTermsModalVisible: true,
+      });
+    }
+    closeDeliverTerms = () => {
+      this.setState({
+        deliverTermsModalVisible: false,
+      });
+    }
+
   _onBackButtonPress () {
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
@@ -330,22 +345,20 @@ class ReserveStatusScreen extends Component {
       );
     } else {
       return(
-        <View style={styles.cost}>
+        <View>
           <Text style={styles.resulttextbold}>
             متاسفانه مهمان این سفر را لغو کرد،
             با توجه به مقررات لغو رزرو
             لطفا هزینه‌ی
             شب اول را
-            توسط
+             توسط لینک زیر
+            بازپرداخت نمایید.
           </Text>
           <TouchableOpacity onPress={this._onHostRefundPress}>
             <Text style={styles.resulttextbold1}>
-              این لینک
+            بازپرداخت
             </Text>
           </TouchableOpacity>
-          <Text style={styles.resulttextbold}>
-            بازپرداخت نمایید.
-          </Text>
         </View>
       );
     }
@@ -355,20 +368,19 @@ class ReserveStatusScreen extends Component {
     switch(this.state.reserve.status) {
     case 'IN_PROGRESS':
       return(
-        <View style={styles.cost}>
+        <View>
           <Text style={styles.resulttextbold}>
             این سفر در حال انجام است،
             در صورت بروز هرگونه مشکل با
-          </Text>
-          <TouchableOpacity onPress={this._onCallUsPress}>
-            <Text style={styles.resulttextbold}>
               پشتیبانی
-            </Text>
-          </TouchableOpacity>
-          <Text style={styles.resulttextbold}>
             تماس
             بگیرید.
           </Text>
+          <TouchableOpacity onPress={this._onCallUsPress}>
+            <Text style={styles.resulttextbold1}>
+            تماس با پشتیبانی
+            </Text>
+          </TouchableOpacity>
         </View>
       );
       break;
@@ -382,27 +394,26 @@ class ReserveStatusScreen extends Component {
       break;
     case 'ISSUED':
       return(
-        <View style={styles.cost}>
+        <View>
           <Text style={styles.resulttextbold}>
             این رزرو نهایی شده است
             و در تاریخ رزرو
             پذیرای مهمان گرامی باشید.
             برای بهترین میزبانی
+              قوانین تحویل خانه
+            را مشاهده کنید.
           </Text>
           <TouchableOpacity>
-            <Text style={styles.resulttextbold}>
+            <Text style={styles.resulttextbold1} onPress={() => {this.openDeliverTerms();}}>
               قوانین تحویل خانه
             </Text>
           </TouchableOpacity>
-          <Text style={styles.resulttextbold}>
-            را مشاهده کنید.
-          </Text>
         </View>
       );
       break;
       case 'RESOLUTION':
         return(
-          <View style={styles.cost}>
+          <View>
             <Text style={styles.resulttextbold}>
               در حال پیگیری موضوع
               مسئله مطرح شده از سمت
@@ -413,7 +424,7 @@ class ReserveStatusScreen extends Component {
               در صورت داشتن هرگونه سوال
               پشتیبانی ما در خدمت شما
               خواهد بود.
-            </Text>
+              </Text>
             <TouchableOpacity onPress={this._onCallUsPress}>
               <Text style={styles.resulttextbold1}>
                 تماس با پشتیبانی
@@ -424,17 +435,20 @@ class ReserveStatusScreen extends Component {
         break;
     case 'CANCELED_BY_HOST':
       return(
+        <View>
         <Text style={styles.resulttextbold}>
           این سفر توسط شما لغو گردید،
           از طریق
-          <TouchableOpacity onPress={this._onHostRefundPress}>
-            <Text style={styles.resulttextbold1}>
               درگاه پرداخت
-            </Text>
-          </TouchableOpacity>
           می‌توانید هزینه‌ی شب اول
           را بازگردانید.
         </Text>
+        <TouchableOpacity onPress={this._onHostRefundPress}>
+          <Text style={styles.resulttextbold1}>
+          ورود به درگاه پرداخت
+          </Text>
+        </TouchableOpacity>
+        </View>
       );
       break;
     case 'CANCELED_BY_GUEST':
@@ -459,101 +473,121 @@ class ReserveStatusScreen extends Component {
     return(
       <View style={styles.container0}>
         <View style={styles.container1}>
-          <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
-            <View style={styles.backbuttonview}>
-              <Icon size={44} color="#3e3e3e" name="keyboard-arrow-right" />
-            </View>
-          </TouchableOpacity>
-      <ScrollView
-      showsHorizontalScrollIndicator={false}>
-          {this.renderStatus()}
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>نام اقامتگاه: </Text>
-            <Text style={styles.resulttextbold}>{this.state.reserve.room.title}</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost1}>
-            <Text style={styles.costtext}>آدرس: </Text>
-            <Text style={styles.resulttextbold}>{this.state.reserve.room.address}</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}> میهمان: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.reserve.guest_person.first_name} {this.state.reserve.guest_person.last_name}
-            </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}> شماره تماس: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.reserve.guest_person.cell_phone}
-            </Text>
-            <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
-            <Text style={styles.resulttextbold1}>  تماس</Text>
+        <View style={styles.header0}>
+          <View style={styles.header00}>
+            <TouchableOpacity onPress={this._onBackButtonPress.bind(this)}>
+                <Icon size={28} color="#ffffff" name="arrow-forward" />
             </TouchableOpacity>
+            <Text style={styles.h01}>وضعیت رزرو</Text>
+            <View style={{width:28}}></View>
+          </View>
+        </View>
+    <View style={styles.main0}>
+      <ScrollView>
+        <View style={styles.main}>
+          <View style={styles.mainchild}>
+              {this.renderStatus()}
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>نام اقامتگاه: </Text>
+                <Text style={styles.resulttextbold}>{this.state.reserve.room.title}</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>آدرس: </Text>
+                <Text style={styles.resulttextbold}>{this.state.reserve.room.address}</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}> میهمان: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.reserve.guest_person.first_name} {this.state.reserve.guest_person.last_name}
+                </Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}> شماره تماس: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.reserve.guest_person.cell_phone}
+                </Text>
+                <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
+                <Text style={styles.resulttextbold1}>  تماس</Text>
+                </TouchableOpacity>
 
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>تاریخ ورود: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.reserve.start_date)}
-            </Text>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>تاریخ خروج: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderJalaliDate(this.state.reserve.end_date)}
-            </Text>
-          </View>
-          <View style={styles.cost}>
-          <Text style={styles.costtext}>مدت اقامت: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderDuration(this.state.reserve.start_date, this.state.reserve.end_date)}
-            </Text>
-            <Text style={styles.resulttextbold}> روز</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>تعداد مسافران: </Text>
-            <Text style={styles.resulttextbold}>
-              {this.state.reserve.number_of_guests}
-            </Text>
-            <Text style={styles.resulttextbold}> نفر </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
-            <Text style={styles.resulttextbold}>
-              {this.renderPrice(String(this.state.reserve.total_price))}
-            </Text>
-            <Text style={styles.resulttextbold}> تومان</Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>تاریخ ورود: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderJalaliDate(this.state.reserve.start_date)}
+                </Text>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>تاریخ خروج: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderJalaliDate(this.state.reserve.end_date)}
+                </Text>
+              </View>
+              <View style={styles.cost}>
+              <Text style={styles.costtext}>مدت اقامت: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderDuration(this.state.reserve.start_date, this.state.reserve.end_date)}
+                </Text>
+                <Text style={styles.resulttextbold}> روز</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>تعداد مسافران: </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.state.reserve.number_of_guests}
+                </Text>
+                <Text style={styles.resulttextbold}> نفر </Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
+                <Text style={styles.resulttextbold}>
+                  {this.renderPrice(String(this.state.reserve.total_price))}
+                </Text>
+                <Text style={styles.resulttextbold}> تومان</Text>
+              </View>
+              <View style={styles.divider}>
+              </View>
 
-          {this.renderCancelationDate()}
+              {this.renderCancelationDate()}
 
-          <View style={styles.cost}>
-            <Text style={styles.costtext}>توضیحات: </Text>
-            {this.renderDescription()}
+              <View style={styles.cost}>
+                <Text style={styles.costtext}>توضیحات: </Text>
+              </View>
+              <View style={styles.cost1}>
+                {this.renderDescription()}
+              </View>
+              <View style={styles.divider}>
+              </View>
+
+              <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
+              <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
+                <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
+              </TouchableOpacity>
           </View>
-          <View style={styles.divider}>
-          </View>
-
-          <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
-          <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
-            <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
-          </TouchableOpacity>
-
+        </View>
       </ScrollView>
+      <Modal
+      animationType='slide'
+      transparent={false}
+      visible={this.state.deliverTermsModalVisible}
+      onRequestClose={() => {
+        this.closeDeliverTerms();
+      }}>
+      <DeliverTerms onCloseModal={this.closeDeliverTerms}>
+      </DeliverTerms>
+      </Modal>
+    </View>
 
         {this.renderAccRejButton()}
         </View>
@@ -572,7 +606,6 @@ const styles = StyleSheet.create({
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('screen').width-50 ,
   },
   backbuttonview:{
     flexDirection:'row-reverse',
@@ -581,12 +614,18 @@ const styles = StyleSheet.create({
   header:{
     justifyContent:'center',
     alignItems:'center',
+
   },
   h1:{
     fontSize:24,
     fontFamily:'Vazir-Medium',
     color:'#3e3e3e',
     marginTop:16,
+  },
+  h01:{
+    fontSize:20,
+    fontFamily:'Vazir-Medium',
+    color:'#ffffff',
   },
   h2:{
     fontSize:18,
@@ -597,6 +636,7 @@ const styles = StyleSheet.create({
   cost:{
     flexDirection:'row-reverse',
     alignItems:'flex-end',
+    marginRight:36,
   },
   costtext:{
     fontFamily:'Vazir-Light',
@@ -614,16 +654,17 @@ const styles = StyleSheet.create({
     color:'#00a8a6',
   },
   divider:{
-    height: 2,
-    width:Dimensions.get('window').width-50 ,
+    height: 1,
+    width:Dimensions.get('window').width-36 ,
     backgroundColor: '#d7d7d7',
-    marginTop: 12,
-    marginBottom: 12,
+    marginTop: 11,
+    marginBottom: 11,
   },
   pmtohost:{
     fontFamily:'Vazir-Medium',
     fontSize:16,
     color:'#00a8a6',
+    marginBottom:25,
   },
   buttontouch: {
     borderColor:"#f56e4e",
@@ -661,7 +702,36 @@ const styles = StyleSheet.create({
   },
   buttonstyle:{
     alignItems:'center',
-  }
+  },
+  header0:{
+    backgroundColor:'#0ca6c1',
+    width: Dimensions.get('window').width,
+    height: 56,
+    alignItems:'center',
+    justifyContent:'center',
+    elevation:5,
+  },
+  header00:{
+    width: Dimensions.get('window').width-36,
+    height: 56,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:5,
+  },
+  main:{
+    flex:1,
+    width: Dimensions.get('window').width,
+    alignItems:'center',
+  },
+  mainchild:{
+    width: Dimensions.get('window').width-36,
+  },
+  main0:{
+    height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
+    backgroundColor:'#ffffff',
+  },
+
 });
 
 export default ReserveStatusScreen;

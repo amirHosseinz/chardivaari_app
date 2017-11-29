@@ -10,6 +10,7 @@ import {
   TextInput,
   ScrollView,
   StatusBar,
+  Modal,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,7 +18,7 @@ import CacheStore from 'react-native-cache-store';
 import Communications from 'react-native-communications';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
-
+import DeliverTerms from './DeliverTerms';
 import { productionURL } from './data';
 
 
@@ -29,6 +30,7 @@ class TripStatusScreen extends Component {
       token: null,
       username: null,
       role: null,
+      deliverTermsModalVisible: false,
     };
   }
 
@@ -108,7 +110,16 @@ class TripStatusScreen extends Component {
       Alert.alert('خطای شبکه، لطفا از اتصال به اینترنت مطمئن شوید.');
     });
   }
-
+  openDeliverTerms = () => {
+    this.setState({
+      deliverTermsModalVisible: true,
+    });
+  }
+  closeDeliverTerms = () => {
+    this.setState({
+      deliverTermsModalVisible: false,
+    });
+  }
   onResponseRecieved (response) {
     body = JSON.parse(response._bodyText);
     if (response.status === 200) {
@@ -314,12 +325,19 @@ class TripStatusScreen extends Component {
     switch(this.state.trip.status) {
     case 'IN_PROGRESS':
       return(
-        <Text style={styles.resulttextbold}>
-          این سفر در حال انجام است،
-          در صورت بروز هرگونه مشکل
-          با پشتیبانی
-          تماس بگیرید.
-        </Text>
+        <View>
+          <Text style={styles.resulttextbold}>
+            این سفر در حال انجام است،
+            در صورت بروز هرگونه مشکل
+            با پشتیبانی
+            تماس بگیرید.
+          </Text>
+          <TouchableOpacity onPress={this._onCallUsPress}>
+            <Text style={styles.resulttextbold1}>
+            تماس با پشتیبانی
+            </Text>
+          </TouchableOpacity>
+        </View>
       );
       break;
     case 'DONE':
@@ -333,6 +351,7 @@ class TripStatusScreen extends Component {
       break;
     case 'ISSUED':
       return(
+        <View>
         <Text style={styles.resulttextbold}>
           این رزرو نهایی شده است،
           تریپین سفر خوبی را
@@ -341,22 +360,34 @@ class TripStatusScreen extends Component {
           تجربه‌ی سفر مقررات
           تحویل خانه را مطالعه کنید.
         </Text>
+        <TouchableOpacity>
+          <Text style={styles.resulttextbold1} onPress={() => {this.openDeliverTerms();}}>
+            قوانین تحویل خانه
+          </Text>
+        </TouchableOpacity>
+        </View>
       );
       break;
       case 'RESOLUTION':
         return(
-          <Text style={styles.resulttextbold}>
-            در حال پیگیری موضوع
-            مسئله مطرح شده از سمت
-            شما هستیم،
-            به محض حل مسئله پیش آمده
-            شما را در جریان
-            قرار خواهیم داد.
-            در صورت داشتن هرگونه سوال
-            پشتیبانی ما در خدمت شما
-            خواهد بود.
-            تماس با پشتیبانی
-          </Text>
+          <View>
+            <Text style={styles.resulttextbold}>
+              در حال پیگیری موضوع
+              مسئله مطرح شده از سمت
+              شما هستیم،
+              به محض حل مسئله پیش آمده
+              شما را در جریان
+              قرار خواهیم داد.
+              در صورت داشتن هرگونه سوال
+              پشتیبانی ما در خدمت شما
+              خواهد بود.
+            </Text>
+            <TouchableOpacity onPress={this._onCallUsPress}>
+              <Text style={styles.resulttextbold1}>
+              تماس با پشتیبانی
+              </Text>
+            </TouchableOpacity>
+          </View>
         );
         break;
     case 'CANCELED_BY_HOST':
@@ -502,6 +533,16 @@ class TripStatusScreen extends Component {
                 </View>
               </View>
             </ScrollView>
+            <Modal
+            animationType='slide'
+            transparent={false}
+            visible={this.state.deliverTermsModalVisible}
+            onRequestClose={() => {
+              this.closeDeliverTerms();
+            }}>
+            <DeliverTerms onCloseModal={this.closeDeliverTerms}>
+            </DeliverTerms>
+            </Modal>
           </View>
         </View>
       </View>
