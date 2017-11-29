@@ -293,18 +293,18 @@ class TripStatusScreen extends Component {
     if (this.renderDuration(this.state.trip.canceled_date, this.state.trip.start_date) <= 2) {
       return(
         <Text style={styles.resulttextbold}>
-          این سفر توسط مهمان لغو گردید.
+          سفر شما لغو گردید،
+          طبق مقررات هزینه‌ی پرداختی به جز
+          هزینه‌ی یک شب
+          به شما بازپرداخت می‌شود.
         </Text>
       );
     } else {
       return(
         <Text style={styles.resulttextbold}>
-          متاسفانه مهمان این سفر را لغو کرد،
-          با توجه به مقررات لغو رزرو
-          لطفا هزینه‌ی
-          شب اول را
-          توسط این لینک
-          بازپرداخت نمایید.
+          این سفر لغو شد، هزینه‌ی سفر
+          در اسرع وقت به شما
+          بازگردانده می‌شود.
         </Text>
       );
     }
@@ -374,6 +374,17 @@ class TripStatusScreen extends Component {
       break;
     default:
     }
+  }
+
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
   }
 
   render () {
@@ -461,7 +472,7 @@ class TripStatusScreen extends Component {
                   <View style={styles.cost}>
                     <Text style={styles.costtext}>هزینه پرداخت شده:  </Text>
                     <Text style={styles.resulttextbold}>
-                      {this.state.trip.total_price}
+                      {this.renderPrice(String(this.state.trip.total_price))}
                     </Text>
                     <Text style={styles.resulttextbold}> تومان</Text>
                   </View>

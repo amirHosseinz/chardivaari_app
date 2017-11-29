@@ -73,8 +73,8 @@ class Trips extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({
-        count: body.count,
         tripList: body.reserve_list,
+        count: body.reserve_list.length,
       });
       if (this.props.setTripsBadgeNum) {
         this.props.setTripsBadgeNum(body.attention_count);

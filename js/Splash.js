@@ -8,10 +8,10 @@ import {
   StatusBar,
   NetInfo,
   ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
-import KeepAwake from 'react-native-keep-awake';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -32,7 +32,6 @@ class Splash extends Component {
 
   componentWillMount () {
     StatusBar.setHidden(true);
-    KeepAwake.activate();
     let tracker = new GoogleAnalyticsTracker(GATrackerId);
     this.setState({
       tracker: tracker,
@@ -55,30 +54,37 @@ class Splash extends Component {
     });
   }
 
-  handleFirstConnectivityChange = (isConnected) => {
-    NetInfo.isConnected.removeEventListener(
-      'change',
-      this.handleFirstConnectivityChange
-    );
-    this.checkAppUpdate();
+  // handleFirstConnectivityChange = (isConnected) => {
+  //   NetInfo.isConnected.removeEventListener(
+  //     'change',
+  //     this.handleFirstConnectivityChange
+  //   );
+  //   this.checkAppUpdate();
+  // }
+
+  dispatchConnected = (isConnected) => {
+    if (isConnected) {
+      this.checkAppUpdate();
+    } else {
+      this.setRetryButtonVisible();
+      ToastAndroid.show(
+        'لطفا تلفن همراه خود را به اینترنت متصل نمایید.',
+        ToastAndroid.LONG
+      );
+    }
   }
 
   trigger () {
-    NetInfo.isConnected.fetch().then(isConnected => {
+    NetInfo.isConnected.fetch().then((isConnected) => {
       if (isConnected) {
         this.checkAppUpdate();
       } else {
         this.setRetryButtonVisible();
-        ToastAndroid.show(
-          'لطفا تلفن همراه خود را به اینترنت متصل نمایید.',
-          ToastAndroid.LONG
-        );
-        NetInfo.isConnected.addEventListener(
-          'change',
-          this.handleFirstConnectivityChange
-        );
-      }});
-    }
+      }
+    }).done(() => {
+      NetInfo.isConnected.addEventListener('change', this.dispatchConnected);
+    });
+  }
 
   resetNavigation (targetRoute) {
     const resetAction = NavigationActions.reset({
@@ -113,6 +119,10 @@ class Splash extends Component {
   }
 
   onCheckUpdateResponseRecieved (response) {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.dispatchConnected
+    );
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (Number(currentVersion) < Number(body.version.min_version)) {
@@ -170,12 +180,20 @@ class Splash extends Component {
     }
   }
 
+  onRetryButtonPress () {
+    NetInfo.isConnected.removeEventListener(
+      'change',
+      this.dispatchConnected
+    );
+    this.trigger();
+  }
+
   renderRetryButton () {
     if (this.state.retryButtonVisible) {
       return(
         <View style={styles.container2}>
           <TouchableOpacity onPress={() => {
-            this.trigger();
+            this.onRetryButtonPress();
           }}>
           <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
           </TouchableOpacity>

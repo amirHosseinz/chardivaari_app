@@ -8,7 +8,6 @@ import com.facebook.react.shell.MainPackageConfig;
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
-import com.corbt.keepawake.KCKeepAwakePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.rnfs.RNFSPackage;
@@ -48,7 +47,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(appConfig),
           new GoogleAnalyticsBridgePackage(),
-          new KCKeepAwakePackage(),
           new SmsListenerPackage(),
           new RNExitAppPackage(),
           new RNFSPackage(),

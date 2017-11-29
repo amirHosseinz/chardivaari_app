@@ -176,4 +176,55 @@ public class PaymentModule extends ReactContextBaseJavaModule {
             this.paymentPromise = null;
         }
     }
+
+    @ReactMethod
+    public void reactReserveRefund(String description, int amount, final String token, final int reserveId, Promise paymentPromise) {
+        this.paymentPromise = paymentPromise;
+        try {
+            ZarinPal purchase = ZarinPal.getPurchase(getReactApplicationContext());
+            final PaymentRequest payment = ZarinPal.getPaymentRequest();
+            payment.setMerchantID("bd3e115a-b955-11e7-b416-005056a205be");
+            payment.setAmount(amount);
+            payment.setDescription(description);
+            payment.setCallbackURL("https://www.trypinn.com/api/reserve/verify_refund/");
+            purchase.startPayment(payment, new OnCallbackRequestPaymentListener() {
+                @Override
+                public void onCallbackResultPaymentRequest(int status, String authority, Uri paymentGatewayUri, final Intent intent) {
+                    if (status == 100) {
+                        String requestBody = "{ \"token\": \"" + token + "\", ";
+                        requestBody = requestBody + "\"reserve_id\": \"" + reserveId + "\", ";
+                        requestBody = requestBody + "\"amount\": \"" + payment.getAmount() + "\", ";
+                        requestBody = requestBody + "\"authority\": \"" + payment.getAuthority() + "\" }";
+
+                        Map<String, String> header = new HashMap<>();
+                        header.put("Accept", "application/json");
+                        header.put("Content-Type", "application/json");
+                        header.put("Authorization", "Token "+token);
+
+                        post("https://www.trypinn.com/api/refund_reserve/", requestBody, header, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                if (response.isSuccessful()) {
+                                    if (response.code() == 200) {
+                                        getCurrentActivity().startActivity(intent);
+                                    }
+                                } else {
+                                }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getReactApplicationContext(), "خطا در انجام پرداخت", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            paymentPromise.reject(E_PAYMENT_FAILED, e);
+            this.paymentPromise = null;
+        }
+    }
+
 }

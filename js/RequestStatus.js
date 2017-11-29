@@ -398,17 +398,17 @@ class RequestStatus extends Component {
     // this.backNavigation();
   }
 
-  onPayRequestResponseRecieved (response) {
-    if (response.status === 200) {
-      this.backNavigation();
-      Alert.alert('درخواست پرداخت گردید.');
-    } else if (response.status === 203) {
-      // NON_AUTHORITATIVE_INFORMATION
-      Alert.alert('خطای اطلاعات ناقص');
-    } else {
-      Alert.alert('خطایی رخ داده.');
-    }
-  }
+  // onPayRequestResponseRecieved (response) {
+  //   if (response.status === 200) {
+  //     this.backNavigation();
+  //     Alert.alert('درخواست پرداخت گردید.');
+  //   } else if (response.status === 203) {
+  //     // NON_AUTHORITATIVE_INFORMATION
+  //     Alert.alert('خطای اطلاعات ناقص');
+  //   } else {
+  //     Alert.alert('خطایی رخ داده.');
+  //   }
+  // }
 
   onContactToUserPress = () => {
     if (this.state.role === 'guest') {
@@ -658,15 +658,23 @@ class RequestStatus extends Component {
       case 'WAIT_FOR_HOST':
         if (this.state.role === 'host') {
           return(
-
-            <Text style={styles.resulttext}>
-              بعد از تایید این درخواست توسط شما،
-              در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
-              و به اطلاع شما می‌رسد.
-              در صورت لغو توسط شما یا مهمان بعد از پرداخت
-              قوانین لغو
-              اعمال می‌شود.
-            </Text>
+            <View>
+              <Text style={styles.resulttext}>
+                بعد از تایید این درخواست توسط شما،
+                در صورت پرداخت هزینه توسط مهمان رزرو نهایی شده
+                و به اطلاع شما می‌رسد.
+                در صورت لغو توسط شما یا مهمان بعد از پرداخت
+                قوانین لغو
+                اعمال می‌شود.
+              </Text>
+              <View style={styles.interpersonresult}>
+                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                  <Text style={styles.resulttext2}>
+                  مشاهده قوانین لغو
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         } else if (this.state.role === 'guest') {
           return(
@@ -708,14 +716,23 @@ class RequestStatus extends Component {
           );
         } else if (this.state.role === 'guest') {
           return(
-            <Text style={styles.resulttext}>
-              درخواست شما تایید شده است،
-              با پرداخت هزینه رزرو خود را نهایی کنید.
-              در صورت لغو توسط شما و یا میزبان
-              بعد از پرداخت هزینه،
-              قوانین لغو
-              اعمال می‌شود.
-            </Text>
+            <View>
+              <Text style={styles.resulttext}>
+                درخواست شما تایید شده است،
+                با پرداخت هزینه رزرو خود را نهایی کنید.
+                در صورت لغو توسط شما و یا میزبان
+                بعد از پرداخت هزینه،
+                قوانین لغو
+                اعمال می‌شود.
+              </Text>
+              <View style={styles.interpersonresult}>
+                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                  <Text style={styles.resulttext2}>
+                  مشاهده قوانین لغو
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           );
         }
         break;
@@ -776,6 +793,17 @@ class RequestStatus extends Component {
         break;
       default:
     }
+  }
+
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
   }
 
   render () {
@@ -851,7 +879,7 @@ class RequestStatus extends Component {
               <View style={styles.interpersonresult}>
                 <Text style={styles.costtextfinal}>هزینه قابل پرداخت: </Text>
                 <Text style={styles.costtextfinal}>
-                  {this.state.request.total_price}
+                  {this.renderPrice(String(this.state.request.total_price))}
                 </Text>
                 <Text style={styles.costtextfinal}> تومان</Text>
               </View>
@@ -863,16 +891,7 @@ class RequestStatus extends Component {
               </View>
               <View style={styles.interpersonresult}>
 
-                <Text style={styles.resulttext}>
-                  {this.renderDescription()}
-                </Text>
-              </View>
-              <View style={styles.interpersonresult}>
-                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
-                  <Text style={styles.resulttext2}>
-                  مشاهده قوانین لغو
-                  </Text>
-                </TouchableOpacity>
+              {this.renderDescription()}
               </View>
               <View style={styles.divider}>
               </View>

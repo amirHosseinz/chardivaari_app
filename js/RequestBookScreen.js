@@ -276,6 +276,17 @@ class RequestBookScreen extends Component {
     }
   }
 
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
+
   renderTrypinnShare () {
     if (this.state.trypinnServicePrice != null) {
       return(
@@ -284,7 +295,9 @@ class RequestBookScreen extends Component {
             <Text style={styles.costtext}>حق سرویس تریپین:  </Text>
           </View>
           <View style={styles.cost2}>
-            <Text style={styles.costtext}>{this.state.trypinnServicePrice}</Text>
+            <Text style={styles.costtext}>
+              {this.renderPrice(String(this.state.trypinnServicePrice))}
+            </Text>
             <Text style={styles.costtext}> تومان</Text>
           </View>
         </View>
@@ -300,7 +313,9 @@ class RequestBookScreen extends Component {
             <Text style={styles.costtext}>جمع هزینه‌ها:</Text>
           </View>
           <View style={styles.cost2}>
-            <Text style={styles.costtext}>{this.state.hostPrice + this.state.trypinnServicePrice}</Text>
+            <Text style={styles.costtext}>
+              {this.renderPrice(String(this.state.hostPrice + this.state.trypinnServicePrice))}
+            </Text>
             <Text style={styles.costtext}> تومان</Text>
           </View>
         </View>
@@ -316,7 +331,9 @@ class RequestBookScreen extends Component {
               <Text style={styles.costtext}>هزینه‌ی اقامت:</Text>
             </View>
             <View style={styles.cost2}>
-              <Text style={styles.costtext}>{this.state.hostPrice}</Text>
+              <Text style={styles.costtext}>
+                {this.renderPrice(String(this.state.hostPrice))}
+              </Text>
               <Text style={styles.costtext}> تومان</Text>
             </View>
         </View>
@@ -331,16 +348,18 @@ class RequestBookScreen extends Component {
           <View>
             <View style={styles.discountresult}>
               <Text style={styles.distext}>مبلغ تخفیف :  </Text>
-              <Text style={styles.distext}>{this.state.totalDiscount}</Text>
+              <Text style={styles.distext}>
+                {this.renderPrice(String(this.state.totalDiscount))}
+              </Text>
               <Text style={styles.distext}> تومان</Text>
             </View>
             <View style={styles.discountdetail}>
               <Text style={styles.disdetatiltext}>
                 مبلغ
-                {this.state.totalDiscount}
+                {this.renderPrice(String(this.state.totalDiscount))}
                 تومان
                 شامل
-                {this.state.trypinnServiceDiscount}
+                {this.renderPrice(String(this.state.trypinnServiceDiscount))}
                 تومان از حق سرویس
                 تریپین به صورت
                 تخفیف به شما هدیه
@@ -354,7 +373,9 @@ class RequestBookScreen extends Component {
           <View>
             <View style={styles.discountresult}>
               <Text style={styles.distext}>مبلغ تخفیف :  </Text>
-              <Text style={styles.distext}>{this.state.totalDiscount}</Text>
+              <Text style={styles.distext}>
+                {this.renderPrice(String(this.state.totalDiscount))}
+              </Text>
               <Text style={styles.distext}> تومان</Text>
             </View>
           </View>
@@ -462,7 +483,9 @@ class RequestBookScreen extends Component {
           <View style={styles.bottombarchild}>
                 <Text style={styles.mablaghtext}> مبلغ نهایی:</Text>
                 <View style={styles.bottombarprice}>
-                      <Text style={styles.pricetext}>{this.state.totalPrice}</Text>
+                      <Text style={styles.pricetext}>
+                        {this.renderPrice(String(this.state.totalPrice))}
+                      </Text>
                       <Text style={styles.pricetext}> تومان</Text>
                 </View>
             <View style={styles.bottombarbutton}>

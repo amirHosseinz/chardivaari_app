@@ -11,9 +11,20 @@ import {
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 class ExploreResult extends Component {
+
+  renderPrice (input) {
+    var res = input.substr(input.length - 3);
+    input = input.substring(0, input.length - 3);
+    while (input.length > 3) {
+      res = input.substr(input.length - 3) + ',' + res;
+      input = input.substring(0, input.length - 3);
+    }
+    res = input + ',' + res;
+    return(res);
+  }
 
   render () {
 
@@ -58,7 +69,9 @@ class ExploreResult extends Component {
             </View>
 
             <View style={styles.price}>
-              <Text style={styles.pricetext}>{this.props.room.price}</Text>
+              <Text style={styles.pricetext}>
+                {this.renderPrice(String(this.props.room.price))}
+              </Text>
               <Text style={styles.toman}>تومان</Text>
               <Text style={styles.night}>/ هر شب</Text>
             </View>
@@ -67,7 +80,6 @@ class ExploreResult extends Component {
     </TouchableOpacity>
     );
   }
-
 }
 
 

@@ -145,7 +145,6 @@ android {
 
 dependencies {
     compile project(':react-native-google-analytics-bridge')
-    compile project(':react-native-keep-awake')
     compile project(':react-native-android-sms-listener')
     compile project(':react-native-exit-app')
     compile project(':react-native-fs')

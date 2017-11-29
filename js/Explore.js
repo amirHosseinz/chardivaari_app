@@ -11,7 +11,6 @@ import { OptimizedFlatList } from 'react-native-optimized-flatlist';
 
 import SearchAnimations from './SearchAnimations';
 import CacheStore from 'react-native-cache-store';
-import KeepAwake from 'react-native-keep-awake';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -39,7 +38,6 @@ class Explore extends Component {
     this.setState({
       tracker: GAtracker,
     });
-    KeepAwake.activate();
     if (this.state.rooms.length < 1) {
       CacheStore.get('token').then((value) => {
         this.setState({ token: value }, () => {
@@ -215,16 +213,14 @@ class Explore extends Component {
         <View style={styles.filter}>
         </View>
         {this.renderError()}
-        <View style={{
-          paddingBottom:176,
-        }}>
+
         <OptimizedFlatList
           data={this.state.rooms}
           keyExtractor={this._keyExtractor}
           renderItem={(item) => this.renderItem(item, this.props.navigation)}
           style={{paddingRight:5,marginLeft:5}}
-           />
-        </View>
+          />
+
 
       </View>
     );
@@ -234,6 +230,7 @@ class Explore extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
       // backgroundColor: '#ededed',s
