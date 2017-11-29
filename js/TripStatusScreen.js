@@ -30,6 +30,7 @@ class TripStatusScreen extends Component {
       token: null,
       username: null,
       role: null,
+      callCenter: null,
       deliverTermsModalVisible: false,
     };
   }
@@ -42,6 +43,13 @@ class TripStatusScreen extends Component {
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
+    CacheStore.get('call_center').then((value) => {
+      if (value != null) {
+        this.setState({
+          callCenter: value,
+        });
+      }
+    });
   }
 
   setToken (token) {
@@ -196,6 +204,10 @@ class TripStatusScreen extends Component {
 
   _onCallHostPress () {
     Communications.phonecall(this.state.trip.room.owner.cell_phone, true);
+  }
+
+  _onCallUsPress = () => {
+    Communications.phonecall(this.state.callCenter, true);
   }
 
   renderStatus () {

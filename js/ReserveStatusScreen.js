@@ -46,9 +46,11 @@ class ReserveStatusScreen extends Component {
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
     CacheStore.get('call_center').then((value) => {
-      this.setState({
-        callCenter: value,
-      });
+      if (value != null) {
+        this.setState({
+          callCenter: value,
+        });
+      }
     });
   }
 
@@ -207,7 +209,7 @@ class ReserveStatusScreen extends Component {
     Communications.phonecall(this.state.reserve.guest_person.cell_phone, true);
   }
 
-  _onCallUsPress () {
+  _onCallUsPress = () => {
     Communications.phonecall(this.state.callCenter, true);
   }
 
