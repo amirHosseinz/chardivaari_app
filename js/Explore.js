@@ -66,7 +66,7 @@ class Explore extends Component {
     this.setState({
       tracker: GAtracker,
     });
-    if (true) {
+    if (this.state.rooms.getSize() < 1) {
       CacheStore.get('token').then((value) => {
         this.setState({ token: value }, () => {
           this.fetchHomepage();
