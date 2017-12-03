@@ -84,9 +84,6 @@ class ExploreResult extends Component {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   cards: {
     flexWrap: 'wrap',
     width: Dimensions.get('window').width - 0,
@@ -138,6 +135,7 @@ const styles = StyleSheet.create({
   },
   price: {
     flex:1,
+    marginBottom: 5,
     justifyContent:"flex-start",
     flexDirection: "row-reverse",
   },

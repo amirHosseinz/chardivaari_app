@@ -8,29 +8,57 @@ import {
   Image,
 } from 'react-native';
 import { OptimizedFlatList } from 'react-native-optimized-flatlist';
-
-import SearchAnimations from './SearchAnimations';
+import {
+  RecyclerListView,
+  DataProvider,
+  LayoutProvider,
+} from 'recyclerlistview';
 import CacheStore from 'react-native-cache-store';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
 import ExploreResult from './ExploreResult';
+import SearchAnimations from './SearchAnimations';
 import { productionURL, GATrackerId } from './data';
 
 
 class Explore extends Component {
-  state={
-    error: null,
-    token: null,
-    capacity: null,
-    start_date: null,
-    end_date: null,
-    destination: null,
-    rooms: [],
-    locations: [],
-    tracker: null,
-  };
+  constructor (props) {
+    super(props);
+    let { width } = Dimensions.get('window');
+    this.dataProvider = new DataProvider((r1, r2) => {
+      return r1 !== r2;
+    });
+    this._layoutProvider = new LayoutProvider(
+      index => {
+        return 0;
+      },
+      (type, dim, index) => {
+        switch (type) {
+          case 0:
+            dim.width = width - 5;
+            dim.height = 110;
+            break;
+          default:
+            dim.width = 0;
+            dim.height = 0;
+        }
+      }
+    );
+
+    this.state = {
+      error: null,
+      token: null,
+      capacity: null,
+      start_date: null,
+      end_date: null,
+      destination: null,
+      rooms: this.dataProvider.cloneWithRows([]),
+      locations: [],
+      tracker: null,
+    };
+  }
 
   componentWillMount() {
     let GAtracker = new GoogleAnalyticsTracker(GATrackerId);
@@ -38,7 +66,7 @@ class Explore extends Component {
     this.setState({
       tracker: GAtracker,
     });
-    if (this.state.rooms.length < 1) {
+    if (true) {
       CacheStore.get('token').then((value) => {
         this.setState({ token: value }, () => {
           this.fetchHomepage();
@@ -75,7 +103,7 @@ class Explore extends Component {
       lc.reverse();
       this.setState({
         error: null,
-        rooms: body.room,
+        rooms: this.dataProvider.cloneWithRows(body.room),
         locations: lc,
       });
     } else {
@@ -111,7 +139,7 @@ class Explore extends Component {
       body = JSON.parse(response._bodyText);
       this.setState({
         error: null,
-        rooms: body.room,
+        rooms: this.dataProvider.cloneWithRows(body.room),
       });
     } else {
       this.setState({ error: 'خطایی رخ داده.' });
@@ -192,6 +220,12 @@ class Explore extends Component {
     );
   }
 
+  rowRenderer = (type, data) => {
+    return (
+      <ExploreResult room={data} navigation={this.props.navigation} />
+    );
+  }
+
   renderError () {
     if (this.state.error != null) {
       return(
@@ -214,13 +248,16 @@ class Explore extends Component {
         </View>
         {this.renderError()}
 
-        <OptimizedFlatList
-          data={this.state.rooms}
-          keyExtractor={this._keyExtractor}
-          renderItem={(item) => this.renderItem(item, this.props.navigation)}
-          style={{paddingRight:5,marginLeft:5}}
-          />
-
+        <RecyclerListView
+          layoutProvider={this._layoutProvider}
+          dataProvider={this.state.rooms}
+          rowRenderer={this.rowRenderer}
+          style={{
+            width: Dimensions.get('window').width,
+            marginRight: 5,
+            marginLeft: 5,
+            paddingLeft: 5,
+            marginBottom: 5 }} />
 
       </View>
     );
