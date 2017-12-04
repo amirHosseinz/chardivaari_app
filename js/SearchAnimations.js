@@ -402,18 +402,18 @@ class SearchAnimations extends Component {
                       </NumberSelectScreen>
                  </Modal>
 
-                 <View>
-                 <Calendar
-                   i18n="en"
-                   ref={(calendar) => {this.calendar = calendar;}}
-                   customI18n={customI18n}
-                   color={color}
-                   startDate={this.state.startDate}
-                   endDate={this.state.endDate}
-                   onConfirm={this.confirmDate} />
-                   </View>
+                <View>
+                  <Calendar
+                     i18n="en"
+                     ref={(calendar) => {this.calendar = calendar;}}
+                     customI18n={customI18n}
+                     color={color}
+                     startDate={this.state.startDate}
+                     endDate={this.state.endDate}
+                     onConfirm={this.confirmDate} />
+                </View>
 
-                   <Modal
+                  <Modal
                    animationType='slide'
                    transparent={false}
                    visible={this.state.whereModalVisible}

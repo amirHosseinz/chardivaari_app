@@ -15,13 +15,13 @@ import {
 import {
   KeyboardAwareScrollView
 } from 'react-native-keyboard-aware-scroll-view';
-import ModalDropdown from 'react-native-modal-dropdown';
 import CacheStore from 'react-native-cache-store';
 import Calendar from './common/calendar/Calendar';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { productionURL } from './data';
+import NumberSelectScreen from './NumberSelectScreen';
 
 
 class RequestBookScreen extends Component {
@@ -43,6 +43,7 @@ class RequestBookScreen extends Component {
       totalDiscount: null,
       discountCode: null,
       numberOfGuests: null,
+      newCapacity: null,
       capacityModalVisible: false,
       unAvailableError: false,
       capacityError: false,
@@ -166,13 +167,19 @@ class RequestBookScreen extends Component {
     }
   }
 
-  onSelectCapacity = (index, value) => {
+  onSelectCapacity = (value) => {
     this.setState({
-      numberOfGuests: value,
+      newCapacity: value,
+    });
+  }
+
+  onConfirmCapacity = () => {
+    this.setState({
+      numberOfGuests: this.state.newCapacity,
     }, () => {
       this.updatePrice();
     });
-    if (value > this.state.room.capacity) {
+    if (this.state.newCapacity > this.state.room.capacity) {
       this.setState({
         capacityError: true,
       });
@@ -181,6 +188,14 @@ class RequestBookScreen extends Component {
         capacityError: false,
       });
     }
+    this.setCapacityModalVisible(false);
+  }
+
+  onCancelCapacity = () => {
+    this.setState({
+      newCapacity: this.state.numberOfGuests,
+    });
+    this.setCapacityModalVisible(false);
   }
 
   _onCheckDiscountCodeButtonPress () {
@@ -629,25 +644,14 @@ class RequestBookScreen extends Component {
           transparent={false}
           visible={this.state.capacityModalVisible}
           onRequestClose={() => {
-            this.setCapacityModalVisible(false);
+            this.onCancelCapacity();
           }}>
-             <View style={styles.modalContainer}>
-             <View style={styles.inputModalStyle}>
-             <ModalDropdown
-               defaultValue={'تعداد نفرات'}
-               showsVerticalScrollIndicator={false}
-               textStyle={styles.optionText}
-               style={styles.capacityModalStyle}
-               options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-               renderRow={this.renderCapacityModalRow}
-               onSelect={this.onSelectCapacity} />
-               <TouchableHighlight style={styles.confirmButton} onPress={() => {
-                 this.setCapacityModalVisible(!this.state.capacityModalVisible);
-               }}>
-                 <Text style={styles.confirmButtonText}>تایید</Text>
-               </TouchableHighlight>
-               </View>
-             </View>
+         <NumberSelectScreen
+           capacity={this.state.numberOfGuests}
+           onSelect={this.onSelectCapacity}
+           onConfirm={this.onConfirmCapacity}
+           onCancel={this.onCancelCapacity}>
+         </NumberSelectScreen>
         </Modal>
 
         <View>

@@ -23,9 +23,11 @@ class NumberSelectScreen extends Component {
   }
 
   componentWillMount () {
-    this.setState({
-      numberOfGuests: Number(this.props.capacity),
-    });
+    if (this.props.capacity != null) {
+      this.setState({
+        numberOfGuests: Number(this.props.capacity),
+      });
+    }
   }
 
   increaseGuest () {

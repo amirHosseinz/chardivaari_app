@@ -38,7 +38,9 @@ class AboutUs extends Component {
       <View style={styles.container2}>
         <Image style={styles.logostyle} source={require('./img/aboutlogo.png')}/>
         <Text style={{fontSize:26,fontFamily:'Vazir-Medium',textAlign:'center',color:'#12b2ce'}}>تریپین</Text>
-        <Text style={{fontSize:14,fontFamily:'Vazir-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>ویرایش : 0 . 1 . 0  </Text>
+        <Text style={{fontSize:14,fontFamily:'Vazir-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
+          ویرایش : 1 . 1 . 0
+        </Text>
         <Text style={styles.aboutustext}>
 تریپین در سال 1396 کار خود را آغاز نموده است.
 تیم تریپین گرد هم آمده‌اند تا با ایجاد امکان اجاره انواع فضاهای اقامتی،
