@@ -41,7 +41,7 @@ import RequestBookScreen from './RequestBookScreen';
 
 import ConversationScreen from './ConversationScreen';
 // import EditListingScreen from './EditListingScreen';
-import EditHouse from './EditHouse';
+// import EditHouse from './EditHouse';
 // import BookedRequestScreen from './BookedRequestScreen';
 import ReserveStatusScreen from './ReserveStatusScreen';
 // import TripDetailScreen from './TripDetailScreen';
@@ -471,13 +471,13 @@ const Routes = ({
   //     }
   //   }
   // },
-  editHouse: {
-    screen: EditHouse,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
-    },
-  },
+  // editHouse: {
+  //   screen: EditHouse,
+  //   navigationOptions: {
+  //     header: null,
+  //     gesturesEnabled: false,
+  //   },
+  // },
   // bookedRequestScreen: {
   //   screen: BookedRequestScreen,
   //   navigationOptions: {

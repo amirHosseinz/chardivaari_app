@@ -133,13 +133,10 @@ class HouseListScreen extends Component {
   }
 
   _onListingPress (item) {
-    this.props.navigation.navigate(
-      'editHouse',
-      {
-        listing: item,
-        refresh: this.refreshScreen,
-      }
-    );
+    this.props.navigation.navigate('houseDetail', {
+      room: item,
+      role: 'host',
+    });
   }
 
   renderListing({item}, navigation) {

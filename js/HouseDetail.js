@@ -19,6 +19,7 @@ import StarRating from 'react-native-star-rating';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Communications from 'react-native-communications';
 // import ViewPager from 'react-native-viewpager';
 // import KeepAwake from 'react-native-keep-awake';
 import {
@@ -44,7 +45,10 @@ class HouseDetail extends Component {
      contactModalVisible: false,
      facilitiesModalVisible: false,
      nationalIdModalVisible: false,
+     callSupportModalVisible: false,
      tracker: null,
+     isHost: false,
+     callCenter: null,
    };
    this.mapStyle = [];
  }
@@ -67,6 +71,13 @@ class HouseDetail extends Component {
      if (value != null) {
        this.setState({
          user: value,
+       });
+     }
+   });
+   CacheStore.get('call_center').then((value) => {
+     if (value != null) {
+       this.setState({
+         callCenter: value,
        });
      }
    });
@@ -97,6 +108,11 @@ class HouseDetail extends Component {
      this.setState({ marker: circleElement });
    } else if (this.props.navigation.state.params.roomId) {
      this.fetchRoom();
+   }
+   if (this.props.navigation.state.params.role === 'host') {
+     this.setState({
+       isHost: true,
+     });
    }
  }
 
@@ -675,6 +691,18 @@ class HouseDetail extends Component {
     });
   }
 
+  openSupportModal = () => {
+    this.setState({
+      callSupportModalVisible: true,
+    });
+  }
+
+  closeSupportModal = () => {
+    this.setState({
+      callSupportModalVisible: false,
+    });
+  }
+
   openNationalIdModal = () => {
     this.setState({
       nationalIdModalVisible: true,
@@ -730,22 +758,48 @@ class HouseDetail extends Component {
     return(res);
   }
 
+  renderBottomButton () {
+    if (this.state.isHost) {
+      return(
+        <TouchableOpacity
+          style={styles.buttontouch}
+          onPress={()=>{
+            this.openSupportModal();
+          }}>
+          <View style={styles.buttonview}>
+          <Text style={styles.reservebuttontext}>تغییر اطلاعات</Text>
+        </View>
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <TouchableOpacity
+          style={styles.buttontouch}
+          onPress={this.updateUser.bind(this)}>
+          <View style={styles.buttonview}>
+          <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
+        </View>
+        </TouchableOpacity>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
       <ScrollView>
       {this.renderViewPager()}
-<View style={styles.container0}>
-<View style={styles.container2}>
-  <Text style={styles.housename}>{this.state.room.title}</Text>
-  <View style={styles.city}>
-    <Text style={styles.city1} numberOfLines={1}>{this.state.room.address}</Text>
-  </View>
+      <View style={styles.container0}>
+      <View style={styles.container2}>
+      <Text style={styles.housename}>{this.state.room.title}</Text>
+      <View style={styles.city}>
+        <Text style={styles.city1} numberOfLines={1}>{this.state.room.address}</Text>
+      </View>
 
-  {this.renderRating()}
+      {this.renderRating()}
 
-<View style={styles.divider}>
-</View>
+    <View style={styles.divider}>
+    </View>
 
 <View style={styles.accountbox}>
     {this.renderProfilePicture()}
@@ -904,13 +958,7 @@ class HouseDetail extends Component {
             </Text>
             </View>
         <View style={styles.bottombarbutton}>
-            <TouchableOpacity
-              style={styles.buttontouch}
-              onPress={this.updateUser.bind(this)}>
-              <View style={styles.buttonview}>
-              <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
-            </View>
-            </TouchableOpacity>
+            {this.renderBottomButton()}
         </View>
       </View>
     </View>
@@ -995,6 +1043,34 @@ class HouseDetail extends Component {
    </View>
   </Modal>
 
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.callSupportModalVisible}
+    onRequestClose={() => {
+      this.closeSupportModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeSupportModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>
+        برای تغییر اطلاعات باید با پشتیبانی تماس بگیرید.
+      </Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          Communications.phonecall(this.state.callCenter, true);
+        }}>
+        <View style={styles.buttonview1}>
+        <Text style={styles.reservebuttontext}>تماس با پشتیبانی</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
 </View>
   );
   }
@@ -1003,9 +1079,9 @@ class HouseDetail extends Component {
 
 const styles = StyleSheet.create({
   container: {
-          flex: 1,
-          backgroundColor: "white"
-        },
+    flex: 1,
+    backgroundColor: "white"
+  },
   container2: {
     flex:1,
     flexDirection:'column',
