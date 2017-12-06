@@ -471,6 +471,62 @@ class ReserveStatusScreen extends Component {
     return(res);
   }
 
+  renderNationalId () {
+    if (this.state.reserve.status === 'ISSUED' ||
+      this.state.reserve.status === 'IN_PROGRESS') {
+        return(
+          <View>
+            <View style={styles.cost}>
+              <Text style={styles.costtext}>شماره ملی مهمان: </Text>
+              <Text style={styles.resulttextbold}>
+                {this.state.reserve.guest_person.national_id}
+              </Text>
+            </View>
+            <View style={styles.divider}>
+            </View>
+          </View>
+        );
+    }
+    return null;
+  }
+
+  renderCallToGuest () {
+    var allowedStates = ['IN_PROGRESS', 'ISSUED'];
+    if (allowedStates.indexOf(this.state.reserve.status) >= 0) {
+      return(
+        <View>
+          <View style={styles.cost}>
+            <Text style={styles.costtext}> شماره تماس: </Text>
+            <Text style={styles.resulttextbold}>
+              {this.state.reserve.guest_person.cell_phone}
+            </Text>
+            <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
+            <Text style={styles.resulttextbold1}>  تماس</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderMessageToGuest () {
+    var allowedStates = ['IN_PROGRESS', 'ISSUED'];
+    if (allowedStates.indexOf(this.state.reserve.status) >= 0) {
+      return(
+        <View style={styles.cost}>
+          <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
+          <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
+            <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return null;
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -509,18 +565,11 @@ class ReserveStatusScreen extends Component {
               </View>
               <View style={styles.divider}>
               </View>
-              <View style={styles.cost}>
-                <Text style={styles.costtext}> شماره تماس: </Text>
-                <Text style={styles.resulttextbold}>
-                  {this.state.reserve.guest_person.cell_phone}
-                </Text>
-                <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
-                <Text style={styles.resulttextbold1}>  تماس</Text>
-                </TouchableOpacity>
 
-              </View>
-              <View style={styles.divider}>
-              </View>
+              {this.renderCallToGuest()}
+
+              {this.renderNationalId()}
+
               <View style={styles.cost}>
               <Text style={styles.costtext}>تاریخ ورود: </Text>
                 <Text style={styles.resulttextbold}>
@@ -572,10 +621,7 @@ class ReserveStatusScreen extends Component {
               <View style={styles.divider}>
               </View>
 
-              <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
-              <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
-                <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
-              </TouchableOpacity>
+              {this.renderMessageToGuest()}
           </View>
         </View>
       </ScrollView>

@@ -430,6 +430,43 @@ class TripStatusScreen extends Component {
     return(res);
   }
 
+  renderCallToHost () {
+    var allowedStates = ['IN_PROGRESS', 'ISSUED'];
+    if (allowedStates.indexOf(this.state.trip.status) >= 0) {
+      return(
+        <View>
+          <View style={styles.cost}>
+            <Text style={styles.costtext}> شماره تماس: </Text>
+            <Text style={styles.resulttextbold}>
+              {this.state.trip.room.owner.cell_phone}
+            </Text>
+            <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
+            <Text style={styles.resulttextbold1}>  تماس</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+    return null;
+  }
+
+  renderMessageToHost() {
+    var allowedStates = ['IN_PROGRESS', 'ISSUED'];
+    if (allowedStates.indexOf(this.state.trip.status) >= 0) {
+      return(
+        <View style={styles.cost}>
+          <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
+          <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
+            <Text style={styles.pmtohost}>  ارسال پیام </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return null;
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -470,18 +507,9 @@ class TripStatusScreen extends Component {
                   </View>
                   <View style={styles.divider}>
                   </View>
-                  <View style={styles.cost}>
-                    <Text style={styles.costtext}> شماره تماس: </Text>
-                    <Text style={styles.resulttextbold}>
-                      {this.state.trip.room.owner.cell_phone}
-                    </Text>
-                    <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
-                    <Text style={styles.resulttextbold1}>  تماس</Text>
-                    </TouchableOpacity>
 
-                  </View>
-                  <View style={styles.divider}>
-                  </View>
+                  {this.renderCallToHost()}
+
                   <View style={styles.cost}>
                   <Text style={styles.costtext}>تاریخ ورود: </Text>
                     <Text style={styles.resulttextbold}>
@@ -533,12 +561,7 @@ class TripStatusScreen extends Component {
                   <View style={styles.divider}>
                   </View>
 
-                  <View style={styles.cost}>
-                    <Text style={styles.costtext}>پیرامون سفر خود از میزبان سوالی دارید؟</Text>
-                    <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
-                      <Text style={styles.pmtohost}>  ارسال پیام </Text>
-                    </TouchableOpacity>
-                  </View>
+                  {this.renderMessageToHost()}
                   <View style={{ marginBottom:25,}}></View>
 
                   {this.renderAccRejButton()}
