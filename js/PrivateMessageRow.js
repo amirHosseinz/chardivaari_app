@@ -67,15 +67,26 @@ class PrivateMessageRow extends Component {
   }
 
   renderProfilePicture () {
-    if (this.props.message.sender.profile_picture != null) {
-      return(
-        <View style={styles.avatar}>
-          <Image source={{
-            uri: productionURL + this.props.message.sender.profile_picture,
-          }}
-          style={styles.avatarimg}/>
-        </View>
-      );
+    if ((this.props.message.sender.profile_picture != null) &&
+      (this.props.message.recipient.username === this.state.username)) {
+        return(
+          <View style={styles.avatar}>
+            <Image source={{
+              uri: productionURL + this.props.message.sender.profile_picture,
+            }}
+            style={styles.avatarimg} />
+          </View>
+        );
+    } if ((this.props.message.recipient.profile_picture != null) &&
+      (this.props.message.sender.username === this.state.username)) {
+        return(
+          <View style={styles.avatar}>
+            <Image source={{
+              uri: productionURL + this.props.message.recipient.profile_picture,
+            }}
+            style={styles.avatarimg} />
+          </View>
+        );
     } else {
       return(
         <View style={styles.avatar}>
