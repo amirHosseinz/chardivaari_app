@@ -1058,9 +1058,9 @@ class HouseDetail extends Component {
    </TouchableOpacity>
     <View style={styles.popuptextbox}>
       <Text style={styles.popuptext}>
-        برای تغییر اطلاعات باید با پشتیبانی تماس بگیرید.
+برای ویرایش اطلاعات این خانه لطفا با واحد پشتیبانی تریپین تماس بگیرید.
       </Text>
-        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+        <TouchableOpacity style={styles.buttontouch2} onPress={() => {
           Communications.phonecall(this.state.callCenter, true);
         }}>
         <View style={styles.buttonview1}>
@@ -1284,6 +1284,16 @@ const styles = StyleSheet.create({
     borderWidth : 2,
     height:48,
     width: 148,
+    flexDirection: "row-reverse",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  buttontouch2: {
+    borderColor:"#ffffff",
+    borderRadius: 50,
+    borderWidth : 2,
+    height:48,
+    width: 188,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
