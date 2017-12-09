@@ -411,87 +411,24 @@ class RequestStatus extends Component {
   // }
 
   onContactToUserPress = () => {
-    if (this.state.role === 'guest') {
-      fetch(productionURL + '/api/message/compose/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token,
-        },
-        body: JSON.stringify({
-          sender: this.state.request.guest_person.username,
-          recipient: this.state.request.room.owner.username,
-          subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
-          room_id: this.state.request.room.id,
-          body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
-        }),
-      })
-      .then((response) => this.onResponseRecieved(response))
-      .catch((error) => {
-        // network error
-        // console.log(error);
-        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
-      });
-    } else if (this.state.role === 'host') {
-      fetch(productionURL + '/api/message/compose/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token,
-        },
-        body: JSON.stringify({
-          sender: this.state.request.guest_person.username,
-          recipient: this.state.request.room.owner.username,
-          subject: 'رزرو خانه‌ی ' + this.state.request.room.title,
-          room_id: this.state.request.room.id,
-          body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.request.room.title,
-        }),
-      })
-      .then((response) => this.onResponseRecieved(response))
-      .catch((error) => {
-        // network error
-        // console.log(error);
-        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
-      });
-    }
-  }
-
-  onResponseRecieved (response) {
     if (this.state.role === 'host') {
-      if (response.status === 200) {
-        body = JSON.parse(response._bodyText);
-        this.props.navigation.navigate(
-          'conversationScreen',
-          {
-            party: this.state.request.guest_person,
-            messageId: body.message_id,
-            username: this.state.request.room.owner.username,
-            room: this.state.request.room,
-          }
-        );
-      } else {
-        // TODO
-        // error handle
-        Alert.alert('خطایی رخ داده.');
-      }
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.request.guest_person,
+          username: this.state.request.room.owner.username,
+          room: this.state.request.room,
+        }
+      );
     } else if (this.state.role === 'guest') {
-      if (response.status === 200) {
-        body = JSON.parse(response._bodyText);
-        this.props.navigation.navigate(
-          'conversationScreen',
-          {
-            party: this.state.request.room.owner,
-            messageId: body.message_id,
-            username: this.state.request.guest_person.username,
-            room: this.state.request.room,
-          }
-        );
-      } else {
-        // TODO
-        // error handle
-      }
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.request.room.owner,
+          username: this.state.request.guest_person.username,
+          room: this.state.request.room,
+        }
+      );
     }
   }
 

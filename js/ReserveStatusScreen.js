@@ -98,44 +98,14 @@ class ReserveStatusScreen extends Component {
   }
 
   onMessageToUserButtonPress () {
-    fetch(productionURL + '/api/message/compose/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        sender: this.state.username,
-        recipient: this.state.reserve.guest_person.username,
-        subject: 'رزرو خانه‌ی ' + this.state.reserve.room.title,
-        room_id: this.state.reserve.room.id,
-        body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.reserve.room.title,
-      }),
-    })
-    .then((response) => this.onResponseRecieved(response))
-    .catch((error) => {
-      // network error
-      // console.error(error);
-      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
-    });
-  }
-
-  onResponseRecieved (response) {
-    if (response.status === 200) {
-      body = JSON.parse(response._bodyText);
-      this.props.navigation.navigate(
-        'conversationScreen',
-        {
-          party: this.state.reserve.guest_person,
-          messageId: body.message_id,
-          username: this.state.username,
-          room: this.state.reserve.room,
-        }
-      );
-    } else {
-      Alert.alert('خطایی رخ داده.');
-    }
+    this.props.navigation.navigate(
+      'conversationScreen',
+      {
+        party: this.state.reserve.guest_person,
+        username: this.state.username,
+        room: this.state.reserve.room,
+      }
+    );
   }
 
   onCancelReservePress () {

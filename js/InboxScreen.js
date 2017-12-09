@@ -92,7 +92,7 @@ class InboxScreen extends Component {
     //tabStyle={styles.tabStyle}
     pressColor={'#636877'}
     style={styles.styletab}
-      indicatorStyle={{backgroundColor:'white',height:2,}}
+    indicatorStyle={{backgroundColor:'white',height:2,}}
     renderBadge={this.onRenderBadge}
     {...props}
     />;

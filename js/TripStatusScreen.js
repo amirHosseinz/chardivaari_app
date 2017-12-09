@@ -96,53 +96,26 @@ class TripStatusScreen extends Component {
   }
 
   onMessageToUserButtonPress () {
-    fetch(productionURL + '/api/message/compose/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        sender: this.state.username,
-        recipient: this.state.trip.room.owner.username,
-        subject: 'رزرو خانه‌ی ' + this.state.trip.room.title,
-        room_id: this.state.trip.room.id,
-        body: 'صحبت درباره‌ی رزرو خانه‌ی ' + this.state.trip.room.title,
-      }),
-    })
-    .then((response) => this.onResponseRecieved(response))
-    .catch((error) => {
-      // network error
-      // console.error(error);
-      Alert.alert('خطای شبکه، لطفا از اتصال به اینترنت مطمئن شوید.');
-    });
+    this.props.navigation.navigate(
+      'conversationScreen',
+      {
+        party: this.state.trip.room.owner,
+        username: this.state.username,
+        room: this.state.trip.room,
+      }
+    );
   }
+
   openDeliverTerms = () => {
     this.setState({
       deliverTermsModalVisible: true,
     });
   }
+
   closeDeliverTerms = () => {
     this.setState({
       deliverTermsModalVisible: false,
     });
-  }
-  onResponseRecieved (response) {
-    body = JSON.parse(response._bodyText);
-    if (response.status === 200) {
-      this.props.navigation.navigate(
-        'conversationScreen',
-        {
-          party: this.state.trip.room.owner,
-          messageId: body.message_id,
-          username: this.state.username,
-          room: this.state.trip.room,
-        }
-      );
-    } else {
-      Alert.alert('خطایی رخ داده.');
-    }
   }
 
   onCancelTripPress () {

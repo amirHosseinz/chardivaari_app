@@ -185,43 +185,14 @@ class HouseDetail extends Component {
      label: this.state.user.username + ' to ' + this.state.room.owner.username,
      value: this.state.room.id,
    });
-   fetch(productionURL + '/api/message/compose/', {
-     method: 'POST',
-     headers: {
-       'Accept': 'application/json',
-       'Content-Type': 'application/json',
-       'Authorization': 'Token ' + this.state.token,
-     },
-     body: JSON.stringify({
-       sender: this.state.user.username,
-       recipient: this.state.room.owner.username,
-       subject: this.state.room.title,
-       room_id: this.state.room.id,
-       body: ' درخواست صحبت درباره‌ی خانه‌ی ' + this.state.room.title,
-     }),
-   })
-   .then((response) => this.onResponseRecieved(response))
-   .catch((error) => {
-     // network error
-     Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
-   });
- }
-
- onResponseRecieved (response) {
-   if (response.status === 200) {
-     body = JSON.parse(response._bodyText);
-     this.props.navigation.navigate(
-       'conversationScreen',
-       {
-         party: this.state.room.owner,
-         messageId: body.message_id,
-         username: this.state.user.username,
-         room: this.state.room,
-       }
-     );
-   } else {
-     Alert.alert('خطایی رخ داده.');
-   }
+   this.props.navigation.navigate(
+     'conversationScreen',
+     {
+       party: this.state.room.owner,
+       username: this.state.user.username,
+       room: this.state.room,
+     }
+   );
  }
 
  resetNavigation (targetRoute) {

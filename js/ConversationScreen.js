@@ -155,7 +155,11 @@ class ConversationScreen extends Component {
   }
 
   onSend (messages = []) {
-    this.replyMessage(messages[0]);
+    if (this.state.lastMessageId != null) {
+      this.replyMessage(messages[0]);
+    } else {
+      this.composeMessage(messages[0]);
+    }
     this.setState((previousState) => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));
@@ -188,6 +192,42 @@ class ConversationScreen extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.updateFeed(body.message_thread);
+    } else {
+      // TODO
+      // an error handler
+    }
+  }
+
+  composeMessage (message) {
+    fetch(productionURL + '/api/message/compose/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        body: message.text,
+        recipient: this.state.party.username,
+        sender: this.state.username,
+        room_id: this.state.room.id,
+        subject: this.state.room.title,
+      }),
+    })
+    .then((response) => this.onComposeMessageResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
+    });
+  }
+
+  onComposeMessageResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      this.setState({
+        lastMessageId: body.message_id,
+      }, () => {
+        this.fetchConversation();
+      });
     } else {
       // TODO
       // an error handler
