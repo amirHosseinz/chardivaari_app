@@ -592,6 +592,8 @@ class ReserveStatusScreen extends Component {
               </View>
 
               {this.renderMessageToGuest()}
+              <View style={{ marginBottom:25,}}></View>
+              {this.renderAccRejButton()}
           </View>
         </View>
       </ScrollView>
@@ -607,7 +609,6 @@ class ReserveStatusScreen extends Component {
       </Modal>
     </View>
 
-        {this.renderAccRejButton()}
         </View>
       </View>
     );
