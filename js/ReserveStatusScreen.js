@@ -486,7 +486,7 @@ class ReserveStatusScreen extends Component {
     var allowedStates = ['IN_PROGRESS', 'ISSUED'];
     if (allowedStates.indexOf(this.state.reserve.status) >= 0) {
       return(
-        <View style={styles.cost}>
+        <View style={styles.cost3}>
           <Text style={styles.costtext}>پیرامون سفر خود از میهمان سوالی دارید؟</Text>
           <TouchableOpacity onPress={this.onMessageToUserButtonPress.bind(this)}>
             <Text style={styles.pmtohost}>ارسال پیام به میهمان</Text>
