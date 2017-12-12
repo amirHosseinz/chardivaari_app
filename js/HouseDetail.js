@@ -688,6 +688,7 @@ class HouseDetail extends Component {
 
   resetProfilePage = () => {
     CacheStore.set('GuestScreen_tabName', 'profile');
+    CacheStore.set('openEditProfile', true);
     this.props.navigation.navigate('guestScreen');
   }
 

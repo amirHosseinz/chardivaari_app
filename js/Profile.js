@@ -56,6 +56,12 @@ class Profile extends Component {
         });
       }
     });
+    CacheStore.get('openEditProfile').then((value) => {
+      if (value === true) {
+        CacheStore.set('openEditProfile', false);
+        this._onEditProfilePress();
+      }
+    });
   }
 
   setToken (token) {
