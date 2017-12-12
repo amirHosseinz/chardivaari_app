@@ -14,6 +14,7 @@ import {
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import InputScrollView from 'react-native-input-scroll-view';
 
 import { productionURL } from './data';
 
@@ -186,6 +187,7 @@ class EditProfile extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
+          <InputScrollView>
             <Text style={styles.upfield}>نام</Text>
               <TextInput
                 style={styles.textInput}
@@ -234,7 +236,9 @@ class EditProfile extends Component {
                 value={this.state.nationalID}
                 onChangeText={this._onChangeNationalID.bind(this)}
                 underlineColorAndroid={'transparent'} />
+            </InputScrollView>
           </View>
+
           <View style={styles.profilepic}>
               <TouchableOpacity
                 style={styles.buttontouch}
