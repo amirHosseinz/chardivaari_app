@@ -5,34 +5,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import MainScreen from './MainScreen';
-// import LoginSignupTabView from './LoginSignupTabView';
 import Splash from './Splash';
 import Login from './Login';
-// import SearchRoom from './SearchRoom';
-// import VerificationScreen from './LoginVerificationScreen';
 import LoginVerify from './LoginVerify';
 import LoginGetName from './LoginGetName';
-// import SearchResultsTabView from './SearchResultsTabView';
-// import RoomView from './RoomView';
 import HostScreen from './HostScreen';
 import GuestScreen from './GuestScreen';
-
 // import AddListing from './AddListing';
-
-// import RequestScreen from './RequestScreen';
 import RequestStatus from './RequestStatus';
-// import RequestBook from './RequestBook';
 import RequestBookScreen from './RequestBookScreen';
-
 import ConversationScreen from './ConversationScreen';
-// import EditListingScreen from './EditListingScreen';
 // import EditHouse from './EditHouse';
-// import BookedRequestScreen from './BookedRequestScreen';
 import ReserveStatusScreen from './ReserveStatusScreen';
-// import TripDetailScreen from './TripDetailScreen';
 import TripStatusScreen from './TripStatusScreen';
-
 import HouseDetail from './HouseDetail';
 
 const Routes = ({
