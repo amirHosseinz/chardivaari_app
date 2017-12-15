@@ -39,7 +39,7 @@ class AboutUs extends Component {
         <Image style={styles.logostyle} source={require('./img/aboutlogo.png')}/>
         <Text style={{fontSize:26,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#12b2ce'}}>تریپین</Text>
         <Text style={{fontSize:14,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
-          ویرایش : 0 . 1 . 2
+          ویرایش : 2 . 1 . 0
         </Text>
         <Text style={styles.aboutustext}>
 تریپین در سال 1396 کار خود را آغاز نموده است.

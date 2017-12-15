@@ -12,7 +12,7 @@ import {
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 class PrivateMessageRow extends Component {
   constructor (props) {

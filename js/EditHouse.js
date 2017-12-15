@@ -1,3 +1,5 @@
+// this file is not used in project
+
 import React, {Component} from 'react';
 import {
   Alert,
