@@ -633,22 +633,21 @@ const styles = StyleSheet.create({
   header:{
     justifyContent:'center',
     alignItems:'center',
-
   },
   h1:{
     fontSize:24,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#3e3e3e',
     marginTop:16,
   },
   h01:{
     fontSize:20,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#ffffff',
   },
   h2:{
     fontSize:18,
-    fontFamily:'Vazir-Thin',
+    fontFamily:'IRANSansMobileFaNum-Thin',
     color:'#3e3e3e',
     marginBottom:30,
   },
@@ -658,17 +657,17 @@ const styles = StyleSheet.create({
     marginRight:36,
   },
   costtext:{
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#3e3e3e',
   },
   resulttextbold:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#3e3e3e',
   },
   resulttextbold1:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#00a8a6',
   },
@@ -680,7 +679,7 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
   pmtohost:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
     color:'#00a8a6',
     marginBottom:25,
@@ -696,7 +695,7 @@ const styles = StyleSheet.create({
   },
   reservebuttontext: {
     fontSize: 17,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,

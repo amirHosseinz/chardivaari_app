@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     color: 'black',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
   },
   profileImageStyle: {
     borderRadius: 25,
@@ -295,12 +295,12 @@ const styles = StyleSheet.create({
     height: 50,
   },
   headerTextStyle: {
-    fontFamily: "Vazir-Light",
+    fontFamily: "IRANSansMobileFaNum-Light",
     fontSize:14,
   },
   showhouse:{
     fontSize:14,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:'#ffffff',
     marginRight:5,
   },
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   headerlastname:{
     fontSize:18,
     color:'#ffffff',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
   },
   backbottomlastname:{
     flexDirection:'row-reverse',

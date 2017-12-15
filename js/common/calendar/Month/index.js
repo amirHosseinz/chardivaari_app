@@ -34,51 +34,51 @@ export default class Month extends Component {
 
     'en': [
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>فروردین</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>اردیبهشت</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>خرداد</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>تیر</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>مرداد</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>شهریور</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>مهر</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>آبان</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>آذر</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>دی</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>بهمن</Text>,
       <Text style={{
-        fontFamily: "Vazir",
+        fontFamily: "IRANSansMobileFaNum",
         fontSize: 17,
       }}>اسفند</Text>,
     ]

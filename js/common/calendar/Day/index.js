@@ -62,7 +62,7 @@ export default class Day extends Component {
       color
     } = this.props;
     let text = date ? <Text style={{
-      fontFamily: "Vazir",
+      fontFamily: "IRANSansMobileFaNum",
     }}>{date.jDate()}</Text> : '';
     let mainColor = {color: color.mainColor};
     let subColor = {color: color.subColor};

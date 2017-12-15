@@ -15,8 +15,6 @@ import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
 
-// import InboxRow from './InboxRow';
-// import InboxHeader from './InboxHeader';
 import PrivateMessageRow from './PrivateMessageRow';
 import { productionURL } from './data';
 
@@ -182,7 +180,7 @@ const styles = StyleSheet.create({
   },
   notlogintext:{
     color:'#616161',
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:18,
     textAlign:'center',
     marginTop:0,
@@ -190,7 +188,7 @@ const styles = StyleSheet.create({
   },
   notlogintext1:{
     color:'#f56e4e',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,
     textAlign:'center',
     marginTop:0,

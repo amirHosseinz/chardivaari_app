@@ -876,7 +876,7 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:20,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#3e3e3e',
     marginTop:16,
     marginBottom:20,
@@ -890,7 +890,7 @@ const styles = StyleSheet.create({
   },
   addtext:{
     color:'#00a9a6',
-    fontFamily: 'Vazir-Medium',
+    fontFamily: 'IRANSansMobileFaNum-Medium',
     fontSize:18,
     marginRight:5,
   },
@@ -899,7 +899,7 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse',
   },
   resulttext:{
-    fontFamily: 'Vazir-Light',
+    fontFamily: 'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#000000',
   },
@@ -923,7 +923,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   costtext:{
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#000000',
   },
@@ -936,12 +936,12 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse'
   },
   distext:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#f56e4e',
   },
   disdetatiltext:{
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:12,
     color:'#f56e4e',
   },
@@ -974,20 +974,20 @@ const styles = StyleSheet.create({
   },
   pricetext: {
     fontSize: 18,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#3e3e3e",
     justifyContent: "center",
     alignItems: "center",
   },
   pernighttext: {
     fontSize: 20,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#787878",
     justifyContent:"flex-end",
   },
   reservebuttontext: {
     fontSize: 16,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
@@ -1053,7 +1053,7 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
   },
   checkcodetext:{
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#00a8a6',
   },
@@ -1065,17 +1065,17 @@ const styles = StyleSheet.create({
     marginTop:14,
   },
   resulttextbold:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#3e3e3e',
   },
   costtextfinal:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#f56e4e',
   },
   pmtohost:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
     color:'#00a8a6',
   },
@@ -1097,7 +1097,7 @@ const styles = StyleSheet.create({
   },
   h01:{
     fontSize:20,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#ffffff',
   },
   main0:{
@@ -1108,7 +1108,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width-36,
   },
   resulttext2:{
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     fontSize:14,
     color:"#f56e4e"
   },

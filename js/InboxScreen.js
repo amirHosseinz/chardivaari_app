@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#0ca6c1',
   },
   labelstyle: {
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize: 18,
     marginBottom:3,
   },
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   textbadge:{
     color:'#0ca6c1',
     fontSize:12,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
   },
 });
 

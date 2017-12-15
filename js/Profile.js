@@ -404,13 +404,13 @@ const styles = StyleSheet.create({
   },
   usertext:{
     fontSize: 21,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#4f4f4f',
     width:Dimensions.get('window').width*(2/3)-30,
   },
   editprofile:{
     fontSize: 13,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:'#0ca6c0',
   },
   divider:{
@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
   },
   profileitemtext:{
     fontSize: 16,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:'#4f4f4f',
     marginRight:10,
     marginTop:0,
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
   },
   profileitemtexth2g:{
     fontSize: 18,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:'#f56e4e',
     marginRight:10,
     marginTop:4,

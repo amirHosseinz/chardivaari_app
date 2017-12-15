@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
   },
   editpic: {
     fontSize: 14,
-    fontFamily: 'Vazir-Medium',
+    fontFamily: 'IRANSansMobileFaNum-Medium',
     color:'#4f4f4f',
   },
   profilepic: {
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     height: 48,
     width:Dimensions.get('window').width-50 ,
     fontSize: 16,
-    fontFamily: 'Vazir',
+    fontFamily: 'IRANSansMobileFaNum',
     textAlign: 'right',
     color: '#4f4f4f',
     marginBottom:12,
@@ -291,14 +291,14 @@ const styles = StyleSheet.create({
     borderBottomColor:'#acacac',
   },
   upfield: {
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize: 14,
     color:'#c2c2c2',
     marginTop:11,
   },
   reservebuttontext: {
     fontSize: 20,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
   },
   h01:{
     fontSize:16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
   },
 });

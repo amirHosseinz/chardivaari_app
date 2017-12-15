@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
   },
   errorTextStyle: {
     fontSize: 16,
-    fontFamily: "Vazir",
+    fontFamily: "IRANSansMobileFaNum",
     color: "red",
   },
 });

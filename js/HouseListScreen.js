@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   headertext:{
     color:'#ffffff',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
   },
   card1:{
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   housetitle:{
     fontSize:16,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color:"#3e3e3e"
   },
   cards: {
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
   detailtexts:{
     fontSize:12,
-    fontFamily:"Vazir-Light",
+    fontFamily:"IRANSansMobileFaNum-Light",
     color:"#3e3e3e",
     marginLeft:5,
   },

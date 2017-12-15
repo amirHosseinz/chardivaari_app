@@ -195,7 +195,7 @@ class Splash extends Component {
           <TouchableOpacity onPress={() => {
             this.onRetryButtonPress();
           }}>
-          <Text style={{fontSize:20,fontFamily:'Vazir-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
+          <Text style={{fontSize:20,fontFamily:'IRANSansMobileFaNum-Medium',color:'#ffffff',textAlign:'center',}}>تلاش مجدد</Text>
           </TouchableOpacity>
         </View>
       );
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
   },
   splashtext:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:34,
     color:'#ffffff',
     textAlign:'center',

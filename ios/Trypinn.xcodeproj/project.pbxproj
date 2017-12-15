@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* trypinnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* trypinnTests.m */; };
+		03F0074F640447AE9A998193 /* IRANSansMobileFaNum-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21B37D1109CA4185AE0E1347 /* IRANSansMobileFaNum-Medium.ttf */; };
 		0FD91634A374438BA4B8867B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF9278C7E304FAF8B424A9A /* libAirMaps.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -23,6 +24,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		20F66D25B61E4EE58769E9FD /* IRANSansMobileFaNum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57A8A456BF4903A4C06A95 /* IRANSansMobileFaNum.ttf */; };
 		21FA1B2CCE474CA7B23E4136 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73612784252D4B4CA4C5C929 /* Foundation.ttf */; };
 		26B53B483F794699BE428929 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A42C3FE3A4141C686C280AF /* libsqlite3.0.tbd */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -37,17 +39,14 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* trypinnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* trypinnTests.m */; };
-		31002287824F4301817C0673 /* Iransans_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CC00075F7D34FC5BD3F8CFC /* Iransans_Bold.ttf */; };
-		377B8C42A85142B3AD0A0F54 /* IRANSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37BD1A0BDFD4E1CBA967FF4 /* IRANSans.ttf */; };
+		3C5E1BA029DF4AC3AACE1EF1 /* IRANSansMobileFaNum-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 795ECDD0273849F49FE0C244 /* IRANSansMobileFaNum-Bold.ttf */; };
 		3CC2584A1A414C929390A5F7 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA992DDC36424F08A646E28E /* libRCTGoogleAnalyticsBridge.a */; };
-		3FA77EBC51EB4662AAE36868 /* Vazir-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 335A025B56064D36ACA20CD8 /* Vazir-Light.ttf */; };
-		4832322C4823499C850CDDB3 /* Vazir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44883363696341B4802D935B /* Vazir.ttf */; };
 		4CD0338EBFAC46BB92C36863 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7B52EBBA24CC8AA8C213B /* SystemConfiguration.framework */; };
+		4F6337CD7E8B4A72BEB31458 /* IRANSansMobileFaNum-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C634DF16757D4A5EAF8BBE0C /* IRANSansMobileFaNum-Black.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		6AC75C7C9E1242C1A2D5368C /* Vazir-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AADC19BCE084632947809AA /* Vazir-Medium.ttf */; };
+		721BA7D863EF4297B1B999BC /* IRANSansMobileFaNum-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 352A69FBC80F4FEE92A7B569 /* IRANSansMobileFaNum-UltraLight.ttf */; };
+		7DA6EF761FE2AF0E00364C25 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		8416DA6B8E064F778C29C124 /* Iransans_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21973F1F018C4B10AEE11F5E /* Iransans_Medium.ttf */; };
-		85264216F4014880995DB30F /* Iransans_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C67C889D51454EA2BDD2CDBD /* Iransans_Light.ttf */; };
 		87D3275047AA47E08021DD29 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10C7946453334F1D80EDA5DB /* EvilIcons.ttf */; };
 		9B11121A9EF64E84B1E202A2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4828D062A8924F60BB56C6A8 /* MaterialIcons.ttf */; };
 		9C55980DCBD74F31A689F713 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C29B24194BA64228996C5D9D /* Entypo.ttf */; };
@@ -55,6 +54,7 @@
 		A0FB2D08EB134235A289E6C7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED7651723E44486BC41BA91 /* libRNImagePicker.a */; };
 		A6E2397B06104308AA5450D5 /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1905564666740F380E787D3 /* libRNExitApp.a */; };
 		A9F57300C4CF4306BA71EC98 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5A7CE522CC149229036AD09 /* Zocial.ttf */; };
+		AC948F52C31746CDBC087B0E /* IRANSansMobileFaNum-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC69B3E0FF3F453CBC30F5BF /* IRANSansMobileFaNum-Light.ttf */; };
 		AFA3EC2C83AF46639F0A69AD /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B440B06D98704D8E9B32E4CA /* MaterialCommunityIcons.ttf */; };
 		B1D35704E2D24DB288027ABD /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6443F8C686634853932DE53A /* FontAwesome.ttf */; };
 		C5471097042E4B819AD339D2 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1382C784AE1491192A98E59 /* libRNVectorIcons.a */; };
@@ -340,10 +340,15 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = trypinn/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = trypinn/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1DC8C0B622B449DB8B77A4C3 /* IRANSansMobile(FaNum)_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Light.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Light.ttf"; sourceTree = "<group>"; };
 		21973F1F018C4B10AEE11F5E /* Iransans_Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Iransans_Medium.ttf; path = ../assets/fonts/Iransans_Medium.ttf; sourceTree = "<group>"; };
+		21B37D1109CA4185AE0E1347 /* IRANSansMobileFaNum-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Medium.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Medium.ttf"; sourceTree = "<group>"; };
+		2A2A2BD362FB4AA3AB135851 /* IRANSansMobile(FaNum).ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum).ttf"; path = "../assets/fonts/IRANSansMobile(FaNum).ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* trypinn-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "trypinn-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* trypinn-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "trypinn-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		335A025B56064D36ACA20CD8 /* Vazir-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Vazir-Light.ttf"; path = "../assets/fonts/Vazir-Light.ttf"; sourceTree = "<group>"; };
+		352A69FBC80F4FEE92A7B569 /* IRANSansMobileFaNum-UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-UltraLight.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-UltraLight.ttf"; sourceTree = "<group>"; };
+		3D57A8A456BF4903A4C06A95 /* IRANSansMobileFaNum.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSansMobileFaNum.ttf; path = ../assets/fonts/IRANSansMobileFaNum.ttf; sourceTree = "<group>"; };
 		3EE7B52EBBA24CC8AA8C213B /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44883363696341B4802D935B /* Vazir.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Vazir.ttf; path = ../assets/fonts/Vazir.ttf; sourceTree = "<group>"; };
 		4828D062A8924F60BB56C6A8 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -351,9 +356,10 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6443F8C686634853932DE53A /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		6A42C3FE3A4141C686C280AF /* libsqlite3.0.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		6AADC19BCE084632947809AA /* Vazir-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Vazir-Medium.ttf"; path = "../assets/fonts/Vazir-Medium.ttf"; sourceTree = "<group>"; };
+		6D7EF45FE7A746E6BEF2692E /* Iransans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Iransans.ttf; path = ../assets/fonts/Iransans.ttf; sourceTree = "<group>"; };
 		73612784252D4B4CA4C5C929 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		795ECDD0273849F49FE0C244 /* IRANSansMobileFaNum-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Bold.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Bold.ttf"; sourceTree = "<group>"; };
 		7B0B7E1E6DD742DEA98ACE67 /* CoreData.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7ED7651723E44486BC41BA91 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -362,18 +368,25 @@
 		A1905564666740F380E787D3 /* libRNExitApp.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNExitApp.a; sourceTree = "<group>"; };
 		AA992DDC36424F08A646E28E /* libRCTGoogleAnalyticsBridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTGoogleAnalyticsBridge.a; sourceTree = "<group>"; };
 		ABD6A5FB79D246FAA62C7710 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		B2DFF628993D4387B7CF7543 /* Vazir-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Vazir-Medium.ttf"; path = "../assets/fonts/Vazir-Medium.ttf"; sourceTree = "<group>"; };
 		B440B06D98704D8E9B32E4CA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		B637D75300E44DE280840407 /* IRANSansMobile(FaNum)_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Bold.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Bold.ttf"; sourceTree = "<group>"; };
 		C29B24194BA64228996C5D9D /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		C37BD1A0BDFD4E1CBA967FF4 /* IRANSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSans.ttf; path = ../assets/fonts/IRANSans.ttf; sourceTree = "<group>"; };
 		C5A7CE522CC149229036AD09 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C634DF16757D4A5EAF8BBE0C /* IRANSansMobileFaNum-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Black.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Black.ttf"; sourceTree = "<group>"; };
 		C67C889D51454EA2BDD2CDBD /* Iransans_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Iransans_Light.ttf; path = ../assets/fonts/Iransans_Light.ttf; sourceTree = "<group>"; };
 		C702CCCF46B640548EE39998 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		D0108296E42948169F9283BC /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		D1FA8468A5B045E99C94A0C6 /* IRANSansMobile(FaNum)_UltraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_UltraLight.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_UltraLight.ttf"; sourceTree = "<group>"; };
+		D6885989CD5D43ACB97CF589 /* IRANSansMobile(FaNum)_Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Black.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Black.ttf"; sourceTree = "<group>"; };
 		D80AF7DE5DA0453AB9D2F615 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D95306448DE64F58AB96C003 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		DA50D7A7CE8246EBA411CA86 /* RCTGoogleAnalyticsBridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTGoogleAnalyticsBridge.xcodeproj; path = "../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/RCTGoogleAnalyticsBridge.xcodeproj"; sourceTree = "<group>"; };
 		E52EBE9097F1450A8B9EB3D5 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		E7B6264D9A95439CBD51CFD8 /* IRANSansMobile(FaNum)_Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Medium.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Medium.ttf"; sourceTree = "<group>"; };
 		F1382C784AE1491192A98E59 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		FC69B3E0FF3F453CBC30F5BF /* IRANSansMobileFaNum-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Light.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Light.ttf"; sourceTree = "<group>"; };
 		FFF169035A9E4F67A5EB4C7E /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -682,7 +695,6 @@
 				21973F1F018C4B10AEE11F5E /* Iransans_Medium.ttf */,
 				C37BD1A0BDFD4E1CBA967FF4 /* IRANSans.ttf */,
 				335A025B56064D36ACA20CD8 /* Vazir-Light.ttf */,
-				6AADC19BCE084632947809AA /* Vazir-Medium.ttf */,
 				44883363696341B4802D935B /* Vazir.ttf */,
 				C29B24194BA64228996C5D9D /* Entypo.ttf */,
 				10C7946453334F1D80EDA5DB /* EvilIcons.ttf */,
@@ -694,6 +706,20 @@
 				E52EBE9097F1450A8B9EB3D5 /* Octicons.ttf */,
 				D95306448DE64F58AB96C003 /* SimpleLineIcons.ttf */,
 				C5A7CE522CC149229036AD09 /* Zocial.ttf */,
+				6D7EF45FE7A746E6BEF2692E /* Iransans.ttf */,
+				B2DFF628993D4387B7CF7543 /* Vazir-Medium.ttf */,
+				D6885989CD5D43ACB97CF589 /* IRANSansMobile(FaNum)_Black.ttf */,
+				B637D75300E44DE280840407 /* IRANSansMobile(FaNum)_Bold.ttf */,
+				1DC8C0B622B449DB8B77A4C3 /* IRANSansMobile(FaNum)_Light.ttf */,
+				E7B6264D9A95439CBD51CFD8 /* IRANSansMobile(FaNum)_Medium.ttf */,
+				D1FA8468A5B045E99C94A0C6 /* IRANSansMobile(FaNum)_UltraLight.ttf */,
+				2A2A2BD362FB4AA3AB135851 /* IRANSansMobile(FaNum).ttf */,
+				C634DF16757D4A5EAF8BBE0C /* IRANSansMobileFaNum-Black.ttf */,
+				795ECDD0273849F49FE0C244 /* IRANSansMobileFaNum-Bold.ttf */,
+				FC69B3E0FF3F453CBC30F5BF /* IRANSansMobileFaNum-Light.ttf */,
+				21B37D1109CA4185AE0E1347 /* IRANSansMobileFaNum-Medium.ttf */,
+				352A69FBC80F4FEE92A7B569 /* IRANSansMobileFaNum-UltraLight.ttf */,
+				3D57A8A456BF4903A4C06A95 /* IRANSansMobileFaNum.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1139,14 +1165,8 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				31002287824F4301817C0673 /* Iransans_Bold.ttf in Resources */,
-				85264216F4014880995DB30F /* Iransans_Light.ttf in Resources */,
-				8416DA6B8E064F778C29C124 /* Iransans_Medium.ttf in Resources */,
-				377B8C42A85142B3AD0A0F54 /* IRANSans.ttf in Resources */,
-				3FA77EBC51EB4662AAE36868 /* Vazir-Light.ttf in Resources */,
-				6AC75C7C9E1242C1A2D5368C /* Vazir-Medium.ttf in Resources */,
-				4832322C4823499C850CDDB3 /* Vazir.ttf in Resources */,
 				9C55980DCBD74F31A689F713 /* Entypo.ttf in Resources */,
+				7DA6EF761FE2AF0E00364C25 /* Info.plist in Resources */,
 				87D3275047AA47E08021DD29 /* EvilIcons.ttf in Resources */,
 				B1D35704E2D24DB288027ABD /* FontAwesome.ttf in Resources */,
 				21FA1B2CCE474CA7B23E4136 /* Foundation.ttf in Resources */,
@@ -1156,6 +1176,12 @@
 				CDCFBB963AE940BDBD813CAA /* Octicons.ttf in Resources */,
 				A03C2FAE50F24BCFA855D08E /* SimpleLineIcons.ttf in Resources */,
 				A9F57300C4CF4306BA71EC98 /* Zocial.ttf in Resources */,
+				4F6337CD7E8B4A72BEB31458 /* IRANSansMobileFaNum-Black.ttf in Resources */,
+				3C5E1BA029DF4AC3AACE1EF1 /* IRANSansMobileFaNum-Bold.ttf in Resources */,
+				AC948F52C31746CDBC087B0E /* IRANSansMobileFaNum-Light.ttf in Resources */,
+				03F0074F640447AE9A998193 /* IRANSansMobileFaNum-Medium.ttf in Resources */,
+				721BA7D863EF4297B1B999BC /* IRANSansMobileFaNum-UltraLight.ttf in Resources */,
+				20F66D25B61E4EE58769E9FD /* IRANSansMobileFaNum.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -160,8 +160,8 @@ class HostScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'profile'}
           title='میزبان تریپین'
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:0}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:0}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="dashboard" />}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="dashboard" />}
           onPress={() => this.setState({ selectedTab: 'profile' }, this.updateStatusBar)}>
@@ -170,8 +170,8 @@ class HostScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'inboxScreen'}
           title='پیام‌ها'
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1,}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
           renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
           onPress={() => this.setState({ selectedTab: 'inboxScreen' }, this.updateStatusBar)}
@@ -196,8 +196,8 @@ class HostScreen extends Component {
           selected={this.state.selectedTab === 'listings'}
           // tabStyle={{flex: 1, flexDirection: 'column', justifyContent:'flex-end'}}
           title='خانه‌ها'
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={22} color="#bbbbbb" name="account-balance"/>}
           renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="account-balance" />}
           onPress={() => this.setState({ selectedTab: 'listings' }, this.updateStatusBar)}>
@@ -209,8 +209,8 @@ class HostScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'reserves'}
           title='رزروها'
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="date-range" />}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="date-range" />}
           onPress={() => this.setState({ selectedTab: 'reserves' }, this.updateStatusBar)}

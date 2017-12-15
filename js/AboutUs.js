@@ -37,9 +37,9 @@ class AboutUs extends Component {
       </View>
       <View style={styles.container2}>
         <Image style={styles.logostyle} source={require('./img/aboutlogo.png')}/>
-        <Text style={{fontSize:26,fontFamily:'Vazir-Medium',textAlign:'center',color:'#12b2ce'}}>تریپین</Text>
-        <Text style={{fontSize:14,fontFamily:'Vazir-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
-          ویرایش : 1 . 1 . 0
+        <Text style={{fontSize:26,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#12b2ce'}}>تریپین</Text>
+        <Text style={{fontSize:14,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
+          ویرایش : 0 . 1 . 2
         </Text>
         <Text style={styles.aboutustext}>
 تریپین در سال 1396 کار خود را آغاز نموده است.
@@ -50,7 +50,7 @@ class AboutUs extends Component {
         <TouchableOpacity onPress={() => {
           this.handleURL();
         }}>
-        <Text style={{fontSize:18,fontFamily:'Vazir-Medium',textAlign:'center',color:'#12b2ce',marginTop:10,}}>www.trypinn.com</Text>
+        <Text style={{fontSize:18,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#12b2ce',marginTop:10,}}>www.trypinn.com</Text>
         </TouchableOpacity>
 
       </View>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   aboutustext:{
     fontSize:16,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     textAlign:'center',
     color:'#4f4f4f',
     marginTop:25,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:18,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color:"#3e3e3e",
   },
 });

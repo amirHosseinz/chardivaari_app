@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   },
   headertext:{
     color:'#e5e5e5',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,
   },
   tripcard: {
@@ -365,12 +365,12 @@ const styles = StyleSheet.create({
 },
   cardtext1:{
     color:'#3e3e3e',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
   },
   cardtext2:{
     color:'#3e3e3e',
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:12,
   },
   iconbox:{
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
   },
   notlogintext:{
     color:'#616161',
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:18,
     textAlign:'center',
     marginTop:0,
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   },
   notlogintext1:{
     color:'#f56e4e',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,
     textAlign:'center',
     marginTop:0,

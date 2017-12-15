@@ -857,7 +857,7 @@ class HouseDetail extends Component {
   {this.renderTeamaker()}
   {this.renderForeigntoilet()}
   <TouchableOpacity onPress={this.openFacilities}>
-    <Text style={{fontSize:16,fontFamily:'Vazir-Medium',color:'#00b1ce'}}> + بیشتر </Text>
+    <Text style={{fontSize:16,fontFamily:'IRANSansMobileFaNum-Medium',color:'#00b1ce'}}> + بیشتر </Text>
   </TouchableOpacity>
 </View>
     <View style={styles.divider}>
@@ -1062,7 +1062,7 @@ const styles = StyleSheet.create({
   },
   housename: {
     fontSize:28,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     marginTop:22,
     color:"#4f4f4f"
   },
@@ -1072,7 +1072,7 @@ const styles = StyleSheet.create({
   },
   city1: {
     fontSize: 16,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:"#3e3e3e"
   },
   stars1: {
@@ -1097,7 +1097,7 @@ const styles = StyleSheet.create({
   },
   housemodel: {
     fontSize: 16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
   },
   hostname: {
     flexDirection:'row-reverse',
@@ -1106,7 +1106,7 @@ const styles = StyleSheet.create({
   },
   hostnamestatic: {
     fontSize: 16,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:"#4f4f4f"
   },
   divider:{
@@ -1122,7 +1122,7 @@ const styles = StyleSheet.create({
   },
   hostnamedynamic: {
     fontSize: 16,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:"#00b1ce",
   },
   detailiconimg: {
@@ -1146,7 +1146,7 @@ const styles = StyleSheet.create({
   },
   detailicontext: {
     fontSize: 14,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:"#9e9e9e",
   },
   deatilitembox:{
@@ -1154,12 +1154,12 @@ const styles = StyleSheet.create({
   },
   h2:{
     fontSize: 18,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
   },
   explanation: {
     fontSize: 14,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:"#3e3e3e",
   },
   mapstyle: {
@@ -1180,7 +1180,7 @@ const styles = StyleSheet.create({
   },
   seemore: {
     fontSize: 20,
-    fontFamily:"Vazir",
+    fontFamily:"IRANSansMobileFaNum",
     color: "#00b1ce"
   },
   bottombar: {
@@ -1211,7 +1211,7 @@ const styles = StyleSheet.create({
   },
   pricetext: {
     fontSize: 18,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#3e3e3e",
     justifyContent: "center",
     alignItems: "center",
@@ -1219,20 +1219,20 @@ const styles = StyleSheet.create({
   },
   mablaghtext:{
     fontSize: 12,
-    fontFamily:"Vazir-Light",
+    fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
     marginTop:6,
   },
   pernighttext: {
     fontSize: 20,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#787878",
     justifyContent:"flex-end",
     marginTop:2,
   },
   reservebuttontext: {
     fontSize: 19,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
@@ -1286,7 +1286,7 @@ const styles = StyleSheet.create({
   },
   checktime:{
     fontSize: 18,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
     marginLeft:8,
   },
@@ -1313,7 +1313,7 @@ const styles = StyleSheet.create({
   },
   bantext: {
     fontSize: 18,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:"#3e3e3e",
     marginRight:2,
     justifyContent:"center",
@@ -1325,13 +1325,13 @@ const styles = StyleSheet.create({
   },
   lawstext1: {
     fontSize: 16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
     marginLeft:5,
   },
   lawstext2: {
     fontSize: 16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#00cecc",
     marginLeft:5,
   },
@@ -1353,7 +1353,7 @@ const styles = StyleSheet.create({
   },
   popuptext:{
     color:'white',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:20,
     textAlign:'center',
     width: Dimensions.get('window').width - 50,

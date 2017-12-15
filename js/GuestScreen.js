@@ -174,8 +174,8 @@ class GuestScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'profile'}
           title="حساب کاربری"
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:0}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:0}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:0}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:0}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="account-circle" />}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="account-circle" />}
           onPress={() => {
@@ -190,8 +190,8 @@ class GuestScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'inboxScreen'}
           title="پیام‌ها"
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1,}}
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1,}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={22} color="#bbbbbb" name="forum"/>}
           renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="forum" />}
           onPress={() => {
@@ -219,8 +219,8 @@ class GuestScreen extends Component {
           selected={this.state.selectedTab === 'trips'}
           // tabStyle={{flex: 1, flexDirection: 'column', justifyContent:'flex-end'}}
           title="سفرها"
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={23} color="#bbbbbb" name="public"/>}
           renderSelectedIcon={() => <Icon size={23} color="#f56e4e" name="public" />}
           onPress={() => {
@@ -246,8 +246,8 @@ class GuestScreen extends Component {
         <TabNavigator.Item
           selected={this.state.selectedTab === 'explore'}
           title="جستجو"
-          selectedTitleStyle={{color:'#f56e4e',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
-          titleStyle={{color:'#a0a0a0',fontFamily:'Vazir',fontSize:9,marginTop:-1}}
+          selectedTitleStyle={{color:'#f56e4e',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1}}
+          titleStyle={{color:'#a0a0a0',fontFamily:'IRANSansMobileFaNum-Medium',fontSize:9,marginTop:-1}}
           renderIcon={() => <Icon size={24} color="#bbbbbb" name="search" />}
           renderSelectedIcon={() => <Icon size={24} color="#f56e4e" name="search" />}
           onPress={() => this.setState({ selectedTab: 'explore' }, this.updateStatusBar)}>

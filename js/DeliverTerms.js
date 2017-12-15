@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   aboutustext:{
     fontSize:14,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     textAlign:'right',
     color:'#4f4f4f',
     marginTop:5,
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
   },
   h2:{
     fontSize:16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     textAlign:'right',
     color:'#3e3e3e',
     marginTop:15,
   },
   aboutustext1:{
     fontSize:13,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     textAlign:'right',
     color:'#4f4f4f',
     marginTop:5,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   aboutustext2:{
     fontSize:14,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     textAlign:'right',
     color:'#4f4f4f',
     marginRight:0,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:18,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color:"#3e3e3e",
   },
 });

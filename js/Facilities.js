@@ -413,14 +413,14 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:24,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#3e3e3e',
     marginTop:16,
     marginBottom:30,
   },
   h2:{
     fontSize:18,
-    fontFamily:'Vazir-Thin',
+    fontFamily:'IRANSansMobileFaNum-Thin',
     color:'#3e3e3e',
     marginBottom:30,
   },
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   },
   Facilityname:{
     fontSize:20,
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:'#a2a2a2',
   },
   container:{
@@ -473,7 +473,7 @@ const styles = StyleSheet.create({
   },
   h01:{
     fontSize:18,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color:"#3e3e3e",
   },
 });

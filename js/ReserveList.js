@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   headertext:{
     color:'#ffffff',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
   },
   tripcard: {
@@ -214,12 +214,12 @@ const styles = StyleSheet.create({
   },
   cardtext1:{
     color:'#3e3e3e',
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
   },
   cardtext2:{
     color:'#3e3e3e',
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:12,
   },
   iconbox:{

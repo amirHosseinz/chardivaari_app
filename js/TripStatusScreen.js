@@ -580,12 +580,12 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:20,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#ffffff',
   },
   h2:{
     fontSize:16,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#3e3e3e',
     marginTop:15,
     textAlign:'center',
@@ -595,17 +595,17 @@ const styles = StyleSheet.create({
     alignItems:'flex-end',
   },
   costtext:{
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#3e3e3e',
   },
   resulttextbold:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#3e3e3e',
   },
   resulttextbold1:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#00a8a6',
   },
@@ -617,7 +617,7 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
   pmtohost:{
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
     color:'#00a8a6',
   },
@@ -632,7 +632,7 @@ const styles = StyleSheet.create({
   },
   reservebuttontext: {
     fontSize: 17,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,

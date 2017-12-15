@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class RequestRowScreen extends Component {
@@ -68,12 +68,6 @@ class RequestRowScreen extends Component {
   }
 
   _onPress() {
-    // this.props.navigation.navigate('requestScreen',
-    // {
-    //   request: this.props.requestItem,
-    //   role: this.props.role,
-    //   refresh: this.props.refresh,
-    // });
     this.props.navigation.navigate('requestStatus',
     {
       request: this.props.requestItem,
@@ -168,12 +162,12 @@ const styles = StyleSheet.create({
     marginRight:8,
   },
   housename: {
-    fontFamily: "Vazir-Medium",
+    fontFamily: "IRANSansMobileFaNum-Medium",
     fontSize:18,
     color:'#4f4f4f',
   },
   hostname: {
-    fontFamily: "Vazir-Light",
+    fontFamily: "IRANSansMobileFaNum-Light",
     fontSize:14,
     color:'#4f4f4f',
   },

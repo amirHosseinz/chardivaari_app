@@ -16,7 +16,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import { testURL, productionURL } from './data';
+import { productionURL } from './data';
 
 
 class EditHouse extends Component {
@@ -236,14 +236,14 @@ const styles = StyleSheet.create({
   },
   editpic: {
     fontSize: 14,
-    fontFamily: 'Vazir-Medium',
+    fontFamily: 'IRANSansMobileFaNum-Medium',
     color:'#4f4f4f',
   },
   textInput: {
     height: 52,
     width:Dimensions.get('window').width-50 ,
     fontSize: 18,
-    fontFamily: 'Vazir',
+    fontFamily: 'IRANSansMobileFaNum',
     textAlign: 'right',
     color: '#4f4f4f',
     marginBottom:12,
@@ -251,13 +251,13 @@ const styles = StyleSheet.create({
     borderBottomColor:'#acacac',
   },
   upfield: {
-    fontFamily:'Vazir-Light',
+    fontFamily:'IRANSansMobileFaNum-Light',
     fontSize: 14,
     color:'#c2c2c2',
   },
   reservebuttontext: {
     fontSize: 20,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
@@ -286,13 +286,13 @@ const styles = StyleSheet.create({
   },
   h1:{
     fontSize:24,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#3e3e3e',
     marginTop:16,
   },
   h2:{
     fontSize:16,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:'#3e3e3e',
     marginBottom:20,
     marginTop:20,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   h01:{
     fontSize:20,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#ffffff',
   },
 });

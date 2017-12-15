@@ -37,7 +37,6 @@ class ExploreResult extends Component {
 
     return(
       <TouchableOpacity onPress={() => {
-        // this.props.navigation.navigate('roomView', {room: this.props.room});
         this.props.navigation.navigate('houseDetail', {
           room: this.props.room,
         });
@@ -121,13 +120,13 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 16,
-    fontFamily: "Vazir-Medium",
+    fontFamily: "IRANSansMobileFaNum-Medium",
     color: "#4f4f4f",
     paddingLeft:10,
   },
   cityfont:{
     fontSize: 11,
-    fontFamily: "Vazir",
+    fontFamily: "IRANSansMobileFaNum",
     color: "#4f4f4f",
   },
   stars: {
@@ -141,18 +140,18 @@ const styles = StyleSheet.create({
   },
   pricetext: {
     fontSize: 13,
-    fontFamily: "Vazir",
+    fontFamily: "IRANSansMobileFaNum",
     color: "#f56e4e"
   },
   toman: {
     fontSize: 13,
-    fontFamily: "Vazir",
+    fontFamily: "IRANSansMobileFaNum",
     color: "#f56e4e",
     marginRight:2,
   },
   night: {
     fontSize: 13,
-    fontFamily: "Vazir",
+    fontFamily: "IRANSansMobileFaNum",
     color: "#acacac",
     marginRight:2,
   },

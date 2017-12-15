@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   headtextstyle:{
     fontSize:22,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'white',
     marginRight:8,
   },
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   citynamestyle:{
     fontSize:18,
-    fontFamily:'Vazir',
+    fontFamily:'IRANSansMobileFaNum',
     color:"#ffffff",
     textAlign:'right',
     marginRight:20,

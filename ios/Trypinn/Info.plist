@@ -39,7 +39,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -53,13 +53,6 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Iransans_Bold.ttf</string>
-		<string>Iransans_Light.ttf</string>
-		<string>Iransans_Medium.ttf</string>
-		<string>IRANSans.ttf</string>
-		<string>Vazir-Light.ttf</string>
-		<string>Vazir-Medium.ttf</string>
-		<string>Vazir.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>
@@ -70,6 +63,12 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>IRANSansMobileFaNum-Black.ttf</string>
+		<string>IRANSansMobileFaNum-Bold.ttf</string>
+		<string>IRANSansMobileFaNum-Light.ttf</string>
+		<string>IRANSansMobileFaNum-Medium.ttf</string>
+		<string>IRANSansMobileFaNum-UltraLight.ttf</string>
+		<string>IRANSansMobileFaNum.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -73,7 +73,7 @@ class NumberSelectScreen extends Component {
                   this.increaseGuest();
                 }}
                 style={styles.buttontouch0}>
-              <Text style={{fontSize:48,color:'white',fontFamily:'Vazir'}}>+</Text>
+              <Text style={{fontSize:48,color:'white',fontFamily:'IRANSansMobileFaNum'}}>+</Text>
               </TouchableHighlight>
             </View>
             <View style={{width:100,alignItems:'center',}}>
@@ -87,7 +87,7 @@ class NumberSelectScreen extends Component {
                   this.decreaseGuest();
                 }}
                 style={styles.buttontouch0}>
-              <Text style={{fontSize:48,color:'white',fontFamily:'Vazir'}}>-</Text>
+              <Text style={{fontSize:48,color:'white',fontFamily:'IRANSansMobileFaNum'}}>-</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   headtextstyle:{
     fontSize:22,
-    fontFamily:'Vazir-Medium',
+    fontFamily:'IRANSansMobileFaNum-Medium',
     color:'white',
     marginRight:8,
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   reservebuttontext: {
     fontSize: 20,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
     paddingBottom:4,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   numbertext:{
     fontSize:68,
-    fontFamily:"Vazir-Medium",
+    fontFamily:"IRANSansMobileFaNum-Medium",
     color:'white',
     paddingBottom:10,
   },

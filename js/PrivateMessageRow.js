@@ -166,12 +166,12 @@ textbox: {
   marginRight:8,
 },
 housename: {
-  fontFamily: "Vazir-Light",
+  fontFamily: "IRANSansMobileFaNum-Light",
   fontSize:14,
   color:'#4f4f4f',
 },
 hostname: {
-  fontFamily: "Vazir-Medium",
+  fontFamily: "IRANSansMobileFaNum-Medium",
   fontSize:18,
   color:'#4f4f4f',
 },
