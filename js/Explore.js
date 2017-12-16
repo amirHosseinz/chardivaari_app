@@ -38,7 +38,7 @@ class Explore extends Component {
         switch (type) {
           case 0:
             dim.width = width - 5;
-            dim.height = 110;
+            dim.height = 114;
             break;
           default:
             dim.width = 0;
