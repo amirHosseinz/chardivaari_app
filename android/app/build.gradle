@@ -97,8 +97,8 @@ android {
         applicationId "com.trypinn"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 11
-        versionName "0.1.2"
+        versionCode 12
+        versionName "0.1.3"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
