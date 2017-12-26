@@ -3,6 +3,7 @@ import {
   BackHandler,
   ToastAndroid,
   StatusBar,
+  Platform,
 } from 'react-native';
 import {
   StackNavigator,
@@ -97,33 +98,43 @@ class AppWithNavigationState extends Component {
                 break;
               case 'login':
                 StatusBar.setHidden(false);
-                StatusBar.setTranslucent(false);
-                StatusBar.setBackgroundColor('#eeeeee');
                 StatusBar.setBarStyle('dark-content');
+                if (Platform.OS === 'android') {
+                  StatusBar.setTranslucent(false);
+                  StatusBar.setBackgroundColor('#eeeeee');
+                }
                 break;
               case 'houseDetail':
                 StatusBar.setHidden(false);
-                StatusBar.setTranslucent(true);
                 StatusBar.setBarStyle('light-content');
-                StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.25)');
+                if (Platform.OS === 'android') {
+                  StatusBar.setTranslucent(true);
+                  StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.25)');
+                }
                 break;
               case 'guestScreen':
                 StatusBar.setHidden(false);
-                StatusBar.setTranslucent(false);
-                StatusBar.setBackgroundColor('#0094ae');
                 StatusBar.setBarStyle('light-content');
+                if (Platform.OS === 'android') {
+                  StatusBar.setTranslucent(false);
+                  StatusBar.setBackgroundColor('#0094ae');
+                }
                 break;
               case 'hostScreen':
                 StatusBar.setHidden(false);
-                StatusBar.setTranslucent(false);
-                StatusBar.setBackgroundColor('#0094ae');
                 StatusBar.setBarStyle('light-content');
+                if (Platform.OS === 'android') {
+                  StatusBar.setTranslucent(false);
+                  StatusBar.setBackgroundColor('#0094ae');
+                }
                 break;
               case 'requestBookScreen':
                 StatusBar.setHidden(false);
-                StatusBar.setTranslucent(false);
-                StatusBar.setBackgroundColor('#eeeeee');
                 StatusBar.setBarStyle('dark-content');
+                if (Platform.OS === 'android') {
+                  StatusBar.setTranslucent(false);
+                  StatusBar.setBackgroundColor('#eeeeee');
+                }
                 break;
               default:
           }}

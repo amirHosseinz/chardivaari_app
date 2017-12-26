@@ -9,6 +9,7 @@ import {
   NetInfo,
   ToastAndroid,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -67,10 +68,12 @@ class Splash extends Component {
       this.checkAppUpdate();
     } else {
       this.setRetryButtonVisible();
-      ToastAndroid.show(
-        'لطفا تلفن همراه خود را به اینترنت متصل نمایید.',
-        ToastAndroid.LONG
-      );
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(
+          'لطفا تلفن همراه خود را به اینترنت متصل نمایید.',
+          ToastAndroid.LONG
+        );
+      }
     }
   }
 

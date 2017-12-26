@@ -9,6 +9,7 @@ import {
   StatusBar,
   BackHandler,
   ToastAndroid,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 // import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
@@ -146,9 +147,11 @@ class GuestScreen extends Component {
   updateStatusBar = () => {
     if (this.state.selectedTab === 'profile') {
       StatusBar.setHidden(false);
-      StatusBar.setTranslucent(false);
-      StatusBar.setBackgroundColor('#eeeeee');
       StatusBar.setBarStyle('dark-content');
+      if (Platform.OS === 'android') {
+        StatusBar.setTranslucent(false);
+        StatusBar.setBackgroundColor('#eeeeee');
+      }
       // return(
       //   <StatusBar
       //     backgroundColor="#eeeeee"
@@ -156,9 +159,11 @@ class GuestScreen extends Component {
       // );
     } else {
       StatusBar.setHidden(false);
-      StatusBar.setTranslucent(false);
-      StatusBar.setBackgroundColor('#0094ae');
       StatusBar.setBarStyle('light-content');
+      if (Platform.OS === 'android') {
+        StatusBar.setTranslucent(false);
+        StatusBar.setBackgroundColor('#0094ae');
+      }
       // return(
       //   <StatusBar
       //     backgroundColor="#0094ae"

@@ -7,6 +7,7 @@ import {
   Image,
   StatusBar,
   Dimensions,
+  Platform,
 } from 'react-native';
 // import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import TabNavigator from 'react-native-tab-navigator';
@@ -130,9 +131,11 @@ class HostScreen extends Component {
   updateStatusBar = () => {
     if (this.state.selectedTab === 'profile') {
       StatusBar.setHidden(false);
-      StatusBar.setTranslucent(false);
-      StatusBar.setBackgroundColor('#eeeeee');
       StatusBar.setBarStyle('dark-content');
+      if (Platform.OS === 'android') {
+        StatusBar.setTranslucent(false);
+        StatusBar.setBackgroundColor('#eeeeee');
+      }
       // return(
       //   <StatusBar
       //     backgroundColor="#eeeeee"
@@ -140,9 +143,11 @@ class HostScreen extends Component {
       // );
     } else {
       StatusBar.setHidden(false);
-      StatusBar.setTranslucent(false);
-      StatusBar.setBackgroundColor('#0094ae');
       StatusBar.setBarStyle('light-content');
+      if (Platform.OS === 'android') {
+        StatusBar.setTranslucent(false);
+        StatusBar.setBackgroundColor('#0094ae');
+      }
       // return(
       //   <StatusBar
       //     backgroundColor="#0094ae"
