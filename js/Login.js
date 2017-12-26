@@ -177,7 +177,11 @@ class Login extends Component {
     return(
       <View style={styles.container0}>
       <TouchableOpacity onPress={this.skipLogin.bind(this)}>
-        <Text style={styles.notnow}>فعلا بیخیال</Text>
+      <View style={styles.rightAlignmentBox}>
+        <Text style={styles.notnow}>
+        فعلا بی‌خیال
+        </Text>
+      </View>
       </TouchableOpacity>
         <View style={styles.container}>
 
@@ -269,6 +273,10 @@ const styles = StyleSheet.create({
     marginTop:30,
     marginBottom:10,
     color:'#3e3e3e',
+  },
+  rightAlignmentBox: {
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
   },
   notnow:{
     fontFamily:'IRANSansMobileFaNum-Medium',

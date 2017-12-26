@@ -502,7 +502,11 @@ class HouseDetail extends Component {
     if (this.state.room.special_rules != '') {
       return(
         <View>
-        <Text style={styles.h2}>قوانین خاص:</Text>
+        <View style={styles.checkinbox}>
+          <Text style={styles.h2}>
+            قوانین خاص
+          </Text>
+        </View>
         <View style={styles.banbox}>
           <View style={styles.baniconbox}>
           <Image style={styles.banicon} source={require("./img/special_rules.png")}/>
@@ -763,7 +767,9 @@ class HouseDetail extends Component {
       {this.renderViewPager()}
       <View style={styles.container0}>
       <View style={styles.container2}>
-      <Text style={styles.housename}>{this.state.room.title}</Text>
+      <View style={styles.checkinbox}>
+        <Text style={styles.housename}>{this.state.room.title}</Text>
+      </View>
       <View style={styles.city}>
         <Text style={styles.city1} numberOfLines={1}>{this.state.room.address}</Text>
       </View>
@@ -825,16 +831,23 @@ class HouseDetail extends Component {
 <View style={styles.divider}>
 </View>
 
+<View style={styles.checkinbox}>
 <Text style={styles.h2}>درباره این خانه</Text>
+</View>
 
+<View style={styles.rightAlignmentBox}>
 <Text style={styles.explanation}>
   {this.state.room.description}
 </Text>
+</View>
 
 <View style={styles.divider}>
 </View>
 
-<Text style={styles.h2}>امکانات</Text>
+<View style={styles.checkinbox}>
+  <Text style={styles.h2}>امکانات</Text>
+</View>
+
   <View style={styles.morefacilities}>
     {this.renderRefrig()}
     {this.renderParking()}
@@ -890,7 +903,11 @@ class HouseDetail extends Component {
     <View style={styles.divider}>
     </View>
 
-    <Text style={styles.h2}>قوانین و محدودیت ها</Text>
+    <View style={styles.checkinbox}>
+    <Text style={styles.h2}>
+      قوانین و محدودیت‌ها
+    </Text>
+    </View>
 
     {this.renderPetRule()}
     {this.renderSmokeRule()}
@@ -1153,11 +1170,14 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   h2:{
+
     fontSize: 18,
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
   },
   explanation: {
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontSize: 14,
     fontFamily:'IRANSansMobileFaNum-Light',
     color:"#3e3e3e",
@@ -1278,6 +1298,10 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
+  },
+  rightAlignmentBox: {
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
   },
   checkinbox:{
     flexDirection: "row-reverse",
