@@ -14,7 +14,6 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* trypinnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* trypinnTests.m */; };
 		03F0074F640447AE9A998193 /* IRANSansMobileFaNum-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21B37D1109CA4185AE0E1347 /* IRANSansMobileFaNum-Medium.ttf */; };
-		0FD91634A374438BA4B8867B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF9278C7E304FAF8B424A9A /* libAirMaps.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -39,6 +38,7 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* trypinnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* trypinnTests.m */; };
+		32CF81D3716A6A03701077AB /* libPods-trypinn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59F50A42D9913361AAB02C3 /* libPods-trypinn.a */; };
 		3C5E1BA029DF4AC3AACE1EF1 /* IRANSansMobileFaNum-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 795ECDD0273849F49FE0C244 /* IRANSansMobileFaNum-Bold.ttf */; };
 		3CC2584A1A414C929390A5F7 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA992DDC36424F08A646E28E /* libRCTGoogleAnalyticsBridge.a */; };
 		4CD0338EBFAC46BB92C36863 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE7B52EBBA24CC8AA8C213B /* SystemConfiguration.framework */; };
@@ -247,13 +247,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
-		7D1D9A0E1FE1793600111699 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FFF169035A9E4F67A5EB4C7E /* AirMaps.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
-			remoteInfo = AirMaps;
-		};
 		7D1D9A151FE1793600111699 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA50D7A7CE8246EBA411CA86 /* RCTGoogleAnalyticsBridge.xcodeproj */;
@@ -329,10 +322,11 @@
 		00E356EE1AD99517003FC87E /* trypinnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = trypinnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* trypinnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = trypinnTests.m; sourceTree = "<group>"; };
+		0DD00723D52FB77B023636F6 /* Pods-trypinn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trypinn.debug.xcconfig"; path = "Pods/Target Support Files/Pods-trypinn/Pods-trypinn.debug.xcconfig"; sourceTree = "<group>"; };
 		10C7946453334F1D80EDA5DB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* TripInn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TripInn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Trypinn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trypinn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = trypinn/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = trypinn/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -340,6 +334,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = trypinn/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = trypinn/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1823976AA993DE77DCBE48D7 /* Pods-trypinn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-trypinn.release.xcconfig"; path = "Pods/Target Support Files/Pods-trypinn/Pods-trypinn.release.xcconfig"; sourceTree = "<group>"; };
 		1DC8C0B622B449DB8B77A4C3 /* IRANSansMobile(FaNum)_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Light.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Light.ttf"; sourceTree = "<group>"; };
 		21973F1F018C4B10AEE11F5E /* Iransans_Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Iransans_Medium.ttf; path = ../assets/fonts/Iransans_Medium.ttf; sourceTree = "<group>"; };
 		21B37D1109CA4185AE0E1347 /* IRANSansMobileFaNum-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Medium.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Medium.ttf"; sourceTree = "<group>"; };
@@ -352,7 +347,6 @@
 		3EE7B52EBBA24CC8AA8C213B /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44883363696341B4802D935B /* Vazir.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Vazir.ttf; path = ../assets/fonts/Vazir.ttf; sourceTree = "<group>"; };
 		4828D062A8924F60BB56C6A8 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		4EF9278C7E304FAF8B424A9A /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6443F8C686634853932DE53A /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		6A42C3FE3A4141C686C280AF /* libsqlite3.0.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -373,6 +367,7 @@
 		B637D75300E44DE280840407 /* IRANSansMobile(FaNum)_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Bold.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Bold.ttf"; sourceTree = "<group>"; };
 		C29B24194BA64228996C5D9D /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		C37BD1A0BDFD4E1CBA967FF4 /* IRANSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IRANSans.ttf; path = ../assets/fonts/IRANSans.ttf; sourceTree = "<group>"; };
+		C59F50A42D9913361AAB02C3 /* libPods-trypinn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-trypinn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5A7CE522CC149229036AD09 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		C634DF16757D4A5EAF8BBE0C /* IRANSansMobileFaNum-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Black.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Black.ttf"; sourceTree = "<group>"; };
 		C67C889D51454EA2BDD2CDBD /* Iransans_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Iransans_Light.ttf; path = ../assets/fonts/Iransans_Light.ttf; sourceTree = "<group>"; };
@@ -387,7 +382,6 @@
 		E7B6264D9A95439CBD51CFD8 /* IRANSansMobile(FaNum)_Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobile(FaNum)_Medium.ttf"; path = "../assets/fonts/IRANSansMobile(FaNum)_Medium.ttf"; sourceTree = "<group>"; };
 		F1382C784AE1491192A98E59 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		FC69B3E0FF3F453CBC30F5BF /* IRANSansMobileFaNum-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IRANSansMobileFaNum-Light.ttf"; path = "../assets/fonts/IRANSansMobileFaNum-Light.ttf"; sourceTree = "<group>"; };
-		FFF169035A9E4F67A5EB4C7E /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,8 +415,8 @@
 				E1CDD8A6111247159AFCBA52 /* libz.tbd in Frameworks */,
 				26B53B483F794699BE428929 /* libsqlite3.0.tbd in Frameworks */,
 				A0FB2D08EB134235A289E6C7 /* libRNImagePicker.a in Frameworks */,
-				0FD91634A374438BA4B8867B /* libAirMaps.a in Frameworks */,
 				C5471097042E4B819AD339D2 /* libRNVectorIcons.a in Frameworks */,
+				32CF81D3716A6A03701077AB /* libPods-trypinn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +571,7 @@
 				3EE7B52EBBA24CC8AA8C213B /* SystemConfiguration.framework */,
 				D80AF7DE5DA0453AB9D2F615 /* libz.tbd */,
 				6A42C3FE3A4141C686C280AF /* libsqlite3.0.tbd */,
+				C59F50A42D9913361AAB02C3 /* libPods-trypinn.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -594,14 +589,6 @@
 			isa = PBXGroup;
 			children = (
 				7D1D9A3D1FE1793600111699 /* libRNImagePicker.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7D1D9A051FE1793600111699 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7D1D9A0F1FE1793600111699 /* libAirMaps.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -647,7 +634,6 @@
 				96862EE34A7E4320B5BD40B9 /* RNExitApp.xcodeproj */,
 				DA50D7A7CE8246EBA411CA86 /* RCTGoogleAnalyticsBridge.xcodeproj */,
 				D0108296E42948169F9283BC /* RNImagePicker.xcodeproj */,
-				FFF169035A9E4F67A5EB4C7E /* AirMaps.xcodeproj */,
 				ABD6A5FB79D246FAA62C7710 /* RNVectorIcons.xcodeproj */,
 			);
 			name = Libraries;
@@ -671,6 +657,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				7035D183A50942F1BA4C0BB0 /* Frameworks */,
 				A8F446F927484DF6982FDF17 /* Resources */,
+				BD2DF6E46948E4CF3B29474D /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -679,7 +666,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* TripInn.app */,
+				13B07F961A680F5B00A75B9A /* Trypinn.app */,
 				00E356EE1AD99517003FC87E /* trypinnTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* trypinn-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* trypinn-tvOSTests.xctest */,
@@ -724,6 +711,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		BD2DF6E46948E4CF3B29474D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0DD00723D52FB77B023636F6 /* Pods-trypinn.debug.xcconfig */,
+				1823976AA993DE77DCBE48D7 /* Pods-trypinn.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -749,10 +745,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "trypinn" */;
 			buildPhases = (
+				82ACC38902BC42D57162FBAC /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9E64C7C8331EC33FEC6CFEDE /* [CP] Embed Pods Frameworks */,
+				02E75465D7EDC762688273E1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -760,7 +759,7 @@
 			);
 			name = trypinn;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* TripInn.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Trypinn.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* trypinn-tvOS */ = {
@@ -806,7 +805,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 610;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -835,10 +834,6 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = 7D1D9A051FE1793600111699 /* Products */;
-					ProjectRef = FFF169035A9E4F67A5EB4C7E /* AirMaps.xcodeproj */;
-				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1079,13 +1074,6 @@
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7D1D9A0F1FE1793600111699 /* libAirMaps.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAirMaps.a;
-			remoteRef = 7D1D9A0E1FE1793600111699 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7D1D9A161FE1793600111699 /* libRCTGoogleAnalyticsBridge.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1217,6 +1205,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		02E75465D7EDC762688273E1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-trypinn/Pods-trypinn-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trypinn/Pods-trypinn-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1230,6 +1236,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		82ACC38902BC42D57162FBAC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-trypinn-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E64C7C8331EC33FEC6CFEDE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-trypinn/Pods-trypinn-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1308,7 +1347,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = trypinnTests/Info.plist;
@@ -1340,7 +1378,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = trypinnTests/Info.plist;
@@ -1365,6 +1402,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DD00723D52FB77B023636F6 /* Pods-trypinn.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1373,9 +1411,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 				);
 				INFOPLIST_FILE = trypinn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1384,13 +1420,15 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_NAME = TripInn;
+				PRODUCT_NAME = Trypinn;
+				"TEST_HOST[sdk=*]" = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1823976AA993DE77DCBE48D7 /* Pods-trypinn.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1398,9 +1436,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-maps/ios/AirMaps/**",
 				);
 				INFOPLIST_FILE = trypinn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1409,7 +1445,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_NAME = TripInn;
+				PRODUCT_NAME = Trypinn;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1430,7 +1466,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = "trypinn-tvOS/Info.plist";
@@ -1471,7 +1506,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-google-analytics-bridge/ios/RCTGoogleAnalyticsBridge/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = "trypinn-tvOS/Info.plist";
