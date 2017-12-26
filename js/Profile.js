@@ -9,6 +9,7 @@ import {
   Image,
   Modal,
   ScrollView,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -395,18 +396,26 @@ const styles = StyleSheet.create({
   },
   profilebox:{
     flexDirection:'row-reverse',
+    alignItems: "flex-start",
     marginTop:36,
     marginBottom:28,
     alignItems:'center',
   },
   profileboxtext:{
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
     marginRight:20,
   },
   usertext:{
     fontSize: 21,
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#4f4f4f',
-    width:Dimensions.get('window').width*(2/3)-30,
+    ...Platform.select({
+      android: {
+        width:Dimensions.get('window').width*(2/3)-30,
+      },
+    }),
   },
   editprofile:{
     fontSize: 13,

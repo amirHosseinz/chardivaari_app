@@ -647,7 +647,7 @@ const styles = StyleSheet.create({
   },
   h2:{
     fontSize:18,
-    fontFamily:'IRANSansMobileFaNum-Thin',
+    fontFamily:'IRANSansMobileFaNum-Light',
     color:'#3e3e3e',
     marginBottom:30,
   },

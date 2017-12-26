@@ -118,12 +118,16 @@ class Trips extends Component {
               null}
           </View>
             <View style={styles.tripcardtexts}>
+            <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
               </Text>
+              </View>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext2}>
                 {item.room.district} ،{item.room.address}
               </Text>
+              </View>
             </View>
             <View style={styles.iconbox}>
             <Icon size={24} color="#00cecc" name="hourglass-empty" />
@@ -145,12 +149,16 @@ class Trips extends Component {
               null}
           </View>
             <View style={styles.tripcardtexts}>
+            <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
               </Text>
+              </View>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext2}>
                 {item.room.district} ،{item.room.address}
               </Text>
+              </View>
             </View>
             <View style={styles.iconbox}>
             <Icon size={24} color="#00cecc" name="check-circle" />
@@ -172,12 +180,16 @@ class Trips extends Component {
               null}
           </View>
             <View style={styles.tripcardtexts}>
+            <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
               </Text>
+              </View>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext2}>
                 {item.room.district} ،{item.room.address}
               </Text>
+              </View>
             </View>
             <View style={styles.iconbox}>
             <Icon size={24} color="#f56e4e" name="report-problem" />
@@ -199,12 +211,16 @@ class Trips extends Component {
                 null}
             </View>
               <View style={styles.tripcardtexts}>
+              <View style={styles.rightAlignBox}>
                 <Text style={styles.cardtext1}>
                   {item.room.title}
                 </Text>
+                </View>
+                <View style={styles.rightAlignBox}>
                 <Text style={styles.cardtext2}>
                   {item.room.district} ،{item.room.address}
                 </Text>
+                </View>
               </View>
               <View style={styles.iconbox}>
               <Icon size={24} color="#00cecc" name="insert-invitation" />
@@ -226,12 +242,16 @@ class Trips extends Component {
               null}
           </View>
             <View style={styles.tripcardtexts}>
+            <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
               </Text>
+              </View>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext2}>
                 {item.room.district} ،{item.room.address}
               </Text>
+              </View>
             </View>
             <View style={styles.iconbox}>
             <Icon size={24} color="#f56e4e" name="cancel" />
@@ -253,12 +273,16 @@ class Trips extends Component {
               null}
           </View>
             <View style={styles.tripcardtexts}>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext1}>
                 {item.room.title}
               </Text>
+              </View>
+              <View style={styles.rightAlignBox}>
               <Text style={styles.cardtext2}>
                 {item.room.district} ،{item.room.address}
               </Text>
+              </View>
             </View>
             <View style={styles.iconbox}>
             <Icon size={24} color="#f56e4e" name="cancel" />
@@ -363,12 +387,19 @@ const styles = StyleSheet.create({
     justifyContent:"flex-start",
     alignItems: 'center',
 },
+  rightAlignBox: {
+    flexDirection: 'row-reverse',
+  },
   cardtext1:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     color:'#3e3e3e',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
   },
   cardtext2:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     color:'#3e3e3e',
     fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:12,

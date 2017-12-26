@@ -1108,8 +1108,8 @@ const styles = StyleSheet.create({
   },
   accountimage: {
     height: 75,
-    borderRadius: 50,
     width: 75,
+    borderRadius: 37,
     marginLeft: 15,
   },
   housemodel: {

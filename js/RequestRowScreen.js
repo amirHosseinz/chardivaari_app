@@ -21,15 +21,19 @@ class RequestRowScreen extends Component {
   renderName () {
     if (this.props.role === 'guest') {
       return(
+        <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>
           {this.props.requestItem.room.owner.last_name}
         </Text>
+        </View>
       );
     } else if (this.props.role === 'host') {
       return(
+        <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>
           {this.props.requestItem.guest_person.last_name}
         </Text>
+        </View>
       );
     }
   }
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
   avatarimg: {
     height:55,
     width: 55,
-    borderRadius:50,
+    borderRadius: 27,
   },
   textbox: {
     justifyContent:"center",
@@ -165,6 +169,10 @@ const styles = StyleSheet.create({
     fontFamily: "IRANSansMobileFaNum-Medium",
     fontSize:18,
     color:'#4f4f4f',
+  },
+  rightAlignBox: {
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
   },
   hostname: {
     fontFamily: "IRANSansMobileFaNum-Light",

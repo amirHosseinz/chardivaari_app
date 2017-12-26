@@ -11,6 +11,7 @@ import {
   ScrollView,
   StatusBar,
   Modal,
+  Platform,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -684,8 +685,15 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width-36,
   },
   main0:{
-    height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
     backgroundColor:'#ffffff',
+    ...Platform.select({
+      android: {
+        height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
+      },
+      ios: {
+        flex: 1,
+      },
+    }),
   },
 });
 

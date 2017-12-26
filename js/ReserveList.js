@@ -102,7 +102,7 @@ class ReserveList extends Component {
     } else {
       return(
         <View style={styles.headerbar}>
-          <Text style={styles.headertext}>شما</Text>
+          <Text style={styles.headertext}> شما </Text>
           <Text style={styles.headertext}> رزرو تایید شده‌ای ندارید.</Text>
         </View>
       );

@@ -45,11 +45,15 @@ class PrivateMessageRow extends Component {
   renderHostname () {
     if (this.props.message.sender.username === this.state.username) {
       return(
+        <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>{this.props.message.recipient.last_name}</Text>
+        </View>
       );
     } else if (this.props.message.recipient.username === this.state.username) {
       return(
+        <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>{this.props.message.sender.last_name}</Text>
+        </View>
       );
     }
   }
@@ -121,7 +125,9 @@ class PrivateMessageRow extends Component {
         {this.renderProfilePicture()}
         <View style={styles.textbox}>
           {this.renderHostname()}
+          <View style={styles.rightAlignBox}>
           <Text style={styles.housename}>{this.props.message.subject}</Text>
+          </View>
         </View>
         {this.renderReadStatus()}
       </View>
@@ -156,9 +162,9 @@ const styles = StyleSheet.create({
   marginLeft:5,
   },
   avatarimg: {
-    height:55,
-    width: 55,
-    borderRadius:50,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
 textbox: {
   flex:18,
@@ -169,6 +175,10 @@ housename: {
   fontFamily: "IRANSansMobileFaNum-Light",
   fontSize:14,
   color:'#4f4f4f',
+},
+rightAlignBox:{
+  flexDirection: "row-reverse",
+  alignItems: "flex-start",
 },
 hostname: {
   fontFamily: "IRANSansMobileFaNum-Medium",
