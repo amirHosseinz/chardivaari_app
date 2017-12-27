@@ -10,6 +10,8 @@ import {
   TextInput,
   ScrollView,
   Modal,
+  Linking,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -354,23 +356,56 @@ class RequestStatus extends Component {
     }
   }
 
-  async asyncPayment () {
-    try {
-      var {
-        isPaymentSuccess,
-        refID,
-      } = await PaymentModule.reactRequestPayment(
-        'جهت رزرو ' + this.state.request.room.title,
-        Number(this.state.request.total_price),
-        this.state.token,
-        this.state.request.id
-      );
-      if (isPaymentSuccess) {
-        Alert.alert('کد پیگیری: ' + refID);
-        // this.payRequestDone();
+  onWebPaymentRequestRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (body.is_successful) {
+        Linking.openURL(body.payment_url)
+        .catch(err => console.log('An error occurred', err));
+      } else {
+        // TODO
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      // TODO
+    }
+  }
+
+  async asyncPayment () {
+    if (Platform.OS === 'ios') {
+      fetch(productionURL + '/api/payment/web_payment_request/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          request_id: this.state.request.id,
+          platform: 'ios',
+        }),
+      })
+      .then((response) => this.onWebPaymentRequestRecieved(response))
+      .catch((error) => {
+        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+      });
+    } else {
+      try {
+        var {
+          isPaymentSuccess,
+          refID,
+        } = await PaymentModule.reactRequestPayment(
+          'جهت رزرو ' + this.state.request.room.title,
+          Number(this.state.request.total_price),
+          this.state.token,
+          this.state.request.id
+        );
+        if (isPaymentSuccess) {
+          Alert.alert('کد پیگیری: ' + refID);
+          // this.payRequestDone();
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -899,6 +934,8 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse',
   },
   resulttext:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontFamily: 'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#000000',
@@ -1065,6 +1102,8 @@ const styles = StyleSheet.create({
     marginTop:14,
   },
   resulttextbold:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#3e3e3e',

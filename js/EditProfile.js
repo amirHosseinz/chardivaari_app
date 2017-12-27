@@ -291,6 +291,8 @@ const styles = StyleSheet.create({
     borderBottomColor:'#acacac',
   },
   upfield: {
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontFamily:'IRANSansMobileFaNum-Light',
     fontSize: 14,
     color:'#c2c2c2',

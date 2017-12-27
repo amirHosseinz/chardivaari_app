@@ -147,7 +147,9 @@ class HouseListScreen extends Component {
       <View style={{width: Dimensions.get('window').width,alignItems:'center'}}>
         <View style={styles.cards}>
             <View style={styles.details}>
+            <View style={styles.rightAlignBox}>
               <Text style={styles.housetitle}>{item.title}</Text>
+            </View>
               <View style={styles.housedetail}>
                 <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
                 <Text style={styles.detailtexts}>{item.area}</Text>
@@ -215,6 +217,10 @@ const styles = StyleSheet.create({
   },
   imagestyle:{
   },
+  rightAlignBox: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-start',
+  },
   housetitle:{
     fontSize:16,
     fontFamily:"IRANSansMobileFaNum-Medium",
@@ -245,6 +251,8 @@ const styles = StyleSheet.create({
     paddingRight:10,
   },
   detailtexts:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontSize:12,
     fontFamily:"IRANSansMobileFaNum-Light",
     color:"#3e3e3e",
