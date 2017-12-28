@@ -18,7 +18,6 @@
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
@@ -46,6 +45,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		721BA7D863EF4297B1B999BC /* IRANSansMobileFaNum-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 352A69FBC80F4FEE92A7B569 /* IRANSansMobileFaNum-UltraLight.ttf */; };
 		7DA6EF761FE2AF0E00364C25 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
+		7DFC8D5B1FF4F6C600F12E36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		87D3275047AA47E08021DD29 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10C7946453334F1D80EDA5DB /* EvilIcons.ttf */; };
 		9B11121A9EF64E84B1E202A2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4828D062A8924F60BB56C6A8 /* MaterialIcons.ttf */; };
@@ -1155,7 +1155,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				9C55980DCBD74F31A689F713 /* Entypo.ttf in Resources */,
 				7DA6EF761FE2AF0E00364C25 /* Info.plist in Resources */,
 				87D3275047AA47E08021DD29 /* EvilIcons.ttf in Resources */,
@@ -1168,6 +1167,7 @@
 				A03C2FAE50F24BCFA855D08E /* SimpleLineIcons.ttf in Resources */,
 				A9F57300C4CF4306BA71EC98 /* Zocial.ttf in Resources */,
 				4F6337CD7E8B4A72BEB31458 /* IRANSansMobileFaNum-Black.ttf in Resources */,
+				7DFC8D5B1FF4F6C600F12E36 /* LaunchScreen.xib in Resources */,
 				3C5E1BA029DF4AC3AACE1EF1 /* IRANSansMobileFaNum-Bold.ttf in Resources */,
 				AC948F52C31746CDBC087B0E /* IRANSansMobileFaNum-Light.ttf in Resources */,
 				03F0074F640447AE9A998193 /* IRANSansMobileFaNum-Medium.ttf in Resources */,
