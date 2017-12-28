@@ -65,8 +65,6 @@
 		<string>IRANSansMobileFaNum-UltraLight.ttf</string>
 		<string>IRANSansMobileFaNum.ttf</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
