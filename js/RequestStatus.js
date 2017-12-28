@@ -363,7 +363,9 @@ class RequestStatus extends Component {
         Linking.openURL(body.payment_url)
         .catch(err => console.log('An error occurred', err));
       } else {
-        // TODO
+        if (body.is_vpn_on) {
+          Alert.alert('در صورتی که خارج از کشور هستید با پشتیبانی تماس بگیرید، در غیر این صورت از خاموش بودن vpn خود اطمینان حاصل نمایید.');
+        }
       }
     } else {
       // TODO
@@ -371,42 +373,39 @@ class RequestStatus extends Component {
   }
 
   async asyncPayment () {
-    if (Platform.OS === 'ios') {
-      fetch(productionURL + '/api/payment/web_payment_request/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token,
-        },
-        body: JSON.stringify({
-          request_id: this.state.request.id,
-          platform: 'ios',
-        }),
-      })
-      .then((response) => this.onWebPaymentRequestRecieved(response))
-      .catch((error) => {
-        Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
-      });
-    } else {
-      try {
-        var {
-          isPaymentSuccess,
-          refID,
-        } = await PaymentModule.reactRequestPayment(
-          'جهت رزرو ' + this.state.request.room.title,
-          Number(this.state.request.total_price),
-          this.state.token,
-          this.state.request.id
-        );
-        if (isPaymentSuccess) {
-          Alert.alert('کد پیگیری: ' + refID);
-          // this.payRequestDone();
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    fetch(productionURL + '/api/payment/web_payment_request/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        request_id: this.state.request.id,
+        platform: Platform.OS === 'ios' ? 'ios' : 'android',
+      }),
+    })
+    .then((response) => this.onWebPaymentRequestRecieved(response))
+    .catch((error) => {
+      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
+    });
+      // try {
+      //   var {
+      //     isPaymentSuccess,
+      //     refID,
+      //   } = await PaymentModule.reactRequestPayment(
+      //     'جهت رزرو ' + this.state.request.room.title,
+      //     Number(this.state.request.total_price),
+      //     this.state.token,
+      //     this.state.request.id
+      //   );
+      //   if (isPaymentSuccess) {
+      //     Alert.alert('کد پیگیری: ' + refID);
+      //     // this.payRequestDone();
+      //   }
+      // } catch (e) {
+      //   console.log(e);
+      // }
   }
 
   // payRequestDone = () => {
