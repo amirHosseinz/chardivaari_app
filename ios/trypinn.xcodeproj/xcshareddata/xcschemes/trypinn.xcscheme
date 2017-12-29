@@ -131,6 +131,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "TripInn"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
