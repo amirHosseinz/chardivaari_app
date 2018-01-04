@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   FlatList,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -361,17 +362,25 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor:'#ededed',
   },
-  headerbar:{
+  headerbar: {
     flexDirection:'row-reverse',
-    height:80,
     width:Dimensions.get('window').width,
     backgroundColor:"#0ca6c1",
     alignItems:'center',
     justifyContent:'center',
-    marginBottom:4,
-    elevation:3,
+    ...Platform.select({
+      ios: {
+        height: 70,
+      },
+      android: {
+        height: 80,
+        marginBottom: 4,
+        elevation: 3,
+      },
+    }),
   },
   headertext:{
+    marginTop: 20,
     color:'#e5e5e5',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,

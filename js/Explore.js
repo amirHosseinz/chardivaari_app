@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   Image,
+  Platform,
 } from 'react-native';
 import { OptimizedFlatList } from 'react-native-optimized-flatlist';
 import {
@@ -38,7 +39,7 @@ class Explore extends Component {
         switch (type) {
           case 0:
             dim.width = width - 5;
-            dim.height = 114;
+            dim.height = 112;
             break;
           default:
             dim.width = 0;
@@ -256,8 +257,16 @@ class Explore extends Component {
             width: Dimensions.get('window').width,
             marginRight: 5,
             marginLeft: 5,
-            paddingLeft: 5,
-            marginBottom: 5 }} />
+            marginBottom: 5,
+            ...Platform.select({
+              android: {
+                paddingLeft: 5,
+              },
+              ios: {
+                paddingLeft: 7,
+              },
+            }),
+          }} />
 
       </View>
     );

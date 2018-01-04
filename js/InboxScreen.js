@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import {
@@ -92,7 +93,7 @@ class InboxScreen extends Component {
     //tabStyle={styles.tabStyle}
     pressColor={'#636877'}
     style={styles.styletab}
-    indicatorStyle={{backgroundColor:'white',height:2,}}
+    indicatorStyle={{backgroundColor:'white', height:2,}}
     renderBadge={this.onRenderBadge}
     {...props}
     />;
@@ -143,8 +144,15 @@ const styles = StyleSheet.create({
   },
   styletab: {
     backgroundColor:'#0ca6c1',
-    paddingTop:18,
-    paddingBottom:3,
+    ...Platform.select({
+      ios: {
+        paddingTop: 20,
+      },
+      android: {
+        paddingTop: 18,
+        paddingBottom: 3,
+      },
+    }),
   },
   badgeview:{
     backgroundColor:'white',

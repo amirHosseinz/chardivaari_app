@@ -11,6 +11,7 @@ import {
   TextInput,
   Modal,
   StatusBar,
+  Platform,
 } from 'react-native';
 import {
   KeyboardAwareScrollView
@@ -43,7 +44,7 @@ class RequestBookScreen extends Component {
       totalDiscount: null,
       discountCode: null,
       numberOfGuests: null,
-      newCapacity: null,
+      newCapacity: 1,
       capacityModalVisible: false,
       unAvailableError: false,
       capacityError: false,
@@ -360,7 +361,7 @@ class RequestBookScreen extends Component {
     if (this.state.totalDiscount != null) {
       if (this.state.trypinnServiceDiscount != null) {
         return(
-          <View>
+          <View style={styles.rightAlignBoxCol}>
             <View style={styles.discountresult}>
               <Text style={styles.distext}>مبلغ تخفیف :  </Text>
               <Text style={styles.distext}>
@@ -575,7 +576,7 @@ class RequestBookScreen extends Component {
                 source={{
                   uri: productionURL + this.state.room.preview
                 }} />
-              <View>
+              <View style={styles.rightAlignBoxCol}>
                 <Text style={styles.h2}>{this.state.room.title}</Text>
                 <Text style={styles.h3}>{this.state.room.address}</Text>
               </View>
@@ -682,7 +683,6 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     width: Dimensions.get('window').width-36,
     marginBottom:15,
-
   },
   housebox0:{
     alignItems:'center',
@@ -707,12 +707,13 @@ const styles = StyleSheet.create({
     color:'#ffffff',
   },
   h2:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontSize:16,
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:'#000000',
     marginRight:10,
     marginTop:8,
-
   },
   interperson:{
     marginTop: 40,
@@ -721,8 +722,7 @@ const styles = StyleSheet.create({
   interperson1:{
     flexDirection:'row-reverse',
     alignItems:'flex-start',
-    width:Dimensions.get('window').width-36 ,
-
+    width:Dimensions.get('window').width-36,
   },
   addtext:{
     color:'#00a9a6',
@@ -751,9 +751,16 @@ const styles = StyleSheet.create({
   },
   cost0:{
     flexDirection:'row-reverse',
-    width:Dimensions.get('window').width-50 ,
     justifyContent:'space-between',
     marginBottom:5,
+    ...Platform.select({
+      ios: {
+        width:Dimensions.get('window').width-36,
+      },
+      android: {
+        width:Dimensions.get('window').width-50,
+      },
+    }),
   },
   cost1:{
     alignItems:'flex-start',
@@ -779,7 +786,7 @@ const styles = StyleSheet.create({
   },
   discountresult:{
     flexDirection:'row-reverse',
-    alignItems:'flex-end',
+    alignItems:'flex-start',
     justifyContent:'flex-end',
   },
   distext:{
@@ -788,6 +795,8 @@ const styles = StyleSheet.create({
     color:'#f56e4e',
   },
   disdetatiltext:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:12,
     color:'#f56e4e',
@@ -867,12 +876,12 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     flexDirection: "row-reverse",
   },
-  checkcodetext:{
+  checkcodetext: {
     fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#00a8a6',
   },
-  textInput:{
+  textInput: {
     height:40,
     width:105,
     fontSize: 14,
@@ -881,11 +890,11 @@ const styles = StyleSheet.create({
     color: '#4f4f4f',
     marginTop:5,
   },
-  inputstyle:{
+  inputstyle: {
     marginLeft:5,
     marginRight:5,
   },
-  backbuttonview:{
+  backbuttonview: {
     flexDirection:'row-reverse',
     marginTop:14,
   },
@@ -938,7 +947,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#0ca6c1',
   },
-  header0:{
+  header0: {
     backgroundColor:'#0ca6c1',
     width: Dimensions.get('window').width,
     height: 56,
@@ -959,12 +968,25 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        marginTop: 20,
+      },
+    }),
   },
   image: {
     height: 90,
     width: 90,
     resizeMode: "cover",
     marginTop: 15,
+  },
+  rightAlignBoxCol: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  rightAlignBoxRow: {
+    flexDirection: 'row-reverse',
+    alignItems: 'flex-start',
   },
 });
 

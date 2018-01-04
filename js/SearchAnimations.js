@@ -11,6 +11,7 @@ import {
   Image,
   Dimensions,
   Modal,
+  Platform,
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -61,13 +62,21 @@ class SearchAnimations extends Component {
       capacityModalVisible: false,
       whereModalVisible: false,
       myStyle: {
-        height: 80,
          flexDirection: 'column',
          alignItems: 'flex-start',
-         justifyContent: 'space-around',
          backgroundColor: '#0ca6c1',
-         paddingTop: 5,
-         elevation:3
+         elevation:3,
+         ...Platform.select({
+           ios: {
+             height: 64,
+             justifyContent: 'flex-end',
+           },
+           android: {
+             justifyContent: 'space-around',
+             height: 80,
+             paddingTop: 5,
+           },
+         }),
       },
       srartDate: null,
       newStartDate: null,
@@ -87,10 +96,17 @@ class SearchAnimations extends Component {
               backgroundColor: '#0ca6c1',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'space-around',
               paddingTop: 5,
               paddingBottom: 5,
               elevation:3,
+              ...Platform.select({
+                ios: {
+                  justifyContent: 'flex-end',
+                },
+                android: {
+                  justifyContent: 'space-around',
+                },
+              }),
            },
            isOpen: true,
         });
@@ -104,12 +120,19 @@ class SearchAnimations extends Component {
            myStyle: {
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'space-around',
               backgroundColor: '#0ca6c1',
-              paddingTop: 5,
-              paddingBottom:10,
-              elevation:3
-
+              elevation:3,
+              ...Platform.select({
+                ios: {
+                  height: 64,
+                  justifyContent: 'flex-end',
+                },
+                android: {
+                  justifyContent: 'space-around',
+                  paddingBottom:10,
+                  paddingTop: 5,
+                },
+              }),
            }
         });
      }
@@ -446,22 +469,36 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     width: Dimensions.get('screen').width - 20,
-    height: 40,
     flexDirection: 'row-reverse',
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#4fbdd1',
     padding: 2,
-    marginTop: 10,
     marginRight: 14,
     marginLeft: 14,
     borderRadius: 5,
+    ...Platform.select({
+      ios: {
+        height: 35,
+        marginTop: 5,
+      },
+      android: {
+        height: 40,
+        marginTop: 10,
+      },
+    }),
   },
   iconbox: {
     flex: 1,
     flexDirection: 'row-reverse',
     alignItems: 'flex-start',
     paddingRight: 15,
+    ...Platform.select({
+      ios: {
+        paddingTop: 10,
+        marginBottom: -15,
+      },
+    }),
   },
   lesserIcon: {
     flexDirection: 'row-reverse',

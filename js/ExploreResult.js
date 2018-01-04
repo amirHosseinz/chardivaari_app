@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -85,13 +86,21 @@ class ExploreResult extends Component {
 const styles = StyleSheet.create({
   cards: {
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 0,
+    width: Dimensions.get('window').width,
     height: 110,
-    marginTop:5,
-    borderRadius: 1,
     flexDirection: "row",
     justifyContent:"flex-start",
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: 2,
+        borderRadius: 10,
+      },
+      android: {
+        marginTop:5,
+        borderRadius: 1,
+      },
+    }),
   },
   previewimg: {
     flex: 2,
