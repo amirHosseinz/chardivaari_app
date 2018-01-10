@@ -79,6 +79,9 @@ class Explore extends Component {
   fetchHomepage () {
     fetch(productionURL + '/api/homepage/', {
       method: 'POST',
+      body: JSON.stringify({
+        platform: Platform.OS === 'ios' ? 'ios' : 'android',
+      }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -121,6 +124,7 @@ class Explore extends Component {
         'Authorization': 'Token ' + this.state.token,
       },
       body: JSON.stringify({
+        platform: Platform.OS === 'ios' ? 'ios' : 'android',
         location: this.state.destination,
         start_date: (this.state.start_date == null) ? null : this.state.start_date.toISOString(),
         end_date: (this.state.end_date == null) ? null : this.state.end_date.toISOString(),
