@@ -11,6 +11,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import CheckBox from 'react-native-check-box';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import {
@@ -30,6 +31,7 @@ class LoginGetName extends Component {
       cellPhoneNo: null,
       verificationCode: null,
       tracker: null,
+      is_terms_checked: true,
       termsConditionsModalVisible: false,
     };
   }
@@ -106,6 +108,12 @@ class LoginGetName extends Component {
     });
   }
 
+  onCheckedChanged = () => {
+    this.setState({
+      is_terms_checked: !this.state.is_terms_checked,
+    });
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -139,19 +147,32 @@ class LoginGetName extends Component {
                   underlineColorAndroid={'transparent'}
                   />
               </View>
-          </View>
 
-          <View>
-            <Text style={styles.resulttext}>
-            ورود به تریپین به منزله‌ی مطالعه و پذیرش قوانین است.
-            </Text>
-            <View style={styles.interpersonresult}>
-              <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
-                <Text style={styles.resulttext2}>
-                مشاهده قوانین
+              <View
+                style={{
+                  width: Dimensions.get('window').width-60,
+                }}
+              >
+              <View style={{
+                flexDirection: 'row-reverse',
+              }}>
+                <CheckBox
+                  onClick={()=>this.onCheckedChanged()}
+                  isChecked={this.state.is_terms_checked}
+                  checkBoxColor={'#22c8d4'}
+                />
+                <Text style={styles.resulttext}>
+                قوانین تریپین را مطالعه کرده‌ام و آن‌ها را می‌پذیرم.
                 </Text>
-              </TouchableOpacity>
-            </View>
+              </View>
+                <View style={styles.interpersonresult}>
+                  <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
+                    <Text style={styles.resulttext2}>
+                    مشاهده‌ی قوانین
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
           </View>
 
         <View style={styles.downside}>
@@ -284,7 +305,7 @@ const styles = StyleSheet.create({
   },
   interpersonresult:{
     alignItems: 'flex-start',
-    flexDirection:'row-reverse',
+    flexDirection:'row',
   },
   resulttext:{
     textAlign: 'right',
