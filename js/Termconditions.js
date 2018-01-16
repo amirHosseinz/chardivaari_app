@@ -19,7 +19,7 @@ class Termconditions extends Component {
   }
 
   handleURL = () => {
-    Linking.openURL('https://www.trypinn.com').catch(err => console.log('An error occurred', err));
+    Linking.openURL('http://www.tripinn.ir').catch(err => console.log('An error occurred', err));
   }
 
   render () {

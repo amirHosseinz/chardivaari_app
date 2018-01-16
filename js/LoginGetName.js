@@ -5,6 +5,7 @@ import {
   StyleSheet,
   StatusBar,
   Alert,
+  Modal,
   TextInput,
   Image,
   Dimensions,
@@ -16,6 +17,7 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
+import Termconditions from './Termconditions';
 import { GATrackerId, productionURL } from './data';
 
 
@@ -28,6 +30,7 @@ class LoginGetName extends Component {
       cellPhoneNo: null,
       verificationCode: null,
       tracker: null,
+      termsConditionsModalVisible: false,
     };
   }
 
@@ -91,6 +94,18 @@ class LoginGetName extends Component {
     }
   }
 
+  openTermsAndConditions = () => {
+    this.setState({
+      termsConditionsModalVisible: true,
+    });
+  }
+
+  closeTermsAndConditions = () => {
+    this.setState({
+      termsConditionsModalVisible: false,
+    });
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -126,6 +141,19 @@ class LoginGetName extends Component {
               </View>
           </View>
 
+          <View>
+            <Text style={styles.resulttext}>
+            ورود به تریپین به منزله‌ی مطالعه و پذیرش قوانین است.
+            </Text>
+            <View style={styles.interpersonresult}>
+              <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
+                <Text style={styles.resulttext2}>
+                مشاهده قوانین
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
         <View style={styles.downside}>
           <TouchableOpacity style={styles.buttontouch}
             onPress={this.onSubmitButtonPress.bind(this)}>
@@ -134,6 +162,17 @@ class LoginGetName extends Component {
           </View>
           </TouchableOpacity>
         </View>
+
+        <Modal
+        animationType='slide'
+        transparent={false}
+        visible={this.state.termsConditionsModalVisible}
+        onRequestClose={() => {
+          this.closeTermsAndConditions();
+        }}>
+          <Termconditions onCloseModal={this.closeTermsAndConditions}>
+          </Termconditions>
+        </Modal>
 
       </View>
     );
@@ -242,6 +281,22 @@ const styles = StyleSheet.create({
   downside:{
     flex:1,
     marginTop:0,
+  },
+  interpersonresult:{
+    alignItems: 'flex-start',
+    flexDirection:'row-reverse',
+  },
+  resulttext:{
+    textAlign: 'right',
+    alignSelf: 'stretch',
+    fontFamily: 'IRANSansMobileFaNum-Light',
+    fontSize:14,
+    color:'#000000',
+  },
+  resulttext2:{
+    fontFamily:"IRANSansMobileFaNum-Medium",
+    fontSize:14,
+    color:"#f56e4e"
   },
 });
 
