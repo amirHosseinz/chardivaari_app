@@ -21,7 +21,7 @@ import Calendar from './common/calendar/Calendar';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { productionURL } from './data';
+import { productionURL, currentVersion } from './data';
 import NumberSelectScreen from './NumberSelectScreen';
 
 
@@ -37,10 +37,10 @@ class RequestBookScreen extends Component {
       endDate: null,
       endDateText: null,
       endWeekdayText: null,
-      hostPrice: null,
-      trypinnServicePrice: null,
+      ordinaryPrice: null,
+      weekendPrice: null,
+      specialsPrice: null,
       totalPrice: null,
-      trypinnServiceDiscount: null,
       totalDiscount: null,
       discountCode: null,
       numberOfGuests: null,
@@ -65,7 +65,7 @@ class RequestBookScreen extends Component {
     });
   }
 
-  setDiscountCode =  (input) => {
+  setDiscountCode = (input) => {
     this.setState({
       discountCode: input
     });
@@ -127,7 +127,9 @@ class RequestBookScreen extends Component {
   }
 
   updatePrice () {
-    if ((this.state.startDate != null) && (this.state.endDate != null)) {
+    if ((this.state.startDate != null) &&
+        (this.state.endDate != null) &&
+        (this.state.numberOfGuests != null)) {
       fetch(productionURL + '/api/room/get_price/', {
         method: 'POST',
         headers: {
@@ -141,6 +143,7 @@ class RequestBookScreen extends Component {
           end_date: this.state.endDate.toISOString(),
           number_of_guests: this.state.numberOfGuests,
           discount_code: this.state.discountCode,
+          app_version: currentVersion,
         }),
       })
       .then((response) => this.onUpdatePriceResponseRecieved(response))
@@ -153,11 +156,13 @@ class RequestBookScreen extends Component {
   onUpdatePriceResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
+      console.log("body*********");
+      console.log(body);
       this.setState({
-        hostPrice: body.host_price,
+        specialsPrice: body.specials_host_price,
         totalPrice: body.total_price,
-        trypinnServicePrice: body.trypinn_service_price,
-        trypinnServiceDiscount: body.trypinn_service_discount,
+        weekendPrice: body.weekend_price,
+        ordinaryPrice: body.ordinary_price,
         totalDiscount: body.total_discount,
         unAvailableError: !body.is_available,
         discountCodeError: body.discount_code_error,
@@ -200,32 +205,37 @@ class RequestBookScreen extends Component {
   }
 
   _onCheckDiscountCodeButtonPress () {
-    if ((this.state.startDate != null) && (this.state.endDate != null)) {
-      if (this.state.discountCode != null) {
-        fetch(productionURL + '/api/room/get_price/', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + this.state.token,
-          },
-          body: JSON.stringify({
-            room_id: this.state.room.id,
-            start_date: this.state.startDate.toISOString(),
-            end_date: this.state.endDate.toISOString(),
-            number_of_guests: this.state.numberOfGuests,
-            discount_code: this.state.discountCode,
-          }),
-        })
-        .then((response) => this.onUpdatePriceResponseRecieved(response))
-        .catch((error) => {
-          Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
-        });
+    if (this.state.numberOfGuests != null) {
+      if ((this.state.startDate != null) && (this.state.endDate != null)) {
+        if (this.state.discountCode != null) {
+          fetch(productionURL + '/api/room/get_price/', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Token ' + this.state.token,
+            },
+            body: JSON.stringify({
+              room_id: this.state.room.id,
+              start_date: this.state.startDate.toISOString(),
+              end_date: this.state.endDate.toISOString(),
+              number_of_guests: this.state.numberOfGuests,
+              discount_code: this.state.discountCode,
+              app_version: currentVersion,
+            }),
+          })
+          .then((response) => this.onUpdatePriceResponseRecieved(response))
+          .catch((error) => {
+            Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+          });
+        } else {
+          Alert.alert('لطفا کد تخفیف خود را وارد نمایید.');
+        }
       } else {
-        Alert.alert('لطفا کد تخفیف خود را وارد نمایید.');
+        Alert.alert('لطفا زمان سفر خود را انتخاب نمایید.');
       }
     } else {
-      Alert.alert('لطفا زمان سفر خود را انتخاب نمایید.');
+      Alert.alert('لطفا تعداد افراد را انتخاب نمایید.');
     }
   }
 
@@ -243,29 +253,33 @@ class RequestBookScreen extends Component {
   }
 
   onRequestBookButtonPress () {
-    if ((this.state.startDate != null) &&
-    (this.state.endDate != null) && (this.state.numberOfGuests != null)) {
-      fetch(productionURL + '/api/room/request/book/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token,
-        },
-        body: JSON.stringify({
-          room_id: this.state.room.id,
-          start_date: this.state.startDate.toISOString(),
-          end_date: this.state.endDate.toISOString(),
-          number_of_guests: this.state.numberOfGuests,
-          discount_code: this.state.discountCode,
-        }),
-      })
-      .then((response) => this.onRequestBookResponseRecieved(response))
-      .catch((error) => {
-        Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
-      });
+    if (this.state.numberOfGuests != null) {
+      if ((this.state.startDate != null) && (this.state.endDate != null)) {
+        fetch(productionURL + '/api/room/request/book/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + this.state.token,
+          },
+          body: JSON.stringify({
+            room_id: this.state.room.id,
+            start_date: this.state.startDate.toISOString(),
+            end_date: this.state.endDate.toISOString(),
+            number_of_guests: this.state.numberOfGuests,
+            discount_code: this.state.discountCode,
+            app_version: currentVersion,
+          }),
+        })
+        .then((response) => this.onRequestBookResponseRecieved(response))
+        .catch((error) => {
+          Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+        });
+      } else {
+        Alert.alert('لطفا زمان سفر را تعیین نمایید.');
+      }
     } else {
-      Alert.alert('لطفا زمان و تعداد افراد سفر را تعیین نمایید.');
+      Alert.alert('لطفا تعداد افراد سفر را تعیین نمایید.');
     }
   }
 
@@ -273,10 +287,10 @@ class RequestBookScreen extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({
-        hostPrice: body.host_price,
+        specialsPrice: body.specials_host_price,
         totalPrice: body.total_price,
-        trypinnServicePrice: body.trypinn_service_price,
-        trypinnServiceDiscount: body.trypinn_service_discount,
+        weekendPrice: body.weekend_price,
+        ordinaryPrice: body.ordinary_price,
         totalDiscount: body.total_discount,
         unAvailableError: !body.is_available,
         discountCodeError: body.discount_code_error,
@@ -303,16 +317,38 @@ class RequestBookScreen extends Component {
     return(res);
   }
 
-  renderTrypinnShare () {
-    if (this.state.trypinnServicePrice != null) {
+  renderWeekendPrice () {
+    if ((this.state.weekendPrice != null) && (this.state.weekendPrice > 0)) {
       return(
         <View style={styles.cost0}>
           <View style={styles.cost1}>
-            <Text style={styles.costtext}>حق سرویس تریپین:  </Text>
+            <Text style={styles.costtext}>
+              هزینه‌ی شب‌های آخر هفته:
+            </Text>
           </View>
           <View style={styles.cost2}>
             <Text style={styles.costtext}>
-              {this.renderPrice(String(this.state.trypinnServicePrice))}
+              {this.renderPrice(String(this.state.weekendPrice))}
+            </Text>
+            <Text style={styles.costtext}> تومان</Text>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  renderSpecialsPrice () {
+    if ((this.state.specialsPrice != null) && (this.state.specialsPrice > 0)) {
+      return(
+        <View style={styles.cost0}>
+          <View style={styles.cost1}>
+            <Text style={styles.costtext}>
+              هزینه‌ی شب‌های آخر هفته:
+            </Text>
+          </View>
+          <View style={styles.cost2}>
+            <Text style={styles.costtext}>
+              {this.renderPrice(String(this.state.specialsPrice))}
             </Text>
             <Text style={styles.costtext}> تومان</Text>
           </View>
@@ -322,7 +358,9 @@ class RequestBookScreen extends Component {
   }
 
   renderTotalPrice () {
-    if (this.state.totalPrice != null) {
+    if ((this.state.specialsPrice != null) &&
+        (this.state.weekendPrice != null) &&
+        (this.state.ordinaryPrice != null)) {
       return(
         <View style={styles.cost0}>
           <View style={styles.cost1}>
@@ -330,7 +368,7 @@ class RequestBookScreen extends Component {
           </View>
           <View style={styles.cost2}>
             <Text style={styles.costtext}>
-              {this.renderPrice(String(this.state.hostPrice + this.state.trypinnServicePrice))}
+              {this.renderPrice(String(this.state.specialsPrice + this.state.weekendPrice + this.state.ordinaryPrice))}
             </Text>
             <Text style={styles.costtext}> تومان</Text>
           </View>
@@ -339,16 +377,18 @@ class RequestBookScreen extends Component {
     }
   }
 
-  renderHostPrice () {
-    if (this.state.totalPrice != null) {
+  renderOrdinaryPrice () {
+    if ((this.state.ordinaryPrice != null) && (this.state.ordinaryPrice > 0)) {
       return(
           <View style={styles.cost0}>
             <View style={styles.cost1}>
-              <Text style={styles.costtext}>هزینه‌ی اقامت:</Text>
+              <Text style={styles.costtext}>
+                هزینه‌ی شب‌های عادی:
+              </Text>
             </View>
             <View style={styles.cost2}>
               <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.hostPrice))}
+                {this.renderPrice(String(this.state.ordinaryPrice))}
               </Text>
               <Text style={styles.costtext}> تومان</Text>
             </View>
@@ -358,45 +398,18 @@ class RequestBookScreen extends Component {
   }
 
   renderDiscount () {
-    if (this.state.totalDiscount != null) {
-      if (this.state.trypinnServiceDiscount != null) {
-        return(
-          <View style={styles.rightAlignBoxCol}>
-            <View style={styles.discountresult}>
-              <Text style={styles.distext}>مبلغ تخفیف :  </Text>
-              <Text style={styles.distext}>
-                {this.renderPrice(String(this.state.totalDiscount))}
-              </Text>
-              <Text style={styles.distext}> تومان</Text>
-            </View>
-            <View style={styles.discountdetail}>
-              <Text style={styles.disdetatiltext}>
-                مبلغ
-                {this.renderPrice(String(this.state.totalDiscount))}
-                تومان
-                شامل
-                {this.renderPrice(String(this.state.trypinnServiceDiscount))}
-                تومان از حق سرویس
-                تریپین به صورت
-                تخفیف به شما هدیه
-                می‌گردد.
-              </Text>
-            </View>
+    if ((this.state.totalDiscount != null) && (this.state.totalDiscount > 0)) {
+      return(
+        <View>
+          <View style={styles.discountresult}>
+            <Text style={styles.distext}>مبلغ تخفیف :  </Text>
+            <Text style={styles.distext}>
+              {this.renderPrice(String(this.state.totalDiscount))}
+            </Text>
+            <Text style={styles.distext}> تومان</Text>
           </View>
-        );
-      } else {
-        return(
-          <View>
-            <View style={styles.discountresult}>
-              <Text style={styles.distext}>مبلغ تخفیف :  </Text>
-              <Text style={styles.distext}>
-                {this.renderPrice(String(this.state.totalDiscount))}
-              </Text>
-              <Text style={styles.distext}> تومان</Text>
-            </View>
-          </View>
-        );
-      }
+        </View>
+      );
     }
   }
 
@@ -611,8 +624,9 @@ class RequestBookScreen extends Component {
             <View style={styles.divider}>
             </View>
             <View style={styles.costbox}>
-              {this.renderHostPrice()}
-              {this.renderTrypinnShare()}
+              {this.renderOrdinaryPrice()}
+              {this.renderWeekendPrice()}
+              {this.renderSpecialsPrice()}
               {this.renderTotalPrice()}
               <View style={styles.interdiscount}>
                 {this.renderDiscountIcon()}
