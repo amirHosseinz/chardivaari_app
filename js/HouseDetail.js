@@ -903,6 +903,42 @@ class HouseDetail extends Component {
     <View style={styles.divider}>
     </View>
 
+    <View style={styles.detailbox}>
+      <View style={styles.deatilitembox}>
+        <Text style={styles.checktime}>عادی</Text>
+        <View style={styles.detailicontextbox}>
+        <Text style={styles.detailicontext}> {this.state.room.price}</Text>
+        <Text style={styles.detailicontext}>
+          تومان
+        </Text>
+        </View>
+      </View>
+
+      <View style={styles.deatilitembox}>
+        <Text style={styles.checktime}>آخر هفته</Text>
+        <View style={styles.detailicontextbox}>
+        <Text style={styles.detailicontext}> {this.state.room.weekend_price}</Text>
+        <Text style={styles.detailicontext}>
+          تومان
+        </Text>
+        </View>
+      </View>
+
+      <View style={styles.deatilitembox}>
+        <Text style={styles.checktime}>ایام خاص</Text>
+        <View style={styles.detailicontextbox}>
+        <Text style={styles.detailicontext}> {this.state.room.special_offer_price}</Text>
+        <Text style={styles.detailicontext}>
+          تومان
+        </Text>
+        </View>
+      </View>
+
+    </View>
+
+    <View style={styles.divider}>
+    </View>
+
     <View style={styles.checkinbox}>
     <Text style={styles.h2}>
       قوانین و محدودیت‌ها
