@@ -42,7 +42,7 @@
             <category android:name="android.intent.category.DEFAULT"/>
             <category android:name="android.intent.category.BROWSABLE"/>
             <data android:scheme="trypinn" android:host="guestScreen" />
-        </intent-filter>>
+        </intent-filter>
       </activity>
 
       <activity android:name=".payment.PaymentActivity">
