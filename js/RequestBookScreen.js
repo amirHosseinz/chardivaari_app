@@ -159,7 +159,7 @@ class RequestBookScreen extends Component {
       console.log("body*********");
       console.log(body);
       this.setState({
-        specialsPrice: body.specials_host_price,
+        specialsPrice: body.special_price,
         totalPrice: body.total_price,
         weekendPrice: body.weekend_price,
         ordinaryPrice: body.ordinary_price,
@@ -287,7 +287,7 @@ class RequestBookScreen extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.setState({
-        specialsPrice: body.specials_host_price,
+        specialsPrice: body.special_price,
         totalPrice: body.total_price,
         weekendPrice: body.weekend_price,
         ordinaryPrice: body.ordinary_price,
