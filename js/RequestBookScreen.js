@@ -38,8 +38,11 @@ class RequestBookScreen extends Component {
       endDateText: null,
       endWeekdayText: null,
       ordinaryPrice: null,
+      ordinaryDuration: null,
       weekendPrice: null,
+      weekendDuration: null,
       specialsPrice: null,
+      specialsDuration: null,
       totalPrice: null,
       totalDiscount: null,
       discountCode: null,
@@ -156,13 +159,14 @@ class RequestBookScreen extends Component {
   onUpdatePriceResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      console.log("body*********");
-      console.log(body);
       this.setState({
         specialsPrice: body.special_price,
+        specialsDuration: body.special_duration,
         totalPrice: body.total_price,
         weekendPrice: body.weekend_price,
+        weekendDuration: body.weekend_duration,
         ordinaryPrice: body.ordinary_price,
+        ordinaryDuration: body.ordinary_duration,
         totalDiscount: body.total_discount,
         unAvailableError: !body.is_available,
         discountCodeError: body.discount_code_error,
@@ -288,9 +292,12 @@ class RequestBookScreen extends Component {
       body = JSON.parse(response._bodyText);
       this.setState({
         specialsPrice: body.special_price,
+        specialsDuration: body.special_duration,
         totalPrice: body.total_price,
         weekendPrice: body.weekend_price,
+        weekendDuration: body.weekend_duration,
         ordinaryPrice: body.ordinary_price,
+        ordinaryDuration: body.ordinary_duration,
         totalDiscount: body.total_discount,
         unAvailableError: !body.is_available,
         discountCodeError: body.discount_code_error,
@@ -319,41 +326,77 @@ class RequestBookScreen extends Component {
 
   renderWeekendPrice () {
     if ((this.state.weekendPrice != null) && (this.state.weekendPrice > 0)) {
-      return(
-        <View style={styles.cost0}>
-          <View style={styles.cost1}>
-            <Text style={styles.costtext}>
-              هزینه‌ی شب‌های آخر هفته:
-            </Text>
+      if ((this.state.weekendDuration != null) && (this.state.weekendDuration > 1)) {
+        return(
+          <View style={styles.cost0}>
+            <View style={styles.cost1}>
+              <Text style={styles.costtext}>
+                هزینه‌ی شب‌های آخر هفته ({this.state.weekendDuration}):
+              </Text>
+            </View>
+            <View style={styles.cost2}>
+              <Text style={styles.costtext}>
+                {this.renderPrice(String(this.state.weekendPrice))}
+              </Text>
+              <Text style={styles.costtext}> تومان</Text>
+            </View>
           </View>
-          <View style={styles.cost2}>
-            <Text style={styles.costtext}>
-              {this.renderPrice(String(this.state.weekendPrice))}
-            </Text>
-            <Text style={styles.costtext}> تومان</Text>
+        );
+      } else {
+        return(
+          <View style={styles.cost0}>
+            <View style={styles.cost1}>
+              <Text style={styles.costtext}>
+                هزینه‌ی شب آخر هفته:
+              </Text>
+            </View>
+            <View style={styles.cost2}>
+              <Text style={styles.costtext}>
+                {this.renderPrice(String(this.state.weekendPrice))}
+              </Text>
+              <Text style={styles.costtext}> تومان</Text>
+            </View>
           </View>
-        </View>
-      );
+        );
+      }
     }
   }
 
   renderSpecialsPrice () {
     if ((this.state.specialsPrice != null) && (this.state.specialsPrice > 0)) {
-      return(
-        <View style={styles.cost0}>
-          <View style={styles.cost1}>
-            <Text style={styles.costtext}>
-              هزینه‌ی شب‌های آخر هفته:
-            </Text>
+      if ((this.state.specialsDuration != null) && (this.state.specialsDuration > 1)) {
+        return(
+          <View style={styles.cost0}>
+            <View style={styles.cost1}>
+              <Text style={styles.costtext}>
+                هزینه‌ی شب‌های خاص ({this.state.specialsDuration}):
+              </Text>
+            </View>
+            <View style={styles.cost2}>
+              <Text style={styles.costtext}>
+                {this.renderPrice(String(this.state.specialsPrice))}
+              </Text>
+              <Text style={styles.costtext}> تومان</Text>
+            </View>
           </View>
-          <View style={styles.cost2}>
-            <Text style={styles.costtext}>
-              {this.renderPrice(String(this.state.specialsPrice))}
-            </Text>
-            <Text style={styles.costtext}> تومان</Text>
+        );
+      } else {
+        return(
+          <View style={styles.cost0}>
+            <View style={styles.cost1}>
+              <Text style={styles.costtext}>
+                هزینه‌ی شب‌های خاص:
+              </Text>
+            </View>
+            <View style={styles.cost2}>
+              <Text style={styles.costtext}>
+                {this.renderPrice(String(this.state.specialsPrice))}
+              </Text>
+              <Text style={styles.costtext}> تومان</Text>
+            </View>
           </View>
-        </View>
-      );
+        );
+      }
     }
   }
 
@@ -379,21 +422,39 @@ class RequestBookScreen extends Component {
 
   renderOrdinaryPrice () {
     if ((this.state.ordinaryPrice != null) && (this.state.ordinaryPrice > 0)) {
-      return(
-          <View style={styles.cost0}>
-            <View style={styles.cost1}>
-              <Text style={styles.costtext}>
-                هزینه‌ی شب‌های عادی:
-              </Text>
-            </View>
-            <View style={styles.cost2}>
-              <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.ordinaryPrice))}
-              </Text>
-              <Text style={styles.costtext}> تومان</Text>
-            </View>
-        </View>
-      );
+      if ((this.state.ordinaryDuration != null) && (this.state.ordinaryDuration > 1)) {
+        return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب‌های عادی ({this.state.ordinaryDuration}):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.ordinaryPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
+          </View>
+        );
+      } else {
+        return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب عادی:
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.ordinaryPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
+          </View>
+        );
+      }
     }
   }
 
