@@ -16,7 +16,11 @@ import { productionURL } from './data';
 
 class ExploreResult extends Component {
 
-  renderPrice (input) {
+  renderPriceNumber (input) {
+    var input = parseInt(input);
+    input = Math.ceil(input / 1000);
+    input = input * 1000;
+    input = String(input);
     var res = input.substr(input.length - 3);
     input = input.substring(0, input.length - 3);
     while (input.length > 3) {
@@ -25,6 +29,54 @@ class ExploreResult extends Component {
     }
     res = input + ',' + res;
     return(res);
+  }
+
+  renderPriceSection () {
+    if (this.props.room.is_price_per_person) {
+      if (this.props.room.avg_price != null) {
+        return(
+          <View style={styles.price}>
+            <Text style={styles.pricetext}>
+              {this.renderPriceNumber(this.props.room.avg_price)}
+            </Text>
+            <Text style={styles.toman}>تومان</Text>
+            <Text style={styles.night}>/ هر شب هر نفر</Text>
+          </View>
+        );
+      } else {
+        return(
+          <View style={styles.price}>
+            <Text style={styles.pricetext}>
+              {this.renderPriceNumber(this.props.room.price)}
+            </Text>
+            <Text style={styles.toman}>تومان</Text>
+            <Text style={styles.night}>/ هر شب هر نفر</Text>
+          </View>
+        );
+      }
+    } else {
+      if (this.props.room.avg_price != null) {
+        return(
+          <View style={styles.price}>
+            <Text style={styles.pricetext}>
+              {this.renderPriceNumber(this.props.room.avg_price)}
+            </Text>
+            <Text style={styles.toman}>تومان</Text>
+            <Text style={styles.night}>/ هر شب در بازه‌ی انتخابی</Text>
+          </View>
+        );
+      } else {
+        return(
+          <View style={styles.price}>
+            <Text style={styles.pricetext}>
+              {this.renderPriceNumber(this.props.room.price)}
+            </Text>
+            <Text style={styles.toman}>تومان</Text>
+            <Text style={styles.night}>/ هر شب عادی</Text>
+          </View>
+        );
+      }
+    }
   }
 
   render () {
@@ -68,13 +120,7 @@ class ExploreResult extends Component {
               </View>
             </View>
 
-            <View style={styles.price}>
-              <Text style={styles.pricetext}>
-                {this.renderPrice(String(this.props.room.price))}
-              </Text>
-              <Text style={styles.toman}>تومان</Text>
-              <Text style={styles.night}>/ هر شب</Text>
-            </View>
+            {this.renderPriceSection()}
         </View>
     </View>
     </TouchableOpacity>
