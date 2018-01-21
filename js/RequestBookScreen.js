@@ -327,37 +327,80 @@ class RequestBookScreen extends Component {
   renderWeekendPrice () {
     if ((this.state.weekendPrice != null) && (this.state.weekendPrice > 0)) {
       if ((this.state.weekendDuration != null) && (this.state.weekendDuration > 1)) {
-        return(
-          <View style={styles.cost0}>
-            <View style={styles.cost1}>
-              <Text style={styles.costtext}>
-                هزینه‌ی شب‌های آخر هفته ({this.state.weekendDuration}):
-              </Text>
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب‌های آخر هفته
+                  ({this.state.weekendDuration} شب - {this.state.numberOfGuests} نفر):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.weekendPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-            <View style={styles.cost2}>
-              <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.weekendPrice))}
-              </Text>
-              <Text style={styles.costtext}> تومان</Text>
+          );
+        } else {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب‌های آخر هفته
+                  ({this.state.weekendDuration} شب):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.weekendPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-          </View>
-        );
+          );
+        }
       } else {
-        return(
-          <View style={styles.cost0}>
-            <View style={styles.cost1}>
-              <Text style={styles.costtext}>
-                هزینه‌ی شب آخر هفته:
-              </Text>
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب آخر هفته:
+                  ({this.state.numberOfGuests} نفر):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.weekendPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-            <View style={styles.cost2}>
-              <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.weekendPrice))}
-              </Text>
-              <Text style={styles.costtext}> تومان</Text>
+          );
+        } else {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب آخر هفته:
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.weekendPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-          </View>
-        );
+          );
+        }
       }
     }
   }
@@ -365,37 +408,80 @@ class RequestBookScreen extends Component {
   renderSpecialsPrice () {
     if ((this.state.specialsPrice != null) && (this.state.specialsPrice > 0)) {
       if ((this.state.specialsDuration != null) && (this.state.specialsDuration > 1)) {
-        return(
-          <View style={styles.cost0}>
-            <View style={styles.cost1}>
-              <Text style={styles.costtext}>
-                هزینه‌ی شب‌های خاص ({this.state.specialsDuration}):
-              </Text>
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب‌های خاص
+                  ({this.state.specialsDuration} شب - {this.state.numberOfGuests} نفر):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.specialsPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-            <View style={styles.cost2}>
-              <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.specialsPrice))}
-              </Text>
-              <Text style={styles.costtext}> تومان</Text>
+          );
+        } else {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب‌های خاص
+                  ({this.state.specialsDuration} شب):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.specialsPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-          </View>
-        );
+          );
+        }
       } else {
-        return(
-          <View style={styles.cost0}>
-            <View style={styles.cost1}>
-              <Text style={styles.costtext}>
-                هزینه‌ی شب‌های خاص:
-              </Text>
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب خاص:
+                  ({this.state.numberOfGuests} نفر):
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.specialsPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-            <View style={styles.cost2}>
-              <Text style={styles.costtext}>
-                {this.renderPrice(String(this.state.specialsPrice))}
-              </Text>
-              <Text style={styles.costtext}> تومان</Text>
+          );
+        } else {
+          return(
+            <View style={styles.cost0}>
+              <View style={styles.cost1}>
+                <Text style={styles.costtext}>
+                  هزینه‌ی شب خاص:
+                </Text>
+              </View>
+              <View style={styles.cost2}>
+                <Text style={styles.costtext}>
+                  {this.renderPrice(String(this.state.specialsPrice))}
+                </Text>
+                <Text style={styles.costtext}> تومان</Text>
+              </View>
             </View>
-          </View>
-        );
+          );
+        }
       }
     }
   }
@@ -423,37 +509,80 @@ class RequestBookScreen extends Component {
   renderOrdinaryPrice () {
     if ((this.state.ordinaryPrice != null) && (this.state.ordinaryPrice > 0)) {
       if ((this.state.ordinaryDuration != null) && (this.state.ordinaryDuration > 1)) {
-        return(
-            <View style={styles.cost0}>
-              <View style={styles.cost1}>
-                <Text style={styles.costtext}>
-                  هزینه‌ی شب‌های عادی ({this.state.ordinaryDuration}):
-                </Text>
-              </View>
-              <View style={styles.cost2}>
-                <Text style={styles.costtext}>
-                  {this.renderPrice(String(this.state.ordinaryPrice))}
-                </Text>
-                <Text style={styles.costtext}> تومان</Text>
-              </View>
-          </View>
-        );
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+              <View style={styles.cost0}>
+                <View style={styles.cost1}>
+                  <Text style={styles.costtext}>
+                    هزینه‌ی شب‌های عادی
+                    ({this.state.ordinaryDuration} شب - {this.state.numberOfGuests} نفر):
+                  </Text>
+                </View>
+                <View style={styles.cost2}>
+                  <Text style={styles.costtext}>
+                    {this.renderPrice(String(this.state.ordinaryPrice))}
+                  </Text>
+                  <Text style={styles.costtext}> تومان</Text>
+                </View>
+            </View>
+          );
+        } else {
+          return(
+              <View style={styles.cost0}>
+                <View style={styles.cost1}>
+                  <Text style={styles.costtext}>
+                    هزینه‌ی شب‌های عادی
+                    ({this.state.ordinaryDuration} شب):
+                  </Text>
+                </View>
+                <View style={styles.cost2}>
+                  <Text style={styles.costtext}>
+                    {this.renderPrice(String(this.state.ordinaryPrice))}
+                  </Text>
+                  <Text style={styles.costtext}> تومان</Text>
+                </View>
+            </View>
+          );
+        }
       } else {
-        return(
-            <View style={styles.cost0}>
-              <View style={styles.cost1}>
-                <Text style={styles.costtext}>
-                  هزینه‌ی شب عادی:
-                </Text>
-              </View>
-              <View style={styles.cost2}>
-                <Text style={styles.costtext}>
-                  {this.renderPrice(String(this.state.ordinaryPrice))}
-                </Text>
-                <Text style={styles.costtext}> تومان</Text>
-              </View>
-          </View>
-        );
+        if ((this.state.numberOfGuests != null) &&
+            (this.state.numberOfGuests > 1) &&
+            (this.state.room.is_price_per_person)) {
+          return(
+              <View style={styles.cost0}>
+                <View style={styles.cost1}>
+                  <Text style={styles.costtext}>
+                    هزینه‌ی شب عادی
+                    ({this.state.numberOfGuests} نفر):
+                  </Text>
+                </View>
+                <View style={styles.cost2}>
+                  <Text style={styles.costtext}>
+                    {this.renderPrice(String(this.state.ordinaryPrice))}
+                  </Text>
+                  <Text style={styles.costtext}> تومان</Text>
+                </View>
+            </View>
+          );
+        } else {
+          return(
+              <View style={styles.cost0}>
+                <View style={styles.cost1}>
+                  <Text style={styles.costtext}>
+                    هزینه‌ی شب عادی:
+                  </Text>
+                </View>
+                <View style={styles.cost2}>
+                  <Text style={styles.costtext}>
+                    {this.renderPrice(String(this.state.ordinaryPrice))}
+                  </Text>
+                  <Text style={styles.costtext}> تومان</Text>
+                </View>
+            </View>
+          );
+        }
       }
     }
   }
