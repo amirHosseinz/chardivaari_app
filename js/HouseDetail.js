@@ -760,6 +760,38 @@ class HouseDetail extends Component {
     }
   }
 
+  renderBottomBar () {
+    if (this.state.room.is_price_per_person) {
+      return(
+        <View style={styles.bottombarchild}>
+          <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
+          <View style={styles.bottombarprice}>
+            <Text style={styles.pricetext} numberOfLines={1}>
+              {this.renderPrice(String(this.state.room.price))} تومان
+            </Text>
+          </View>
+          <View style={styles.bottombarbutton}>
+              {this.renderBottomButton()}
+          </View>
+        </View>
+      );
+    } else {
+      return(
+        <View style={styles.bottombarchild}>
+          <Text style={styles.mablaghtext}>هزینه هر شب</Text>
+          <View style={styles.bottombarprice}>
+            <Text style={styles.pricetext} numberOfLines={1}>
+              {this.renderPrice(String(this.state.room.price))} تومان
+            </Text>
+          </View>
+          <View style={styles.bottombarbutton}>
+              {this.renderBottomButton()}
+          </View>
+        </View>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -905,7 +937,7 @@ class HouseDetail extends Component {
 
     <View style={styles.detailbox}>
       <View style={styles.deatilitembox}>
-        <Text style={styles.checktime}>عادی</Text>
+        <Text style={styles.pricetitletext}>عادی</Text>
         <View style={styles.detailicontextbox}>
         <Text style={styles.detailicontext}> {this.state.room.price}</Text>
         <Text style={styles.detailicontext}>
@@ -915,7 +947,7 @@ class HouseDetail extends Component {
       </View>
 
       <View style={styles.deatilitembox}>
-        <Text style={styles.checktime}>آخر هفته</Text>
+        <Text style={styles.pricetitletext}>آخر هفته</Text>
         <View style={styles.detailicontextbox}>
         <Text style={styles.detailicontext}> {this.state.room.weekend_price}</Text>
         <Text style={styles.detailicontext}>
@@ -925,7 +957,7 @@ class HouseDetail extends Component {
       </View>
 
       <View style={styles.deatilitembox}>
-        <Text style={styles.checktime}>ایام خاص</Text>
+        <Text style={styles.pricetitletext}>ایام خاص</Text>
         <View style={styles.detailicontextbox}>
         <Text style={styles.detailicontext}> {this.state.room.special_offer_price}</Text>
         <Text style={styles.detailicontext}>
@@ -975,17 +1007,7 @@ class HouseDetail extends Component {
   </Modal>
 </ScrollView>
 <View style={styles.bottombar}>
-      <View style={styles.bottombarchild}>
-            <Text style={styles.mablaghtext}>هزینه هر شب</Text>
-            <View style={styles.bottombarprice}>
-            <Text style={styles.pricetext} numberOfLines={1}>
-              {this.renderPrice(String(this.state.room.price))} تومان
-            </Text>
-            </View>
-        <View style={styles.bottombarbutton}>
-            {this.renderBottomButton()}
-        </View>
-      </View>
+      {this.renderBottomBar()}
     </View>
 
 
@@ -1349,6 +1371,12 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
     marginLeft:8,
+  },
+  pricetitletext:{
+    fontSize: 18,
+    fontFamily: 'IRANSansMobileFaNum-Medium',
+    color: '#00b1ce',
+    marginLeft: 8,
   },
   banbox: {
     flexDirection:"row-reverse" ,
