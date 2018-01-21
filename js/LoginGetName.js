@@ -49,25 +49,31 @@ class LoginGetName extends Component {
   }
 
   onSubmitButtonPress = () => {
-    fetch(productionURL + '/auth/api/signup/set_name/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cell_phone: this.state.cellPhoneNo,
-        verification_code: this.state.verificationCode,
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-      }),
-    })
-    .then((response) => this.onResponseRecieved(response))
-    .catch((error) => {
-      // network error
-      // console.log(error);
-      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
-    });
+    if (this.state.is_terms_checked) {
+      fetch(productionURL + '/auth/api/signup/set_name/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cell_phone: this.state.cellPhoneNo,
+          verification_code: this.state.verificationCode,
+          first_name: this.state.firstName,
+          last_name: this.state.lastName,
+        }),
+      })
+      .then((response) => this.onResponseRecieved(response))
+      .catch((error) => {
+        // network error
+        // console.log(error);
+        Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+      });
+    } else {
+      Alert.alert(
+        'پذیرش قوانین تریپین الزامی می‌باشد.'
+      );
+    }
   }
 
   resetNavigation (targetRoute) {
@@ -154,6 +160,7 @@ class LoginGetName extends Component {
                 }}
               >
               <View style={{
+                marginTop: 10,
                 flexDirection: 'row-reverse',
               }}>
                 <CheckBox
@@ -161,17 +168,17 @@ class LoginGetName extends Component {
                   isChecked={this.state.is_terms_checked}
                   checkBoxColor={'#22c8d4'}
                 />
+                <TouchableOpacity
+                  style={styles.linkablerules}
+                  onPress={() => {this.openTermsAndConditions();}}>
+                  <Text style={styles.resulttext2}>
+                    قوانین تریپین
+                  </Text>
+                </TouchableOpacity>
                 <Text style={styles.resulttext}>
-                قوانین تریپین را مطالعه کرده‌ام و آن‌ها را می‌پذیرم.
+                  را مطالعه کرده‌ام و آن‌ها را می‌پذیرم.
                 </Text>
               </View>
-                <View style={styles.interpersonresult}>
-                  <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
-                    <Text style={styles.resulttext2}>
-                    مشاهده‌ی قوانین
-                    </Text>
-                  </TouchableOpacity>
-                </View>
               </View>
           </View>
 
@@ -303,10 +310,6 @@ const styles = StyleSheet.create({
     flex:1,
     marginTop:0,
   },
-  interpersonresult:{
-    alignItems: 'flex-start',
-    flexDirection:'row',
-  },
   resulttext:{
     textAlign: 'right',
     alignSelf: 'stretch',
@@ -318,6 +321,10 @@ const styles = StyleSheet.create({
     fontFamily:"IRANSansMobileFaNum-Medium",
     fontSize:14,
     color:"#f56e4e"
+  },
+  linkablerules: {
+    marginLeft: 5,
+    marginRight: 10,
   },
 });
 
