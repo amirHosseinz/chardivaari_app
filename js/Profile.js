@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  Linking,
   Modal,
   ScrollView,
   Platform,
@@ -16,7 +17,7 @@ import { NavigationActions } from 'react-navigation';
 import Communications from 'react-native-communications';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AboutUs from './AboutUs';
-import Termconditions from './Termconditions';
+
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -33,7 +34,6 @@ class Profile extends Component {
       callCenter: null,
       editProfileModalVisible: false,
       aboutUsModalVisible: false,
-      termsConditionsModalVisible: false,
     };
   }
 
@@ -163,15 +163,7 @@ class Profile extends Component {
   }
 
   openTermconditions = () => {
-    this.setState({
-      termsConditionsModalVisible: true,
-    });
-  }
-
-  closeTermconditions = () => {
-    this.setState({
-      termsConditionsModalVisible: false,
-    });
+    Linking.openURL('http://www.tripinn.ir/terms&conditions').catch(err => console.log('An error occurred', err));
   }
 
   _onChangeToHost () {
@@ -359,17 +351,6 @@ class Profile extends Component {
         </AboutUs>
         </Modal>
 
-        <Modal
-        animationType='slide'
-        transparent={false}
-        visible={this.state.termsConditionsModalVisible}
-        onRequestClose={() => {
-          this.closeTermconditions();
-        }}>
-
-        <Termconditions onCloseModal={this.closeTermconditions}>
-        </Termconditions>
-        </Modal>
       </View>
       </ScrollView>
 

@@ -9,6 +9,7 @@ import {
   TextInput,
   Image,
   Dimensions,
+  Linking,
   TouchableOpacity,
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
@@ -18,7 +19,6 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
-import Termconditions from './Termconditions';
 import { GATrackerId, productionURL } from './data';
 
 
@@ -32,7 +32,6 @@ class LoginGetName extends Component {
       verificationCode: null,
       tracker: null,
       is_terms_checked: true,
-      termsConditionsModalVisible: false,
     };
   }
 
@@ -103,15 +102,7 @@ class LoginGetName extends Component {
   }
 
   openTermsAndConditions = () => {
-    this.setState({
-      termsConditionsModalVisible: true,
-    });
-  }
-
-  closeTermsAndConditions = () => {
-    this.setState({
-      termsConditionsModalVisible: false,
-    });
+    Linking.openURL('http://www.tripinn.ir/terms&conditions').catch(err => console.log('An error occurred', err));
   }
 
   onCheckedChanged = () => {
@@ -190,17 +181,6 @@ class LoginGetName extends Component {
           </View>
           </TouchableOpacity>
         </View>
-
-        <Modal
-        animationType='slide'
-        transparent={false}
-        visible={this.state.termsConditionsModalVisible}
-        onRequestClose={() => {
-          this.closeTermsAndConditions();
-        }}>
-          <Termconditions onCloseModal={this.closeTermsAndConditions}>
-          </Termconditions>
-        </Modal>
 
       </View>
     );
