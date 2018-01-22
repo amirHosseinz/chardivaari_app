@@ -42,7 +42,7 @@ class RequestRowScreen extends Component {
     return(
       <View style={styles.avatar}>
         <Image source={{
-          uri: productionURL + this.props.requestItem.room.preview,
+          uri: productionURL + this.props.requestItem.room.preview_low,
         }}
         style={styles.avatarimg}/>
       </View>

@@ -97,7 +97,7 @@ class ExploreResult extends Component {
     <View style={styles.cards}>
         <View style={styles.previewimg}>
           <Image
-          source={{ uri: productionURL + this.props.room.preview }}
+          source={{ uri: productionURL + this.props.room.preview_low }}
           style={styles.image}>
           </Image>
         </View>

@@ -159,7 +159,7 @@ class HouseListScreen extends Component {
                 <Text style={styles.detailtexts}>تومان</Text>
               </View>
             </View>
-            <Image source={{ uri: productionURL + item.preview }}
+            <Image source={{ uri: productionURL + item.preview_low }}
               style={styles.image} />
           </View>
         </View>

@@ -777,7 +777,7 @@ class RequestBookScreen extends Component {
               <Image
                 style={styles.image}
                 source={{
-                  uri: productionURL + this.state.room.preview
+                  uri: productionURL + this.state.room.preview_low
                 }} />
               <View style={styles.rightAlignBoxCol}>
                 <Text style={styles.h2}>{this.state.room.title}</Text>

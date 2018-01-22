@@ -520,25 +520,15 @@ class HouseDetail extends Component {
     }
   }
 
-  imageSliderFeed () {
-    result = [];
-    result.push(productionURL + this.state.room.preview);
-    if (this.state.room.images) {
-      for (var i = 0; i < this.state.room.images.length; i++) {
-        result.push(productionURL + this.state.room.images[i].image);
-      }
-    }
-    return (result);
-  }
-
   imagesDataFeed () {
     result = [];
-    result.push(productionURL + this.state.room.preview);
     if (this.state.room.images) {
       for (var i = 0; i < this.state.room.images.length; i++) {
         result.push(productionURL + this.state.room.images[i].image);
       }
     }
+    result.push(productionURL + this.state.room.preview_high);
+    result.reverse();
     var dataSource = new ViewPager.DataSource ({
       pageHasChanged: ( p1, p2 ) => p1 !== p2,
     });
