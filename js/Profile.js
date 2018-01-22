@@ -59,10 +59,14 @@ class Profile extends Component {
     });
     CacheStore.get('openEditProfile').then((value) => {
       if (value === true) {
-        CacheStore.set('openEditProfile', false);
         this._onEditProfilePress();
       }
     });
+  }
+
+  backNavigation = () => {
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
   }
 
   setToken (token) {
@@ -148,6 +152,12 @@ class Profile extends Component {
       editProfileModalVisible: false,
     }, () => {
       this.fetchUser();
+    });
+    CacheStore.get('openEditProfile').then((value) => {
+      if (value === true) {
+        CacheStore.set('openEditProfile', false);
+        this.backNavigation();
+      }
     });
   }
 
