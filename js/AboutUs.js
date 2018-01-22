@@ -10,16 +10,38 @@ import {
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import DeviceInfo from 'react-native-device-info';
+
 
 class AboutUs extends Component {
   constructor(props) {
     super(props);
     this.state={
+      appVersion: null,
     };
+  }
+
+  componentWillMount () {
+    var version = DeviceInfo.getVersion().split('.');
+    this.setState({
+      appVersion: version,
+    });
   }
 
   handleURL = () => {
     Linking.openURL('http://www.tripinn.ir').catch(err => console.log('An error occurred', err));
+  }
+
+  renderVersion () {
+    if (this.state.appVersion) {
+      return(
+        <Text style={{fontSize:14,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
+          ویرایش : {this.state.appVersion[2]} . {this.state.appVersion[1]} . {this.state.appVersion[0]}
+        </Text>
+      );
+    } else {
+      return null;
+    }
   }
 
   render () {
@@ -38,9 +60,7 @@ class AboutUs extends Component {
       <View style={styles.container2}>
         <Image style={styles.logostyle} source={require('./img/aboutlogo.png')}/>
         <Text style={{fontSize:26,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#12b2ce'}}>تریپین</Text>
-        <Text style={{fontSize:14,fontFamily:'IRANSansMobileFaNum-Medium',textAlign:'center',color:'#9e9e9e',marginTop:10,}}>
-          ویرایش : 5 . 1 . 0
-        </Text>
+        {this.renderVersion()}
         <Text style={styles.aboutustext}>
 تریپین در سال 1396 کار خود را آغاز نموده است.
 تیم تریپین گرد هم آمده‌اند تا با ایجاد امکان اجاره انواع فضاهای اقامتی،

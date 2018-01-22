@@ -7,6 +7,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.react.shell.MainPackageConfig;
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
@@ -54,7 +55,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ImagePickerPackage(),
           new VectorIconsPackage(),
           new MapsPackage(),
-          new PaymentPackage()
+          new PaymentPackage(),
+          new RNDeviceInfo()
       );
     }
   };

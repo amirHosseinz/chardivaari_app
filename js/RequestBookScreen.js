@@ -20,8 +20,9 @@ import CacheStore from 'react-native-cache-store';
 import Calendar from './common/calendar/Calendar';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import DeviceInfo from 'react-native-device-info';
 
-import { productionURL, currentVersion } from './data';
+import { productionURL } from './data';
 import NumberSelectScreen from './NumberSelectScreen';
 
 
@@ -146,7 +147,7 @@ class RequestBookScreen extends Component {
           end_date: this.state.endDate.toISOString(),
           number_of_guests: this.state.numberOfGuests,
           discount_code: this.state.discountCode,
-          app_version: currentVersion,
+          app_version: DeviceInfo.getBuildNumber(),
         }),
       })
       .then((response) => this.onUpdatePriceResponseRecieved(response))
@@ -225,7 +226,7 @@ class RequestBookScreen extends Component {
               end_date: this.state.endDate.toISOString(),
               number_of_guests: this.state.numberOfGuests,
               discount_code: this.state.discountCode,
-              app_version: currentVersion,
+              app_version: DeviceInfo.getBuildNumber(),
             }),
           })
           .then((response) => this.onUpdatePriceResponseRecieved(response))
@@ -272,7 +273,7 @@ class RequestBookScreen extends Component {
             end_date: this.state.endDate.toISOString(),
             number_of_guests: this.state.numberOfGuests,
             discount_code: this.state.discountCode,
-            app_version: currentVersion,
+            app_version: DeviceInfo.getBuildNumber(),
           }),
         })
         .then((response) => this.onRequestBookResponseRecieved(response))

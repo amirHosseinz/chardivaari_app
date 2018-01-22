@@ -16,8 +16,9 @@ import { NavigationActions } from 'react-navigation';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
+import DeviceInfo from 'react-native-device-info';
 
-import { productionURL, currentVersion, GATrackerId } from './data';
+import { productionURL, GATrackerId } from './data';
 
 
 class Splash extends Component {
@@ -128,7 +129,7 @@ class Splash extends Component {
     );
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      if (Number(currentVersion) < Number(body.version.min_version)) {
+      if (Number(DeviceInfo.getBuildNumber()) < Number(body.version.min_version)) {
         Alert.alert('نسخه‌ی شما پشتیبانی نمی‌شود، لطفا برنامه را بروزرسانی نمایید.');
       } else if (this.state.token && this.state.username && this.state.username != 'GUEST_USER') {
         this.validateUser();
