@@ -14,6 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
+import DeviceInfo from 'react-native-device-info';
 
 import { productionURL, GATrackerId } from './data';
 
@@ -83,6 +84,7 @@ class Login extends Component {
       },
       body: JSON.stringify({
         cell_phone: this.state.cellPhoneNo,
+        app_version: DeviceInfo.getBuildNumber(),
       }),
     })
     .then((response) => this.onResponseRecieved(response))

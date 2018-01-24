@@ -17,6 +17,7 @@ import timer from 'react-native-timer';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
+import DeviceInfo from 'react-native-device-info';
 
 import { GATrackerId, productionURL } from './data';
 
@@ -45,8 +46,9 @@ class LoginVerify extends Component {
     });
     let sbs = SmsListener.addListener(message => {
       if (message.originatingAddress.indexOf(this.state.smsCenter) > -1 ) {
+        var code = this.getCodeFromMessage(message.body.split(' ')[0]);
         this.setState({
-          verificationCode: message.body,
+          verificationCode: code,
         }, () => {
           this.checkVerificationCode();
         });
@@ -61,6 +63,26 @@ class LoginVerify extends Component {
   componentWillUnMount () {
     this.state.subscription.remove();
     timer.clearInterval(this);
+  }
+
+  getCodeFromMessage (input) {
+    if (typeof input !== "undefined") {
+      input = input.toString();
+      var result = '';
+      var arabicDiff = 1632 - 48;
+      var persianDiff = 1776 - 48;
+      for (var i = 0; i < input.length; i++) {
+        if (input.charCodeAt(i) >= 48 && input.charCodeAt(i) <= 57) {
+          result = result + input[i];
+        } else if (input.charCodeAt(i) >= 1632 && input.charCodeAt(i) <= 1641) {
+          result = result + String.fromCharCode(input.charCodeAt(i) - arabicDiff);
+        } else if (input.charCodeAt(i) >= 1776 && input.charCodeAt(i) <= 1785) {
+          result = result + String.fromCharCode(input.charCodeAt(i) - persianDiff);
+        }
+      }
+      return result;
+    }
+    return null;
   }
 
   resetNavigation (targetRoute) {
@@ -148,6 +170,7 @@ class LoginVerify extends Component {
       },
       body: JSON.stringify({
         cell_phone: this.state.cellPhoneNo,
+        app_version: DeviceInfo.getBuildNumber(),
       }),
     })
     .then((response) => this.onResendResponseRecieved(response))
@@ -166,8 +189,9 @@ class LoginVerify extends Component {
       }, () => {
         let sbs = SmsListener.addListener(message => {
           if (message.originatingAddress == this.state.smsCenter) {
+            var code = this.getCodeFromMessage(message.body.split(' ')[0]);
             this.setState({
-              verificationCode: message.body,
+              verificationCode: code,
             }, () => {
               this.checkVerificationCode();
             });
@@ -185,8 +209,9 @@ class LoginVerify extends Component {
       }, () => {
         let sbs = SmsListener.addListener(message => {
           if (message.originatingAddress == this.state.smsCenter) {
+            var code = this.getCodeFromMessage(message.body.split(' ')[0]);
             this.setState({
-              verificationCode: message.body,
+              verificationCode: code,
             }, () => {
               this.checkVerificationCode();
             });

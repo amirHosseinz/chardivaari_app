@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Text,
-  NativeModules,
   StyleSheet,
   Image,
   Dimensions,
@@ -21,11 +20,8 @@ import Calendar from './common/calendar/Calendar';
 import LocationSelectScreen from './LocationSelectScreen';
 import NumberSelectScreen from './NumberSelectScreen';
 
-const { UIManager } = NativeModules;
 
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-
-var collapseLayoutAnimation = {
+const collapseLayoutAnimation = {
   duration: 200,
   create: {
     type: LayoutAnimation.Types.spring,
@@ -37,7 +33,7 @@ var collapseLayoutAnimation = {
   },
 };
 
-var expandLayoutAnimation = {
+const expandLayoutAnimation = {
   duration: 400,
   create: {
     type: LayoutAnimation.Types.easeInEaseOut,
