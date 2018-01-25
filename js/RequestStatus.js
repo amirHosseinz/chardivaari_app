@@ -37,6 +37,7 @@ class RequestStatus extends Component {
       username: null,
       tracker: null,
       rejectTermsModalVisible: false,
+      vpnModalVisible: false,
     };
   }
 
@@ -364,7 +365,7 @@ class RequestStatus extends Component {
         .catch(err => console.log('An error occurred', err));
       } else {
         if (body.is_vpn_on) {
-          Alert.alert('در صورتی که خارج از کشور هستید با پشتیبانی تماس بگیرید، در غیر این صورت از خاموش بودن vpn خود اطمینان حاصل نمایید.');
+          this.openVPNModal();
         }
       }
     } else {
@@ -777,6 +778,18 @@ class RequestStatus extends Component {
     return(res);
   }
 
+  openVPNModal = () => {
+    this.setState({
+      vpnModalVisible: true,
+    });
+  }
+
+  closeVPNModal = () => {
+    this.setState({
+      vpnModalVisible: false,
+    });
+  }
+
   render () {
     return(
       <View style={styles.container0}>
@@ -884,6 +897,37 @@ class RequestStatus extends Component {
           <RejectTerms onCloseModal={this.closeRejectTerms}>
           </RejectTerms>
           </Modal>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.vpnModalVisible}
+            onRequestClose={() => {
+              this.closeVPNModal();
+            }}>
+           <View style={styles.popup}>
+           <TouchableOpacity onPress={this.closeVPNModal}>
+             <View style={styles.backbuttonview}>
+               <Icon size={40} color="#f3f3f3" name="close" />
+             </View>
+           </TouchableOpacity>
+            <View style={styles.popuptextbox}>
+              <Text style={styles.popuptext}>
+                در صورتی که خارج از کشور هستید با پشتیبانی تماس بگیرید، در غیر این صورت از خاموش بودن vpn خود اطمینان حاصل نمایید.
+              </Text>
+                <TouchableOpacity style={styles.buttontouch3} onPress={() => {
+                  this.closeVPNModal();
+                }}>
+                <View>
+                <Text style={styles.reservebuttontext}>
+                  تایید
+                </Text>
+              </View>
+              </TouchableOpacity>
+            </View>
+           </View>
+          </Modal>
+
       </View>
 
       {this.renderButtonSection()}
@@ -1061,6 +1105,16 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
   },
+  buttontouch3: {
+    borderColor:"#ffffff",
+    borderRadius: 50,
+    borderWidth : 2,
+    height:48,
+    width: 148,
+    flexDirection: "row-reverse",
+    justifyContent:"center",
+    alignItems:"center",
+  },
   buttonview: {
     backgroundColor:"#00cecc",
     borderRadius: 50,
@@ -1096,9 +1150,10 @@ const styles = StyleSheet.create({
   inputstyle:{
     width:60,
   },
-  backbuttonview:{
-    flexDirection:'row-reverse',
-    marginTop:14,
+  backbuttonview: {
+    alignItems:'flex-end',
+    marginRight:25,
+    marginTop:25,
   },
   resulttextbold:{
     textAlign: 'right',
@@ -1149,6 +1204,23 @@ const styles = StyleSheet.create({
     fontFamily:"IRANSansMobileFaNum-Medium",
     fontSize:14,
     color:"#f56e4e"
+  },
+  popup:{
+    backgroundColor:  'rgba(0,0,0,0.82)',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  popuptext:{
+    color:'white',
+    fontFamily:'IRANSansMobileFaNum-Medium',
+    fontSize:20,
+    textAlign:'center',
+    width: Dimensions.get('window').width - 50,
+    marginTop:180,
+    marginBottom:30,
+  },
+  popuptextbox:{
+    alignItems:'center'
   },
 });
 

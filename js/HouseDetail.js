@@ -1019,7 +1019,7 @@ class HouseDetail extends Component {
         <TouchableOpacity style={styles.buttontouch1} onPress={() => {
           this.resetNavigation('login');
         }}>
-        <View style={styles.buttonview1}>
+        <View>
         <Text style={styles.reservebuttontext}>ورود</Text>
       </View>
       </TouchableOpacity>
@@ -1046,7 +1046,7 @@ class HouseDetail extends Component {
           this.closeNationalIdModal();
           this.resetProfilePage();
         }}>
-        <View style={styles.buttonview1}>
+        <View>
         <Text style={styles.reservebuttontext}>حساب کاربری</Text>
       </View>
       </TouchableOpacity>
@@ -1072,7 +1072,7 @@ class HouseDetail extends Component {
         <TouchableOpacity style={styles.buttontouch1} onPress={() => {
           this.resetNavigation('login');
         }}>
-        <View style={styles.buttonview1}>
+        <View>
         <Text style={styles.reservebuttontext}>ورود</Text>
       </View>
       </TouchableOpacity>
@@ -1100,7 +1100,7 @@ class HouseDetail extends Component {
         <TouchableOpacity style={styles.buttontouch2} onPress={() => {
           Communications.phonecall(this.state.callCenter, true);
         }}>
-        <View style={styles.buttonview1}>
+        <View>
         <Text style={styles.reservebuttontext}>تماس با پشتیبانی</Text>
       </View>
       </TouchableOpacity>
