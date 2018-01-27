@@ -10,7 +10,9 @@ import {
   Image,
   Dimensions,
   Linking,
+  Keyboard,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import CacheStore from 'react-native-cache-store';
@@ -117,6 +119,7 @@ class LoginGetName extends Component {
         <View style={styles.upside}>
             <Text style={styles.addphonenumber}> مشخصات خود را وارد نمایید: </Text>
 
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container1}>
               <Text style={styles.upfield}>نام</Text>
                 <TextInput
@@ -144,6 +147,7 @@ class LoginGetName extends Component {
                   underlineColorAndroid={'transparent'}
                   />
               </View>
+              </TouchableWithoutFeedback>
 
               <View
                 style={{
