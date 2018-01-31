@@ -33,6 +33,7 @@
 		"react-native-optimized-flatlist": "^1.0.3",
 		"react-native-persian-calendar-picker": "^1.0.0",
 		"react-native-photo-upload": "^1.0.3",
+		"react-native-push-notification": "^3.0.2",
 		"react-native-router-flux": "^4.0.0-beta.16",
 		"react-native-star-rating": "^1.0.8",
 		"react-native-stars": "^1.1.0",

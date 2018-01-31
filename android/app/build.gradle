@@ -144,6 +144,10 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-push-notification')
+    compile ('com.google.android.gms:play-services-gcm:11.+') {
+        force = true;
+    }
     compile project(':react-native-device-info')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-android-sms-listener')

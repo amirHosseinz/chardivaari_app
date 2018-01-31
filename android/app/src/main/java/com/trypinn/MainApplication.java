@@ -7,6 +7,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.react.shell.MainPackageConfig;
 import com.trypinn.payment.PaymentPackage;
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.centaurwarchief.smslistener.SmsListenerPackage;
@@ -56,7 +57,8 @@ public class MainApplication extends Application implements ReactApplication {
           new VectorIconsPackage(),
           new MapsPackage(),
           new PaymentPackage(),
-          new RNDeviceInfo()
+          new RNDeviceInfo(),
+          new ReactNativePushNotificationPackage()
       );
     }
   };
