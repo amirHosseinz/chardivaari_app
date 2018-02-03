@@ -17,7 +17,6 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 import DeviceInfo from 'react-native-device-info';
-import PushNotification from 'react-native-push-notification';
 
 import { productionURL, GATrackerId } from './data';
 

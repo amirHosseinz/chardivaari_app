@@ -15,6 +15,7 @@ import CacheStore from 'react-native-cache-store';
 // import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PushNotification from 'react-native-push-notification';
 
 import Explore from './Explore';
 import InboxScreen from './InboxScreen';
