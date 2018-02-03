@@ -64,6 +64,8 @@ class GuestScreen extends Component {
               }),
             })
             .then((response) => {
+              console.log("response#######");
+              console.log(response);
             })
             .catch((error) => {
               // network error
@@ -77,7 +79,9 @@ class GuestScreen extends Component {
         console.log( 'NOTIFICATION:', notification );
         // process the notification
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
-        // notification.finish(PushNotificationIOS.FetchResult.NoData);
+        if (Platform.OS === 'ios') {
+          notification.finish(PushNotificationIOS.FetchResult.NoData);
+        }
       },
       senderID: "139971053396",
       permissions: {
