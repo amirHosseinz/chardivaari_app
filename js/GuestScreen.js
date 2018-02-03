@@ -45,6 +45,48 @@ class GuestScreen extends Component {
   componentWillMount () {
     CacheStore.get('token').then((value) => this.setToken(value));
     this.updateStatusBar();
+    PushNotification.configure({
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: function(token) {
+        CacheStore.get('token').then((tokenValue) => {
+          if (tokenValue != null) {
+            fetch(productionURL + '/api/push_notif/register_token/', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + tokenValue,
+              },
+              body: JSON.stringify({
+                token: token.token,
+                device: token.os,
+              }),
+            })
+            .then((response) => {
+            })
+            .catch((error) => {
+              // network error
+            });
+          }
+        });
+      },
+      // (required) Called when a remote or local notification is opened or received
+      onNotification: function(notification) {
+        console.log("onNotification##############");
+        console.log( 'NOTIFICATION:', notification );
+        // process the notification
+        // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+        // notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+      senderID: "139971053396",
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true
+      },
+      popInitialNotification: true,
+      requestPermissions: true,
+    });
   }
 
   componentDidMount() {
