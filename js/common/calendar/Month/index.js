@@ -1,4 +1,3 @@
-
 import React, {PropTypes, Component} from 'react';
 import {
   View,
@@ -33,55 +32,19 @@ export default class Month extends Component {
     // ]
 
     'en': [
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>فروردین</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>اردیبهشت</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>خرداد</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>تیر</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>مرداد</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>شهریور</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>مهر</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>آبان</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>آذر</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>دی</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>بهمن</Text>,
-      <Text style={{
-        fontFamily: "IRANSansMobileFaNum",
-        fontSize: 17,
-      }}>اسفند</Text>,
-    ]
+      'فروردین',
+      'اردیبهشت',
+      'خرداد',
+      'تیر',
+      'مرداد',
+      'شهریور',
+      'مهر',
+      'آبان',
+      'آذر',
+      'دی',
+      'بهمن',
+      'اسفند',
+    ],
   }
   _getMonthText () {
     const {
@@ -96,10 +59,24 @@ export default class Month extends Component {
     // let year = today.year();
     let year = today.jYear();
     if (year === y) {
-      return Month.I18N_MAP[i18n][m];
+      return (
+        <Text style={{
+          fontFamily: "IRANSansMobileFaNum",
+          fontSize: 17,
+        }}>
+          {Month.I18N_MAP[i18n][m]}
+        </Text>
+      );
     } else {
       if (i18n === 'en') {
-        return `${Month.I18N_MAP[i18n][m]}, ${y}`;
+        return (
+          <Text style={{
+            fontFamily: "IRANSansMobileFaNum",
+            fontSize: 17,
+          }}>
+            {y} - {Month.I18N_MAP[i18n][m]}
+          </Text>
+        );
       }
       return month.format('YYYY年M月');
     }
