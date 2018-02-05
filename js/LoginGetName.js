@@ -115,12 +115,11 @@ class LoginGetName extends Component {
 
   render () {
     return(
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <View style={styles.upside}>
             <Text style={styles.addphonenumber}> مشخصات خود را وارد نمایید: </Text>
-
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={styles.container1}>
+            <View>
               <Text style={styles.upfield}>نام</Text>
                 <TextInput
                   style={styles.textInput}
@@ -147,7 +146,6 @@ class LoginGetName extends Component {
                   underlineColorAndroid={'transparent'}
                   />
               </View>
-              </TouchableWithoutFeedback>
 
               <View
                 style={{
@@ -187,6 +185,7 @@ class LoginGetName extends Component {
         </View>
 
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -223,6 +222,8 @@ const styles = StyleSheet.create({
   },
   upfield: {
     fontFamily:'IRANSansMobileFaNum-Light',
+    textAlign: 'right',
+    alignSelf: 'stretch',
     fontSize: 12,
     color:'#c2c2c2',
   },
