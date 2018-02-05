@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   Dimensions,
@@ -10,6 +11,7 @@ import {
   BackHandler,
   ToastAndroid,
   Platform,
+  PushNotificationIOS,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 // import BottomNavigation, { Tab } from 'react-native-material-bottom-navigation';
@@ -46,9 +48,56 @@ class GuestScreen extends Component {
   componentWillMount () {
     CacheStore.get('token').then((value) => this.setToken(value));
     this.updateStatusBar();
+    // PushNotificationIOS.addEventListener('register', function(token) {
+    //   CacheStore.get('token').then((tokenValue) => {
+    //     if (tokenValue != null) {
+    //       fetch(productionURL + '/api/push_notif/register_token/', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Accept': 'application/json',
+    //           'Content-Type': 'application/json',
+    //           'Authorization': 'Token ' + tokenValue,
+    //         },
+    //         body: JSON.stringify({
+    //           token: token,
+    //           device: 'ios',
+    //         }),
+    //       })
+    //       .then((response) => {
+    //         console.log("response#######");
+    //         console.log(response);
+    //       })
+    //       .catch((error) => {
+    //         // network error
+    //       });
+    //     }
+    //   });
+    //   console.log("on event register...");
+    //   Alert.alert(token);
+    // });
+    // PushNotificationIOS.addEventListener('registrationError', function(data) {
+    //   console.log("on event registrationError...");
+    //   console.log(data);
+    //   Alert.alert('registrationError');
+    // });
+    // PushNotificationIOS.addEventListener('notification', function(notification){
+    //   console.log("on event notification...");
+    //   console.log(notification);
+    //   Alert.alert(String(notification));
+    // });
+  }
+
+  componentDidMount() {
+    CacheStore.get('GuestScreen_tabName').then((value) => {
+      if (value != null) {
+        this.goToTab(value);
+        CacheStore.remove('GuestScreen_tabName');
+      }
+    });
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function(token) {
+        Alert.alert('onRegister via' + token.os);
         CacheStore.get('token').then((tokenValue) => {
           if (tokenValue != null) {
             fetch(productionURL + '/api/push_notif/register_token/', {
@@ -91,15 +140,6 @@ class GuestScreen extends Component {
       },
       popInitialNotification: true,
       requestPermissions: true,
-    });
-  }
-
-  componentDidMount() {
-    CacheStore.get('GuestScreen_tabName').then((value) => {
-      if (value != null) {
-        this.goToTab(value);
-        CacheStore.remove('GuestScreen_tabName');
-      }
     });
   }
 

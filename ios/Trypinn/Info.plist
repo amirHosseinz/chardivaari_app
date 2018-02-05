@@ -45,7 +45,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo Library Access Warning</string>
 	<key>UIAppFonts</key>
@@ -66,6 +66,10 @@
 		<string>IRANSansMobileFaNum-Medium.ttf</string>
 		<string>IRANSansMobileFaNum-UltraLight.ttf</string>
 		<string>IRANSansMobileFaNum.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
