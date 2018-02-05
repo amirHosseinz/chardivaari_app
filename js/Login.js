@@ -15,6 +15,7 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 import DeviceInfo from 'react-native-device-info';
+import { persianArabicToEnglishDigits } from './tools/castToEnglishDigits';
 
 import { productionURL, GATrackerId } from './data';
 
@@ -136,6 +137,7 @@ class Login extends Component {
   }
 
   onTextChanged (cellPhoneNo) {
+    cellPhoneNo = persianArabicToEnglishDigits(cellPhoneNo);
     this.setState({
       cellPhoneNo
     });

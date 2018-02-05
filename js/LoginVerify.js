@@ -18,6 +18,7 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 import DeviceInfo from 'react-native-device-info';
+import { persianArabicToEnglishDigits } from './tools/castToEnglishDigits';
 
 import { GATrackerId, productionURL } from './data';
 
@@ -141,6 +142,7 @@ class LoginVerify extends Component {
   }
 
   onTextChanged = (verificationCode) => {
+    verificationCode = persianArabicToEnglishDigits(verificationCode);
     this.setState({
       verificationCode
     }, () => {
