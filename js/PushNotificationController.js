@@ -52,10 +52,14 @@ class PushNotificationController extends Component {
   }
 
   componentDidMount () {
+    // console.log("get in here! :))))))");
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function(token) {
-        Alert.alert('onRegister via' + token.os);
+        // Alert.alert('onRegister via: ' + token.os);
+        // Alert.alert('onRegister token: ' + token.token);
+        // console.log("injaaaaaa");
+        // console.log(token);
         CacheStore.get('token').then((tokenValue) => {
           if (tokenValue != null) {
             fetch(productionURL + '/api/push_notif/register_token/', {

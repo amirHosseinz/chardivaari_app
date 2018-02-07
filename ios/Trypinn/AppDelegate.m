@@ -13,6 +13,8 @@
 #import <React/RCTLinkingManager.h>
 #import <React/RCTRootView.h>
 #import <React/RCTPushNotificationManager.h>
+//#import <Google/CloudMessaging.h>
+
 @import GoogleMaps;
 
 @implementation AppDelegate
@@ -88,6 +90,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+//  UIUserNotificationType allNotificationTypes = (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+//  UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+//  [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//  [[UIApplication sharedApplication] registerForRemoteNotifications];
+
   return YES;
 }
 
