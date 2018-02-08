@@ -17,7 +17,7 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 import DeviceInfo from 'react-native-device-info';
-import PushNotificationController from './PushNotificationController';
+// import PushNotificationController from './PushNotificationController';
 
 import { productionURL, GATrackerId } from './data';
 
@@ -212,7 +212,6 @@ class Splash extends Component {
       <View style={styles.container}>
         <View style={styles.container1}>
           <View>
-            <PushNotificationController />
           </View>
           <View style={{marginBottom:0}}>
             <Image source={require('./img/splashlogo.png')} style={styles.splashimg}/>
