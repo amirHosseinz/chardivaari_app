@@ -52,14 +52,9 @@ class PushNotificationController extends Component {
   }
 
   componentDidMount () {
-    // console.log("get in here! :))))))");
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function(token) {
-        // Alert.alert('onRegister via: ' + token.os);
-        // Alert.alert('onRegister token: ' + token.token);
-        // console.log("injaaaaaa");
-        // console.log(token);
         CacheStore.get('token').then((tokenValue) => {
           if (tokenValue != null) {
             fetch(productionURL + '/api/push_notif/register_token/', {
@@ -75,8 +70,8 @@ class PushNotificationController extends Component {
               }),
             })
             .then((response) => {
-              console.log("response#######");
-              console.log(response);
+              // console.log("response#######");
+              // console.log(response);
             })
             .catch((error) => {
               // network error
@@ -86,8 +81,8 @@ class PushNotificationController extends Component {
       },
       // (required) Called when a remote or local notification is opened or received
       onNotification: function(notification) {
-        console.log("onNotification##############");
-        console.log( 'NOTIFICATION:', notification );
+        // console.log("onNotification##############");
+        // console.log( 'NOTIFICATION:', notification );
         // process the notification
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         if (Platform.OS === 'ios') {
