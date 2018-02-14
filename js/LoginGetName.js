@@ -33,7 +33,7 @@ class LoginGetName extends Component {
       cellPhoneNo: null,
       verificationCode: null,
       tracker: null,
-      is_terms_checked: true,
+      is_terms_checked: false,
     };
   }
 
