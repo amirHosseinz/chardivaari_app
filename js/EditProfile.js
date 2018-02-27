@@ -10,11 +10,13 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import InputScrollView from 'react-native-input-scroll-view';
+import ImagePicker from 'react-native-image-picker';
 
 import { productionURL } from './data';
 
@@ -29,6 +31,9 @@ class EditProfile extends Component {
       email: null,
       nationalID: null,
       token: null,
+      profile_picture: null,
+      remove_profile_picture: false,
+      user: null,
     };
   }
 
@@ -63,23 +68,55 @@ class EditProfile extends Component {
         token: this.props.token,
       });
     }
+    if (this.props.user) {
+      this.setState({
+        user: this.props.user,
+      });
+    }
   }
 
   _onPressSave () {
+    const data = new FormData();
+    if (this.state.firstName != null) {
+      data.append('first_name', this.state.firstName);
+    }
+    if (this.state.lastName != null) {
+      data.append('last_name', this.state.lastName);
+    }
+    if (this.state.cellPhone != null) {
+      data.append('cell_phone', this.state.cellPhone);
+    }
+    if (this.state.email != null) {
+      data.append('email', this.state.email);
+    }
+    if (this.state.nationalID != null) {
+      data.append('national_id', this.state.nationalID);
+    }
+    if (this.state.remove_profile_picture) {
+      data.append('remove_profile_picture', this.state.remove_profile_picture);
+    } else if (this.state.profile_picture != null) {
+      if (Platform.OS === 'ios') {
+        data.append('profile_picture', {
+          uri: this.state.profile_picture.uri,
+          name: this.state.profile_picture.fileName,
+          type: 'image/jpg',
+        });
+      } else {
+        data.append('profile_picture', {
+          uri: this.state.profile_picture.uri,
+          name: this.state.profile_picture.fileName,
+          type: this.state.profile_picture.type,
+        });
+      }
+    }
     fetch(productionURL + '/auth/api/user/edit/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         'Authorization': 'Token ' + this.state.token,
       },
-      body: JSON.stringify({
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-        cell_phone: this.state.cellPhone,
-        email: this.state.email,
-        national_id: this.state.nationalID,
-      }),
+      body: data,
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
@@ -164,6 +201,32 @@ class EditProfile extends Component {
     this.props.hideEditProfile();
   }
 
+  renderProfilePhoto () {
+    if (this.state.remove_profile_picture) {
+      return(
+        <Icon size={120} color='#c2c2c2' name='account-circle' />
+      );
+    } else if (this.state.profile_picture != null) {
+      return(
+        <Image source={{
+          uri: this.state.profile_picture.uri
+        }}
+        style={styles.profilepicture} />
+      );
+    } else if (this.state.user.profile_picture != null) {
+      return(
+        <Image source={{
+          uri: productionURL + this.state.user.profile_picture,
+        }}
+        style={styles.profilepicture}/>
+      );
+    } else {
+      return(
+        <Icon size={120} color='#c2c2c2' name='account-circle' />
+      );
+    }
+  }
+
   render () {
     return (
       <View>
@@ -174,16 +237,52 @@ class EditProfile extends Component {
             }}>
                 <Icon size={28} color="#3e3e3e" name="arrow-forward" />
             </TouchableOpacity>
-            <Text style={styles.h01}>ویرایش حساب کابری</Text>
+            <Text style={styles.h01}>ویرایش حساب کاربری</Text>
             <View style={{width:28}}></View>
           </View>
         </View>
         <KeyboardAwareScrollView>
         <View style={styles.container0}>
           <View style={styles.profilepic}>
-            <Icon size={120} color='#c2c2c2' name='account-circle' />
-            <TouchableOpacity>
-              <Text style={styles.editpic}></Text>
+            {this.renderProfilePhoto()}
+            <TouchableOpacity
+              onPress={() => {
+                ImagePicker.showImagePicker((response) => {
+                  if (response.didCancel) {
+                    // console.log('User cancelled image picker');
+                  }
+                  else if (response.error) {
+                    // console.log('ImagePicker Error: ', response.error);
+                  }
+                  else if (response.customButton) {
+                    // console.log('User tapped custom button: ', response.customButton);
+                  }
+                  else {
+                    if (response.fileSize > 4 * 1024 * 1024) {
+                      Alert.alert('حجم عکس انتخابی باید کمتر از ۴ مگابایت باشد.');
+                    } else {
+                      this.setState({
+                        profile_picture: response,
+                        remove_profile_picture: false,
+                      });
+                    }
+                  }
+                });
+              }}>
+              <Text style={styles.editpic}>
+                انتخاب عکس
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {
+              this.setState({
+                remove_profile_picture: true,
+                profile_picture: null,
+              });
+            }}>
+            <Text style={styles.editpic}>
+              حذف عکس
+            </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
@@ -274,7 +373,7 @@ const styles = StyleSheet.create({
   editpic: {
     fontSize: 14,
     fontFamily: 'IRANSansMobileFaNum-Medium',
-    color:'#4f4f4f',
+    color:'#22c8d4',
   },
   profilepic: {
     alignItems:'center',
@@ -347,6 +446,11 @@ const styles = StyleSheet.create({
     fontSize:16,
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
+  },
+  profilepicture: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
 
