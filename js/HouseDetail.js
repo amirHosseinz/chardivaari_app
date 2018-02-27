@@ -485,6 +485,19 @@ class HouseDetail extends Component {
     }
   }
 
+  renderSpecialRules () {
+    if (this.state.room.special_rules != '') {
+      return(
+        <View style={styles.banbox}>
+          <View style={styles.baniconbox}>
+          <Image style={styles.banicon} source={require("./img/special_rules.png")}/>
+          </View>
+          <Text style={styles.bantext}>{this.state.room.special_rules}</Text>
+        </View>
+      );
+    }
+  }
+
   renderPartyRule () {
     if (this.state.room.party_allowed === false) {
       return(
@@ -498,25 +511,54 @@ class HouseDetail extends Component {
     }
   }
 
-  renderSpecialRules () {
-    if (this.state.room.special_rules != '') {
+  renderRestrictionSection () {
+    if (this.state.room.pet_allowed === false ||
+      this.state.room.smoking_allowed === false ||
+      this.state.room.party_allowed === false ||
+      this.state.room.special_rules != ''
+    ) {
       return(
         <View>
         <View style={styles.checkinbox}>
-          <Text style={styles.h2}>
-            قوانین خاص
-          </Text>
+        <Text style={styles.h2}>
+          قوانین و محدودیت‌ها
+        </Text>
         </View>
-        <View style={styles.banbox}>
-          <View style={styles.baniconbox}>
-          <Image style={styles.banicon} source={require("./img/special_rules.png")}/>
-          </View>
-          <Text style={styles.bantext}>{this.state.room.special_rules}</Text>
-        </View>
+
+        {this.renderPetRule()}
+        {this.renderSmokeRule()}
+        {this.renderPartyRule()}
+        {this.renderSpecialRules()}
+
         <View style={styles.divider}>
         </View>
         </View>
       );
+    } else {
+      return null;
+    }
+  }
+
+  renderDescription () {
+    if (this.state.room.description != null &&
+        this.state.room.description != ''
+      ) {
+        return(
+          <View>
+          <View style={styles.checkinbox}>
+          <Text style={styles.h2}>درباره این خانه</Text>
+          </View>
+
+          <View style={styles.rightAlignmentBox}>
+          <Text style={styles.explanation}>
+            {this.state.room.description}
+          </Text>
+          </View>
+
+          <View style={styles.divider}>
+          </View>
+          </View>
+        );
     }
   }
 
@@ -853,18 +895,7 @@ class HouseDetail extends Component {
 <View style={styles.divider}>
 </View>
 
-<View style={styles.checkinbox}>
-<Text style={styles.h2}>درباره این خانه</Text>
-</View>
-
-<View style={styles.rightAlignmentBox}>
-<Text style={styles.explanation}>
-  {this.state.room.description}
-</Text>
-</View>
-
-<View style={styles.divider}>
-</View>
+{this.renderDescription()}
 
 <View style={styles.checkinbox}>
   <Text style={styles.h2}>امکانات</Text>
@@ -956,19 +987,8 @@ class HouseDetail extends Component {
     <View style={styles.divider}>
     </View>
 
-    <View style={styles.checkinbox}>
-    <Text style={styles.h2}>
-      قوانین و محدودیت‌ها
-    </Text>
-    </View>
+    {this.renderRestrictionSection()}
 
-    {this.renderPetRule()}
-    {this.renderSmokeRule()}
-    {this.renderPartyRule()}
-
-    <View style={styles.divider}>
-    </View>
-    {this.renderSpecialRules()}
     <View style={styles.contacthost}>
     <Text style={styles.lawstext1}>ارتباط با میزبان درباره این خانه:</Text>
     <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>
