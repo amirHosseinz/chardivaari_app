@@ -895,13 +895,8 @@ class HouseDetail extends Component {
     <Text style={{fontSize:16,fontFamily:'IRANSansMobileFaNum-Medium',color:'#00b1ce'}}> + بیشتر </Text>
   </TouchableOpacity>
 </View>
-    <View style={styles.divider}>
-    </View>
 </View>
 </View>
-
-
-{this.renderMap()}
 
 <View style={styles.container0}>
   <View style={styles.container2}>
@@ -979,12 +974,19 @@ class HouseDetail extends Component {
     <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>
     <Text style={styles.lawstext2}>ارسال پیام</Text>
     </TouchableOpacity>
-    <View style={{height:90,}}>
+    </View>
+
+    <View style={styles.divider}>
     </View>
 
     </View>
   </View>
-</View>
+
+  {this.renderMap()}
+
+  <View style={{height:20,}}>
+  </View>
+
   <Modal
     animationType='slide'
     transparent={false}
