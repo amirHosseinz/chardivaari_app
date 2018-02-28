@@ -122,6 +122,14 @@ class EditProfile extends Component {
     .catch((error) => {
       this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
+    if (this.state.remove_profile_picture === false &&
+        this.state.profile_picture != null
+      ) {
+        Alert.alert('اطلاعات شما با موفقیت ثبت شد، ذخیره عکس ممکن است طول بکشد');
+      } else {
+        Alert.alert('اطلاعات شما با موفقیت ثبت شد.');
+      }
+    this.exitSuccessfully();
   }
 
   onResponseRecieved (response) {
@@ -227,6 +235,28 @@ class EditProfile extends Component {
     }
   }
 
+  handlePickedImage (response) {
+    if (response.didCancel) {
+      // console.log('User cancelled image picker');
+    }
+    else if (response.error) {
+      // console.log('ImagePicker Error: ', response.error);
+    }
+    else if (response.customButton) {
+      // console.log('User tapped custom button: ', response.customButton);
+    }
+    else {
+      if (response.fileSize > 4 * 1024 * 1024) {
+        Alert.alert('حجم عکس انتخابی باید کمتر از ۴ مگابایت باشد.');
+      } else {
+        this.setState({
+          profile_picture: response,
+          remove_profile_picture: false,
+        });
+      }
+    }
+  }
+
   render () {
     return (
       <View>
@@ -247,42 +277,45 @@ class EditProfile extends Component {
             {this.renderProfilePhoto()}
             <TouchableOpacity
               onPress={() => {
-                ImagePicker.showImagePicker((response) => {
-                  if (response.didCancel) {
-                    // console.log('User cancelled image picker');
-                  }
-                  else if (response.error) {
-                    // console.log('ImagePicker Error: ', response.error);
-                  }
-                  else if (response.customButton) {
-                    // console.log('User tapped custom button: ', response.customButton);
-                  }
-                  else {
-                    if (response.fileSize > 4 * 1024 * 1024) {
-                      Alert.alert('حجم عکس انتخابی باید کمتر از ۴ مگابایت باشد.');
-                    } else {
+                Alert.alert(
+                  '',
+                  'ویرایش تصویر حساب کاربری',
+                  [
+                    {text: 'حذف عکس', onPress: () => {
                       this.setState({
-                        profile_picture: response,
-                        remove_profile_picture: false,
+                        remove_profile_picture: true,
+                        profile_picture: null,
                       });
-                    }
-                  }
-                });
+                    }},
+                    {text: 'دوربین', onPress: () => {
+                      var options = {
+                        storageOptions: {
+                          skipBackup: true,
+                          path: 'images'
+                        }
+                      };
+                      ImagePicker.launchCamera(options, (response)  => {
+                        this.handlePickedImage(response);
+                      });
+                    }},
+                    {text: 'گالری', onPress: () => {
+                      var options = {
+                        storageOptions: {
+                          skipBackup: true,
+                          path: 'images'
+                        }
+                      };
+                      ImagePicker.launchImageLibrary(options, (response)  => {
+                        this.handlePickedImage(response);
+                      });
+                    }},
+                  ],
+                  { cancelable: false },
+                );
               }}>
               <Text style={styles.editpic}>
-                انتخاب عکس
+                ویرایش تصویر
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            onPress={() => {
-              this.setState({
-                remove_profile_picture: true,
-                profile_picture: null,
-              });
-            }}>
-            <Text style={styles.editpic}>
-              حذف عکس
-            </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
