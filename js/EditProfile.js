@@ -12,11 +12,13 @@ import {
   Alert,
   Platform,
   InteractionManager,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import InputScrollView from 'react-native-input-scroll-view';
+// import InputScrollView from 'react-native-input-scroll-view';
 import ImagePicker from 'react-native-image-picker';
 
 import { productionURL } from './data';
@@ -292,6 +294,7 @@ class EditProfile extends Component {
 
   render () {
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View>
         <View style={styles.header0}>
           <View style={styles.header00}>
@@ -379,7 +382,7 @@ class EditProfile extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.container1}>
-          <InputScrollView>
+
             <Text style={styles.upfield}>نام</Text>
               <TextInput
                 style={styles.textInput}
@@ -428,7 +431,7 @@ class EditProfile extends Component {
                 value={this.state.nationalID}
                 onChangeText={this._onChangeNationalID.bind(this)}
                 underlineColorAndroid={'transparent'} />
-            </InputScrollView>
+
           </View>
 
           <View style={styles.profilepic}>
@@ -443,6 +446,7 @@ class EditProfile extends Component {
         </View>
         </KeyboardAwareScrollView>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
