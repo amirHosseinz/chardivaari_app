@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
   Platform,
+  InteractionManager,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -94,20 +95,6 @@ class EditProfile extends Component {
     }
     if (this.state.remove_profile_picture) {
       data.append('remove_profile_picture', this.state.remove_profile_picture);
-    } else if (this.state.profile_picture != null) {
-      if (Platform.OS === 'ios') {
-        data.append('profile_picture', {
-          uri: this.state.profile_picture.uri,
-          name: this.state.profile_picture.fileName,
-          type: 'image/jpg',
-        });
-      } else {
-        data.append('profile_picture', {
-          uri: this.state.profile_picture.uri,
-          name: this.state.profile_picture.fileName,
-          type: this.state.profile_picture.type,
-        });
-      }
     }
     fetch(productionURL + '/auth/api/user/edit/', {
       method: 'POST',
@@ -122,14 +109,6 @@ class EditProfile extends Component {
     .catch((error) => {
       this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
     });
-    if (this.state.remove_profile_picture === false &&
-        this.state.profile_picture != null
-      ) {
-        Alert.alert('اطلاعات شما با موفقیت ثبت شد، ذخیره عکس ممکن است طول بکشد');
-      } else {
-        Alert.alert('اطلاعات شما با موفقیت ثبت شد.');
-      }
-    this.exitSuccessfully();
   }
 
   onResponseRecieved (response) {
@@ -137,6 +116,50 @@ class EditProfile extends Component {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
         CacheStore.set('user', body.user);
+        const pData = new FormData();
+        if (this.state.remove_profile_picture) {
+        } else if (this.state.profile_picture != null) {
+          if (Platform.OS === 'ios') {
+            pData.append('profile_picture', {
+              uri: this.state.profile_picture.uri,
+              name: this.state.profile_picture.fileName,
+            });
+          } else {
+            pData.append('profile_picture', {
+              uri: this.state.profile_picture.uri,
+              name: this.state.profile_picture.fileName,
+              type: this.state.profile_picture.type,
+            });
+          }
+          fetch(productionURL + '/auth/api/user/edit/', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'multipart/form-data',
+              'Authorization': 'Token ' + this.state.token,
+            },
+            body: pData,
+          })
+          .then((response) => this.onPhotoResponseRecieved(response))
+          .catch((error) => {
+            this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+          });
+        }
+        if (this.state.remove_profile_picture === false &&
+            this.state.profile_picture != null
+          ) {
+          InteractionManager.runAfterInteractions(() => {
+            setTimeout(() => {
+                Alert.alert('اطلاعات شما با موفقیت ثبت شد، ذخیره عکس ممکن است طول بکشد');
+            });
+          });
+        } else {
+          InteractionManager.runAfterInteractions(() => {
+            setTimeout(() => {
+              Alert.alert('اطلاعات شما با موفقیت ثبت شد.');
+            });
+          });
+        }
         this.exitSuccessfully();
       } else {
         for (var i = 0; i < body.errors.length; i++) {
@@ -172,6 +195,16 @@ class EditProfile extends Component {
       }
     } else {
       Alert.alert('ذخیره تغییرات با مشکل مواجه شده است.');
+    }
+  }
+
+  onPhotoResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (body.successful != false) {
+        CacheStore.set('user', body.user);
+        this.exitSuccessfully();
+      }
     }
   }
 
@@ -263,7 +296,7 @@ class EditProfile extends Component {
         <View style={styles.header0}>
           <View style={styles.header00}>
             <TouchableOpacity onPress={() => {
-              this.props.hideEditProfile();
+              this.exitSuccessfully();
             }}>
                 <Icon size={28} color="#3e3e3e" name="arrow-forward" />
             </TouchableOpacity>
@@ -277,41 +310,68 @@ class EditProfile extends Component {
             {this.renderProfilePhoto()}
             <TouchableOpacity
               onPress={() => {
-                Alert.alert(
-                  '',
-                  'ویرایش تصویر حساب کاربری',
-                  [
-                    {text: 'حذف عکس', onPress: () => {
-                      this.setState({
-                        remove_profile_picture: true,
-                        profile_picture: null,
-                      });
-                    }},
-                    {text: 'دوربین', onPress: () => {
-                      var options = {
-                        storageOptions: {
-                          skipBackup: true,
-                          path: 'images'
-                        }
-                      };
-                      ImagePicker.launchCamera(options, (response)  => {
-                        this.handlePickedImage(response);
-                      });
-                    }},
-                    {text: 'گالری', onPress: () => {
-                      var options = {
-                        storageOptions: {
-                          skipBackup: true,
-                          path: 'images'
-                        }
-                      };
-                      ImagePicker.launchImageLibrary(options, (response)  => {
-                        this.handlePickedImage(response);
-                      });
-                    }},
-                  ],
-                  { cancelable: false },
-                );
+                if (Platform.OS === 'ios') {
+                  Alert.alert(
+                    '',
+                    'ویرایش تصویر حساب کاربری',
+                    [
+                      {text: 'حذف عکس', onPress: () => {
+                        this.setState({
+                          remove_profile_picture: true,
+                          profile_picture: null,
+                        });
+                      }},
+                      {text: 'گالری', onPress: () => {
+                        var options = {
+                          storageOptions: {
+                            skipBackup: true,
+                            path: 'images'
+                          }
+                        };
+                        ImagePicker.launchImageLibrary(options, (response)  => {
+                          this.handlePickedImage(response);
+                        });
+                      }},
+                    ],
+                    { cancelable: true },
+                  );
+                } else {
+                  Alert.alert(
+                    '',
+                    'ویرایش تصویر حساب کاربری',
+                    [
+                      {text: 'حذف عکس', onPress: () => {
+                        this.setState({
+                          remove_profile_picture: true,
+                          profile_picture: null,
+                        });
+                      }},
+                      {text: 'دوربین', onPress: () => {
+                        var options = {
+                          storageOptions: {
+                            skipBackup: true,
+                            path: 'images'
+                          }
+                        };
+                        ImagePicker.launchCamera(options, (response)  => {
+                          this.handlePickedImage(response);
+                        });
+                      }},
+                      {text: 'گالری', onPress: () => {
+                        var options = {
+                          storageOptions: {
+                            skipBackup: true,
+                            path: 'images'
+                          }
+                        };
+                        ImagePicker.launchImageLibrary(options, (response)  => {
+                          this.handlePickedImage(response);
+                        });
+                      }},
+                    ],
+                    { cancelable: true },
+                  );
+                }
               }}>
               <Text style={styles.editpic}>
                 ویرایش تصویر
