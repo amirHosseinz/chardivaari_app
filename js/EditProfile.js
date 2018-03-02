@@ -15,7 +15,6 @@ import {
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-// import InputScrollView from 'react-native-input-scroll-view';
 import ImagePicker from 'react-native-image-picker';
 
 import { productionURL } from './data';
