@@ -105,7 +105,11 @@ class EditProfile extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+      InteractionManager.runAfterInteractions(() => {
+        setTimeout(() => {
+          Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+        });
+      });
     });
   }
 
@@ -113,6 +117,7 @@ class EditProfile extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
+        this.exitSuccessfully();
         CacheStore.set('user', body.user);
         const pData = new FormData();
         if (this.state.remove_profile_picture) {
@@ -140,7 +145,11 @@ class EditProfile extends Component {
           })
           .then((response) => this.onPhotoResponseRecieved(response))
           .catch((error) => {
-            this.onLoginFail('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+            InteractionManager.runAfterInteractions(() => {
+              setTimeout(() => {
+                Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.');
+              });
+            });
           });
         }
         if (this.state.remove_profile_picture === false &&
@@ -149,16 +158,15 @@ class EditProfile extends Component {
           InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {
                 Alert.alert('اطلاعات شما با موفقیت ثبت شد، ذخیره عکس ممکن است طول بکشد');
-            });
+            }, 5);
           });
         } else {
           InteractionManager.runAfterInteractions(() => {
             setTimeout(() => {
               Alert.alert('اطلاعات شما با موفقیت ثبت شد.');
-            });
+            }, 5);
           });
         }
-        this.exitSuccessfully();
       } else {
         for (var i = 0; i < body.errors.length; i++) {
           if (body.errors[i] === 'exist_email') {
