@@ -8,12 +8,9 @@ import {
   Dimensions,
   AppRegistry,
   TextInput,
-  ScrollView,
   Alert,
   Platform,
   InteractionManager,
-  Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -294,8 +291,8 @@ class EditProfile extends Component {
 
   render () {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View>
+      <View style={{flex: 1}}>
+
         <View style={styles.header0}>
           <View style={styles.header00}>
             <TouchableOpacity onPress={() => {
@@ -307,8 +304,10 @@ class EditProfile extends Component {
             <View style={{width:28}}></View>
           </View>
         </View>
-        <KeyboardAwareScrollView>
+
+        <KeyboardAwareScrollView style={styles.container2}>
         <View style={styles.container0}>
+
           <View style={styles.profilepic}>
             {this.renderProfilePhoto()}
             <TouchableOpacity
@@ -381,6 +380,7 @@ class EditProfile extends Component {
               </Text>
             </TouchableOpacity>
           </View>
+
           <View style={styles.container1}>
 
             <Text style={styles.upfield}>نام</Text>
@@ -431,7 +431,6 @@ class EditProfile extends Component {
                 value={this.state.nationalID}
                 onChangeText={this._onChangeNationalID.bind(this)}
                 underlineColorAndroid={'transparent'} />
-
           </View>
 
           <View style={styles.profilepic}>
@@ -443,10 +442,11 @@ class EditProfile extends Component {
               </View>
               </TouchableOpacity>
           </View>
+
         </View>
         </KeyboardAwareScrollView>
+
       </View>
-      </TouchableWithoutFeedback>
     );
   }
 }
@@ -456,13 +456,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     alignItems:'center',
-    marginTop:45,
-    marginBottom:45,
+  },
+  container2: {
+    flex: 1,
+    flexDirection:'column',
   },
   container1: {
     flex: 1,
     flexDirection:'column',
-    width:Dimensions.get('window').width-50 ,
+    width:Dimensions.get('window').width-80,
     alignItems: 'flex-end',
     marginTop:5,
     marginBottom:30,
@@ -476,13 +478,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   textInput: {
-    height: 48,
-    width:Dimensions.get('window').width-50 ,
+    height: 44,
+    width:Dimensions.get('window').width-80,
     fontSize: 16,
     fontFamily: 'IRANSansMobileFaNum',
     textAlign: 'right',
     color: '#4f4f4f',
-    marginBottom:12,
+    marginBottom: 12,
     borderBottomWidth: 2,
     borderBottomColor:'#acacac',
   },
