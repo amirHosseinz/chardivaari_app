@@ -831,7 +831,7 @@ class HouseDetail extends Component {
   </View>
 
   <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/beds.png")}/>
+    <Image style={styles.detailiconimg} source={require("./img/facilities/beds.png")} />
     <View style={styles.detailicontextbox}>
     <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + 2 * Number(this.state.room.double_beds_number)}</Text>
     <Text style={styles.detailicontext}>تخت</Text>
@@ -839,7 +839,7 @@ class HouseDetail extends Component {
   </View>
 
   <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/baths.png")}/>
+    <Image style={styles.detailiconimg} source={require("./img/facilities/baths.png")}/>
     <View style={styles.detailicontextbox}>
     <Text style={styles.detailicontext}> {this.state.room.bath_room_number}</Text>
     <Text style={styles.detailicontext}>حمام</Text>

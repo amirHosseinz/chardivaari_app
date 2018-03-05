@@ -256,7 +256,7 @@ class EcotourismDetail extends Component {
   renderTVFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('TV') > -1) {
       return(
-        <Image style={styles.icon} source={require("./img/tv.png")}/>
+        <Image style={styles.icon} source={require("./img/facilities/tv.png")}/>
       );
     }
   }
@@ -374,7 +374,7 @@ class EcotourismDetail extends Component {
   renderWifiFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('NET') > -1) {
       return(
-        <Image style={styles.icon} source={require("./img/wifi.png")}/>
+        <Image style={styles.icon} source={require("./img/facilities/wifi.png")}/>
       );
     }
   }
@@ -382,11 +382,11 @@ class EcotourismDetail extends Component {
   renderBathroom () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('SHARED_BATHROOM') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/baths.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/baths.png')} />
       );
     } else if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('ENTIRE_BATHROOM') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/baths.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/baths.png')} />
       );
     } else {
       return null;
@@ -397,7 +397,7 @@ class EcotourismDetail extends Component {
   renderWashingMachineFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('WASHING_MACHINE') > -1) {
       return(
-        <Image style={styles.icon} source={require("./img/washing_machine.png")}/>
+        <Image style={styles.icon} source={require("./img/facilities/washing_machine.png")}/>
       );
     }
   }
