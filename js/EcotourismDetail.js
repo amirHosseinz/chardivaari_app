@@ -767,8 +767,10 @@ class EcotourismDetail extends Component {
         this.state.room.food_service_type.length > 0
       ) {
         var desc = '';
+        var items = 0;
         if (this.state.room.food_service_type.indexOf('BREAK_FAST_INCLUDED') > -1) {
           desc += 'صبحانه';
+          items += 1;
         }
         if (this.state.room.food_service_type.indexOf('LUNCH_INCLUDED') > -1) {
           if (desc === '') {
@@ -776,6 +778,7 @@ class EcotourismDetail extends Component {
           } else {
             desc += '، ناهار';
           }
+          items += 1;
         }
         if (this.state.room.food_service_type.indexOf('DINNER_INCLUDED') > -1) {
           if (desc === '') {
@@ -783,11 +786,12 @@ class EcotourismDetail extends Component {
           } else {
             desc += '، شام';
           }
+          items += 1;
         }
         return(
           <View style={styles.toppreviewtextpart}>
-            <Text style={styles.h2}>
-              {this.state.room.food_service_type.length} وعده
+            <Text style={styles.h3}>
+              {items} وعده
             </Text>
             <Text style={styles.detailicontext}>
               {desc}
@@ -797,7 +801,7 @@ class EcotourismDetail extends Component {
     } else {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             بدون غذا
           </Text>
           <Text style={styles.detailicontext}>
@@ -824,7 +828,7 @@ class EcotourismDetail extends Component {
         }
         return(
           <View style={styles.toppreviewtextpart}>
-            <Text style={styles.h2}>
+            <Text style={styles.h3}>
               {this.state.room.total_capacity} سرویس خواب
             </Text>
             <Text style={styles.detailicontext}>
@@ -835,7 +839,7 @@ class EcotourismDetail extends Component {
       } else {
         return(
           <View style={styles.toppreviewtextpart}>
-            <Text style={styles.h2}>
+            <Text style={styles.h3}>
             </Text>
             <Text style={styles.detailicontext}>
             </Text>
@@ -848,7 +852,7 @@ class EcotourismDetail extends Component {
     if (this.state.room.rooms_number > 0) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             {this.state.room.rooms_number} اتاق
           </Text>
           <Text style={styles.detailicontext}>
@@ -859,7 +863,7 @@ class EcotourismDetail extends Component {
     } else {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
           </Text>
           <Text style={styles.detailicontext}>
           </Text>
@@ -874,7 +878,7 @@ class EcotourismDetail extends Component {
     ) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             روستایی
           </Text>
           <Text style={styles.detailicontext}>
@@ -888,7 +892,7 @@ class EcotourismDetail extends Component {
     ) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             شهری
           </Text>
           <Text style={styles.detailicontext}>
@@ -902,7 +906,7 @@ class EcotourismDetail extends Component {
     ) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             ساحلی
           </Text>
           <Text style={styles.detailicontext}>
@@ -916,7 +920,7 @@ class EcotourismDetail extends Component {
     ) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             جنگلی
           </Text>
           <Text style={styles.detailicontext}>
@@ -930,7 +934,7 @@ class EcotourismDetail extends Component {
     ) {
       return(
         <View style={styles.toppreviewtextpart}>
-          <Text style={styles.h2}>
+          <Text style={styles.h3}>
             دشت
           </Text>
           <Text style={styles.detailicontext}>
@@ -941,7 +945,7 @@ class EcotourismDetail extends Component {
     }
     return(
       <View style={styles.toppreviewtextpart}>
-        <Text style={styles.h2}>
+        <Text style={styles.h3}>
         </Text>
         <Text style={styles.detailicontext}>
         </Text>
@@ -1454,6 +1458,11 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 18,
+    fontFamily: 'IRANSansMobileFaNum-Medium',
+    color: "#3e3e3e",
+  },
+  h3: {
+    fontSize: 16,
     fontFamily: 'IRANSansMobileFaNum-Medium',
     color: "#3e3e3e",
   },
