@@ -79,6 +79,18 @@ class ExploreResult extends Component {
     }
   }
 
+  _onPress () {
+    if (this.props.room.type=='room') {
+      this.props.navigation.navigate('houseDetail', {
+        room: this.props.room,
+      });
+    } else {
+      this.props.navigation.navigate('ecotourismDetail', {
+        room: this.props.room,
+      });
+    }
+  }
+
   render () {
 
     var rating = this.props.room.rating;
@@ -90,9 +102,7 @@ class ExploreResult extends Component {
 
     return(
       <TouchableOpacity onPress={() => {
-        this.props.navigation.navigate('houseDetail', {
-          room: this.props.room,
-        });
+        this._onPress();
       }}>
     <View style={styles.cards}>
         <View style={styles.previewimg}>

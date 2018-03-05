@@ -6,6 +6,7 @@ import {
   Modal,
   StyleSheet,
   Alert,
+  TextInput,
   Image,
   Dimensions,
   TouchableOpacity,
@@ -19,8 +20,6 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Communications from 'react-native-communications';
-// import ViewPager from 'react-native-viewpager';
-// import KeepAwake from 'react-native-keep-awake';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -30,7 +29,7 @@ import Facilities from './Facilities';
 import { productionURL, GATrackerId } from './data';
 
 
-class HouseDetail extends Component {
+class EcotourismDetail extends Component {
   constructor(props) {
    super(props);
    this.state = {
@@ -58,7 +57,7 @@ class HouseDetail extends Component {
 
  componentWillMount() {
    let tracker = new GoogleAnalyticsTracker(GATrackerId);
-   tracker.trackScreenView('HouseDetail');
+   tracker.trackScreenView('EcotourismDetail');
    this.setState({
      tracker: tracker,
    });
@@ -122,7 +121,7 @@ class HouseDetail extends Component {
  }
 
  fetchRoom () {
-   fetch(productionURL + '/api/get/room/', {
+   fetch(productionURL + '/api/get/ecotourism/', {
      method: 'POST',
      headers: {
        'Accept': 'application/json',
@@ -130,7 +129,7 @@ class HouseDetail extends Component {
        'Authorization': 'Token ' + this.state.token,
      },
      body: JSON.stringify({
-       room_id: this.props.navigation.state.params.roomId,
+       ecotourism_id: this.props.navigation.state.params.roomId,
      }),
    })
    .then((response) => this.onGetRoomResponseRecieved(response))
@@ -241,42 +240,12 @@ class HouseDetail extends Component {
          room: this.state.room,
        });
    }
-  //  this.props.navigation.navigate(
-  //    'requestBook',{roomId: this.state.room.id}
-  //  );
  }
 
   renderHouseType () {
     result = '';
-    switch(this.state.room.room_type) {
-    case 'SUITE':
-      result = 'سوییت ';
-      break;
-    case 'VILLA':
-      result = 'ویلای ';
-      break;
-    case 'HOUSE':
-      result = 'خانه ';
-      break;
-    case 'APT':
-      result = 'آپارتمان ';
-      break;
-    default:
-      result = 'سوییت ';
-    }
-
-    switch(this.state.room.service_type) {
-    case 'ENTIRE_HOME':
-      result = result + 'کامل';
-      break;
-    case 'PRIVATE_ROOM':
-      result = result + 'خصوصی';
-      break;
-    case 'SHARED_ROOM':
-      result = result + 'مشترک';
-      break;
-    default:
-      result = result + 'کامل';
+    if (this.state.room.type && this.state.room.type=='ecotourism') {
+      result = 'اقامتگاه بوم‌گردی';
     }
 
     return(
@@ -284,8 +253,16 @@ class HouseDetail extends Component {
     );
   }
 
+  renderTVFeature () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('TV') > -1) {
+      return(
+        <Image style={styles.featuresicon} source={require("./img/tv.png")}/>
+      );
+    }
+  }
+
   renderRefrig () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('FRIDGE') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('FRIDGE') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/refrigerator.png')} />
       );
@@ -293,31 +270,31 @@ class HouseDetail extends Component {
   }
 
   renderParking () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PARKING') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('PARKING') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/parking.png')} />
       );
     }
   }
 
-  renderBarbecue () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('BARBECUE') > -1) {
+  renderKorsi () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('KORSI') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/facilities/Barbecue.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/korsi.png')} />
       );
     }
   }
 
-  renderBlanket () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('EXTRA_SLEEP_UTILS') > -1) {
+  renderHerbaltea () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('HERBAL_TEA') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/facilities/blanket.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/herbal_tea.png')} />
       );
     }
   }
 
   renderCanape () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('SOFA') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('SOFA') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/canape.png')} />
       );
@@ -325,105 +302,102 @@ class HouseDetail extends Component {
   }
 
   renderConditioner () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('COOLER') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('COOLER') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/conditioner.png')} />
       );
     }
   }
 
+  renderHeater () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('HEATER') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/heater.png')} />
+      );
+    }
+  }
+
   renderDinnerTable () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('DINING_TABLE') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('DINING_TABLE') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/dinnertable.png')} />
       );
     }
   }
 
-  renderElevator () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('ELEVATOR') > -1) {
-      return(
-        <Image style={styles.icon} source={require('./img/facilities/elevator.png')} />
-      );
-    }
-  }
-
-  renderFoosball () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('TABLE_FOOTBALL') > -1) {
-      return(
-        <Image style={styles.icon} source={require('./img/facilities/foosball.png')} />
-      );
-    }
-  }
-
   renderKitchenware () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('KITCHEN_DISH') > -1) {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('COOKING_UTILS') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
       );
     }
   }
 
-  renderMicrowave () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('MICROWAVE_OVEN') > -1) {
+  renderGuestInsurance () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('GUEST_INSURANCE') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/facilities/mircowave.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/insurance.png')} />
       );
     }
   }
 
-  renderPavilion () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PERGOLA') > -1) {
+  renderMobileCoverage () {
+    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('MOBILE_NETWORK_COVEREGE') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/facilities/pavilion.png')} />
-      );
-    }
-  }
-
-  renderPingpong () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('PING_PONG') > -1) {
-      return(
-        <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
-      );
-    }
-  }
-
-  renderPool () {
-    if (this.state.room.general_util_options && this.state.room.general_util_options.indexOf('POOL') > -1) {
-      return(
-        <Image style={styles.icon} source={require('./img/facilities/pool.png')} />
+        <Image style={styles.icon} source={require('./img/facilities/mobile_tower.png')} />
       );
     }
   }
 
   renderStove () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('OVEN') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('OVEN') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/stove.png')} />
       );
     }
   }
 
-  renderTeamaker () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('TEA_MAKER') > -1) {
-      return(
-        <Image style={styles.icon} source={require('./img/facilities/teamaker.png')} />
-      );
-    }
-  }
-
   renderForeigntoilet () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('FOREIGN_TOILET') > -1) {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('SHARED_FOREIGN_TOILET') > -1) {
       return(
         <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
       );
+    } else if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('ENTIRE_FOREIGN_TOILET') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
+      );
+    } else {
+      return null;
     }
   }
 
-  renderHanger () {
-    if (this.state.room.private_util_options && this.state.room.private_util_options.indexOf('HANGER') > -1) {
+  renderWifiFeature () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('NET') > -1) {
       return(
-        <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
+        <Image style={styles.featuresicon} source={require("./img/wifi.png")}/>
+      );
+    }
+  }
+
+  renderBathroom () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('SHARED_BATHROOM') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/baths.png')} />
+      );
+    } else if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('ENTIRE_BATHROOM') > -1) {
+      return(
+        <Image style={styles.icon} source={require('./img/baths.png')} />
+      );
+    } else {
+      return null;
+    }
+
+  }
+
+  renderWashingMachineFeature () {
+    if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('WASHING_MACHINE') > -1) {
+      return(
+        <Image style={styles.featuresicon} source={require("./img/washing_machine.png")}/>
       );
     }
   }
@@ -448,7 +422,7 @@ class HouseDetail extends Component {
           <View style={styles.baniconbox}>
           <Image style={styles.banicon} source={require("./img/cigarette.png")}/>
           </View>
-          <Text style={styles.bantext}>ممنوعیت  استعمال دخانیات </Text>
+          <Text style={styles.bantext}>ممنوعیت استعمال دخانیات</Text>
         </View>
       );
     }
@@ -509,6 +483,76 @@ class HouseDetail extends Component {
     }
   }
 
+  renderAttractionParts () {
+    return this.state.room.tourism_attractions.map((attraction) => {
+      return(
+        <View style={{
+          backgroundColor: '#5fafb8',
+          marginLeft: 6,
+          borderRadius: 6,
+        }}>
+        <Text style={styles.attractionparttext}>
+          {attraction}
+        </Text>
+        </View>
+      )
+    });
+  }
+
+  renderAttractionSection () {
+    if (this.state.room.tourism_attractions &&
+        this.state.room.tourism_attractions.length > 0
+    ) {
+      return(
+        <View>
+          <View style={styles.checkinbox}>
+            <Text style={styles.h2}>
+              جاذبه‌های گردشگری
+            </Text>
+          </View>
+
+          <View style={styles.attractionpartbox}>
+          {this.renderAttractionParts()}
+          </View>
+
+        <View style={styles.divider}>
+        </View>
+
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderAccessibilitySection () {
+    if (this.state.room.accessibility != null &&
+        this.state.room.accessibility != ''
+    ) {
+      return(
+        <View>
+        <View style={styles.checkinbox}>
+        <Text style={styles.h2}>
+          نحوه دسترسی
+        </Text>
+        </View>
+
+        <View style={styles.rightAlignmentBox}>
+        <Text style={styles.explanation}>
+          {this.state.room.accessibility}
+        </Text>
+        </View>
+
+        <View style={styles.divider}>
+        </View>
+
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderDescription () {
     if (this.state.room.description != null &&
         this.state.room.description != ''
@@ -523,9 +567,6 @@ class HouseDetail extends Component {
           <Text style={styles.explanation}>
             {this.state.room.description}
           </Text>
-          </View>
-
-          <View style={styles.divider}>
           </View>
           </View>
         );
@@ -721,6 +762,193 @@ class HouseDetail extends Component {
     return(res);
   }
 
+  renderFoodPreview () {
+    if (this.state.room.food_service_type &&
+        this.state.room.food_service_type.length > 0
+      ) {
+        var desc = '';
+        if (this.state.room.food_service_type.indexOf('BREAK_FAST_INCLUDED') > -1) {
+          desc += 'صبحانه';
+        }
+        if (this.state.room.food_service_type.indexOf('LUNCH_INCLUDED') > -1) {
+          if (desc === '') {
+            desc = 'ناهار';
+          } else {
+            desc += '، ناهار';
+          }
+        }
+        if (this.state.room.food_service_type.indexOf('DINNER_INCLUDED') > -1) {
+          if (desc === '') {
+            desc = 'شام';
+          } else {
+            desc += '، شام';
+          }
+        }
+        return(
+          <View style={styles.toppreviewtextpart}>
+            <Text style={styles.h2}>
+              {this.state.room.food_service_type.length} وعده
+            </Text>
+            <Text style={styles.detailicontext}>
+              {desc}
+            </Text>
+          </View>
+        );
+    } else {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            بدون غذا
+          </Text>
+          <Text style={styles.detailicontext}>
+          </Text>
+        </View>
+      );
+    }
+  }
+
+  renderSleepPreview () {
+    if (this.state.room.general_utils_options &&
+        this.state.room.total_capacity > 0
+      ) {
+        var desc = '';
+        if (this.state.room.general_utils_options.indexOf('BED') > -1) {
+          desc += 'تخت خواب';
+        }
+        if (this.state.room.general_utils_options.indexOf('MATTRESS') > -1) {
+          if (desc === '') {
+            desc = 'سنتی';
+          } else {
+            desc += ' + سنتی';
+          }
+        }
+        return(
+          <View style={styles.toppreviewtextpart}>
+            <Text style={styles.h2}>
+              {this.state.room.total_capacity} سرویس خواب
+            </Text>
+            <Text style={styles.detailicontext}>
+              {desc}
+            </Text>
+          </View>
+        );
+      } else {
+        return(
+          <View style={styles.toppreviewtextpart}>
+            <Text style={styles.h2}>
+            </Text>
+            <Text style={styles.detailicontext}>
+            </Text>
+          </View>
+        );
+      }
+  }
+
+  renderRoomsPreview () {
+    if (this.state.room.rooms_number > 0) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            {this.state.room.rooms_number} اتاق
+          </Text>
+          <Text style={styles.detailicontext}>
+            در اقامتگاه
+          </Text>
+        </View>
+      );
+    } else {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+          </Text>
+          <Text style={styles.detailicontext}>
+          </Text>
+        </View>
+      );
+    }
+  }
+
+  renderAccessType () {
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('RURAL') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            روستایی
+          </Text>
+          <Text style={styles.detailicontext}>
+            نوع دسترسی
+          </Text>
+        </View>
+      );
+    }
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('URBAN') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            شهری
+          </Text>
+          <Text style={styles.detailicontext}>
+            نوع دسترسی
+          </Text>
+        </View>
+      );
+    }
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('COASTAL') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            ساحلی
+          </Text>
+          <Text style={styles.detailicontext}>
+            نوع دسترسی
+          </Text>
+        </View>
+      );
+    }
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('JUNGLE') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            جنگلی
+          </Text>
+          <Text style={styles.detailicontext}>
+            نوع دسترسی
+          </Text>
+        </View>
+      );
+    }
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('GROVE') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h2}>
+            دشت
+          </Text>
+          <Text style={styles.detailicontext}>
+            نوع دسترسی
+          </Text>
+        </View>
+      );
+    }
+    return(
+      <View style={styles.toppreviewtextpart}>
+        <Text style={styles.h2}>
+        </Text>
+        <Text style={styles.detailicontext}>
+        </Text>
+      </View>
+    );
+  }
+
   renderBottomButton () {
     if (this.state.isHost) {
       return(
@@ -813,44 +1041,45 @@ class HouseDetail extends Component {
 <View style={styles.divider}>
 </View>
 
-<View style={styles.detailbox}>
-  <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/persons.png")}/>
-    <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {this.state.room.capacity}</Text>
-    <Text style={styles.detailicontext}>مهمان</Text>
+<View style={styles.toppreviewbox}>
+
+  <View style={styles.toppreviewrow}>
+
+    <View style={styles.toppreviewitem}>
+      <Image style={styles.detailiconimg} source={require("./img/rooms.png")}/>
+      {this.renderRoomsPreview()}
     </View>
+
+    <View style={styles.toppreviewitem}>
+      <Image style={styles.detailiconimg} source={require("./img/pillow.png")}/>
+      {this.renderSleepPreview()}
+    </View>
+
   </View>
 
-  <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/rooms.png")}/>
-    <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {this.state.room.rooms_number}</Text>
-    <Text style={styles.detailicontext}>اتاق</Text>
+  <View style={styles.toppreviewrow}>
+
+    <View style={styles.toppreviewitem}>
+      <Image style={styles.detailiconimg} source={require("./img/foods.png")}/>
+      {this.renderFoodPreview()}
     </View>
+
+    <View style={styles.toppreviewitem}>
+      <Image style={styles.detailiconimg} source={require("./img/urban-rural.png")}/>
+      {this.renderAccessType()}
+    </View>
+
   </View>
 
-  <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/beds.png")}/>
-    <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {Number(this.state.room.beds_number) + 2 * Number(this.state.room.double_beds_number)}</Text>
-    <Text style={styles.detailicontext}>تخت</Text>
-    </View>
-  </View>
-
-  <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/baths.png")}/>
-    <View style={styles.detailicontextbox}>
-    <Text style={styles.detailicontext}> {this.state.room.bath_room_number}</Text>
-    <Text style={styles.detailicontext}>حمام</Text>
-    </View>
-  </View>
 </View>
 
 <View style={styles.divider}>
 </View>
 
 {this.renderDescription()}
+
+<View style={styles.divider}>
+</View>
 
 <View style={styles.checkinbox}>
   <Text style={styles.h2}>امکانات</Text>
@@ -859,24 +1088,23 @@ class HouseDetail extends Component {
   <View style={styles.morefacilities}>
     {this.renderRefrig()}
     {this.renderParking()}
-    {this.renderBarbecue()}
-    {this.renderBlanket()}
+    {this.renderKorsi()}
+    {this.renderHerbaltea()}
     {this.renderCanape()}
     {this.renderConditioner()}
     {this.renderDinnerTable()}
-    {this.renderElevator()}
-    {this.renderFoosball()}
-    {this.renderHanger()}
+    {this.renderWifiFeature()}
+    {this.renderBathroom()}
 </View>
 <View style={styles.morefacilities}>
   {this.renderKitchenware()}
-  {this.renderMicrowave()}
-  {this.renderPavilion()}
-  {this.renderPingpong()}
-  {this.renderPool()}
+  {this.renderGuestInsurance()}
+  {this.renderMobileCoverage()}
   {this.renderStove()}
-  {this.renderTeamaker()}
   {this.renderForeigntoilet()}
+  {this.renderTVFeature()}
+  {this.renderHeater()}
+  {this.renderWashingMachineFeature()}
   <TouchableOpacity onPress={this.openFacilities}>
     <Text style={{fontSize:16,fontFamily:'IRANSansMobileFaNum-Medium',color:'#00b1ce'}}> + بیشتر </Text>
   </TouchableOpacity>
@@ -886,6 +1114,7 @@ class HouseDetail extends Component {
 
 <View style={styles.container0}>
   <View style={styles.container2}>
+
   <View style={styles.divider}>
   </View>
 
@@ -944,11 +1173,15 @@ class HouseDetail extends Component {
 
     {this.renderRestrictionSection()}
 
+    {this.renderAttractionSection()}
+
+    {this.renderAccessibilitySection()}
+
     <View style={styles.contacthost}>
-    <Text style={styles.lawstext1}>ارتباط با میزبان درباره این خانه:</Text>
-    <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>
-    <Text style={styles.lawstext2}>ارسال پیام</Text>
-    </TouchableOpacity>
+      <Text style={styles.lawstext1}>ارتباط با میزبان درباره این خانه:</Text>
+      <TouchableOpacity onPress={this.onPressContactHost.bind(this)}>
+      <Text style={styles.lawstext2}>ارسال پیام</Text>
+      </TouchableOpacity>
     </View>
 
     <View style={styles.divider}>
@@ -1174,9 +1407,16 @@ const styles = StyleSheet.create({
   },
   detailbox: {
     flex: 1,
-    flexDirection:"row-reverse",
-    alignItems:'center',
-    justifyContent:"space-around",
+    flexDirection: "row-reverse",
+    alignItems: 'center',
+    justifyContent: "space-around",
+    marginTop:10,
+  },
+  toppreviewbox: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: "space-around",
     marginTop:10,
   },
   detailicontextbox: {
@@ -1190,24 +1430,69 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum',
     color:"#9e9e9e",
   },
-  deatilitembox:{
-    alignItems:'center',
+  deatilitembox: {
+    alignItems: 'center',
+  },
+  toppreviewrow: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    margin: 10,
+  },
+  toppreviewitem: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  toppreviewtextpart: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginRight: 10,
   },
   h2: {
     fontSize: 18,
-    fontFamily:'IRANSansMobileFaNum-Medium',
-    color:"#3e3e3e",
+    fontFamily: 'IRANSansMobileFaNum-Medium',
+    color: "#3e3e3e",
   },
   explanation: {
     textAlign: 'right',
     alignSelf: 'stretch',
     fontSize: 14,
-    fontFamily:'IRANSansMobileFaNum-Light',
-    color:"#3e3e3e",
+    fontFamily: 'IRANSansMobileFaNum-Light',
+    color: "#3e3e3e",
+  },
+  attractionparttext: {
+    textAlign: 'center',
+    fontSize: 17,
+    fontFamily: 'IRANSansMobileFaNum',
+    color: "#ffffff",
+    marginLeft: 8,
+    marginRight: 8,
   },
   mapstyle: {
     width: Dimensions.get('screen').width,
+    resizeMode: 'contain',
+  },
+  features: {
+    flexWrap: 'wrap',
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
+    marginTop: 10,
+  },
+  featuresicon: {
+    width: 30,
+    height: 30,
     resizeMode: 'contain' ,
+    marginLeft: 10,
+  },
+  seemore: {
+    fontSize: 20,
+    fontFamily:"IRANSansMobileFaNum",
+    color: "#00b1ce"
   },
   bottombar: {
     width: Dimensions.get('screen').width,
@@ -1248,6 +1533,13 @@ const styles = StyleSheet.create({
     fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
     marginTop:6,
+  },
+  pernighttext: {
+    fontSize: 20,
+    fontFamily:"IRANSansMobileFaNum-Medium",
+    color: "#787878",
+    justifyContent:"flex-end",
+    marginTop:2,
   },
   reservebuttontext: {
     fontSize: 19,
@@ -1302,6 +1594,10 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     alignItems: "flex-start",
   },
+  attractionpartbox: {
+    flexDirection: "row-reverse",
+    alignItems: "flex-start",
+  },
   checkinbox:{
     flexDirection: "row-reverse",
     alignItems: "flex-start",
@@ -1347,6 +1643,7 @@ const styles = StyleSheet.create({
     marginRight:2,
     justifyContent:"center",
     marginLeft:50,
+
   },
   contacthost: {
     flexDirection: "row-reverse"
@@ -1418,4 +1715,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HouseDetail;
+export default EcotourismDetail;

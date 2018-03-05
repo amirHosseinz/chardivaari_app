@@ -77,7 +77,7 @@ class Explore extends Component {
   }
 
   fetchHomepage () {
-    fetch(productionURL + '/api/homepage/', {
+    fetch(productionURL + '/api/v1/homepage/', {
       method: 'POST',
       body: JSON.stringify({
         platform: Platform.OS === 'ios' ? 'ios' : 'android',
@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-      // backgroundColor: '#ededed',s
   },
   filter : {
     backgroundColor: '#0ca6c1',
