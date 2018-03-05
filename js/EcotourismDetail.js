@@ -256,7 +256,7 @@ class EcotourismDetail extends Component {
   renderTVFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('TV') > -1) {
       return(
-        <Image style={styles.featuresicon} source={require("./img/tv.png")}/>
+        <Image style={styles.icon} source={require("./img/tv.png")}/>
       );
     }
   }
@@ -374,7 +374,7 @@ class EcotourismDetail extends Component {
   renderWifiFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('NET') > -1) {
       return(
-        <Image style={styles.featuresicon} source={require("./img/wifi.png")}/>
+        <Image style={styles.icon} source={require("./img/wifi.png")}/>
       );
     }
   }
@@ -397,7 +397,7 @@ class EcotourismDetail extends Component {
   renderWashingMachineFeature () {
     if (this.state.room.general_utils_options && this.state.room.general_utils_options.indexOf('WASHING_MACHINE') > -1) {
       return(
-        <Image style={styles.featuresicon} source={require("./img/washing_machine.png")}/>
+        <Image style={styles.icon} source={require("./img/washing_machine.png")}/>
       );
     }
   }
@@ -1477,23 +1477,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width,
     resizeMode: 'contain',
   },
-  features: {
-    flexWrap: 'wrap',
-    flexDirection: "row-reverse",
-    alignItems: "flex-start",
-    marginTop: 10,
-  },
-  featuresicon: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain' ,
-    marginLeft: 10,
-  },
-  seemore: {
-    fontSize: 20,
-    fontFamily:"IRANSansMobileFaNum",
-    color: "#00b1ce"
-  },
   bottombar: {
     width: Dimensions.get('screen').width,
     height:56,
@@ -1533,13 +1516,6 @@ const styles = StyleSheet.create({
     fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
     marginTop:6,
-  },
-  pernighttext: {
-    fontSize: 20,
-    fontFamily:"IRANSansMobileFaNum-Medium",
-    color: "#787878",
-    justifyContent:"flex-end",
-    marginTop:2,
   },
   reservebuttontext: {
     fontSize: 19,
