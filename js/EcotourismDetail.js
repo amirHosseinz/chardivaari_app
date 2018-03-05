@@ -25,7 +25,7 @@ import {
 } from 'react-native-google-analytics-bridge';
 
 import ViewPager from './common/custom-viewpager';
-import Facilities from './Facilities';
+import EcotourismFacilities from './EcotourismFacilities';
 import { productionURL, GATrackerId } from './data';
 
 
@@ -1202,14 +1202,13 @@ class EcotourismDetail extends Component {
     onRequestClose={() => {
       this.closeFacilities();
     }}>
-       <Facilities room={this.state.room} onClose={this.closeFacilities}>
-       </Facilities>
+       <EcotourismFacilities room={this.state.room} onClose={this.closeFacilities}>
+       </EcotourismFacilities>
   </Modal>
 </ScrollView>
 <View style={styles.bottombar}>
       {this.renderBottomBar()}
     </View>
-
 
   <Modal
     animationType="slide"

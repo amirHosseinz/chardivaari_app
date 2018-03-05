@@ -11,10 +11,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-class Facilities extends Component {
+class EcotourismFacilities extends Component {
 
   renderRefrig () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('FRIDGE') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('FRIDGE') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -29,7 +29,7 @@ class Facilities extends Component {
   }
 
   renderParking () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('PARKING') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('PARKING') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -43,13 +43,15 @@ class Facilities extends Component {
     }
   }
 
-  renderBarbecue () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('BARBECUE') > -1) {
+  renderGuestInsurance () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('GUEST_INSURANCE') > -1) {
       return(
         <View>
           <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/Barbecue.png')} />
-            <Text style={styles.Facilityname}>باربکیو   </Text>
+            <Image style={styles.icon} source={require('./img/facilities/insurance.png')} />
+            <Text style={styles.Facilityname}>
+              بیمه مسافر
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -58,13 +60,32 @@ class Facilities extends Component {
     }
   }
 
-  renderBlanket () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('EXTRA_SLEEP_UTILS') > -1) {
+  renderKorsi () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('KORSI') > -1) {
       return(
         <View>
           <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/blanket.png')} />
-            <Text style={styles.Facilityname}>پتو و بالشت اضافه   </Text>
+            <Image style={styles.icon} source={require('./img/facilities/korsi.png')} />
+            <Text style={styles.Facilityname}>
+              کرسی
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  renderHerbaltea () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('HERBAL_TEA') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/herbal_tea.png')} />
+            <Text style={styles.Facilityname}>
+              دمنوش
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -74,7 +95,7 @@ class Facilities extends Component {
   }
 
   renderCanape () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('SOFA') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('SOFA') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -89,7 +110,7 @@ class Facilities extends Component {
   }
 
   renderDinnerTable () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('DINING_TABLE') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('DINING_TABLE') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -104,7 +125,7 @@ class Facilities extends Component {
   }
 
   renderConditioner () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('COOLER') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('COOLER') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -118,53 +139,8 @@ class Facilities extends Component {
     }
   }
 
-  renderElevator () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('ELEVATOR') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/elevator.png')} />
-            <Text style={styles.Facilityname}>آسانسور   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
-  renderFoosball () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('TABLE_FOOTBALL') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/foosball.png')} />
-            <Text style={styles.Facilityname}>فوتبال دستی   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
-  renderHanger () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('HANGER') > -1) {
-      return(
-        <View>
-        <View style={styles.container2}>
-          <Image style={styles.icon} source={require('./img/facilities/hanger.png')} />
-          <Text style={styles.Facilityname}>چوب لباسی   </Text>
-        </View>
-        <View style={styles.divider}>
-        </View>
-        </View>
-      );
-    }
-  }
-
   renderHeater () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('HEATER') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('HEATER') > -1) {
       return(
         <View>
         <View style={styles.container2}>
@@ -178,23 +154,8 @@ class Facilities extends Component {
     }
   }
 
-  renderKitchenware () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('KITCHEN_DISH') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
-            <Text style={styles.Facilityname}>ظروف آشپزخانه   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
   renderWashingMachine () {
-    if (this.props.room.private_util_options && this.props.room.private_util_options.indexOf('WASHING_MACHINE') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('WASHING_MACHINE') > -1) {
       return(
         <View>
         <View style={styles.container2}>
@@ -210,58 +171,15 @@ class Facilities extends Component {
     }
   }
 
-  renderMicrowave () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('MICROWAVE_OVEN') > -1) {
+  renderKitchenware () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('COOKING_UTILS') > -1) {
       return(
         <View>
           <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/mircowave.png')} />
-            <Text style={styles.Facilityname}>ماکروویو   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
-  renderPavilion () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('PERGOLA') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/pavilion.png')} />
-            <Text style={styles.Facilityname}>آلاچیق   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
-  renderPingpong () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('PING_PONG') > -1) {
-      return(
-        <View>
-        <View style={styles.container2}>
-          <Image style={styles.icon} source={require('./img/facilities/pingpong.png')} />
-          <Text style={styles.Facilityname}>میز پینگ پنگ   </Text>
-        </View>
-        <View style={styles.divider}>
-        </View>
-        </View>
-      );
-    }
-  }
-
-  renderPool () {
-    if (this.props.room && this.props.room.general_util_options.indexOf('POOL') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/pool.png')} />
-            <Text style={styles.Facilityname}>استخر   </Text>
+            <Image style={styles.icon} source={require('./img/facilities/kitchenware.png')} />
+            <Text style={styles.Facilityname}>
+              ظروف آشپزخانه
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -271,12 +189,14 @@ class Facilities extends Component {
   }
 
   renderStove () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('OVEN') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('OVEN') > -1) {
       return(
         <View>
         <View style={styles.container2}>
           <Image style={styles.icon} source={require('./img/facilities/stove.png')} />
-          <Text style={styles.Facilityname}>اجاق گاز   </Text>
+          <Text style={styles.Facilityname}>
+            اجاق گاز
+          </Text>
         </View>
         <View style={styles.divider}>
         </View>
@@ -285,23 +205,8 @@ class Facilities extends Component {
     }
   }
 
-  renderTeamaker () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('TEA_MAKER') > -1) {
-      return(
-        <View>
-          <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/teamaker.png')} />
-            <Text style={styles.Facilityname}> چای ساز   </Text>
-          </View>
-          <View style={styles.divider}>
-          </View>
-        </View>
-      );
-    }
-  }
-
   renderTv () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('TV') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('TV') > -1) {
       return(
         <View>
           <View style={styles.container2}>
@@ -315,43 +220,128 @@ class Facilities extends Component {
     }
   }
 
+  renderMobileCoverage () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('MOBILE_NETWORK_COVEREGE') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/mobile_tower.png')} />
+            <Text style={styles.Facilityname}>
+              آنتن‌دهی موبایل
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
   renderForeigntoilet () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('FOREIGN_TOILET') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('SHARED_FOREIGN_TOILET') > -1) {
       return(
         <View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
-            <Text style={styles.Facilityname}> توالت فرنگی   </Text>
+            <Text style={styles.Facilityname}>
+              توالت فرنگی مشترک
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
         </View>
       );
+    } else if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('ENTIRE_FOREIGN_TOILET') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
+            <Text style={styles.Facilityname}>
+              توالت فرنگی
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
     }
   }
 
   renderIranitoilet () {
-    if (this.props.room && Number(this.props.room.toilets_number) > 0) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('SHARED_TOILET') > -1) {
       return(
         <View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
-            <Text style={styles.Facilityname}> توالت ایرانی   </Text>
+            <Text style={styles.Facilityname}>
+              توالت ایرانی مشترک
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
         </View>
       );
+    } else if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('ENTIRE_TOILET') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+            <Text style={styles.Facilityname}>
+              توالت ایرانی
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderBathroom () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('SHARED_BATHROOM') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+            <Text style={styles.Facilityname}>
+              حمام اشتراکی
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    } else if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('ENTIRE_BATHROOM') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+            <Text style={styles.Facilityname}>
+              حمام
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    } else {
+      return null;
     }
   }
 
   renderWifi () {
-    if (this.props.room && this.props.room.private_util_options.indexOf('NET') > -1) {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('NET') > -1) {
       return(
         <View>
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/wifi.png')} />
-            <Text style={styles.Facilityname}> اینترنت بیسیم  </Text>
+            <Text style={styles.Facilityname}>
+              اینترنت
+            </Text>
           </View>
           <View style={styles.divider}>
           </View>
@@ -378,26 +368,21 @@ class Facilities extends Component {
             {this.renderRefrig()}
             {this.renderWifi()}
             {this.renderParking()}
-            {this.renderBarbecue()}
-            {this.renderBlanket()}
+            {this.renderKorsi()}
+            {this.renderHerbaltea()}
             {this.renderCanape()}
             {this.renderConditioner()}
             {this.renderDinnerTable()}
-            {this.renderElevator()}
-            {this.renderFoosball()}
-            {this.renderHanger()}
             {this.renderHeater()}
-            {this.renderKitchenware()}
             {this.renderWashingMachine()}
-            {this.renderMicrowave()}
-            {this.renderPavilion()}
-            {this.renderPingpong()}
-            {this.renderPool()}
+            {this.renderKitchenware()}
             {this.renderStove()}
-            {this.renderTeamaker()}
             {this.renderTv()}
+            {this.renderBathroom()}
             {this.renderForeigntoilet()}
             {this.renderIranitoilet()}
+            {this.renderGuestInsurance()}
+            {this.renderMobileCoverage()}
           </View>
           </View>
       </ScrollView>
@@ -463,4 +448,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Facilities;
+export default EcotourismFacilities;
