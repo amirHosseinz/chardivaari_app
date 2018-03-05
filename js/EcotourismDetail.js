@@ -489,6 +489,7 @@ class EcotourismDetail extends Component {
         <View style={{
           backgroundColor: '#5fafb8',
           marginLeft: 6,
+          marginTop: 6,
           borderRadius: 6,
         }}>
         <Text style={styles.attractionparttext}>
@@ -568,6 +569,10 @@ class EcotourismDetail extends Component {
             {this.state.room.description}
           </Text>
           </View>
+
+          <View style={styles.divider}>
+          </View>
+
           </View>
         );
     }
@@ -1082,9 +1087,6 @@ class EcotourismDetail extends Component {
 
 {this.renderDescription()}
 
-<View style={styles.divider}>
-</View>
-
 <View style={styles.checkinbox}>
   <Text style={styles.h2}>امکانات</Text>
 </View>
@@ -1579,8 +1581,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   attractionpartbox: {
+    flex: 1,
     flexDirection: "row-reverse",
     alignItems: "flex-start",
+    flexWrap: 'wrap',
   },
   checkinbox:{
     flexDirection: "row-reverse",

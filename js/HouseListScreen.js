@@ -46,7 +46,7 @@ class HouseListScreen extends Component {
   }
 
   fetchListingList () {
-    fetch(productionURL + '/api/room/list/', {
+    fetch(productionURL + '/api/v1/room/list/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -98,45 +98,106 @@ class HouseListScreen extends Component {
 
   renderListingType (item) {
     result = '';
-    switch(item.room_type) {
-    case 'SUITE':
-      result = 'سوییت ';
-      break;
-    case 'VILLA':
-      result = 'ویلا ';
-      break;
-    case 'HOUSE':
-      result = 'خانه ';
-      break;
-    case 'APT':
-      result = 'آپارتمان ';
-      break;
-    default:
-      result = 'سوییت ';
-    }
+    if (item.type == 'room') {
+      switch(item.room_type) {
+      case 'SUITE':
+        result = 'سوییت ';
+        break;
+      case 'VILLA':
+        result = 'ویلا ';
+        break;
+      case 'HOUSE':
+        result = 'خانه ';
+        break;
+      case 'APT':
+        result = 'آپارتمان ';
+        break;
+      default:
+        result = 'سوییت ';
+      }
 
-    switch(item.service_type) {
-    case 'ENTIRE_HOME':
-      result = result + 'کامل';
-      break;
-    case 'PRIVATE_ROOM':
-      result = result + 'خصوصی';
-      break;
-    case 'SHARED_ROOM':
-      result = result + 'مشترک';
-      break;
-    default:
-      result = result + 'کامل';
+      switch(item.service_type) {
+      case 'ENTIRE_HOME':
+        result = result + 'کامل';
+        break;
+      case 'PRIVATE_ROOM':
+        result = result + 'خصوصی';
+        break;
+      case 'SHARED_ROOM':
+        result = result + 'مشترک';
+        break;
+      default:
+        result = result + 'کامل';
+      }
+    } else if (item.type == 'ecotourism') {
+      result = 'اقامتگاه بوم‌گردی';
     }
 
     return(result);
   }
 
   _onListingPress (item) {
-    this.props.navigation.navigate('houseDetail', {
-      room: item,
-      role: 'host',
-    });
+    if (item.type == 'room') {
+      this.props.navigation.navigate('houseDetail', {
+        room: item,
+        role: 'host',
+      });
+    } else if (item.type == 'ecotourism') {
+      this.props.navigation.navigate('ecotourismDetail', {
+        room: item,
+        role: 'host',
+      });
+    }
+  }
+
+  renderHouseListHost (item) {
+    if (item.type == 'room') {
+      return(
+        <View style={{width: Dimensions.get('window').width,alignItems:'center'}}>
+          <View style={styles.cards}>
+              <View style={styles.details}>
+              <View style={styles.rightAlignBox}>
+                <Text style={styles.housetitle}>{item.title}</Text>
+              </View>
+                <View style={styles.housedetail}>
+                  <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
+                  <Text style={styles.detailtexts}>{item.area}</Text>
+                  <Text style={styles.detailtexts}>متری</Text>
+                  <Text style={styles.detailtexts}>هر شب</Text>
+                  <Text style={styles.detailtexts}>{item.price}</Text>
+                  <Text style={styles.detailtexts}>تومان</Text>
+                </View>
+              </View>
+              <Image source={{ uri: productionURL + item.preview_low }}
+                style={styles.image} />
+            </View>
+          </View>
+      );
+    } else if (item.type == 'ecotourism') {
+      return(
+        <View style={{width: Dimensions.get('window').width,alignItems:'center'}}>
+          <View style={styles.cards}>
+              <View style={styles.details}>
+              <View style={styles.rightAlignBox}>
+                <Text style={styles.housetitle}>{item.title}</Text>
+              </View>
+                <View style={styles.housedetail}>
+                  <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
+                  <Text style={styles.detailtexts}>با</Text>
+                  <Text style={styles.detailtexts}>{item.rooms_number}</Text>
+                  <Text style={styles.detailtexts}>اتاق</Text>
+                  <Text style={styles.detailtexts}>{item.price}</Text>
+                  <Text style={styles.detailtexts}>تومان</Text>
+                </View>
+              </View>
+              <Image source={{ uri: productionURL + item.preview_low }}
+                style={styles.image} />
+            </View>
+          </View>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderListing({item}, navigation) {
@@ -144,25 +205,7 @@ class HouseListScreen extends Component {
       <TouchableOpacity onPress={() => {
         this._onListingPress(item);
       }}>
-      <View style={{width: Dimensions.get('window').width,alignItems:'center'}}>
-        <View style={styles.cards}>
-            <View style={styles.details}>
-            <View style={styles.rightAlignBox}>
-              <Text style={styles.housetitle}>{item.title}</Text>
-            </View>
-              <View style={styles.housedetail}>
-                <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
-                <Text style={styles.detailtexts}>{item.area}</Text>
-                <Text style={styles.detailtexts}>متری</Text>
-                <Text style={styles.detailtexts}>هر شب</Text>
-                <Text style={styles.detailtexts}>{item.price}</Text>
-                <Text style={styles.detailtexts}>تومان</Text>
-              </View>
-            </View>
-            <Image source={{ uri: productionURL + item.preview_low }}
-              style={styles.image} />
-          </View>
-        </View>
+        {this.renderHouseListHost(item)}
       </TouchableOpacity>
     );
   }

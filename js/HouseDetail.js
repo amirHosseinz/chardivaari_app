@@ -527,6 +527,7 @@ class HouseDetail extends Component {
 
           <View style={styles.divider}>
           </View>
+
           </View>
         );
     }
