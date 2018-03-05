@@ -134,26 +134,49 @@ class RequestBookScreen extends Component {
     if ((this.state.startDate != null) &&
         (this.state.endDate != null) &&
         (this.state.numberOfGuests != null)) {
-      fetch(productionURL + '/api/room/get_price/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.state.token,
-        },
-        body: JSON.stringify({
-          room_id: this.state.room.id,
-          start_date: this.state.startDate.toISOString(),
-          end_date: this.state.endDate.toISOString(),
-          number_of_guests: this.state.numberOfGuests,
-          discount_code: this.state.discountCode,
-          app_version: DeviceInfo.getBuildNumber(),
-        }),
-      })
-      .then((response) => this.onUpdatePriceResponseRecieved(response))
-      .catch((error) => {
-        Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
-      });
+      if (this.state.room.type == 'room') {
+        fetch(productionURL + '/api/room/get_price/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + this.state.token,
+          },
+          body: JSON.stringify({
+            room_id: this.state.room.id,
+            start_date: this.state.startDate.toISOString(),
+            end_date: this.state.endDate.toISOString(),
+            number_of_guests: this.state.numberOfGuests,
+            discount_code: this.state.discountCode,
+            app_version: DeviceInfo.getBuildNumber(),
+          }),
+        })
+        .then((response) => this.onUpdatePriceResponseRecieved(response))
+        .catch((error) => {
+          Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+        });
+      } else if (this.state.room.type == 'ecotourism') {
+        fetch(productionURL + '/api/room/get_price/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + this.state.token,
+          },
+          body: JSON.stringify({
+            eco_room_id: this.state.room.id,
+            start_date: this.state.startDate.toISOString(),
+            end_date: this.state.endDate.toISOString(),
+            number_of_guests: this.state.numberOfGuests,
+            discount_code: this.state.discountCode,
+            app_version: DeviceInfo.getBuildNumber(),
+          }),
+        })
+        .then((response) => this.onUpdatePriceResponseRecieved(response))
+        .catch((error) => {
+          Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+        });
+      }
     }
   }
 
@@ -190,14 +213,26 @@ class RequestBookScreen extends Component {
     }, () => {
       this.updatePrice();
     });
-    if (this.state.newCapacity > this.state.room.capacity) {
-      this.setState({
-        capacityError: true,
-      });
-    } else {
-      this.setState({
-        capacityError: false,
-      });
+    if (this.state.room.type == 'room') {
+      if (this.state.newCapacity > this.state.room.max_capacity) {
+        this.setState({
+          capacityError: true,
+        });
+      } else {
+        this.setState({
+          capacityError: false,
+        });
+      }
+    } else if (this.state.room.type == 'ecotourism') {
+      if (this.state.newCapacity > this.state.room.total_capacity) {
+        this.setState({
+          capacityError: true,
+        });
+      } else {
+        this.setState({
+          capacityError: false,
+        });
+      }
     }
     this.setCapacityModalVisible(false);
   }
@@ -213,26 +248,49 @@ class RequestBookScreen extends Component {
     if (this.state.numberOfGuests != null) {
       if ((this.state.startDate != null) && (this.state.endDate != null)) {
         if (this.state.discountCode != null) {
-          fetch(productionURL + '/api/room/get_price/', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': 'Token ' + this.state.token,
-            },
-            body: JSON.stringify({
-              room_id: this.state.room.id,
-              start_date: this.state.startDate.toISOString(),
-              end_date: this.state.endDate.toISOString(),
-              number_of_guests: this.state.numberOfGuests,
-              discount_code: this.state.discountCode,
-              app_version: DeviceInfo.getBuildNumber(),
-            }),
-          })
-          .then((response) => this.onUpdatePriceResponseRecieved(response))
-          .catch((error) => {
-            Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
-          });
+          if (this.state.room.type == 'room') {
+            fetch(productionURL + '/api/room/get_price/', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + this.state.token,
+              },
+              body: JSON.stringify({
+                room_id: this.state.room.id,
+                start_date: this.state.startDate.toISOString(),
+                end_date: this.state.endDate.toISOString(),
+                number_of_guests: this.state.numberOfGuests,
+                discount_code: this.state.discountCode,
+                app_version: DeviceInfo.getBuildNumber(),
+              }),
+            })
+            .then((response) => this.onUpdatePriceResponseRecieved(response))
+            .catch((error) => {
+              Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+            });
+          } else if (this.state.room.type == 'ecotourism') {
+            fetch(productionURL + '/api/room/get_price/', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + this.state.token,
+              },
+              body: JSON.stringify({
+                eco_room_id: this.state.room.id,
+                start_date: this.state.startDate.toISOString(),
+                end_date: this.state.endDate.toISOString(),
+                number_of_guests: this.state.numberOfGuests,
+                discount_code: this.state.discountCode,
+                app_version: DeviceInfo.getBuildNumber(),
+              }),
+            })
+            .then((response) => this.onUpdatePriceResponseRecieved(response))
+            .catch((error) => {
+              Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+            });
+          }
         } else {
           Alert.alert('لطفا کد تخفیف خود را وارد نمایید.');
         }
@@ -260,26 +318,49 @@ class RequestBookScreen extends Component {
   onRequestBookButtonPress () {
     if (this.state.numberOfGuests != null) {
       if ((this.state.startDate != null) && (this.state.endDate != null)) {
-        fetch(productionURL + '/api/room/request/book/', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + this.state.token,
-          },
-          body: JSON.stringify({
-            room_id: this.state.room.id,
-            start_date: this.state.startDate.toISOString(),
-            end_date: this.state.endDate.toISOString(),
-            number_of_guests: this.state.numberOfGuests,
-            discount_code: this.state.discountCode,
-            app_version: DeviceInfo.getBuildNumber(),
-          }),
-        })
-        .then((response) => this.onRequestBookResponseRecieved(response))
-        .catch((error) => {
-          Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
-        });
+        if (this.state.room.type == 'room') {
+          fetch(productionURL + '/api/room/request/book/', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Token ' + this.state.token,
+            },
+            body: JSON.stringify({
+              room_id: this.state.room.id,
+              start_date: this.state.startDate.toISOString(),
+              end_date: this.state.endDate.toISOString(),
+              number_of_guests: this.state.numberOfGuests,
+              discount_code: this.state.discountCode,
+              app_version: DeviceInfo.getBuildNumber(),
+            }),
+          })
+          .then((response) => this.onRequestBookResponseRecieved(response))
+          .catch((error) => {
+            Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+          });
+        } else if (this.state.room.type == 'ecotourism') {
+          fetch(productionURL + '/api/ecoroom/request/book/', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Token ' + this.state.token,
+            },
+            body: JSON.stringify({
+              eco_room_id: this.state.room.id,
+              start_date: this.state.startDate.toISOString(),
+              end_date: this.state.endDate.toISOString(),
+              number_of_guests: this.state.numberOfGuests,
+              discount_code: this.state.discountCode,
+              app_version: DeviceInfo.getBuildNumber(),
+            }),
+          })
+          .then((response) => this.onRequestBookResponseRecieved(response))
+          .catch((error) => {
+            Alert.alert('لطفا از اتصال خود به اینترنت مطمئن شوید.');
+          });
+        }
       } else {
         Alert.alert('لطفا زمان سفر را تعیین نمایید.');
       }
@@ -622,27 +703,49 @@ class RequestBookScreen extends Component {
 
   renderUnavailableError () {
     if (this.state.unAvailableError) {
-      return(
-        <View style={styles.discountdetail}>
-          <Text style={styles.disdetatiltext}>
-            متاسفانه این خانه برای این زمان قابل رزرو نمی‌باشد.
-          </Text>
-        </View>
-      );
+      if (this.state.room.type == 'room') {
+        return(
+          <View style={styles.discountdetail}>
+            <Text style={styles.disdetatiltext}>
+              متاسفانه این خانه برای این زمان قابل رزرو نمی‌باشد.
+            </Text>
+          </View>
+        );
+      } else if (this.state.room.type == 'ecotourism') {
+        return(
+          <View style={styles.discountdetail}>
+            <Text style={styles.disdetatiltext}>
+              متاسفانه این اقامتگاه برای این زمان قابل رزرو نمی‌باشد.
+            </Text>
+          </View>
+        );
+      }
     }
   }
 
   renderCapacityError () {
     if (this.state.capacityError) {
-      return(
-        <View style={styles.discountdetail}>
-          <Text style={styles.disdetatiltext}>
-            ظرفیت این خانه
-            {this.state.room.capacity}
-            نفر می‌باشد.
-          </Text>
-        </View>
-      );
+      if (this.state.room.type == 'room') {
+        return(
+          <View style={styles.discountdetail}>
+            <Text style={styles.disdetatiltext}>
+              ظرفیت این خانه
+              {this.state.room.max_capacity}
+              نفر می‌باشد.
+            </Text>
+          </View>
+        );
+      } else if (this.state.room.type == 'ecotourism') {
+        return(
+          <View style={styles.discountdetail}>
+            <Text style={styles.disdetatiltext}>
+              ظرفیت این اقامتگاه
+              {this.state.room.total_capacity}
+              نفر می‌باشد.
+            </Text>
+          </View>
+        );
+      }
     }
   }
 
