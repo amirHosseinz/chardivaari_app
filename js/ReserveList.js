@@ -11,12 +11,11 @@ import {
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Moment from 'moment';
-import moment from 'moment-jalaali';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
+import ReserveRowScreen from './ReserveRowScreen'
 import { productionURL, GATrackerId } from './data';
 
 class ReserveList extends Component {
@@ -52,7 +51,7 @@ class ReserveList extends Component {
   }
 
   fetchReserveList () {
-    fetch(productionURL + '/api/reservations/list/', {
+    fetch(productionURL + '/api/v1/reservations/list/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -66,7 +65,7 @@ class ReserveList extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       // network error
-      // console.error(error);
+      console.error(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
     });
   }
@@ -113,54 +112,14 @@ class ReserveList extends Component {
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 
-  _onReservePress (reserve) {
-    this.props.navigation.navigate(
-      'reserveStatusScreen',
-      {
-        reserve: reserve,
-        role: this.props.role,
-        refresh: this.refreshScreen,
-      }
-    );
-  }
-
-  renderDuration (startDate, endDate) {
-    var oneDay = 24*60*60*1000;
-    startDate = Moment(startDate, 'YYYY-M-DTHH:mm:ssZ').clone();
-    start = startDate.toDate();
-    endDate = Moment(endDate, 'YYYY-M-DTHH:mm:ssZ').clone().toDate();
-    return(Math.round(Math.abs(endDate - start)/oneDay));
-  }
-
   renderReserveItem ({item}, navigation) {
     return(
-      <TouchableOpacity onPress={() => {
-        this._onReservePress(item);
-      }}>
-        <View style={styles.tripcard}>
-        <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-          {item.is_host_attention_needed ?
-            <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-            </View> :
-            null}
-        </View>
-          <View style={styles.tripcardtexts}>
-            <Text style={styles.cardtext1}>{item.room.title}</Text>
-            <View style={styles.guestnames}>
-              <Text style={styles.cardtext2}>متقاضی: </Text>
-              <Text style={styles.cardtext2}>{item.guest_person.last_name}</Text>
-              <Text style={styles.cardtext2}> / </Text>
-              <Text style={styles.cardtext2}>
-                {this.renderDuration(item.start_date, item.end_date)}
-              </Text>
-              <Text style={styles.cardtext2}> شب اقامت </Text>
-            </View>
-          </View>
-          <View style={styles.iconbox}>
-          <Icon size={24} color="#00cecc" name="hourglass-empty" />
-          </View>
-        </View>
-      </TouchableOpacity>
+      <ReserveRowScreen
+      reserveItem={item}
+      navigation={navigation}
+      role={this.props.role}
+      refreshScreen={this.refreshScreen}>
+      </ReserveRowScreen>
     );
   }
 
@@ -200,38 +159,6 @@ const styles = StyleSheet.create({
     color:'#ffffff',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
-  },
-  tripcard: {
-    flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 20,
-    height: 65,
-    backgroundColor: '#f9f9f9',
-    marginTop:5,
-    borderRadius: 3,
-    flexDirection: "row-reverse",
-    justifyContent:"flex-start",
-    alignItems: 'center',
-  },
-  cardtext1:{
-    color:'#3e3e3e',
-    fontFamily:'IRANSansMobileFaNum-Medium',
-    fontSize:16,
-  },
-  cardtext2:{
-    color:'#3e3e3e',
-    fontFamily:'IRANSansMobileFaNum-Light',
-    fontSize:12,
-  },
-  iconbox:{
-    flex:1,
-    marginLeft:12,
-  },
-  tripcardtexts:{
-    flex:5,
-    marginRight:12,
-  },
-  guestnames:{
-    flexDirection:'row-reverse',
   },
 });
 
