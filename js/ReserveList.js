@@ -65,7 +65,7 @@ class ReserveList extends Component {
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
       // network error
-      console.error(error);
+      // console.error(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا تلاش نمایید.');
     });
   }

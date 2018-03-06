@@ -29,6 +29,7 @@ class ReserveStatusScreen extends Component {
     super(props);
     this.state={
       reserve: {},
+      room: {},
       token: null,
       username: null,
       role: null,
@@ -38,10 +39,19 @@ class ReserveStatusScreen extends Component {
   }
 
   componentWillMount () {
-    this.setState({
-      reserve: this.props.navigation.state.params.reserve,
-      role: this.props.navigation.state.params.role,
-    });
+    if (this.props.navigation.state.params.reserve.room) {
+      this.setState({
+        reserve: this.props.navigation.state.params.reserve,
+        room: this.props.navigation.state.params.reserve.room,
+        role: this.props.navigation.state.params.role,
+      });
+    } else if (this.props.navigation.state.params.reserve.eco_room) {
+      this.setState({
+        reserve: this.props.navigation.state.params.reserve,
+        room: this.props.navigation.state.params.reserve.eco_room,
+        role: this.props.navigation.state.params.role,
+      });
+    }
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
@@ -193,8 +203,8 @@ class ReserveStatusScreen extends Component {
         isPaymentSuccess,
         refID,
       } = await PaymentModule.reactReserveRefund(
-        'بازپرداخت رزرو' + this.state.reserve.room.title,
-        Number(this.state.reserve.room.price),
+        'بازپرداخت رزرو' + this.state.room.title,
+        Number(this.state.reserve.first_night_host_price),
         this.state.token,
         this.state.reserve.id
       );
@@ -517,13 +527,13 @@ class ReserveStatusScreen extends Component {
               {this.renderStatus()}
               <View style={styles.cost}>
                 <Text style={styles.costtext}>نام اقامتگاه: </Text>
-                <Text style={styles.resulttextbold}>{this.state.reserve.room.title}</Text>
+                <Text style={styles.resulttextbold}>{this.state.room.title}</Text>
               </View>
               <View style={styles.divider}>
               </View>
               <View style={styles.cost1}>
                 <Text style={styles.costtext}>آدرس: </Text>
-                <Text style={styles.resulttextbold}>{this.state.reserve.room.address}</Text>
+                <Text style={styles.resulttextbold}>{this.state.room.address}</Text>
               </View>
               <View style={styles.divider}>
               </View>
