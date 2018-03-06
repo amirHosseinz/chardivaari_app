@@ -474,23 +474,45 @@ class RequestStatus extends Component {
 
   onContactToUserPress = () => {
     if (this.state.role === 'host') {
-      this.props.navigation.navigate(
-        'conversationScreen',
-        {
-          party: this.state.request.guest_person,
-          username: this.state.request.room.owner.username,
-          room: this.state.request.room,
-        }
-      );
+      if (this.state.request.room) {
+        this.props.navigation.navigate(
+          'conversationScreen',
+          {
+            party: this.state.request.guest_person,
+            username: this.state.request.room.owner.username,
+            room: this.state.request.room,
+          }
+        );
+      } else if (this.state.request.eco_room) {
+        this.props.navigation.navigate(
+          'conversationScreen',
+          {
+            party: this.state.request.guest_person,
+            username: this.state.request.room.owner.username,
+            eco_room: this.state.request.eco_room,
+          }
+        );
+      }
     } else if (this.state.role === 'guest') {
-      this.props.navigation.navigate(
-        'conversationScreen',
-        {
-          party: this.state.request.room.owner,
-          username: this.state.request.guest_person.username,
-          room: this.state.request.room,
-        }
-      );
+      if (this.state.request.room) {
+        this.props.navigation.navigate(
+          'conversationScreen',
+          {
+            party: this.state.request.room.owner,
+            username: this.state.request.guest_person.username,
+            room: this.state.request.room,
+          }
+        );
+      } else if (this.state.request.eco_room) {
+        this.props.navigation.navigate(
+          'conversationScreen',
+          {
+            party: this.state.request.eco_room.owner,
+            username: this.state.request.guest_person.username,
+            eco_room: this.state.request.eco_room,
+          }
+        );
+      }
     }
   }
 

@@ -31,7 +31,7 @@ class PrivateMessageRow extends Component {
     this.setState({
       username: value,
     });
-    if (value === this.props.message.sender.username) {
+    if (value == this.props.message.sender.username) {
       this.setState({
         party: this.props.message.recipient,
       });
@@ -43,7 +43,7 @@ class PrivateMessageRow extends Component {
   }
 
   renderHostname () {
-    if (this.props.message.sender.username === this.state.username) {
+    if (this.props.message.sender.username == this.state.username) {
       return(
         <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>{this.props.message.recipient.last_name}</Text>
@@ -106,15 +106,27 @@ class PrivateMessageRow extends Component {
   }
 
   _onPress() {
-    this.props.navigation.navigate(
-      'conversationScreen',
-      {
-        party: this.state.party,
-        messageId: this.props.message.id,
-        username: this.state.username,
-        room: this.props.message.room,
-      }
-    );
+    if (this.props.message.room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.party,
+          messageId: this.props.message.id,
+          username: this.state.username,
+          room: this.props.message.room,
+        }
+      );
+    } else if (this.props.message.eco_room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.party,
+          messageId: this.props.message.id,
+          username: this.state.username,
+          eco_room: this.props.message.eco_room,
+        }
+      );
+    }
   }
 
   render () {

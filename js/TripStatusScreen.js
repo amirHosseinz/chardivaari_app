@@ -107,14 +107,25 @@ class TripStatusScreen extends Component {
   }
 
   onMessageToUserButtonPress () {
-    this.props.navigation.navigate(
-      'conversationScreen',
-      {
-        party: this.state.trip.room.owner,
-        username: this.state.username,
-        room: this.state.trip.room,
-      }
-    );
+    if (this.state.trip.room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.trip.room.owner,
+          username: this.state.username,
+          room: this.state.trip.room,
+        }
+      );
+    } else if (this.state.trip.eco_room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.trip.eco_room.owner,
+          username: this.state.username,
+          eco_room: this.state.trip.eco_room,
+        }
+      );
+    }
   }
 
   openDeliverTerms = () => {

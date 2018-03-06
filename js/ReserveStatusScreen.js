@@ -108,14 +108,25 @@ class ReserveStatusScreen extends Component {
   }
 
   onMessageToUserButtonPress () {
-    this.props.navigation.navigate(
-      'conversationScreen',
-      {
-        party: this.state.reserve.guest_person,
-        username: this.state.username,
-        room: this.state.reserve.room,
-      }
-    );
+    if (this.state.reserve.room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.reserve.guest_person,
+          username: this.state.username,
+          room: this.state.reserve.room,
+        }
+      );
+    } else if (this.state.reserve.eco_room) {
+      this.props.navigation.navigate(
+        'conversationScreen',
+        {
+          party: this.state.reserve.guest_person,
+          username: this.state.username,
+          eco_room: this.state.reserve.eco_room,
+        }
+      );
+    }
   }
 
   onCancelReservePress () {

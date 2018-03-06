@@ -190,7 +190,7 @@ class EcotourismDetail extends Component {
      {
        party: this.state.room.owner,
        username: this.state.user.username,
-       room: this.state.room,
+       eco_room: this.state.room,
      }
    );
  }

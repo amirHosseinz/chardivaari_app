@@ -28,16 +28,26 @@ class ConversationScreen extends Component {
       lastMessageId: null,
       subject: null,
       room: null,
+      eco_room: null,
     };
   }
 
   componentWillMount() {
-    this.setState({
-      party: this.props.navigation.state.params.party,
-      username: this.props.navigation.state.params.username,
-      lastMessageId: this.props.navigation.state.params.messageId,
-      room: this.props.navigation.state.params.room,
-    }, () => this.afterInitial());
+    if (this.props.navigation.state.params.room) {
+      this.setState({
+        party: this.props.navigation.state.params.party,
+        username: this.props.navigation.state.params.username,
+        lastMessageId: this.props.navigation.state.params.messageId,
+        room: this.props.navigation.state.params.room,
+      }, () => this.afterInitial());
+    } else if (this.props.navigation.state.params.eco_room) {
+      this.setState({
+        party: this.props.navigation.state.params.party,
+        username: this.props.navigation.state.params.username,
+        lastMessageId: this.props.navigation.state.params.messageId,
+        eco_room: this.props.navigation.state.params.eco_room,
+      }, () => this.afterInitial());
+    }
     // this.setState({ partyImageUrl: 'https://content-static.upwork.com/uploads/2014/10/01073427/profilephoto1.jpg' });
 
     if (this.props.navigation.state.params.message != null) {
@@ -81,22 +91,41 @@ class ConversationScreen extends Component {
   }
 
   fetchConversation () {
-    fetch(productionURL + '/api/message/conversation/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        message_id: this.state.lastMessageId,
-        room_id: this.state.room.id,
-      }),
-    })
-    .then((response) => this.onResponseRecieved(response))
-    .catch((error) => {
-      Alert.alert('لطفا پس از اطمینان اتصال اینترنت مجددا تلاش نمایید.');
-    });
+    if (this.state.room) {
+      fetch(productionURL + '/api/message/conversation/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          message_id: this.state.lastMessageId,
+          room_id: this.state.room.id,
+        }),
+      })
+      .then((response) => this.onResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('لطفا پس از اطمینان اتصال اینترنت مجددا تلاش نمایید.');
+      });
+    } else if (this.state.eco_room) {
+      fetch(productionURL + '/api/message/conversation/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          message_id: this.state.lastMessageId,
+          eco_room_id: this.state.eco_room.id,
+        }),
+      })
+      .then((response) => this.onResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('لطفا پس از اطمینان اتصال اینترنت مجددا تلاش نمایید.');
+      });
+    }
   }
 
   onResponseRecieved (response) {
@@ -166,26 +195,49 @@ class ConversationScreen extends Component {
   }
 
   replyMessage (message) {
-    fetch(productionURL + '/api/message/reply/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        message_id: this.state.lastMessageId,
-        body: message.text,
-        recipient: this.state.party.username,
-        subject: this.state.subject,
-        sender: this.state.username,
-        room_id: this.state.room.id,
-      }),
-    })
-    .then((response) => this.onReplyMessageResponseRecieved(response))
-    .catch((error) => {
-      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
-    });
+    if (this.state.room) {
+      fetch(productionURL + '/api/message/reply/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          message_id: this.state.lastMessageId,
+          body: message.text,
+          recipient: this.state.party.username,
+          subject: this.state.subject,
+          sender: this.state.username,
+          room_id: this.state.room.id,
+        }),
+      })
+      .then((response) => this.onReplyMessageResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
+      });
+    } else if (this.state.eco_room) {
+      fetch(productionURL + '/api/message/reply/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          message_id: this.state.lastMessageId,
+          body: message.text,
+          recipient: this.state.party.username,
+          subject: this.state.subject,
+          sender: this.state.username,
+          eco_room_id: this.state.eco_room.id,
+        }),
+      })
+      .then((response) => this.onReplyMessageResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
+      });
+    }
   }
 
   onReplyMessageResponseRecieved (response) {
@@ -199,25 +251,47 @@ class ConversationScreen extends Component {
   }
 
   composeMessage (message) {
-    fetch(productionURL + '/api/message/compose/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + this.state.token,
-      },
-      body: JSON.stringify({
-        body: message.text,
-        recipient: this.state.party.username,
-        sender: this.state.username,
-        room_id: this.state.room.id,
-        subject: this.state.room.title,
-      }),
-    })
-    .then((response) => this.onComposeMessageResponseRecieved(response))
-    .catch((error) => {
-      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
-    });
+    if (this.state.room) {
+      fetch(productionURL + '/api/message/compose/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          body: message.text,
+          recipient: this.state.party.username,
+          sender: this.state.username,
+          room_id: this.state.room.id,
+          subject: this.state.room.title,
+        }),
+      })
+      .then((response) => this.onComposeMessageResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
+      });
+    } else if (this.state.eco_room) {
+      fetch(productionURL + '/api/message/compose/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + this.state.token,
+        },
+        body: JSON.stringify({
+          body: message.text,
+          recipient: this.state.party.username,
+          sender: this.state.username,
+          eco_room_id: this.state.eco_room.id,
+          subject: this.state.eco_room.title,
+        }),
+      })
+      .then((response) => this.onComposeMessageResponseRecieved(response))
+      .catch((error) => {
+        Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجددا تلاش کنید.');
+      });
+    }
   }
 
   onComposeMessageResponseRecieved (response) {
@@ -250,7 +324,11 @@ class ConversationScreen extends Component {
             <View style={styles.showhome}>
               <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate('houseDetail', {room: this.state.room});
+                if (this.state.room) {
+                  this.props.navigation.navigate('houseDetail', {room: this.state.room});
+                } else if (this.state.eco_room) {
+                  this.props.navigation.navigate('ecotourismDetail', {room: this.state.eco_room});
+                }
               }}
               style={{flexDirection:'row-reverse'}}>
               <Icon
