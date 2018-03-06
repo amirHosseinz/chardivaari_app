@@ -46,7 +46,7 @@ class RequestRowScreen extends Component {
       return(
         <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>
-          {this.state.room.guest_person.last_name}
+          {this.props.requestItem.guest_person.last_name}
         </Text>
         </View>
       );
