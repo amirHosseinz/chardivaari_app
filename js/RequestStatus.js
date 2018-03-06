@@ -117,7 +117,7 @@ class RequestStatus extends Component {
   onArchiveResponseRecieved (response) {
     if (response.status === 200) {
       // successful
-      this.props.navigation.state.params.refresh();
+      this.backNavigation();
       Alert.alert('درخواست شما حذف گردید.');
     } else {
       // failure
@@ -619,9 +619,7 @@ class RequestStatus extends Component {
   }
 
   renderButtonSection () {
-    withButtonStatuses = ['WAIT_FOR_GUEST_PAY', 'WAIT_FOR_HOST']
-    deleteOptionStates = ['HOST_REJECTED', 'HOST_ACCEPTED_GUEST_CANCELED',
-      'HOST_ACCEPTED_HOST_CANCELED', 'HOST_ACCEPTED_GUEST_PAYED'];
+    withButtonStatuses = ['WAIT_FOR_GUEST_PAY', 'WAIT_FOR_HOST'];
     if (withButtonStatuses.indexOf(this.state.request.status) > -1) {
       return(
         <View style={styles.bottombar}>
@@ -631,7 +629,7 @@ class RequestStatus extends Component {
            </View>
         </View>
       );
-    } else if (deleteOptionStates.indexOf(this.state.request.status) > -1) {
+    } else {
       return(
         <View style={styles.bottombar}>
            <View style={styles.bottombarchild}>
