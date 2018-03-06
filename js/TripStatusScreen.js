@@ -28,6 +28,7 @@ class TripStatusScreen extends Component {
     super(props);
     this.state={
       trip: {},
+      room: {},
       token: null,
       username: null,
       role: null,
@@ -37,10 +38,19 @@ class TripStatusScreen extends Component {
   }
 
   componentWillMount () {
-    this.setState({
-      trip: this.props.navigation.state.params.trip,
-      role: this.props.navigation.state.params.role,
-    });
+    if (this.props.navigation.state.params.trip.room) {
+      this.setState({
+        trip: this.props.navigation.state.params.trip,
+        room: this.props.navigation.state.params.trip.room,
+        role: this.props.navigation.state.params.role,
+      });
+    } else if (this.props.navigation.state.params.trip.eco_room) {
+      this.setState({
+        trip: this.props.navigation.state.params.trip,
+        room: this.props.navigation.state.params.trip.eco_room,
+        role: this.props.navigation.state.params.role,
+      });
+    }
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
@@ -177,7 +187,7 @@ class TripStatusScreen extends Component {
   }
 
   _onCallHostPress () {
-    Communications.phonecall(this.state.trip.room.owner.cell_phone, true);
+    Communications.phonecall(this.state.room.owner.cell_phone, true);
   }
 
   _onCallUsPress = () => {
@@ -412,7 +422,7 @@ class TripStatusScreen extends Component {
           <View style={styles.cost}>
             <Text style={styles.costtext}> شماره تماس: </Text>
             <Text style={styles.resulttextbold}>
-              {this.state.trip.room.owner.cell_phone}
+              {this.state.room.owner.cell_phone}
             </Text>
             <TouchableOpacity onPress={this._onCallHostPress.bind(this)}>
             <Text style={styles.resulttextbold1}>  تماس</Text>
@@ -463,20 +473,20 @@ class TripStatusScreen extends Component {
                   </View>
                   <View style={styles.cost}>
                     <Text style={styles.costtext}>نام اقامتگاه: </Text>
-                    <Text style={styles.resulttextbold}>{this.state.trip.room.title}</Text>
+                    <Text style={styles.resulttextbold}>{this.state.room.title}</Text>
                   </View>
                   <View style={styles.divider}>
                   </View>
                   <View style={styles.cost1}>
                     <Text style={styles.costtext}>آدرس: </Text>
-                    <Text style={styles.resulttextbold}>{this.state.trip.room.postal_address}</Text>
+                    <Text style={styles.resulttextbold}>{this.state.room.postal_address}</Text>
                   </View>
                   <View style={styles.divider}>
                   </View>
                   <View style={styles.cost}>
                     <Text style={styles.costtext}> میزبان: </Text>
                     <Text style={styles.resulttextbold}>
-                      {this.state.trip.room.owner.first_name} {this.state.trip.room.owner.last_name}
+                      {this.state.room.owner.first_name} {this.state.room.owner.last_name}
                     </Text>
                   </View>
                   <View style={styles.divider}>
