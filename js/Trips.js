@@ -5,16 +5,15 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Image,
   FlatList,
   Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
+import TripRowScreen from './TripRowScreen';
 import { productionURL, GATrackerId } from './data';
 
 
@@ -51,7 +50,7 @@ class Trips extends Component {
   }
 
   fetchTripList () {
-    fetch(productionURL + '/api/reservations/list/', {
+    fetch(productionURL + '/api/v1/reservations/list/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -91,209 +90,17 @@ class Trips extends Component {
     CacheStore.get('token').then((value) => this.setToken(value));
   }
 
-  _onTripPress (trip) {
-    this.props.navigation.navigate(
-      'tripStatusScreen',
-      {
-        trip: trip,
-        role: this.props.role,
-        refresh: this.refreshScreen,
-      }
-    );
-  }
-
   _keyExtractor = (item, index) => item.id;
 
   renderTripItem ({item}, navigation) {
-    switch(item.status) {
-    case 'IN_PROGRESS':
-      return(
-        <TouchableOpacity onPress={() => {
-          this._onTripPress(item);
-        }}>
-          <View style={styles.tripcard}>
-          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-            {item.is_guest_attention_needed ?
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View> :
-              null}
-          </View>
-            <View style={styles.tripcardtexts}>
-            <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext1}>
-                {item.room.title}
-              </Text>
-              </View>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext2}>
-                {item.room.district} ،{item.room.address}
-              </Text>
-              </View>
-            </View>
-            <View style={styles.iconbox}>
-            <Icon size={24} color="#00cecc" name="hourglass-empty" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-      break;
-    case 'DONE':
-      return(
-        <TouchableOpacity onPress={() => {
-          this._onTripPress(item);
-        }}>
-          <View style={styles.tripcard}>
-          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-            {item.is_guest_attention_needed ?
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View> :
-              null}
-          </View>
-            <View style={styles.tripcardtexts}>
-            <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext1}>
-                {item.room.title}
-              </Text>
-              </View>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext2}>
-                {item.room.district} ،{item.room.address}
-              </Text>
-              </View>
-            </View>
-            <View style={styles.iconbox}>
-            <Icon size={24} color="#00cecc" name="check-circle" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-      break;
-    case 'RESOLUTION':
-      return(
-        <TouchableOpacity onPress={() => {
-          this._onTripPress(item);
-        }}>
-          <View style={styles.tripcard}>
-          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-            {item.is_guest_attention_needed ?
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View> :
-              null}
-          </View>
-            <View style={styles.tripcardtexts}>
-            <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext1}>
-                {item.room.title}
-              </Text>
-              </View>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext2}>
-                {item.room.district} ،{item.room.address}
-              </Text>
-              </View>
-            </View>
-            <View style={styles.iconbox}>
-            <Icon size={24} color="#f56e4e" name="report-problem" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-      break;
-      case 'ISSUED':
-        return(
-          <TouchableOpacity onPress={() => {
-            this._onTripPress(item);
-          }}>
-            <View style={styles.tripcard}>
-            <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-              {item.is_guest_attention_needed ?
-                <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-                </View> :
-                null}
-            </View>
-              <View style={styles.tripcardtexts}>
-              <View style={styles.rightAlignBox}>
-                <Text style={styles.cardtext1}>
-                  {item.room.title}
-                </Text>
-                </View>
-                <View style={styles.rightAlignBox}>
-                <Text style={styles.cardtext2}>
-                  {item.room.district} ،{item.room.address}
-                </Text>
-                </View>
-              </View>
-              <View style={styles.iconbox}>
-              <Icon size={24} color="#00cecc" name="insert-invitation" />
-              </View>
-            </View>
-          </TouchableOpacity>
-        );
-        break;
-    case 'CANCELED_BY_HOST':
-      return(
-        <TouchableOpacity onPress={() => {
-          this._onTripPress(item);
-        }}>
-          <View style={styles.tripcard}>
-          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-            {item.is_guest_attention_needed ?
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View> :
-              null}
-          </View>
-            <View style={styles.tripcardtexts}>
-            <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext1}>
-                {item.room.title}
-              </Text>
-              </View>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext2}>
-                {item.room.district} ،{item.room.address}
-              </Text>
-              </View>
-            </View>
-            <View style={styles.iconbox}>
-            <Icon size={24} color="#f56e4e" name="cancel" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-      break;
-    case 'CANCELED_BY_GUEST':
-      return(
-        <TouchableOpacity onPress={() => {
-          this._onTripPress(item);
-        }}>
-          <View style={styles.tripcard}>
-          <View style={{width:8,marginRight:5,paddingBottom:48,}}>
-            {item.is_guest_attention_needed ?
-              <View style={{width:8,height:8,borderRadius:4,backgroundColor:"#f56e4e"}}>
-              </View> :
-              null}
-          </View>
-            <View style={styles.tripcardtexts}>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext1}>
-                {item.room.title}
-              </Text>
-              </View>
-              <View style={styles.rightAlignBox}>
-              <Text style={styles.cardtext2}>
-                {item.room.district} ،{item.room.address}
-              </Text>
-              </View>
-            </View>
-            <View style={styles.iconbox}>
-            <Icon size={24} color="#f56e4e" name="cancel" />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-      break;
-    default:
-    }
+    return(
+      <TripRowScreen
+      reserveItem={item}
+      navigation={navigation}
+      role={this.props.role}
+      refreshScreen={this.refreshScreen}>
+      </TripRowScreen>
+    );
   }
 
   renderHeader () {
@@ -384,42 +191,6 @@ const styles = StyleSheet.create({
     color:'#e5e5e5',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,
-  },
-  tripcard: {
-    flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 10,
-    height: 65,
-    backgroundColor: '#f9f9f9',
-    marginTop:5,
-    borderRadius: 1,
-    flexDirection: "row-reverse",
-    justifyContent:"flex-start",
-    alignItems: 'center',
-},
-  rightAlignBox: {
-    flexDirection: 'row-reverse',
-  },
-  cardtext1:{
-    textAlign: 'right',
-    alignSelf: 'stretch',
-    color:'#3e3e3e',
-    fontFamily:'IRANSansMobileFaNum-Medium',
-    fontSize:16,
-  },
-  cardtext2:{
-    textAlign: 'right',
-    alignSelf: 'stretch',
-    color:'#3e3e3e',
-    fontFamily:'IRANSansMobileFaNum-Light',
-    fontSize:12,
-  },
-  iconbox:{
-    flex:1,
-    marginLeft:12,
-  },
-  tripcardtexts:{
-    flex:5,
-    marginRight:5,
   },
   notlogin:{
     alignItems:'center',
