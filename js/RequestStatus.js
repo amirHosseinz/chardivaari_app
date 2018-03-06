@@ -488,7 +488,7 @@ class RequestStatus extends Component {
           'conversationScreen',
           {
             party: this.state.request.guest_person,
-            username: this.state.request.room.owner.username,
+            username: this.state.request.eco_room.owner.username,
             eco_room: this.state.request.eco_room,
           }
         );
