@@ -207,11 +207,38 @@ class RequestStatus extends Component {
               </Text>
             </View>
         );
+      } else if (this.state.request.eco_room &&
+                this.state.request.eco_room.title != ''
+      ) {
+        return(
+            <View style={styles.interpersonresult}>
+              <Text style={styles.costtext}>نام اقامتگاه: </Text>
+              <Text style={styles.resulttextbold}>
+                {this.state.request.eco_room.title}
+              </Text>
+            </View>
+        );
       }
   }
 
   renderJalaliDate (date) {
     return moment(date, 'YYYY-M-DTHH:mm:ssZ').format('jYYYY/jM/jD');
+  }
+
+  renderHostName () {
+    if (this.state.request.room) {
+      return(
+        <Text style={styles.resulttextbold}>
+          {this.state.request.room.owner.last_name}
+        </Text>
+      );
+    } else if (this.state.request.eco_room) {
+      return(
+        <Text style={styles.resulttextbold}>
+          {this.state.request.eco_room.owner.last_name}
+        </Text>
+      );
+    }
   }
 
   renderCancelationDate () {
@@ -821,9 +848,7 @@ class RequestStatus extends Component {
                 </View>
                 <View style={styles.tripincatch}>
                 <Text style={styles.costtext}>میزبان: </Text>
-                <Text style={styles.resulttextbold}>
-                  {this.state.request.room.owner.last_name}
-                </Text>
+                {this.renderHostName()}
                 </View>
                 <View style={styles.divider}>
                 </View>
