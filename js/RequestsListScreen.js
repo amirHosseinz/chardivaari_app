@@ -73,7 +73,7 @@ class RequestsListScreen extends Component {
   }
 
   fetchRequestList () {
-    fetch(productionURL + '/api/request/list/', {
+    fetch(productionURL + '/api/v1/request/list/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

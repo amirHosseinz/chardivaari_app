@@ -14,8 +14,23 @@ import { productionURL } from './data';
 
 
 class RequestRowScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      room: {},
+    };
+  }
 
   componentWillMount () {
+    if (this.props.requestItem.room) {
+      this.setState({
+        room: this.props.requestItem.room,
+      });
+    } else if (this.props.requestItem.eco_room) {
+      this.setState({
+        room: this.props.requestItem.eco_room,
+      });
+    }
   }
 
   renderName () {
@@ -23,7 +38,7 @@ class RequestRowScreen extends Component {
       return(
         <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>
-          {this.props.requestItem.room.owner.last_name}
+          {this.state.room.owner.last_name}
         </Text>
         </View>
       );
@@ -31,7 +46,7 @@ class RequestRowScreen extends Component {
       return(
         <View style={styles.rightAlignBox}>
         <Text style={styles.hostname}>
-          {this.props.requestItem.guest_person.last_name}
+          {this.state.room.guest_person.last_name}
         </Text>
         </View>
       );
@@ -42,7 +57,7 @@ class RequestRowScreen extends Component {
     return(
       <View style={styles.avatar}>
         <Image source={{
-          uri: productionURL + this.props.requestItem.room.preview_low,
+          uri: productionURL + this.state.room.preview_low,
         }}
         style={styles.avatarimg}/>
       </View>
@@ -111,7 +126,7 @@ class RequestRowScreen extends Component {
               </View>
               {this.renderRoomPhoto()}
               <View style={styles.textbox}>
-                <Text style={styles.housename}>{this.props.requestItem.room.title}</Text>
+                <Text style={styles.housename}>{this.state.room.title}</Text>
                 {this.renderName()}
               </View>
             </View>
@@ -138,17 +153,6 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     flexDirection: "row-reverse",
     justifyContent:"space-between",
-  },
-  cardbadgebox: {
-    width:16,
-    flex:1.5,
-  },
-  cardbadge:{
-    width:10,
-    height:10,
-    backgroundColor:"#f56e4e",
-    borderRadius:50,
-    marginTop: 5,
   },
   avatar: {
     flexDirection:"row-reverse",
