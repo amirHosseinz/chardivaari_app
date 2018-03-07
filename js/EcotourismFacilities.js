@@ -306,7 +306,7 @@ class EcotourismFacilities extends Component {
       return(
         <View>
           <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+            <Image style={styles.icon} source={require('./img/facilities/baths.png')} />
             <Text style={styles.Facilityname}>
               حمام اشتراکی
             </Text>
@@ -319,7 +319,7 @@ class EcotourismFacilities extends Component {
       return(
         <View>
           <View style={styles.container2}>
-            <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
+            <Image style={styles.icon} source={require('./img/facilities/baths.png')} />
             <Text style={styles.Facilityname}>
               حمام
             </Text>

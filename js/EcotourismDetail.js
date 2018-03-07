@@ -798,7 +798,7 @@ class EcotourismDetail extends Component {
             <Text style={styles.h3}>
               {items} وعده
             </Text>
-            <Text style={styles.detailicontext}>
+            <Text style={styles.toppreviewdetailtext}>
               {desc}
             </Text>
           </View>
@@ -809,7 +809,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             بدون غذا
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
           </Text>
         </View>
       );
@@ -836,7 +836,7 @@ class EcotourismDetail extends Component {
             <Text style={styles.h3}>
               {this.state.room.total_capacity} سرویس خواب
             </Text>
-            <Text style={styles.detailicontext}>
+            <Text style={styles.toppreviewdetailtext}>
               {desc}
             </Text>
           </View>
@@ -846,7 +846,7 @@ class EcotourismDetail extends Component {
           <View style={styles.toppreviewtextpart}>
             <Text style={styles.h3}>
             </Text>
-            <Text style={styles.detailicontext}>
+            <Text style={styles.toppreviewdetailtext}>
             </Text>
           </View>
         );
@@ -860,7 +860,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             {this.state.room.rooms_number} اتاق
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             در اقامتگاه
           </Text>
         </View>
@@ -870,7 +870,7 @@ class EcotourismDetail extends Component {
         <View style={styles.toppreviewtextpart}>
           <Text style={styles.h3}>
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
           </Text>
         </View>
       );
@@ -886,7 +886,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             روستایی
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             نوع دسترسی
           </Text>
         </View>
@@ -900,7 +900,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             شهری
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             نوع دسترسی
           </Text>
         </View>
@@ -914,7 +914,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             ساحلی
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             نوع دسترسی
           </Text>
         </View>
@@ -928,7 +928,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             جنگلی
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             نوع دسترسی
           </Text>
         </View>
@@ -942,7 +942,7 @@ class EcotourismDetail extends Component {
           <Text style={styles.h3}>
             دشت
           </Text>
-          <Text style={styles.detailicontext}>
+          <Text style={styles.toppreviewdetailtext}>
             نوع دسترسی
           </Text>
         </View>
@@ -952,7 +952,7 @@ class EcotourismDetail extends Component {
       <View style={styles.toppreviewtextpart}>
         <Text style={styles.h3}>
         </Text>
-        <Text style={styles.detailicontext}>
+        <Text style={styles.toppreviewdetailtext}>
         </Text>
       </View>
     );
@@ -1435,6 +1435,11 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum',
     color:"#9e9e9e",
   },
+  toppreviewdetailtext: {
+    fontSize: 12,
+    fontFamily:'IRANSansMobileFaNum',
+    color:"#9e9e9e",
+  },
   deatilitembox: {
     alignItems: 'center',
   },
@@ -1464,7 +1469,7 @@ const styles = StyleSheet.create({
     color: "#3e3e3e",
   },
   h3: {
-    fontSize: 16,
+    fontSize: 13,
     fontFamily: 'IRANSansMobileFaNum-Medium',
     color: "#3e3e3e",
   },
