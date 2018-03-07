@@ -838,14 +838,13 @@ class RequestBookScreen extends Component {
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>جمعه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>شنبه</Text>],
       'weekday': [
-        '',
+        <Text style={{fontFamily: "IRANSansMobileFaNum",}}>شنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>یک‌شنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>دوشنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>سه‌شنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>چهارشنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>پنج‌شنبه</Text>,
-        <Text style={{fontFamily: "IRANSansMobileFaNum",}}>جمعه</Text>,
-        <Text style={{fontFamily: "IRANSansMobileFaNum",}}>شنبه</Text>],
+        <Text style={{fontFamily: "IRANSansMobileFaNum",}}>جمعه</Text>],
       'text': {
         'start': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تاریخ شروع</Text>,
         'end': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تاریخ پایان</Text>,
