@@ -55,15 +55,12 @@ class EcotourismDetail extends Component {
    this.setState({ region });
  }
 
- componentWillMount() {
+ componentDidMount () {
    let tracker = new GoogleAnalyticsTracker(GATrackerId);
    tracker.trackScreenView('EcotourismDetail');
    this.setState({
      tracker: tracker,
    });
- }
-
- componentDidMount () {
    CacheStore.get('token').then((value) => this.setToken(value));
    CacheStore.get('user').then((value) => {
      if (value != null) {
@@ -1434,7 +1431,7 @@ const styles = StyleSheet.create({
     color:"#9e9e9e",
   },
   toppreviewdetailtext: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily:'IRANSansMobileFaNum',
     color:"#9e9e9e",
   },
@@ -1447,6 +1444,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginLeft: 50,
+    marginTop: 5,
+    marginBottom: 5,
   },
   toppreviewitem1: {
     flexDirection: 'row-reverse',
@@ -1462,7 +1461,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginRight: 5,
   },
   h2: {

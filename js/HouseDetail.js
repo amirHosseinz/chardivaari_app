@@ -56,15 +56,12 @@ class HouseDetail extends Component {
    this.setState({ region });
  }
 
- componentWillMount() {
+ componentDidMount () {
    let tracker = new GoogleAnalyticsTracker(GATrackerId);
    tracker.trackScreenView('HouseDetail');
    this.setState({
      tracker: tracker,
    });
- }
-
- componentDidMount () {
    CacheStore.get('token').then((value) => this.setToken(value));
    CacheStore.get('user').then((value) => {
      if (value != null) {

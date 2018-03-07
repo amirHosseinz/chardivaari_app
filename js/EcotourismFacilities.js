@@ -261,7 +261,7 @@ class EcotourismFacilities extends Component {
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/wc-1.png')} />
             <Text style={styles.Facilityname}>
-              توالت فرنگی مشترک
+              توالت فرنگی (مشترک)
             </Text>
           </View>
           <View style={styles.divider}>
@@ -293,7 +293,7 @@ class EcotourismFacilities extends Component {
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/wc-2.png')} />
             <Text style={styles.Facilityname}>
-              توالت ایرانی مشترک
+              توالت ایرانی (مشترک)
             </Text>
           </View>
           <View style={styles.divider}>
@@ -325,7 +325,7 @@ class EcotourismFacilities extends Component {
           <View style={styles.container2}>
             <Image style={styles.icon} source={require('./img/facilities/baths.png')} />
             <Text style={styles.Facilityname}>
-              حمام اشتراکی
+              حمام (مشترک)
             </Text>
           </View>
           <View style={styles.divider}>

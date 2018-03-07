@@ -152,6 +152,26 @@ class HouseListScreen extends Component {
     }
   }
 
+  renderPricePart (item) {
+    if (item.is_price_per_person) {
+      return(
+        <View style={styles.housedetail}>
+          <Text style={styles.detailtexts}>هر شب هر نفر</Text>
+          <Text style={styles.detailtexts}>{item.price}</Text>
+          <Text style={styles.detailtexts}>تومان</Text>
+        </View>
+      );
+    } else {
+      return(
+        <View style={styles.housedetail}>
+          <Text style={styles.detailtexts}>هر شب</Text>
+          <Text style={styles.detailtexts}>{item.price}</Text>
+          <Text style={styles.detailtexts}>تومان</Text>
+        </View>
+      );
+    }
+  }
+
   renderHouseListHost (item) {
     if (item.type == 'room') {
       return(
@@ -165,9 +185,7 @@ class HouseListScreen extends Component {
                   <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
                   <Text style={styles.detailtexts}>{item.area}</Text>
                   <Text style={styles.detailtexts}>متری</Text>
-                  <Text style={styles.detailtexts}>هر شب</Text>
-                  <Text style={styles.detailtexts}>{item.price}</Text>
-                  <Text style={styles.detailtexts}>تومان</Text>
+                  {this.renderPricePart(item)}
                 </View>
               </View>
               <Image source={{ uri: productionURL + item.preview_low }}
@@ -185,11 +203,7 @@ class HouseListScreen extends Component {
               </View>
                 <View style={styles.housedetail}>
                   <Text style={styles.detailtexts}>{this.renderListingType(item)}</Text>
-                  <Text style={styles.detailtexts}>با</Text>
-                  <Text style={styles.detailtexts}>{item.rooms_number}</Text>
-                  <Text style={styles.detailtexts}>اتاق</Text>
-                  <Text style={styles.detailtexts}>{item.price}</Text>
-                  <Text style={styles.detailtexts}>تومان</Text>
+                  {this.renderPricePart(item)}
                 </View>
               </View>
               <Image source={{ uri: productionURL + item.preview_low }}
