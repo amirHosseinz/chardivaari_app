@@ -6,8 +6,6 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Image,
-  TextInput,
   ScrollView,
   Modal,
   Linking,
@@ -22,9 +20,8 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
-import PaymentModule from './common/payment/PaymentModule';
+// import PaymentModule from './common/payment/PaymentModule';
 import { productionURL, GATrackerId } from './data';
-import RejectTerms from './RejectTerms';
 
 
 class RequestStatus extends Component {
@@ -36,7 +33,6 @@ class RequestStatus extends Component {
       token: null,
       username: null,
       tracker: null,
-      rejectTermsModalVisible: false,
       vpnModalVisible: false,
     };
   }
@@ -130,15 +126,8 @@ class RequestStatus extends Component {
     this.props.navigation.dispatch(backAction);
   }
 
-  openRejectTerms = () => {
-    this.setState({
-      rejectTermsModalVisible: true,
-    });
-  }
-  closeRejectTerms = () => {
-    this.setState({
-      rejectTermsModalVisible: false,
-    });
+  openTermsAndConditions = () => {
+    Linking.openURL('http://www.tripinn.ir/terms&conditions').catch(err => console.log('An error occurred', err));
   }
 
   renderStatus () {
@@ -687,9 +676,9 @@ class RequestStatus extends Component {
                 اعمال می‌شود.
               </Text>
               <View style={styles.interpersonresult}>
-                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
                   <Text style={styles.resulttext2}>
-                  مشاهده قوانین لغو
+                    قوانین تریپین
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -745,9 +734,9 @@ class RequestStatus extends Component {
                 اعمال می‌شود.
               </Text>
               <View style={styles.interpersonresult}>
-                <TouchableOpacity onPress={() => {this.openRejectTerms();}}>
+                <TouchableOpacity onPress={() => {this.openTermsAndConditions();}}>
                   <Text style={styles.resulttext2}>
-                  مشاهده قوانین لغو
+                    قوانین تریپین
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -931,17 +920,6 @@ class RequestStatus extends Component {
               </View>
             </View>
           </ScrollView>
-
-          <Modal
-          animationType='slide'
-          transparent={false}
-          visible={this.state.rejectTermsModalVisible}
-          onRequestClose={() => {
-            this.closeRejectTerms();
-          }}>
-          <RejectTerms onCloseModal={this.closeRejectTerms}>
-          </RejectTerms>
-          </Modal>
 
           <Modal
             animationType="slide"

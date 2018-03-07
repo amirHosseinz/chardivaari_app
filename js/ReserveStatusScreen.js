@@ -6,11 +6,9 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Image,
-  TextInput,
+  Linking,
   ScrollView,
   StatusBar,
-  Modal,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,7 +19,6 @@ import moment from 'moment-jalaali';
 
 import PaymentModule from './common/payment/PaymentModule';
 import { productionURL } from './data';
-import DeliverTerms from './DeliverTerms';
 
 
 class ReserveStatusScreen extends Component {
@@ -34,7 +31,6 @@ class ReserveStatusScreen extends Component {
       username: null,
       role: null,
       callCenter: null,
-      deliverTermsModalVisible: false,
     };
   }
 
@@ -178,17 +174,6 @@ class ReserveStatusScreen extends Component {
       // error handle
     }
   }
-
-    openDeliverTerms = () => {
-      this.setState({
-        deliverTermsModalVisible: true,
-      });
-    }
-    closeDeliverTerms = () => {
-      this.setState({
-        deliverTermsModalVisible: false,
-      });
-    }
 
   _onBackButtonPress () {
     const backAction = NavigationActions.back();
@@ -357,6 +342,10 @@ class ReserveStatusScreen extends Component {
     }
   }
 
+  openTermsAndConditions = () => {
+    Linking.openURL('http://www.tripinn.ir/terms&conditions').catch(err => console.log('An error occurred', err));
+  }
+
   renderDescription () {
     switch(this.state.reserve.status) {
     case 'IN_PROGRESS':
@@ -397,8 +386,8 @@ class ReserveStatusScreen extends Component {
             را مشاهده کنید.
           </Text>
           <TouchableOpacity>
-            <Text style={styles.resulttextbold1} onPress={() => {this.openDeliverTerms();}}>
-              قوانین تحویل خانه
+            <Text style={styles.resulttextbold1} onPress={() => {this.openTermsAndConditions();}}>
+              قوانین تریپین
             </Text>
           </TouchableOpacity>
         </View>
@@ -618,16 +607,6 @@ class ReserveStatusScreen extends Component {
           </View>
         </View>
       </ScrollView>
-      <Modal
-      animationType='slide'
-      transparent={false}
-      visible={this.state.deliverTermsModalVisible}
-      onRequestClose={() => {
-        this.closeDeliverTerms();
-      }}>
-      <DeliverTerms onCloseModal={this.closeDeliverTerms}>
-      </DeliverTerms>
-      </Modal>
     </View>
 
         </View>

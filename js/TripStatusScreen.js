@@ -6,11 +6,9 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Image,
-  TextInput,
+  Linking,
   ScrollView,
   StatusBar,
-  Modal,
   Platform,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
@@ -19,7 +17,6 @@ import CacheStore from 'react-native-cache-store';
 import Communications from 'react-native-communications';
 import Moment from 'moment';
 import moment from 'moment-jalaali';
-import DeliverTerms from './DeliverTerms';
 import { productionURL } from './data';
 
 
@@ -33,7 +30,6 @@ class TripStatusScreen extends Component {
       username: null,
       role: null,
       callCenter: null,
-      deliverTermsModalVisible: false,
     };
   }
 
@@ -126,18 +122,6 @@ class TripStatusScreen extends Component {
         }
       );
     }
-  }
-
-  openDeliverTerms = () => {
-    this.setState({
-      deliverTermsModalVisible: true,
-    });
-  }
-
-  closeDeliverTerms = () => {
-    this.setState({
-      deliverTermsModalVisible: false,
-    });
   }
 
   onCancelTripPress () {
@@ -328,6 +312,10 @@ class TripStatusScreen extends Component {
     }
   }
 
+  openTermsAndConditions = () => {
+    Linking.openURL('http://www.tripinn.ir/terms&conditions').catch(err => console.log('An error occurred', err));
+  }
+
   renderDescription () {
     switch(this.state.trip.status) {
     case 'IN_PROGRESS':
@@ -368,8 +356,8 @@ class TripStatusScreen extends Component {
           تحویل خانه را مطالعه کنید.
         </Text>
         <TouchableOpacity>
-          <Text style={styles.resulttextbold1} onPress={() => {this.openDeliverTerms();}}>
-            قوانین تحویل خانه
+          <Text style={styles.resulttextbold1} onPress={() => {this.openTermsAndConditions();}}>
+            قوانین تریپین
           </Text>
         </TouchableOpacity>
         </View>
@@ -563,16 +551,6 @@ class TripStatusScreen extends Component {
                 </View>
               </View>
             </ScrollView>
-            <Modal
-            animationType='slide'
-            transparent={false}
-            visible={this.state.deliverTermsModalVisible}
-            onRequestClose={() => {
-              this.closeDeliverTerms();
-            }}>
-            <DeliverTerms onCloseModal={this.closeDeliverTerms}>
-            </DeliverTerms>
-            </Modal>
           </View>
         </View>
       </View>
