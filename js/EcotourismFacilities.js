@@ -365,6 +365,9 @@ class EcotourismFacilities extends Component {
           <ScrollView>
           <View style={{alignItems:'center',width:Dimensions.get('window').width,}}>
           <View style={styles.container}>
+            <View style={{
+              marginTop: 10,
+            }}></View>
             {this.renderRefrig()}
             {this.renderWifi()}
             {this.renderParking()}
