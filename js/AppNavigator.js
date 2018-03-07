@@ -104,14 +104,14 @@ class AppWithNavigationState extends Component {
                   StatusBar.setBackgroundColor('#eeeeee');
                 }
                 break;
-              case 'houseDetail':
-                StatusBar.setHidden(false);
-                StatusBar.setBarStyle('light-content');
-                if (Platform.OS === 'android') {
-                  StatusBar.setTranslucent(true);
-                  StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.25)');
-                }
-                break;
+              // case 'houseDetail':
+              //   StatusBar.setHidden(false);
+              //   StatusBar.setBarStyle('light-content');
+              //   if (Platform.OS === 'android') {
+              //     StatusBar.setTranslucent(true);
+              //     StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.25)');
+              //   }
+              //   break;
               case 'guestScreen':
                 StatusBar.setHidden(false);
                 StatusBar.setBarStyle('light-content');
