@@ -887,7 +887,7 @@ class EcotourismDetail extends Component {
             روستایی
           </Text>
           <Text style={styles.toppreviewdetailtext}>
-            نوع دسترسی
+            محیط اطراف
           </Text>
         </View>
       );
@@ -901,7 +901,7 @@ class EcotourismDetail extends Component {
             شهری
           </Text>
           <Text style={styles.toppreviewdetailtext}>
-            نوع دسترسی
+            محیط اطراف
           </Text>
         </View>
       );
@@ -915,7 +915,7 @@ class EcotourismDetail extends Component {
             ساحلی
           </Text>
           <Text style={styles.toppreviewdetailtext}>
-            نوع دسترسی
+            محیط اطراف
           </Text>
         </View>
       );
@@ -929,7 +929,7 @@ class EcotourismDetail extends Component {
             جنگلی
           </Text>
           <Text style={styles.toppreviewdetailtext}>
-            نوع دسترسی
+            محیط اطراف
           </Text>
         </View>
       );
@@ -943,7 +943,7 @@ class EcotourismDetail extends Component {
             دشت
           </Text>
           <Text style={styles.toppreviewdetailtext}>
-            نوع دسترسی
+            محیط اطراف
           </Text>
         </View>
       );
@@ -1054,12 +1054,12 @@ class EcotourismDetail extends Component {
 
   <View style={styles.toppreviewrow}>
 
-    <View style={styles.toppreviewitem}>
+    <View style={styles.toppreviewitem1}>
       <Image style={styles.detailiconimg} source={require("./img/rooms.png")}/>
       {this.renderRoomsPreview()}
     </View>
 
-    <View style={styles.toppreviewitem}>
+    <View style={styles.toppreviewitem2}>
       <Image style={styles.detailiconimg} source={require("./img/pillow.png")}/>
       {this.renderSleepPreview()}
     </View>
@@ -1068,14 +1068,14 @@ class EcotourismDetail extends Component {
 
   <View style={styles.toppreviewrow}>
 
-    <View style={styles.toppreviewitem}>
-      <Image style={styles.detailiconimg} source={require("./img/foods.png")}/>
-      {this.renderFoodPreview()}
-    </View>
-
-    <View style={styles.toppreviewitem}>
+    <View style={styles.toppreviewitem1}>
       <Image style={styles.detailiconimg} source={require("./img/urban-rural.png")}/>
       {this.renderAccessType()}
+    </View>
+
+    <View style={styles.toppreviewitem2}>
+      <Image style={styles.detailiconimg} source={require("./img/foods.png")}/>
+      {this.renderFoodPreview()}
     </View>
 
   </View>
@@ -1421,8 +1421,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: "space-around",
-    marginTop:10,
   },
   detailicontextbox: {
     flexDirection:'row-reverse',
@@ -1436,7 +1434,7 @@ const styles = StyleSheet.create({
     color:"#9e9e9e",
   },
   toppreviewdetailtext: {
-    fontSize: 12,
+    fontSize: 15,
     fontFamily:'IRANSansMobileFaNum',
     color:"#9e9e9e",
   },
@@ -1447,21 +1445,25 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row-reverse',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    margin: 10,
+    justifyContent: 'space-between',
+    marginLeft: 50,
   },
-  toppreviewitem: {
-    flex: 1,
+  toppreviewitem1: {
     flexDirection: 'row-reverse',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    width: Dimensions.get('window').width * 2/5 - 10,
+  },
+  toppreviewitem2: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    width: Dimensions.get('window').width * 3/5,
   },
   toppreviewtextpart: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginRight: 10,
+    marginRight: 5,
   },
   h2: {
     fontSize: 18,
@@ -1469,7 +1471,7 @@ const styles = StyleSheet.create({
     color: "#3e3e3e",
   },
   h3: {
-    fontSize: 13,
+    fontSize: 17,
     fontFamily: 'IRANSansMobileFaNum-Medium',
     color: "#3e3e3e",
   },
