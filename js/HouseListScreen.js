@@ -75,7 +75,9 @@ class HouseListScreen extends Component {
     }
   }
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => {
+    return item.type + '-' + String(item.id);
+  }
 
   renderHeader () {
     if (this.state.count > 0) {

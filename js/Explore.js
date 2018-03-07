@@ -211,14 +211,6 @@ class Explore extends Component {
     }
   }
 
-  _keyExtractor = (item, index) => item.id;
-
-  renderResults () {
-    return this.state.rooms.map(room =>
-      <ExploreResult key={room.id} room={room} navigation={this.props.navigation} />
-    );
-  }
-
   renderItem ({item}, navigation) {
     return(
       <ExploreResult room={item} navigation={navigation} />
