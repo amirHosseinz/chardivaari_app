@@ -28,6 +28,23 @@ class EcotourismFacilities extends Component {
     }
   }
 
+  renderCarpet () {
+    if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('CARPET') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/carpet.png')} />
+            <Text style={styles.Facilityname}>
+              فرش
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
   renderParking () {
     if (this.props.room.general_utils_options && this.props.room.general_utils_options.indexOf('PARKING') > -1) {
       return(
@@ -369,6 +386,7 @@ class EcotourismFacilities extends Component {
               marginTop: 10,
             }}></View>
             {this.renderRefrig()}
+            {this.renderCarpet()}
             {this.renderWifi()}
             {this.renderParking()}
             {this.renderKorsi()}

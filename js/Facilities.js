@@ -88,6 +88,23 @@ class Facilities extends Component {
     }
   }
 
+  renderCarpet () {
+    if (this.props.room && this.props.room.private_util_options.indexOf('CARPET') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/carpet.png')} />
+            <Text style={styles.Facilityname}>
+              فرش
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
   renderDinnerTable () {
     if (this.props.room && this.props.room.private_util_options.indexOf('DINING_TABLE') > -1) {
       return(
@@ -270,6 +287,23 @@ class Facilities extends Component {
     }
   }
 
+  renderBilliard () {
+    if (this.props.room && this.props.room.general_util_options.indexOf('BILLIARD') > -1) {
+      return(
+        <View>
+          <View style={styles.container2}>
+            <Image style={styles.icon} source={require('./img/facilities/billiard.png')} />
+            <Text style={styles.Facilityname}>
+              بیلیارد
+            </Text>
+          </View>
+          <View style={styles.divider}>
+          </View>
+        </View>
+      );
+    }
+  }
+
   renderStove () {
     if (this.props.room && this.props.room.private_util_options.indexOf('OVEN') > -1) {
       return(
@@ -384,6 +418,7 @@ class Facilities extends Component {
             {this.renderBarbecue()}
             {this.renderBlanket()}
             {this.renderCanape()}
+            {this.renderCarpet()}
             {this.renderConditioner()}
             {this.renderDinnerTable()}
             {this.renderElevator()}
@@ -396,6 +431,7 @@ class Facilities extends Component {
             {this.renderPavilion()}
             {this.renderPingpong()}
             {this.renderPool()}
+            {this.renderBilliard()}
             {this.renderStove()}
             {this.renderTeamaker()}
             {this.renderTv()}
