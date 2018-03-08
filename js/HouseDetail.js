@@ -445,7 +445,9 @@ class HouseDetail extends Component {
           <View style={styles.baniconbox}>
           <Image style={styles.banicon} source={require("./img/cigarette.png")}/>
           </View>
-          <Text style={styles.bantext}>ممنوعیت  استعمال دخانیات </Text>
+          <Text style={styles.bantext}>
+            ممنوعیت استعمال دخانیات
+          </Text>
         </View>
       );
     }
