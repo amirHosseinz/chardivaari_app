@@ -10,16 +10,18 @@ import {
   Image,
   Dimensions,
   Modal,
+  NativeModules,
   Platform,
  } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import ModalDropdown from 'react-native-modal-dropdown';
 
 import Calendar from './common/calendar/Calendar';
 import LocationSelectScreen from './LocationSelectScreen';
 import NumberSelectScreen from './NumberSelectScreen';
 
+const { UIManager } = NativeModules;
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const collapseLayoutAnimation = {
   duration: 200,
@@ -33,17 +35,17 @@ const collapseLayoutAnimation = {
   },
 };
 
-const expandLayoutAnimation = {
-  duration: 400,
-  create: {
-    type: LayoutAnimation.Types.easeInEaseOut,
-    property: LayoutAnimation.Properties.opacity,
-  },
-  update: {
-    // type: LayoutAnimation.Types.curveEaseInEaseOut,
-    type: LayoutAnimation.Types.spring,
-  },
-};
+// var expandLayoutAnimation = {
+//   duration: 500,
+//   create: {
+//     type: LayoutAnimation.Types.easeInEaseOut,
+//     property: LayoutAnimation.Properties.opacity,
+//   },
+//   update: {
+//     // type: LayoutAnimation.Types.curveEaseInEaseOut,
+//     type: LayoutAnimation.Types.spring,
+//   },
+// };
 
 class SearchAnimations extends Component {
   constructor (props) {
