@@ -73,10 +73,17 @@ class ReserveList extends Component {
   onResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
-      this.setState({
-        count: body.count,
-        reserveList: body.reserve_list,
-      });
+      if (body.reserve_list) {
+        this.setState({
+          count: body.reserve_list.length,
+          reserveList: body.reserve_list,
+        });
+      } else {
+        this.setState({
+          count: 0,
+          reserveList: [],
+        });
+      }
       if (this.props.setReservesBadgeNum) {
         this.props.setReservesBadgeNum(body.attention_count);
       }

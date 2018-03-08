@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -324,6 +325,7 @@ class ConversationScreen extends Component {
             <View style={styles.showhome}>
               <TouchableOpacity
               onPress={() => {
+                Keyboard.dismiss();
                 if (this.state.room) {
                   this.props.navigation.navigate('houseDetail', {room: this.state.room});
                 } else if (this.state.eco_room) {
