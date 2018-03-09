@@ -839,7 +839,7 @@ class HouseDetail extends Component {
   </View>
 
   <View style={styles.deatilitembox}>
-    <Image style={styles.detailiconimg} source={require("./img/facilities/baths.png")}/>
+    <Image style={styles.detailiconimg} source={require("./img/facilities/bath_tube.png")}/>
     <View style={styles.detailicontextbox}>
     <Text style={styles.detailicontext}> {this.state.room.bath_room_number}</Text>
     <Text style={styles.detailicontext}>حمام</Text>
