@@ -846,11 +846,17 @@ class RequestBookScreen extends Component {
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>پنج‌شنبه</Text>,
         <Text style={{fontFamily: "IRANSansMobileFaNum",}}>جمعه</Text>],
       'text': {
-        'start': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تاریخ شروع</Text>,
-        'end': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تاریخ پایان</Text>,
-        'date': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تاریخ</Text>,
-        'save': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>تایید</Text>,
-        'clear': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>ریست کردن</Text>,
+        'start': <Text style={{
+          fontFamily: "IRANSansMobileFaNum",
+          fontSize: 20,
+        }}>تاریخ ورود</Text>,
+        'end': <Text style={{
+          fontFamily: "IRANSansMobileFaNum",
+          fontSize: 20,
+        }}>تاریخ خروج</Text>,
+        'date': <Text style={{fontFamily: "IRANSansMobileFaNum",}}></Text>,
+        'save': 'تایید',
+        'clear': <Text style={{fontFamily: "IRANSansMobileFaNum",}}>پاک</Text>,
       },
       'date': 'jYYYY/jM/jD'  // date format
     };

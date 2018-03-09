@@ -45,7 +45,8 @@ export default StyleSheet.create({
     flex: 1
   },
   resultText: {
-    fontSize: resultFontSize,
+    fontSize: 21,
+    fontFamily: 'IRANSansMobileFaNum',
     marginVertical: 4,
     fontWeight: '200'
   },
@@ -81,27 +82,31 @@ export default StyleSheet.create({
   btn: {
     flex: 1.5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   confirmContainer: {
     overflow: 'hidden',
     backgroundColor: 'rgba(255, 255, 255, 0.40)',
-    borderRadius: 4,
     margin: 14,
     flex: 1,
-    alignSelf: 'stretch',
+    width: Dimensions.get('window').width / 2,
+    borderRadius: 17,
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center'
   },
   confirmContainerDisabled: {
     backgroundColor: 'rgba(255, 255, 255, 0.20)'
   },
   confirmText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'IRANSansMobileFaNum',
+    fontSize: 20,
   },
   confirmTextDisabled: {
-    color: 'rgba(255, 255, 255, 0.40)'
+    color: 'rgba(255, 255, 255, 0.40)',
+    fontFamily: 'IRANSansMobileFaNum',
+    fontSize: 20,
   },
   closeIcon: {
     width: iconSize,
