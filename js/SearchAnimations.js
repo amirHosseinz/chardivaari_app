@@ -142,6 +142,12 @@ class SearchAnimations extends Component {
        }
      }
 
+     collapseFromOutside () {
+       if (this.state.isOpen) {
+         this.collapseElement();
+       }
+     }
+
      renderSumText () {
        var sum = '';
        if (this.state.startDate && this.state.endDate) {
