@@ -92,7 +92,7 @@ class Explore extends Component {
         // The most recent move distance is gestureState.move{X,Y}
         // The accumulated gesture distance since becoming responder is
         // gestureState.d{x,y}
-        if (gestureState.dy < 0) {
+        if (gestureState.dy < -2) {
           this.searchPicker.collapseFromOutside();
         }
       },
@@ -287,7 +287,7 @@ class Explore extends Component {
               width: Dimensions.get('window').width,
               marginRight: 5,
               marginLeft: 5,
-              marginBottom: 5,
+              marginBottom: 75,
               ...Platform.select({
                 android: {
                   paddingLeft: 5,
@@ -308,6 +308,7 @@ class Explore extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },

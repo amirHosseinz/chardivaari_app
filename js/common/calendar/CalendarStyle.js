@@ -101,12 +101,12 @@ export default StyleSheet.create({
   confirmText: {
     textAlign: 'center',
     fontFamily: 'IRANSansMobileFaNum',
-    fontSize: 20,
+    fontSize: 18,
   },
   confirmTextDisabled: {
     color: 'rgba(255, 255, 255, 0.40)',
     fontFamily: 'IRANSansMobileFaNum',
-    fontSize: 20,
+    fontSize: 18,
   },
   closeIcon: {
     width: iconSize,
