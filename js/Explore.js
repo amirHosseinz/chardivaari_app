@@ -154,7 +154,7 @@ class Explore extends Component {
   }
 
   onSearchButtonPress = () => {
-    fetch(productionURL + '/api/search/', {
+    fetch(productionURL + '/api/v1/search/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
