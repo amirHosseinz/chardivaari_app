@@ -223,10 +223,10 @@ class Profile extends Component {
       return(
         <TouchableOpacity onPress={this.onLoginOptionPress}>
           <View style={styles.profileitembox}>
-              <View style={styles.itemiconcircle}>
+              <View style={styles.itemiconcircleh2g}>
                 <Icon size={18} color="white" name="exit-to-app" />
               </View>
-            <Text style={styles.profileitemtext}>ورود یا عضویت</Text>
+            <Text style={styles.redprofileitemtext}>ورود یا عضویت</Text>
           </View>
         </TouchableOpacity>
       );
@@ -430,7 +430,13 @@ const styles = StyleSheet.create({
     color:'#4f4f4f',
     marginRight:10,
     marginTop:0,
-
+  },
+  redprofileitemtext:{
+    fontSize: 16,
+    fontFamily:'IRANSansMobileFaNum',
+    color:'#f56e4e',
+    marginRight:10,
+    marginTop:0,
   },
   itemiconcircle:{
     flexDirection:'row-reverse',
