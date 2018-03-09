@@ -149,7 +149,9 @@ class RequestsListScreen extends Component {
     if (this.state.username && this.state.username === 'GUEST_USER') {
       return(
         <View style={styles.notlogin}>
-          <Text style={styles.notlogintext}> شما وارد حساب کاربری خود نشده اید.  </Text>
+          <Text style={styles.notlogintext}>
+           شما وارد حساب کاربری خود نشده‌اید.
+          </Text>
           <TouchableOpacity style={styles.logintouch} onPress={() => {
             timer.clearInterval(this);
             this.resetNavigation('login');

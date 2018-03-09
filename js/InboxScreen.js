@@ -21,7 +21,7 @@ class InboxScreen extends Component {
     this.state={
       index: 1,
       routes: [
-        { key: '2', title: 'پــیــام هــا', },
+        { key: '2', title: 'پــیــام‌هــا',},
         { key: '1', title: 'درخواست‌ها' },
       ],
       messagesUnreadCount: 0,
