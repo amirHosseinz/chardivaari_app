@@ -77,16 +77,11 @@ class Explore extends Component {
 
     this._panResponder = PanResponder.create({
       // Ask to be the responder:
-      onStartShouldSetPanResponder: (evt, gestureState) => false,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
-      onPanResponderGrant: (evt, gestureState) => {
-        // The gesture has started. Show visual feedback so the user knows
-        // what is happening!
-
-        // gestureState.d{x,y} will be set to zero now
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        return Math.abs(gestureState.dy) >= 2;
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return Math.abs(gestureState.dy) >= 2;
       },
       onPanResponderMove: (evt, gestureState) => {
         // The most recent move distance is gestureState.move{X,Y}
@@ -95,20 +90,6 @@ class Explore extends Component {
         if (gestureState.dy < -2) {
           this.searchPicker.collapseFromOutside();
         }
-      },
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
-      onPanResponderRelease: (evt, gestureState) => {
-        // The user has released all touches while this view is the
-        // responder. This typically means a gesture has succeeded
-      },
-      onPanResponderTerminate: (evt, gestureState) => {
-        // Another component has become the responder, so this gesture
-        // should be cancelled
-      },
-      onShouldBlockNativeResponder: (evt, gestureState) => {
-        // Returns whether this component should block native components from becoming the JS
-        // responder. Returns true by default. Is currently only supported on android.
-        return true;
       },
     });
 
