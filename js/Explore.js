@@ -78,16 +78,16 @@ class Explore extends Component {
     this._panResponder = PanResponder.create({
       // Ask to be the responder:
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return Math.abs(gestureState.dy) >= 2;
+        return Math.abs(gestureState.dy) >= 1;
       },
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-        return Math.abs(gestureState.dy) >= 2;
+        return Math.abs(gestureState.dy) >= 1;
       },
       onPanResponderMove: (evt, gestureState) => {
         // The most recent move distance is gestureState.move{X,Y}
         // The accumulated gesture distance since becoming responder is
         // gestureState.d{x,y}
-        if (gestureState.dy < -2) {
+        if (gestureState.dy < -1) {
           this.searchPicker.collapseFromOutside();
         }
       },
@@ -232,7 +232,9 @@ class Explore extends Component {
 
   rowRenderer = (type, data) => {
     return (
-      <ExploreResult room={data} navigation={this.props.navigation} />
+      <View {...this._panResponder.panHandlers}>
+        <ExploreResult room={data} navigation={this.props.navigation} />
+      </View>
     );
   }
 
@@ -259,7 +261,6 @@ class Explore extends Component {
         </View>
         {this.renderError()}
 
-        <View {...this._panResponder.panHandlers}>
           <RecyclerListView
             layoutProvider={this._layoutProvider}
             dataProvider={this.state.rooms}
@@ -268,7 +269,7 @@ class Explore extends Component {
               width: Dimensions.get('window').width,
               marginRight: 5,
               marginLeft: 5,
-              marginBottom: 75,
+              marginBottom: 5,
               ...Platform.select({
                 android: {
                   paddingLeft: 5,
@@ -278,7 +279,6 @@ class Explore extends Component {
                 },
               }),
             }} />
-          </View>
 
       </View>
     );
