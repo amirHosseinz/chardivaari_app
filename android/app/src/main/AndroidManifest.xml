@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.trypinn"
     android:versionCode="24"
-    android:versionName="1.0.1">
+    android:versionName="1.0.2">
 
     <permission
         android:name="com.trypinn.permission.MAPS_RECEIVE"
