@@ -144,6 +144,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-push-notification')
     compile ('com.google.android.gms:play-services-gcm:11.+') {
         force = true;

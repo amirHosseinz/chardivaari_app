@@ -18,6 +18,7 @@ import CacheStore from 'react-native-cache-store';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
+import Spinner from 'react-native-spinkit';
 
 import ExploreResult from './ExploreResult';
 import SearchAnimations from './SearchAnimations';
@@ -58,6 +59,7 @@ class Explore extends Component {
       rooms: this.dataProvider.cloneWithRows([]),
       locations: [],
       tracker: null,
+      isSpinnerVisible: true,
     };
   }
 
@@ -128,6 +130,7 @@ class Explore extends Component {
         error: null,
         rooms: this.dataProvider.cloneWithRows(body.room),
         locations: lc,
+        isSpinnerVisible: false,
       });
     } else {
       this.setState({ error: 'خطایی رخ داده.' });
@@ -135,6 +138,9 @@ class Explore extends Component {
   }
 
   onSearchButtonPress = () => {
+    this.setState({
+      isSpinnerVisible: true,
+    });
     fetch(productionURL + '/api/v1/search/', {
       method: 'POST',
       headers: {
@@ -164,6 +170,7 @@ class Explore extends Component {
       this.setState({
         error: null,
         rooms: this.dataProvider.cloneWithRows(body.room),
+        isSpinnerVisible: false,
       });
     } else {
       this.setState({ error: 'خطایی رخ داده.' });
@@ -246,6 +253,40 @@ class Explore extends Component {
     }
   }
 
+  renderBody () {
+    if (this.state.isSpinnerVisible) {
+      return(
+        <Spinner
+          type={styles.spinner}
+          isVisible={this.state.isSpinnerVisible}
+          size={100}
+          type={'ThreeBounce'}
+          color={'#0ccbed'} />
+      );
+    } else {
+      return(
+        <RecyclerListView
+          layoutProvider={this._layoutProvider}
+          dataProvider={this.state.rooms}
+          rowRenderer={this.rowRenderer}
+          style={{
+            width: Dimensions.get('window').width,
+            marginRight: 5,
+            marginLeft: 5,
+            marginBottom: 5,
+            ...Platform.select({
+              android: {
+                paddingLeft: 5,
+              },
+              ios: {
+                paddingLeft: 7,
+              },
+            }),
+          }} />
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -261,24 +302,7 @@ class Explore extends Component {
         </View>
         {this.renderError()}
 
-          <RecyclerListView
-            layoutProvider={this._layoutProvider}
-            dataProvider={this.state.rooms}
-            rowRenderer={this.rowRenderer}
-            style={{
-              width: Dimensions.get('window').width,
-              marginRight: 5,
-              marginLeft: 5,
-              marginBottom: 5,
-              ...Platform.select({
-                android: {
-                  paddingLeft: 5,
-                },
-                ios: {
-                  paddingLeft: 7,
-                },
-              }),
-            }} />
+        {this.renderBody()}
 
       </View>
     );
@@ -292,6 +316,9 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  spinner: {
+    marginTop: 50,
   },
   filter : {
     backgroundColor: '#0ca6c1',
