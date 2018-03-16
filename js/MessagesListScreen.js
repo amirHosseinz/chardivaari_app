@@ -94,7 +94,7 @@ class MessagesListScreen extends Component {
             ],
             { cancelable: false }
           );
-          CacheStore.set('errorAlert', 'on', 10);
+          CacheStore.set('errorAlert', 'on');
         } else if (value && value=='on') {
           // do nothing
         } else {
@@ -108,7 +108,7 @@ class MessagesListScreen extends Component {
             ],
             { cancelable: false }
           );
-          CacheStore.set('errorAlert', 'on', 10);
+          CacheStore.set('errorAlert', 'on');
         }
       });
     });

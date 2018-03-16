@@ -86,7 +86,35 @@ class RequestsListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
-      Alert.alert('لطفا پس از اطمینان از اتصال اینترنت، مجددا تلاش نمایید.');
+      CacheStore.get('errorAlert').then((value) => {
+        if (value && value=='off') {
+          Alert.alert(
+            'خطای شبکه',
+            'لطفا از اتصال اینترنت مطمئن شوید.',
+            [
+              {text: 'OK', onPress: () => {
+                CacheStore.set('errorAlert', 'off');
+              }},
+            ],
+            { cancelable: false }
+          );
+          CacheStore.set('errorAlert', 'on');
+        } else if (value && value=='on') {
+          // do nothing
+        } else {
+          Alert.alert(
+            'خطای شبکه',
+            'لطفا از اتصال اینترنت مطمئن شوید.',
+            [
+              {text: 'OK', onPress: () => {
+                CacheStore.set('errorAlert', 'off');
+              }},
+            ],
+            { cancelable: false }
+          );
+          CacheStore.set('errorAlert', 'on');
+        }
+      });
     });
   }
 
