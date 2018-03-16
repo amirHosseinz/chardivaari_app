@@ -39,6 +39,7 @@ class Splash extends Component {
     this.setState({
       tracker: tracker,
     });
+    CacheStore.set('errorAlert', 'off');
     CacheStore.get('token').then((tokenValue) => {
       if (tokenValue == null) {
         // proceed normal
