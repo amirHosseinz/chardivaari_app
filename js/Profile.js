@@ -16,14 +16,15 @@ import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
 import Communications from 'react-native-communications';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import AboutUs from './AboutUs';
-
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
 import { productionURL, GATrackerId } from './data';
+import AboutUs from './AboutUs';
 import EditProfile from './EditProfile';
+import SubmitSuggestion from './SubmitSuggestion';
+
 
 class Profile extends Component {
   constructor (props) {
@@ -34,6 +35,7 @@ class Profile extends Component {
       callCenter: null,
       editProfileModalVisible: false,
       aboutUsModalVisible: false,
+      submitSuggestionModalVisible: false,
     };
   }
 
@@ -147,6 +149,12 @@ class Profile extends Component {
     });
   }
 
+  _onSubminSuggestionPress () {
+    this.setState({
+      submitSuggestionModalVisible: true,
+    });
+  }
+
   hideEditProfile = () => {
     this.setState({
       editProfileModalVisible: false,
@@ -158,6 +166,12 @@ class Profile extends Component {
         CacheStore.set('openEditProfile', false);
         this.backNavigation();
       }
+    });
+  }
+
+  hideSuggestionModal = () => {
+    this.setState({
+      submitSuggestionModalVisible: false
     });
   }
 
@@ -329,6 +343,19 @@ class Profile extends Component {
           <View style={styles.divider}>
           </View>
 
+          <TouchableOpacity onPress={this._onSubminSuggestionPress.bind(this)}>
+            <View style={styles.profileitembox}>
+                <View style={styles.itemiconcircle}>
+                  <Icon size={18} color="white" name="mail-outline" />
+                </View>
+              <Text style={styles.profileitemtext}>
+                انتقادات
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.divider}>
+          </View>
+
           {this.renderChangeSide()}
 
           {this.renderAddListing()}
@@ -345,6 +372,19 @@ class Profile extends Component {
         }}>
          <EditProfile
           hideEditProfile={this.hideEditProfile}
+          user={this.state.user}
+          token={this.state.token} />
+        </Modal>
+
+        <Modal
+        animationType='slide'
+        transparent={false}
+        visible={this.state.submitSuggestionModalVisible}
+        onRequestClose={() => {
+          this.hideSuggestionModal();
+        }}>
+         <SubmitSuggestion
+          hideSuggestionModal={this.hideSuggestionModal}
           user={this.state.user}
           token={this.state.token} />
         </Modal>
