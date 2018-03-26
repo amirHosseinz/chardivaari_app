@@ -51,7 +51,7 @@ class AboutUs extends Component {
       <View style={styles.header0}>
         <View style={styles.header00}>
           <TouchableOpacity onPress={() => {this.props.onCloseModal()}}>
-              <Icon size={28} color="#3e3e3e" name="close" />
+            <Icon size={28} color="#3e3e3e" name="arrow-forward" />
           </TouchableOpacity>
           <Text style={styles.h1}>درباره تریپین</Text>
           <View style={{width:28}}></View>

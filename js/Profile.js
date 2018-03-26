@@ -346,10 +346,10 @@ class Profile extends Component {
           <TouchableOpacity onPress={this._onSubminSuggestionPress.bind(this)}>
             <View style={styles.profileitembox}>
                 <View style={styles.itemiconcircle}>
-                  <Icon size={18} color="white" name="mail-outline" />
+                  <Icon size={18} color="white" name="thumbs-up-down" />
                 </View>
               <Text style={styles.profileitemtext}>
-                انتقادات
+                انتقاد و پیشنهاد
               </Text>
             </View>
           </TouchableOpacity>

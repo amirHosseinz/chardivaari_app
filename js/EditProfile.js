@@ -6,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  AppRegistry,
   TextInput,
   Alert,
   Platform,
