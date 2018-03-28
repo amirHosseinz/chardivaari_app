@@ -311,6 +311,12 @@ class SearchAnimations extends Component {
      }
 
      onConfirmLocation = () => {
+       if (this.state.newDestination === 'هر کجا') {
+         this.props.setDestination(null);
+         this.setState({
+           destination: this.state.newDestination,
+         });
+       }
        if (this.state.destination === this.state.newDestination) {
        } else {
          if (this.state.newDestination === 'هر کجا') {

@@ -130,6 +130,7 @@ class Explore extends Component {
         error: null,
         rooms: this.dataProvider.cloneWithRows(body.room),
         locations: lc,
+        destination: body.selected_location,
         isSpinnerVisible: false,
       });
     } else {
@@ -170,6 +171,7 @@ class Explore extends Component {
       this.setState({
         error: null,
         rooms: this.dataProvider.cloneWithRows(body.room),
+        destination: body.selected_location,
         isSpinnerVisible: false,
       });
     } else {
