@@ -187,7 +187,7 @@ class SubmitSuggestion extends Component {
 
         <ScrollView style={styles.container1}>
         <View style={styles.container2}>
-        <KeyboardAvoidingView style={styles.container3}>
+        <KeyboardAvoidingView behavior='position' style={styles.container3}>
 
             <View style={styles.textContainer}>
               <Text style={styles.textStyle}>
