@@ -215,8 +215,12 @@ class Explore extends Component {
     if (this.state.destination != destination) {
       this.setState({ destination }, () => {
         if (this.state.tracker != null) {
+          var destination = 'هر کجا';
+          if (this.state.destination != null) {
+            destination = this.state.destination;
+          }
           this.state.tracker.trackEvent('Search', 'destination', {
-            label: this.state.destination,
+            label: destination,
             value: 200
           });
         }
