@@ -94,7 +94,11 @@ class LoginGetName extends Component {
       CacheStore.set('username', body.user.username);
       CacheStore.set('user', body.user);
       this.state.tracker.setUser(body.user.username);
-      this.resetNavigation('guestScreen');
+      if (body.user.is_mainly_host) {
+        this.resetNavigation('hostScreen');
+      } else {
+        this.resetNavigation('guestScreen');
+      }
     } else if (response.status === 400) {
       // unauthorized
     } else {
