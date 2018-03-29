@@ -21,6 +21,7 @@ import Explore from './Explore';
 import InboxScreen from './InboxScreen';
 // import TripsScreen from './TripsScreen';
 import Trips from './Trips';
+import Bookmarks from './Bookmarks';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
 
@@ -140,6 +141,11 @@ class GuestScreen extends Component {
         selectedTab: tabName,
       });
       break;
+    case 'bookmarks':
+      this.setState({
+        selectedTab: tabName,
+      });
+      break;
     default:
     }
     this.updateStatusBar();
@@ -188,6 +194,22 @@ class GuestScreen extends Component {
             this.setState({ selectedTab: 'profile' }, this.updateStatusBar);
           }}>
           <Profile
+            role={'guest'}
+            goToTab={this.goToTab}
+            navigation={this.props.navigation}
+          />
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'bookmarks'}
+          title="لیست علاقه‌مندی‌ها"
+          selectedTitleStyle={styles.selectedTitleStyle}
+          titleStyle={styles.titleStyle}
+          renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark_icon.png')} />}
+          renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark_selected_icon.png')} />}
+          onPress={() => {
+            this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
+          }}>
+          <Bookmarks
             role={'guest'}
             goToTab={this.goToTab}
             navigation={this.props.navigation}
@@ -294,6 +316,11 @@ const styles = StyleSheet.create({
         marginTop:-1,
       },
     }),
+  },
+  icon: {
+    height: 25,
+    width: 30,
+    resizeMode: 'contain',
   },
 });
 
