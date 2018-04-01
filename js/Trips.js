@@ -103,10 +103,10 @@ class Trips extends Component {
   renderTripItem ({item}, navigation) {
     return(
       <TripRowScreen
-      reserveItem={item}
-      navigation={navigation}
-      role={this.props.role}
-      refreshScreen={this.refreshScreen}>
+        reserveItem={item}
+        navigation={navigation}
+        role={this.props.role}
+        refreshScreen={this.refreshScreen}>
       </TripRowScreen>
     );
   }

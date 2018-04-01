@@ -13,6 +13,7 @@ import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
 
+import BookmarkRowScreen from './BookmarkRowScreen';
 import { productionURL, GATrackerId } from './data';
 
 
@@ -93,11 +94,13 @@ class Bookmarks extends Component {
   _keyExtractor = (item, index) => item.id;
 
   renderbookmarkItem ({item}, navigation) {
-    // TODO
     return(
-      <View>
-        <Text>bookmark item</Text>
-      </View>
+      <BookmarkRowScreen
+        bookmarkItem={item}
+        navigation={navigation}
+        role={this.props.role}
+        refreshScreen={this.refreshScreen}>
+      </BookmarkRowScreen>
     );
   }
 
