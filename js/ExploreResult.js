@@ -141,40 +141,65 @@ class ExploreResult extends Component {
 
 const styles = StyleSheet.create({
   cards: {
+    flex: 1,
     flexWrap: 'wrap',
-    width: Dimensions.get('window').width,
-    height: 110,
+    width: Dimensions.get('window').width-10,
     flexDirection: "row",
-    justifyContent:"flex-start",
+    justifyContent:"space-between",
     alignItems: 'center',
+
     ...Platform.select({
       ios: {
-        marginTop: 2,
-        borderRadius: 10,
+        height: 108,
+        marginTop: 3,
       },
       android: {
         marginTop:5,
         borderRadius: 1,
+        height: 110,
       },
     }),
   },
   previewimg: {
-    flex: 2,
+    width:120,
     justifyContent: 'center',
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        height: 108,
+      },
+      android: {
+        height: 110,
+      },
+    }),
   },
   image: {
-    width: Dimensions.get('screen').width/3,
-    height: 110,
+    // width: Dimensions.get('screen').width/3,
+    width:120,
+    ...Platform.select({
+      ios: {
+        height: 108,
+      },
+      android: {
+        height: 110,
+      },
+    }),
   },
   details: {
-    flex: 4,
     flexDirection: "column",
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems:"flex-end",
-    marginRight:10,
-    paddingRight:20,
     backgroundColor:'#f9f9f9',
+    width: Dimensions.get('window').width - 130,
+    ...Platform.select({
+      ios: {
+        height: 108,
+        paddingRight: 8,
+      },
+      android: {
+        height: 110,
+      },
+    }),
   },
   info: {
     flex:3,
@@ -188,11 +213,26 @@ const styles = StyleSheet.create({
     fontFamily: "IRANSansMobileFaNum-Medium",
     color: "#4f4f4f",
     paddingLeft:10,
+    ...Platform.select({
+      ios: {
+        marginBottom:4,
+      },
+      android: {
+      },
+    }),
   },
   cityfont:{
     fontSize: 11,
     fontFamily: "IRANSansMobileFaNum",
     color: "#4f4f4f",
+    ...Platform.select({
+      ios: {
+        marginBottom:4,
+        textAlign:'right',
+      },
+      android: {
+      },
+    }),
   },
   stars: {
     alignItems: "flex-end",
@@ -202,6 +242,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     justifyContent:"flex-start",
     flexDirection: "row-reverse",
+    ...Platform.select({
+      ios: {
+        marginBottom:0,
+      },
+      android: {
+      },
+    }),
   },
   pricetext: {
     fontSize: 13,

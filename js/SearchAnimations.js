@@ -520,6 +520,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     marginLeft:15,
+    ...Platform.select({
+      ios: {
+        marginTop:10,
+        marginBottom:10,
+      },
+    }),
   },
   innerItemStyle: {
     flex: 1,

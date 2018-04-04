@@ -265,7 +265,7 @@ class Explore extends Component {
         <Spinner
           type={styles.spinner}
           isVisible={this.state.isSpinnerVisible}
-          size={100}
+          size={70}
           type={'ThreeBounce'}
           color={'#0ccbed'} />
       );
@@ -276,16 +276,15 @@ class Explore extends Component {
           dataProvider={this.state.rooms}
           rowRenderer={this.rowRenderer}
           style={{
-            width: Dimensions.get('window').width,
-            marginRight: 5,
-            marginLeft: 5,
-            marginBottom: 5,
+            width: Dimensions.get('window').width - 10,
+
             ...Platform.select({
               android: {
+                marginBottom: 5,
                 paddingLeft: 5,
               },
               ios: {
-                paddingLeft: 7,
+                paddingTop:56,
               },
             }),
           }} />
