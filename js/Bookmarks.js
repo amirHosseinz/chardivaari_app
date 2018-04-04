@@ -159,6 +159,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor:'#ededed',
   },
+  container1: {
+    marginBottom: 90,
+  },
   headerbar: {
     flexDirection:'row-reverse',
     width:Dimensions.get('window').width,
