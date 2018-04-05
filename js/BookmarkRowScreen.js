@@ -33,7 +33,15 @@ class BookmarkRowScreen extends Component {
   }
 
   _onPress () {
-    // TODO
+    if (this.state.room.type=='room') {
+      this.props.navigation.navigate('houseDetail', {
+        room: this.state.room,
+      });
+    } else {
+      this.props.navigation.navigate('ecotourismDetail', {
+        room: this.state.room,
+      });
+    }
   }
 
   renderPriceNumber (input) {
