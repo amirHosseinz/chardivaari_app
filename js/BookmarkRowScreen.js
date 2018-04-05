@@ -125,7 +125,7 @@ class BookmarkRowScreen extends Component {
           <Image
             source={{ uri: productionURL + this.state.room.preview_low }}
             style={styles.image}>
-            <Image style={{ width: 20, height: 20, alignSelf: 'flex-end' }}
+            <Image style={styles.imageOverlay}
             source={require('./img/like.png')} />
           </Image>
         </View>
@@ -203,6 +203,14 @@ const styles = StyleSheet.create({
     marginRight: 15,
     textAlign: 'right',
     alignSelf: 'stretch',
+  },
+  imageOverlay: {
+    width: 20,
+    height: 20,
+    marginLeft: 5,
+    marginTop: 5,
+    resizeMode: 'contain',
+    alignSelf: 'flex-start',
   },
 });
 
