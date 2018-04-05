@@ -10,6 +10,8 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform,
+
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
@@ -23,7 +25,6 @@ import Communications from 'react-native-communications';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
-
 import ViewPager from './common/custom-viewpager';
 import EcotourismFacilities from './EcotourismFacilities';
 import { productionURL, GATrackerId } from './data';
@@ -987,11 +988,13 @@ class EcotourismDetail extends Component {
     if (this.state.room.is_price_per_person) {
       return(
         <View style={styles.bottombarchild}>
-          <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
-          <View style={styles.bottombarprice}>
-            <Text style={styles.pricetext} numberOfLines={1}>
-              {this.renderPrice(String(this.state.room.price))} تومان
-            </Text>
+          <View style={styles.pricediv}>
+            <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
+            <View style={styles.bottombarprice}>
+              <Text style={styles.pricetext} numberOfLines={1}>
+                {this.renderPrice(String(this.state.room.price))} تومان
+              </Text>
+            </View>
           </View>
           <View style={styles.bottombarbutton}>
               {this.renderBottomButton()}
@@ -1502,19 +1505,39 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
   bottombarchild: {
     width: Dimensions.get('screen').width-50,
     flex:1,
     flexDirection: "row-reverse",
     marginRight:15,
+    ...Platform.select({
+      ios: {
+        marginRight:8,
+
+      },
+      android: {
+      },
+    }),
     },
   bottombarprice: {
-    flex:3,
-    flexDirection:"row-reverse",
-    justifyContent:"flex-start",
+    justifyContent:"flex-end",
     alignItems:'center',
+
     marginTop:3,
+  },
+  pricediv: {
+    flex:3,
+    justifyContent:"flex-end",
+
   },
   bottombarbutton: {
     flex: 2,
@@ -1528,6 +1551,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop:5,
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+      },
+      android: {
+      },
+    }),
   },
   mablaghtext:{
     fontSize: 12,
@@ -1554,6 +1584,15 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
+    ...Platform.select({
+      ios: {
+        height:46,
+        width: 130,
+      },
+      android: {
+
+      },
+    }),
   },
   buttontouch1: {
     borderColor:"#ffffff",
@@ -1583,6 +1622,18 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
+    ...Platform.select({
+      ios: {
+        height:38,
+        width: 122,
+        borderRadius: 24,
+      },
+      android: {
+        height:38,
+        borderRadius: 50,
+        width: 139,
+      },
+    }),
   },
   rightAlignmentBox: {
     flexDirection: "row-reverse",

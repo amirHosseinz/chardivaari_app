@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
@@ -1106,7 +1107,14 @@ const styles = StyleSheet.create({
     fontSize:28,
     fontFamily:"IRANSansMobileFaNum-Medium",
     marginTop:22,
-    color:"#4f4f4f"
+    color:"#4f4f4f",
+    ...Platform.select({
+      ios: {
+        textAlign:'right',
+      },
+      android: {
+      },
+    }),
   },
   city: {
     flexDirection:'row-reverse',
@@ -1149,7 +1157,14 @@ const styles = StyleSheet.create({
   hostnamestatic: {
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Light',
-    color:"#4f4f4f"
+    color:"#4f4f4f",
+    ...Platform.select({
+      ios: {
+        marginLeft:4,
+      },
+      android: {
+      },
+    }),
   },
   divider:{
     height: 2,
@@ -1188,7 +1203,7 @@ const styles = StyleSheet.create({
   detailicontext: {
     fontSize: 14,
     fontFamily:'IRANSansMobileFaNum',
-    color:"#9e9e9e",
+    color:"#3e3e3e",
   },
   deatilitembox:{
     alignItems:'center',
@@ -1210,18 +1225,36 @@ const styles = StyleSheet.create({
     resizeMode: 'contain' ,
   },
   bottombar: {
-    width: Dimensions.get('screen').width,
+    width: Dimensions.get('window').width,
     height:56,
     backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
+
   },
   bottombarchild: {
-    width: Dimensions.get('screen').width-50,
+    width: Dimensions.get('window').width-40,
+    alignSelf:'center',
     flex:1,
     flexDirection: "row-reverse",
     marginRight:15,
+    ...Platform.select({
+      ios: {
+        marginRight:8,
+
+      },
+      android: {
+      },
+    }),
     },
   bottombarprice: {
     flex:3,
@@ -1231,7 +1264,7 @@ const styles = StyleSheet.create({
     marginTop:3,
   },
   bottombarbutton: {
-    flex: 2,
+    flex:2,
     alignItems:'center',
     justifyContent:"center",
   },
@@ -1242,6 +1275,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop:5,
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+      },
+      android: {
+      },
+    }),
   },
   mablaghtext:{
     fontSize: 12,
@@ -1268,6 +1308,15 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
+    ...Platform.select({
+      ios: {
+        height:46,
+        width: 130,
+      },
+      android: {
+
+      },
+    }),
   },
   buttontouch1: {
     borderColor:"#ffffff",
@@ -1280,23 +1329,40 @@ const styles = StyleSheet.create({
     alignItems:"center",
   },
   buttontouch2: {
+    height:48,
+    width: 188,
     borderColor:"#ffffff",
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
-    width: 188,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
+    ...Platform.select({
+      ios: {
+
+      },
+      android: {
+
+      },
+    }),
   },
   buttonview: {
     backgroundColor:"#f56e4e",
-    borderRadius: 50,
-    height:38,
-    width: 139,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
+    ...Platform.select({
+      ios: {
+        height:38,
+        width: 122,
+        borderRadius: 24,
+      },
+      android: {
+        height:38,
+        borderRadius: 50,
+        width: 139,
+      },
+    }),
   },
   rightAlignmentBox: {
     flexDirection: "row-reverse",
@@ -1341,12 +1407,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   bantext: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Light',
     color:"#3e3e3e",
     marginRight:2,
     justifyContent:"center",
     marginLeft:50,
+    ...Platform.select({
+      ios: {
+        marginTop: 6,
+        textAlign:'right',
+      },
+      android: {
+      },
+    }),
   },
   contacthost: {
     flexDirection: "row-reverse"
