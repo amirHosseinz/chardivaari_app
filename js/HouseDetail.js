@@ -780,9 +780,24 @@ class HouseDetail extends Component {
     }
   }
 
+  renderBookmarkSection () {
+    return(
+      <Image
+        style={styles.bookmarkIcon}
+        source={require('./img/bookmark/bookmark_outline.png')} />
+    );
+  }
+
   render () {
     return(
       <View style={styles.container}>
+      <View style={styles.header}>
+      <Image
+        style={styles.bookmarkIcon}
+        source={require('./img/bookmark/bookmark_filled.png')} />
+
+        {this.renderBookmarkSection()}
+      </View>
       <ScrollView>
       {this.renderViewPager()}
       <View style={styles.container0}>
@@ -1097,11 +1112,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white"
   },
+  header: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: Dimensions.get('screen').width,
+    height: 50,
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    zIndex: 100,
+    top: 0,
+    left: 0,
+    right: 0,
+  },
   container2: {
-    flex:1,
+    flex: 1,
+    flexWrap: 'wrap',
     flexDirection:'column',
     width: Dimensions.get('window').width - 50,
-    flexWrap: 'wrap',
   },
   housename: {
     fontSize:28,
@@ -1111,8 +1140,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         textAlign:'right',
-      },
-      android: {
       },
     }),
   },
@@ -1158,13 +1185,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Light',
     color:"#4f4f4f",
-    ...Platform.select({
-      ios: {
-        marginLeft:4,
-      },
-      android: {
-      },
-    }),
   },
   divider:{
     height: 2,
@@ -1231,15 +1251,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
-    ...Platform.select({
-      ios: {
-        borderTopWidth: 1,
-        borderColor: '#ddd',
-      },
-      android: {
-      },
-    }),
-
   },
   bottombarchild: {
     width: Dimensions.get('window').width-40,
@@ -1247,15 +1258,7 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection: "row-reverse",
     marginRight:15,
-    ...Platform.select({
-      ios: {
-        marginRight:8,
-
-      },
-      android: {
-      },
-    }),
-    },
+  },
   bottombarprice: {
     flex:3,
     flexDirection:"row-reverse",
@@ -1275,13 +1278,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop:5,
-    ...Platform.select({
-      ios: {
-        fontSize: 16,
-      },
-      android: {
-      },
-    }),
   },
   mablaghtext:{
     fontSize: 12,
@@ -1313,9 +1309,6 @@ const styles = StyleSheet.create({
         height:46,
         width: 130,
       },
-      android: {
-
-      },
     }),
   },
   buttontouch1: {
@@ -1337,14 +1330,6 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
-    ...Platform.select({
-      ios: {
-
-      },
-      android: {
-
-      },
-    }),
   },
   buttonview: {
     backgroundColor:"#f56e4e",
@@ -1418,8 +1403,6 @@ const styles = StyleSheet.create({
         marginTop: 6,
         textAlign:'right',
       },
-      android: {
-      },
     }),
   },
   contacthost: {
@@ -1489,6 +1472,11 @@ const styles = StyleSheet.create({
     marginLeft:6,
     marginRight:6,
     opacity:0.78,
+  },
+  bookmarkIcon: {
+    height: 25,
+    width: 30,
+    resizeMode: 'contain',
   },
 });
 

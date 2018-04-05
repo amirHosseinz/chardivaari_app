@@ -138,14 +138,15 @@ const Routes = ({
   houseDetail: {
     screen: HouseDetail,
     navigationOptions: {
-      headerStyle: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        zIndex: 100,
-        top: 0,
-        left: 0,
-        right: 0
-      }
+      header: null
+      // headerStyle: {
+      //   position: 'absolute',
+      //   backgroundColor: 'transparent',
+      //   zIndex: 100,
+      //   top: 0,
+      //   left: 0,
+      //   right: 0
+      // }
     }
   },
   ecotourismDetail: {

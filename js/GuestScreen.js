@@ -204,8 +204,8 @@ class GuestScreen extends Component {
           title="لیست علاقه‌مندی‌ها"
           selectedTitleStyle={styles.selectedTitleStyle}
           titleStyle={styles.titleStyle}
-          renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark_icon.png')} />}
-          renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark_selected_icon.png')} />}
+          renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
+          renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
           onPress={() => {
             this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
           }}>
