@@ -141,7 +141,6 @@ class ExploreResult extends Component {
 
 const styles = StyleSheet.create({
   cards: {
-    flex: 1,
     flexWrap: 'wrap',
     width: Dimensions.get('window').width-10,
     flexDirection: "row",
@@ -150,6 +149,7 @@ const styles = StyleSheet.create({
 
     ...Platform.select({
       ios: {
+        flex: 1,
         height: 108,
         marginTop: 3,
       },
@@ -217,8 +217,6 @@ const styles = StyleSheet.create({
       ios: {
         marginBottom:4,
       },
-      android: {
-      },
     }),
   },
   cityfont:{
@@ -229,8 +227,6 @@ const styles = StyleSheet.create({
       ios: {
         marginBottom:4,
         textAlign:'right',
-      },
-      android: {
       },
     }),
   },
@@ -245,8 +241,6 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         marginBottom:0,
-      },
-      android: {
       },
     }),
   },
