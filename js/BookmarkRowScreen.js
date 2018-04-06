@@ -36,10 +36,12 @@ class BookmarkRowScreen extends Component {
     if (this.state.room.type=='room') {
       this.props.navigation.navigate('houseDetail', {
         room: this.state.room,
+        refreshScreen: this.props.refreshScreen,
       });
     } else {
       this.props.navigation.navigate('ecotourismDetail', {
         room: this.state.room,
+        refreshScreen: this.props.refreshScreen,
       });
     }
   }

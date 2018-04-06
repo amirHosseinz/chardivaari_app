@@ -791,6 +791,9 @@ class HouseDetail extends Component {
   onPressBackButton () {
     const backAction = NavigationActions.back();
     this.props.navigation.dispatch(backAction);
+    if (this.props.navigation.state.params.refreshScreen) {
+      this.props.navigation.state.params.refreshScreen();
+    }
   }
 
   likeRoom() {
