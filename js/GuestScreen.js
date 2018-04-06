@@ -208,11 +208,16 @@ class GuestScreen extends Component {
           renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
           onPress={() => {
             this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
+            if (this.refs.bookmarks) {
+              this.refs.bookmarks.refreshScreen();
+            }
           }}>
           <Bookmarks
             role={'guest'}
             goToTab={this.goToTab}
             navigation={this.props.navigation}
+            ref={'bookmarks'}
+            {...this.props}
           />
         </TabNavigator.Item>
         <TabNavigator.Item
