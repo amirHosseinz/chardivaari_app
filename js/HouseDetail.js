@@ -49,6 +49,8 @@ class HouseDetail extends Component {
      tracker: null,
      isHost: false,
      callCenter: null,
+     isLiked: false,
+     inMidLiking: false,
    };
    this.mapStyle = [];
  }
@@ -82,6 +84,7 @@ class HouseDetail extends Component {
    if (this.props.navigation.state.params.room) {
      this.setState({
        room: this.props.navigation.state.params.room,
+       isLiked: this.props.navigation.state.params.room.is_liked,
      }, () => {
        this.imagesDataFeed();
      });
@@ -103,8 +106,6 @@ class HouseDetail extends Component {
        radius: 350,
      };
      this.setState({ marker: circleElement });
-   } else if (this.props.navigation.state.params.roomId) {
-     this.fetchRoom();
    }
    if (this.props.navigation.state.params.role === 'host') {
      this.setState({
@@ -116,10 +117,16 @@ class HouseDetail extends Component {
  setToken (token) {
    this.setState({
      token
+   }, () => {
+     if (this.props.navigation.state.params.roomId) {
+       this.fetchRoom(this.props.navigation.state.params.roomId);
+     } else if (this.props.navigation.state.params.room) {
+       this.fetchRoom(this.props.navigation.state.params.room.id);
+     }
    });
  }
 
- fetchRoom () {
+ fetchRoom (roomId) {
    fetch(productionURL + '/api/get/room/', {
      method: 'POST',
      headers: {
@@ -128,7 +135,7 @@ class HouseDetail extends Component {
        'Authorization': 'Token ' + this.state.token,
      },
      body: JSON.stringify({
-       room_id: this.props.navigation.state.params.roomId,
+       room_id: roomId,
      }),
    })
    .then((response) => this.onGetRoomResponseRecieved(response))
@@ -142,6 +149,7 @@ class HouseDetail extends Component {
      body = JSON.parse(response._bodyText);
      this.setState({
        room: body.room,
+       isLiked: body.room.is_liked,
      },() => {
        this.setMapInitials();
        this.imagesDataFeed();
@@ -780,23 +788,137 @@ class HouseDetail extends Component {
     }
   }
 
+  onPressBackButton () {
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
+  }
+
+  likeRoom() {
+    fetch(productionURL + '/bookmark/api/like/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        room_id: this.state.room.id,
+      }),
+    })
+    .then((response) => this.onLikeRoomResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
+    });
+  }
+
+  unlikeRoom() {
+    fetch(productionURL + '/bookmark/api/unlike/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        room_id: this.state.room.id,
+      }),
+    })
+    .then((response) => this.onUnlikeRoomResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
+    });
+  }
+
+  onLikePress () {
+    if (!this.state.inMidLiking) {
+      if (this.state.isLiked) {
+        this.setState({
+          isLiked: false,
+        }, () => {
+          this.unlikeRoom();
+        });
+      } else {
+        this.setState({
+          isLiked: true,
+        }, () => {
+          this.likeRoom();
+        });
+      }
+      this.setState({
+        inMidLiking: true,
+      });
+    }
+  }
+
+  onLikeRoomResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (!body.successful) {
+        this.setState({
+          isLiked: false,
+        });
+      }
+    } else {
+      this.setState({
+        isLiked: false,
+      });
+    }
+    this.setState({
+      inMidLiking: false,
+    });
+  }
+
+  onUnlikeRoomResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (!body.successful) {
+        this.setState({
+          isLiked: true,
+        });
+      }
+    } else {
+      this.setState({
+        isLiked: true,
+      });
+    }
+    this.setState({
+      inMidLiking: false,
+    });
+  }
+
   renderBookmarkSection () {
-    return(
-      <Image
-        style={styles.bookmarkIcon}
-        source={require('./img/bookmark/bookmark_outline.png')} />
-    );
+    if (this.state.isLiked) {
+      return(
+        <TouchableOpacity onPress={() => {this.onLikePress()}}>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('./img/bookmark/bookmark_filled.png')} />
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <TouchableOpacity onPress={() => {this.onLikePress()}}>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('./img/bookmark/bookmark_outline.png')} />
+        </TouchableOpacity>
+      );
+    }
   }
 
   render () {
     return(
       <View style={styles.container}>
       <View style={styles.header}>
-      <Image
-        style={styles.bookmarkIcon}
-        source={require('./img/bookmark/bookmark_filled.png')} />
+        <View style={{marginRight: 18}}>
+          <TouchableOpacity onPress={() => {this.onPressBackButton()}}>
+            <Icon size={28} color="#3e3e3e" name="arrow-forward" />
+          </TouchableOpacity>
+        </View>
 
-        {this.renderBookmarkSection()}
+        <View style={{marginLeft: 18}}>
+          {this.renderBookmarkSection()}
+        </View>
       </View>
       <ScrollView>
       {this.renderViewPager()}
@@ -1118,7 +1240,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: Dimensions.get('screen').width,
-    height: 50,
+    height: 56,
     position: 'absolute',
     backgroundColor: 'transparent',
     zIndex: 100,
