@@ -41,6 +41,7 @@ class EcotourismDetail extends Component {
      region: null,
      marker: null,
      loginModalVisible: false,
+     likeLoginModalVisible: false,
      contactModalVisible: false,
      facilitiesModalVisible: false,
      nationalIdModalVisible: false,
@@ -734,6 +735,18 @@ class EcotourismDetail extends Component {
     });
   }
 
+  openLikeLoginModal = () => {
+    this.setState({
+      likeLoginModalVisible: true,
+    });
+  }
+
+  closeLikeLoginModal = () => {
+    this.setState({
+      likeLoginModalVisible: false,
+    });
+  }
+
   openSupportModal = () => {
     this.setState({
       callSupportModalVisible: true,
@@ -1111,23 +1124,31 @@ class EcotourismDetail extends Component {
   }
 
   onLikePress () {
-    if (!this.state.inMidLiking) {
-      if (this.state.isLiked) {
+    if (this.state.user && this.state.user.username === 'GUEST_USER') {
+      this.openLikeLoginModal();
+    } else if (this.state.user) {
+      this.state.tracker.trackEvent('likeRoom', 'buttonPress', {
+        label: this.state.user.username,
+        value: 200
+      });
+      if (!this.state.inMidLiking) {
+        if (this.state.isLiked) {
+          this.setState({
+            isLiked: false,
+          }, () => {
+            this.unlikeRoom();
+          });
+        } else {
+          this.setState({
+            isLiked: true,
+          }, () => {
+            this.likeRoom();
+          });
+        }
         this.setState({
-          isLiked: false,
-        }, () => {
-          this.unlikeRoom();
-        });
-      } else {
-        this.setState({
-          isLiked: true,
-        }, () => {
-          this.likeRoom();
+          inMidLiking: true,
         });
       }
-      this.setState({
-        inMidLiking: true,
-      });
     }
   }
 
@@ -1385,6 +1406,34 @@ class EcotourismDetail extends Component {
    </TouchableOpacity>
     <View style={styles.popuptextbox}>
       <Text style={styles.popuptext}>برای درخواست رزرو ابتدا وارد حساب کاربری خود شوید.</Text>
+        <TouchableOpacity style={styles.buttontouch1} onPress={() => {
+          this.resetNavigation('login');
+        }}>
+        <View>
+        <Text style={styles.reservebuttontext}>ورود</Text>
+      </View>
+      </TouchableOpacity>
+    </View>
+   </View>
+  </Modal>
+
+  <Modal
+    animationType="slide"
+    transparent={true}
+    visible={this.state.likeLoginModalVisible}
+    onRequestClose={() => {
+      this.closeLikeLoginModal();
+    }}>
+   <View style={styles.popup}>
+   <TouchableOpacity onPress={this.closeLikeLoginModal}>
+     <View style={styles.backbuttonview}>
+       <Icon size={40} color="#f3f3f3" name="close" />
+     </View>
+   </TouchableOpacity>
+    <View style={styles.popuptextbox}>
+      <Text style={styles.popuptext}>
+        برای افزودن خانه به علاقه‌مندی‌ها، ابتدا باید وارد حساب کاربری خود شوید.
+      </Text>
         <TouchableOpacity style={styles.buttontouch1} onPress={() => {
           this.resetNavigation('login');
         }}>
