@@ -8,7 +8,6 @@ import {
   ScrollView,
   Image,
   StatusBar,
-  BackHandler,
   ToastAndroid,
   Platform,
 } from 'react-native';

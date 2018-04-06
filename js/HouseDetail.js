@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  BackHandler,
   ScrollView,
   Text,
   Modal,
@@ -112,6 +113,18 @@ class HouseDetail extends Component {
        isHost: true,
      });
    }
+ }
+
+ componentWillMount () {
+   BackHandler.addEventListener('hardwareBackPress_bookmark', this.handleBackButton);
+ }
+
+ componentWillUnmount () {
+   BackHandler.removeEventListener('hardwareBackPress_bookmark');
+ }
+
+ handleBackButton = () => {
+   this.onPressBackButton();
  }
 
  setToken (token) {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  BackHandler,
   ScrollView,
   Text,
   Modal,
@@ -11,7 +12,6 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
-
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
@@ -111,6 +111,18 @@ class EcotourismDetail extends Component {
        isHost: true,
      });
    }
+ }
+
+ componentWillMount () {
+   BackHandler.addEventListener('hardwareBackPress_eco_bookmark', this.handleBackButton);
+ }
+
+ componentWillUnmount () {
+   BackHandler.removeEventListener('hardwareBackPress_eco_bookmark');
+ }
+
+ handleBackButton = () => {
+   this.onPressBackButton();
  }
 
  setToken (token) {
