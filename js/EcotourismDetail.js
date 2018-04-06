@@ -48,6 +48,8 @@ class EcotourismDetail extends Component {
      tracker: null,
      isHost: false,
      callCenter: null,
+     isLiked: false,
+     inMidLiking: false,
    };
    this.mapStyle = [];
  }
@@ -81,6 +83,7 @@ class EcotourismDetail extends Component {
    if (this.props.navigation.state.params.room) {
      this.setState({
        room: this.props.navigation.state.params.room,
+       isLiked: this.props.navigation.state.params.room.is_liked,
      }, () => {
        this.imagesDataFeed();
      });
@@ -102,8 +105,6 @@ class EcotourismDetail extends Component {
        radius: 350,
      };
      this.setState({ marker: circleElement });
-   } else if (this.props.navigation.state.params.roomId) {
-     this.fetchRoom();
    }
    if (this.props.navigation.state.params.role === 'host') {
      this.setState({
@@ -115,10 +116,16 @@ class EcotourismDetail extends Component {
  setToken (token) {
    this.setState({
      token
+   }, () => {
+     if (this.props.navigation.state.params.roomId) {
+       this.fetchRoom(this.props.navigation.state.params.roomId);
+     } else if (this.props.navigation.state.params.room) {
+       this.fetchRoom(this.props.navigation.state.params.room.id);
+     }
    });
  }
 
- fetchRoom () {
+ fetchRoom (roomId) {
    fetch(productionURL + '/api/get/ecotourism/', {
      method: 'POST',
      headers: {
@@ -127,7 +134,7 @@ class EcotourismDetail extends Component {
        'Authorization': 'Token ' + this.state.token,
      },
      body: JSON.stringify({
-       ecotourism_id: this.props.navigation.state.params.roomId,
+       ecotourism_id: roomId,
      }),
    })
    .then((response) => this.onGetRoomResponseRecieved(response))
@@ -141,6 +148,7 @@ class EcotourismDetail extends Component {
      body = JSON.parse(response._bodyText);
      this.setState({
        room: body.room,
+       isLiked: body.room.is_liked,
      },() => {
        this.setMapInitials();
        this.imagesDataFeed();
@@ -1018,9 +1026,141 @@ class EcotourismDetail extends Component {
     }
   }
 
+  likeRoom() {
+    fetch(productionURL + '/bookmark/api/like/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        eco_room_id: this.state.room.id,
+      }),
+    })
+    .then((response) => this.onLikeRoomResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
+    });
+  }
+
+  onLikeRoomResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (!body.successful) {
+        this.setState({
+          isLiked: false,
+        });
+      }
+    } else {
+      this.setState({
+        isLiked: false,
+      });
+    }
+    this.setState({
+      inMidLiking: false,
+    });
+  }
+
+  unlikeRoom() {
+    fetch(productionURL + '/bookmark/api/unlike/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+      body: JSON.stringify({
+        eco_room_id: this.state.room.id,
+      }),
+    })
+    .then((response) => this.onUnlikeRoomResponseRecieved(response))
+    .catch((error) => {
+      Alert.alert('از اتصال به اینترنت مطمئن شوید، سپس مجدد تلاش کنید.');
+    });
+  }
+
+  onUnlikeRoomResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      if (!body.successful) {
+        this.setState({
+          isLiked: true,
+        });
+      }
+    } else {
+      this.setState({
+        isLiked: true,
+      });
+    }
+    this.setState({
+      inMidLiking: false,
+    });
+  }
+
+  onLikePress () {
+    if (!this.state.inMidLiking) {
+      if (this.state.isLiked) {
+        this.setState({
+          isLiked: false,
+        }, () => {
+          this.unlikeRoom();
+        });
+      } else {
+        this.setState({
+          isLiked: true,
+        }, () => {
+          this.likeRoom();
+        });
+      }
+      this.setState({
+        inMidLiking: true,
+      });
+    }
+  }
+
+  onPressBackButton () {
+    const backAction = NavigationActions.back();
+    this.props.navigation.dispatch(backAction);
+    if (this.props.navigation.state.params.refreshScreen) {
+      this.props.navigation.state.params.refreshScreen();
+    }
+  }
+
+  renderBookmarkSection () {
+    if (this.state.isLiked) {
+      return(
+        <TouchableOpacity onPress={() => {this.onLikePress()}}>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('./img/bookmark/bookmark_filled.png')} />
+        </TouchableOpacity>
+      );
+    } else {
+      return(
+        <TouchableOpacity onPress={() => {this.onLikePress()}}>
+          <Image
+            style={styles.bookmarkIcon}
+            source={require('./img/bookmark/bookmark_outline.png')} />
+        </TouchableOpacity>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={{marginRight: 18}}>
+          <TouchableOpacity onPress={() => {this.onPressBackButton()}}>
+            <Icon size={28} color="#3e3e3e" name="arrow-forward" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={{marginLeft: 18}}>
+          {this.renderBookmarkSection()}
+        </View>
+      </View>
       <ScrollView>
       {this.renderViewPager()}
       <View style={styles.container0}>
@@ -1335,6 +1475,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white"
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: Dimensions.get('screen').width,
+    height: 56,
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    zIndex: 100,
+    top: 0,
+    left: 0,
+    right: 0,
   },
   container2: {
     flex:1,
@@ -1759,6 +1913,11 @@ const styles = StyleSheet.create({
     marginLeft:6,
     marginRight:6,
     opacity:0.78,
+  },
+  bookmarkIcon: {
+    height: 25,
+    width: 30,
+    resizeMode: 'contain',
   },
 });
 

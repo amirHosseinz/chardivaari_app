@@ -139,6 +139,12 @@ const Routes = ({
     screen: HouseDetail,
     navigationOptions: {
       header: null
+    }
+  },
+  ecotourismDetail: {
+    screen: EcotourismDetail,
+    navigationOptions: {
+      header: null
       // headerStyle: {
       //   position: 'absolute',
       //   backgroundColor: 'transparent',
@@ -147,19 +153,6 @@ const Routes = ({
       //   left: 0,
       //   right: 0
       // }
-    }
-  },
-  ecotourismDetail: {
-    screen: EcotourismDetail,
-    navigationOptions: {
-      headerStyle: {
-        position: 'absolute',
-        backgroundColor: 'transparent',
-        zIndex: 100,
-        top: 0,
-        left: 0,
-        right: 0
-      }
     }
   },
 });
