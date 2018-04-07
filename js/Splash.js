@@ -171,7 +171,7 @@ class Splash extends Component {
       if (body.validated) {
         CacheStore.set('user', body.user);
         this.state.tracker.setUser(body.user.username);
-        if (body.user.is_mainly_host) {
+        if (body.user.is_host) {
           this.resetNavigation('hostScreen');
         } else {
           this.resetNavigation('guestScreen');
