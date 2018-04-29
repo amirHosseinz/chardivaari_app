@@ -594,10 +594,15 @@ const styles = StyleSheet.create({
     flexDirection:'row-reverse',
     alignItems:'flex-end',
   },
+  cost1:{
+    flexDirection:'row-reverse',
+    alignItems:'flex-end',
+  },
   costtext:{
     fontFamily:'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#3e3e3e',
+    marginLeft: 4,
   },
   resulttextbold:{
     fontFamily:'IRANSansMobileFaNum-Medium',
@@ -666,6 +671,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+      },
+      android: {
+      },
+    }),
   },
   header00:{
     width: Dimensions.get('window').width-36,
@@ -674,6 +686,14 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        marginTop:14,
+      },
+      android: {
+      },
+    }),
   },
   main:{
     flex:1,

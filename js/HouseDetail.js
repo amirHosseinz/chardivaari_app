@@ -765,7 +765,7 @@ class HouseDetail extends Component {
             this.openSupportModal();
           }}>
           <View style={styles.buttonview}>
-          <Text style={styles.reservebuttontext}>تغییر اطلاعات</Text>
+          <Text style={styles.reservebuttontext2}>تغییر اطلاعات</Text>
         </View>
         </TouchableOpacity>
       );
@@ -775,7 +775,7 @@ class HouseDetail extends Component {
           style={styles.buttontouch}
           onPress={this.updateUser.bind(this)}>
           <View style={styles.buttonview}>
-          <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
+          <Text style={styles.reservebuttontext}>رزرو کنید</Text>
         </View>
         </TouchableOpacity>
       );
@@ -800,14 +800,14 @@ class HouseDetail extends Component {
     } else {
       return(
         <View style={styles.bottombarchild}>
-          <Text style={styles.mablaghtext}>هزینه هر شب</Text>
+          <View style={styles.bottombarbutton}>
+              {this.renderBottomButton()}
+          </View>
           <View style={styles.bottombarprice}>
+            <Text style={styles.mablaghtext}>هزینه هر شب</Text>
             <Text style={styles.pricetext} numberOfLines={1}>
               {this.renderPrice(String(this.state.room.price))} تومان
             </Text>
-          </View>
-          <View style={styles.bottombarbutton}>
-              {this.renderBottomButton()}
           </View>
         </View>
       );
@@ -954,7 +954,6 @@ class HouseDetail extends Component {
         </View>
 
         <View style={{marginLeft: 18}}>
-          {this.renderBookmarkSection()}
         </View>
       </View>
       <ScrollView>
@@ -1312,6 +1311,13 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+    ...Platform.select({
+      ios: {
+        height: 72,
+      },
+      android: {
+      },
+    }),
   },
   container2: {
     flex: 1,
@@ -1372,6 +1378,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Light',
     color:"#4f4f4f",
+    marginLeft: 6,
   },
   divider:{
     height: 2,
@@ -1438,42 +1445,66 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
   bottombarchild: {
-    width: Dimensions.get('window').width-40,
-    alignSelf:'center',
     flex:1,
-    flexDirection: "row-reverse",
-    marginRight:15,
+    flexDirection: "row",
+    width: Dimensions.get('window').width-40,
+    alignItems: "center",
   },
   bottombarprice: {
     flex:3,
-    flexDirection:"row-reverse",
-    justifyContent:"flex-start",
-    alignItems:'center',
     marginTop:3,
   },
   bottombarbutton: {
     flex:2,
     alignItems:'center',
     justifyContent:"center",
+    zIndex: 100,
   },
   pricetext: {
     fontSize: 18,
     fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#3e3e3e",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop:5,
+    marginTop: 0,
+    textAlign: "left",
+    marginLeft: 14,
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+        textAlign: "center",
+      },
+      android: {
+      },
+    }),
   },
   mablaghtext:{
     fontSize: 12,
     fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
-    marginTop:6,
+    marginTop: 0,
+    textAlign: "right",
   },
   reservebuttontext: {
     fontSize: 19,
+    fontFamily:"IRANSansMobileFaNum-Medium",
+    color: "#ffffff",
+    paddingTop:4,
+    paddingBottom:4,
+    paddingRight:12,
+    paddingLeft:12,
+    marginBottom:5,
+  },
+  reservebuttontext2: {
+    fontSize: 15,
     fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
     paddingTop:4,
@@ -1604,7 +1635,7 @@ const styles = StyleSheet.create({
   lawstext2: {
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Medium',
-    color:"#00cecc",
+    color: '#00b1ce',
     marginLeft:5,
   },
   mapContainer: {

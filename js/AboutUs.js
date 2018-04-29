@@ -8,6 +8,7 @@ import {
   Dimensions,
   Linking,
   StatusBar,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DeviceInfo from 'react-native-device-info';
@@ -116,6 +117,15 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     elevation:3,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        borderBottomWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
   header00:{
     width: Dimensions.get('window').width-36,
@@ -124,6 +134,14 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     elevation:3,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        marginTop:14,
+      },
+      android: {
+      },
+    }),
   },
   h1:{
     fontSize:18,

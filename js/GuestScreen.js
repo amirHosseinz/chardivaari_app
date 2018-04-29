@@ -20,7 +20,7 @@ import Explore from './Explore';
 import InboxScreen from './InboxScreen';
 // import TripsScreen from './TripsScreen';
 import Trips from './Trips';
-import Bookmarks from './Bookmarks';
+// import Bookmarks from './Bookmarks';
 // import ProfileScreen from './ProfileScreen';
 import Profile from './Profile';
 
@@ -140,11 +140,11 @@ class GuestScreen extends Component {
         selectedTab: tabName,
       });
       break;
-    case 'bookmarks':
-      this.setState({
-        selectedTab: tabName,
-      });
-      break;
+    // case 'bookmarks':
+    //   this.setState({
+    //     selectedTab: tabName,
+    //   });
+    //   break;
     default:
     }
     this.updateStatusBar();
@@ -198,27 +198,7 @@ class GuestScreen extends Component {
             navigation={this.props.navigation}
           />
         </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'bookmarks'}
-          title="لیست علاقه‌مندی‌ها"
-          selectedTitleStyle={styles.selectedTitleStyle}
-          titleStyle={styles.titleStyle}
-          renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
-          renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
-          onPress={() => {
-            this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
-            if (this.refs.bookmarks) {
-              this.refs.bookmarks.refreshScreen();
-            }
-          }}>
-          <Bookmarks
-            role={'guest'}
-            goToTab={this.goToTab}
-            navigation={this.props.navigation}
-            ref={'bookmarks'}
-            {...this.props}
-          />
-        </TabNavigator.Item>
+
         <TabNavigator.Item
           selected={this.state.selectedTab === 'inboxScreen'}
           title="پیام‌ها"
@@ -293,6 +273,28 @@ class GuestScreen extends Component {
     );
   }
 }
+
+// <TabNavigator.Item
+//   selected={this.state.selectedTab === 'bookmarks'}
+//   title="لیست علاقه‌مندی‌ها"
+//   selectedTitleStyle={styles.selectedTitleStyle}
+//   titleStyle={styles.titleStyle}
+//   renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
+//   renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
+//   onPress={() => {
+//     this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
+//     if (this.refs.bookmarks) {
+//       this.refs.bookmarks.refreshScreen();
+//     }
+//   }}>
+//   <Bookmarks
+//     role={'guest'}
+//     goToTab={this.goToTab}
+//     navigation={this.props.navigation}
+//     ref={'bookmarks'}
+//     {...this.props}
+//   />
+// </TabNavigator.Item>
 
 const styles = StyleSheet.create({
   titleStyle: {

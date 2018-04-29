@@ -199,6 +199,11 @@ const styles = StyleSheet.create({
     color:'#e5e5e5',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:18,
+    ...Platform.select({
+      ios: {
+        marginLeft: 3,
+      },
+    }),
   },
   notlogin:{
     alignItems:'center',

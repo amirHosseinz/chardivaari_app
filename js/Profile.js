@@ -205,7 +205,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this._onChangeToHost.bind(this)}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircleh2g}>
-                <Icon size={23} color="white" name="swap-vert" />
+                <Icon size={20} color="white" name="swap-vert" />
               </View>
             <Text style={styles.profileitemtexth2g}>ورود به پنل میزبان</Text>
           </View>
@@ -220,7 +220,7 @@ class Profile extends Component {
         <TouchableOpacity onPress={this._onChangeToGuest.bind(this)}>
           <View style={styles.profileitembox}>
               <View style={styles.itemiconcircleh2g}>
-                <Icon size={23} color="white" name="swap-vert" />
+                <Icon size={20} color="white" name="swap-vert" />
               </View>
             <Text style={styles.profileitemtexth2g}>ورود به پنل مهمان</Text>
           </View>
@@ -469,7 +469,13 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum',
     color:'#4f4f4f',
     marginRight:10,
-    marginTop:0,
+    ...Platform.select({
+      ios: {
+        marginTop:3,
+      },
+      android: {
+      },
+    }),
   },
   redprofileitemtext:{
     fontSize: 16,

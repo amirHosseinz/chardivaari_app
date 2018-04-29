@@ -804,12 +804,11 @@ class RequestBookScreen extends Component {
       return(
         <View style={styles.bottombar}>
           <View style={styles.bottombarchild}>
-                <Text style={styles.mablaghtext}> مبلغ نهایی:</Text>
                 <View style={styles.bottombarprice}>
-                      <Text style={styles.pricetext}>
-                        {this.renderPrice(String(this.state.totalPrice))}
-                      </Text>
-                      <Text style={styles.pricetext}> تومان</Text>
+                  <Text style={styles.mablaghtext}>مبلغ نهایی:</Text>
+                  <Text style={styles.pricetext} numberOfLines={1}>
+                    {this.renderPrice(String(this.state.totalPrice))} تومان
+                  </Text>
                 </View>
             <View style={styles.bottombarbutton}>
                 <TouchableOpacity
@@ -1042,6 +1041,11 @@ const styles = StyleSheet.create({
     fontFamily: 'IRANSansMobileFaNum-Medium',
     fontSize:18,
     marginRight:5,
+    ...Platform.select({
+      ios: {
+        marginTop:5,
+      },
+    }),
   },
   interpersonresult:{
     alignItems: 'flex-start',
@@ -1051,6 +1055,11 @@ const styles = StyleSheet.create({
     fontFamily: 'IRANSansMobileFaNum-Light',
     fontSize:14,
     color:'#000000',
+    ...Platform.select({
+      ios: {
+        marginBottom: 3,
+      },
+    }),
   },
   divider:{
     height:1,
@@ -1121,6 +1130,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
   bottombarchild: {
     width: Dimensions.get('screen').width-50,
@@ -1130,9 +1147,6 @@ const styles = StyleSheet.create({
     },
   bottombarprice: {
     flex:3,
-    flexDirection:"row-reverse",
-    justifyContent:"flex-start",
-    alignItems:'center',
     marginBottom:3,
   },
   bottombarbutton: {
@@ -1146,12 +1160,21 @@ const styles = StyleSheet.create({
     color: "#3e3e3e",
     justifyContent: "center",
     alignItems: "center",
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+        textAlign: "center",
+      },
+      android: {
+      },
+    }),
   },
   mablaghtext:{
     fontSize: 12,
     fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
-    marginTop:6,
+    marginTop: 5,
+    textAlign: "right",
   },
   pernighttext: {
     fontSize: 20,
@@ -1164,30 +1187,44 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
-    paddingTop:4,
-    paddingBottom:4,
-    paddingRight:12,
-    paddingLeft:12,
-    marginBottom:5,
+    alignSelf: "center",
+    ...Platform.select({
+      ios: {
+        fontSize: 15,
+      },
+    }),
   },
   buttontouch: {
     borderColor:"#00cecc",
-    borderRadius: 50,
+    borderRadius: 23,
     borderWidth : 2,
     height:46,
     width: 148,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
+    ...Platform.select({
+      ios: {
+        height:46,
+        width: 126,
+      },
+    }),
   },
   buttonview: {
     backgroundColor:"#00cecc",
-    borderRadius: 50,
+    borderRadius: 17,
     height:38,
     width: 139,
     alignItems:"center",
     justifyContent:"center",
     flexDirection: "row-reverse",
+    ...Platform.select({
+      ios: {
+        height:38,
+        width: 118,
+        borderRadius: 24,
+      },
+    }),
   },
   checkcodetext: {
     fontFamily:'IRANSansMobileFaNum-Light',
@@ -1267,6 +1304,11 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+      },
+    }),
   },
   h3:{
     fontSize:14,
@@ -1296,6 +1338,11 @@ const styles = StyleSheet.create({
   rightAlignBoxCol: {
     flexDirection: 'column',
     alignItems: 'flex-end',
+    ...Platform.select({
+      ios: {
+        marginTop:8,
+      },
+    }),
   },
   rightAlignBoxRow: {
     flexDirection: 'row-reverse',

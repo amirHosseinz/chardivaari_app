@@ -8,6 +8,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -166,6 +167,11 @@ const styles = StyleSheet.create({
     color:'#ffffff',
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
+    ...Platform.select({
+      ios: {
+        marginTop: 12,
+      },
+    }),
   },
 });
 

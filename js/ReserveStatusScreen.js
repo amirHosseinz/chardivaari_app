@@ -9,6 +9,7 @@ import {
   Linking,
   ScrollView,
   StatusBar,
+  Platform,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -728,6 +729,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+      },
+      android: {
+      },
+    }),
   },
   header00:{
     width: Dimensions.get('window').width-36,
@@ -736,6 +744,14 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        marginTop:14,
+      },
+      android: {
+      },
+    }),
   },
   main:{
     flex:1,
@@ -749,7 +765,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height-(StatusBar.currentHeight+56),
     backgroundColor:'#ffffff',
   },
-
 });
 
 export default ReserveStatusScreen;

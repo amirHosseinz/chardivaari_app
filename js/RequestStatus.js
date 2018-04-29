@@ -981,6 +981,7 @@ const styles = StyleSheet.create({
     color:'#3e3e3e',
     marginTop:16,
     marginBottom:20,
+    textAlign: "right",
   },
   interperson:{
     marginTop: 40,
@@ -1055,6 +1056,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent:"center",
     elevation:5,
+    ...Platform.select({
+      ios: {
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
   bottombarchild: {
     width: Dimensions.get('screen').width-30,
@@ -1089,13 +1098,13 @@ const styles = StyleSheet.create({
     justifyContent:"flex-end",
   },
   reservebuttontext: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#ffffff",
-    paddingTop:4,
-    paddingBottom:4,
-    paddingRight:12,
-    paddingLeft:12,
+    marginTop:4,
+    marginBottom:4,
+    marginRight:12,
+    marginLeft:12,
     marginBottom:5,
   },
   buttontouch: {
@@ -1202,6 +1211,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+      },
+      android: {
+      },
+    }),
   },
   header00:{
     width: Dimensions.get('window').width-36,
@@ -1210,6 +1226,14 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     elevation:5,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        marginTop:14,
+      },
+      android: {
+      },
+    }),
   },
   h01:{
     fontSize:20,

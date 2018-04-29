@@ -321,21 +321,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: "row-reverse",
   },
-  header1: {
-    backgroundColor: '#ffffff',
+  header1:{
+    backgroundColor:'#ffffff',
     width: Dimensions.get('window').width,
     height: 56,
     alignItems:'center',
-    justifyContent: 'center',
-    elevation: 3,
+    justifyContent:'center',
+    elevation:3,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        borderBottomWidth: 1,
+        borderColor: '#ddd',
+      },
+      android: {
+      },
+    }),
   },
-  header2: {
+  header2:{
     width: Dimensions.get('window').width-36,
     height: 56,
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    elevation: 3,
+    flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'space-between',
+    elevation:3,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        marginTop:14,
+      },
+      android: {
+      },
+    }),
   },
   h01: {
     fontSize: 16,

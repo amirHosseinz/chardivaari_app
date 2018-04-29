@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TouchableHighlight,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -73,7 +74,16 @@ class NumberSelectScreen extends Component {
                   this.increaseGuest();
                 }}
                 style={styles.buttontouch0}>
-              <Text style={{fontSize:48,color:'white',fontFamily:'IRANSansMobileFaNum'}}>+</Text>
+              <Text style={{
+                fontSize:36,
+                color:'white',
+                fontFamily:'IRANSansMobileFaNum',
+                ...Platform.select({
+                  ios: {
+                    marginTop: 8,
+                  },
+                }),
+              }}>+</Text>
               </TouchableHighlight>
             </View>
             <View style={{width:100,alignItems:'center',}}>
@@ -87,7 +97,17 @@ class NumberSelectScreen extends Component {
                   this.decreaseGuest();
                 }}
                 style={styles.buttontouch0}>
-              <Text style={{fontSize:48,color:'white',fontFamily:'IRANSansMobileFaNum'}}>-</Text>
+              <Text style={{
+                fontSize:36,
+                color:'white',
+                fontFamily:'IRANSansMobileFaNum',
+                alignSelf: "center",
+                ...Platform.select({
+                  ios: {
+                    marginTop: 8,
+                  },
+                })
+              }}>-</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -130,6 +150,11 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:'white',
     marginRight:8,
+    ...Platform.select({
+      ios: {
+        marginTop: 8,
+      },
+    }),
   },
   buttontouch1: {
     borderColor:"#ffffff",

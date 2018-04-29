@@ -1000,7 +1000,7 @@ class EcotourismDetail extends Component {
             this.openSupportModal();
           }}>
           <View style={styles.buttonview}>
-          <Text style={styles.reservebuttontext}>تغییر اطلاعات</Text>
+          <Text style={styles.reservebuttontext2}>تغییر اطلاعات</Text>
         </View>
         </TouchableOpacity>
       );
@@ -1010,7 +1010,7 @@ class EcotourismDetail extends Component {
           style={styles.buttontouch}
           onPress={this.updateUser.bind(this)}>
           <View style={styles.buttonview}>
-          <Text style={styles.reservebuttontext}>رزرو کنید!</Text>
+          <Text style={styles.reservebuttontext}>رزرو کنید</Text>
         </View>
         </TouchableOpacity>
       );
@@ -1021,16 +1021,14 @@ class EcotourismDetail extends Component {
     if (this.state.room.is_price_per_person) {
       return(
         <View style={styles.bottombarchild}>
-          <View style={styles.pricediv}>
-            <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
-            <View style={styles.bottombarprice}>
-              <Text style={styles.pricetext} numberOfLines={1}>
-                {this.renderPrice(String(this.state.room.price))} تومان
-              </Text>
-            </View>
-          </View>
           <View style={styles.bottombarbutton}>
               {this.renderBottomButton()}
+          </View>
+          <View style={styles.bottombarprice}>
+            <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
+            <Text style={styles.pricetext} numberOfLines={1}>
+              {this.renderPrice(String(this.state.room.price))} تومان
+            </Text>
           </View>
         </View>
       );
@@ -1191,7 +1189,6 @@ class EcotourismDetail extends Component {
         </View>
 
         <View style={{marginLeft: 18}}>
-          {this.renderBookmarkSection()}
         </View>
       </View>
       <ScrollView>
@@ -1550,6 +1547,13 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+    ...Platform.select({
+      ios: {
+        height: 72,
+      },
+      android: {
+      },
+    }),
   },
   container2: {
     flex:1,
@@ -1561,7 +1565,8 @@ const styles = StyleSheet.create({
     fontSize:28,
     fontFamily:"IRANSansMobileFaNum-Medium",
     marginTop:22,
-    color:"#4f4f4f"
+    color:"#4f4f4f",
+    textAlign: "right",
   },
   city: {
     flexDirection:'row-reverse',
@@ -1604,7 +1609,8 @@ const styles = StyleSheet.create({
   hostnamestatic: {
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Light',
-    color:"#4f4f4f"
+    color:"#4f4f4f",
+    marginLeft: 6,
   },
   divider:{
     height: 2,
@@ -1730,45 +1736,35 @@ const styles = StyleSheet.create({
     }),
   },
   bottombarchild: {
-    width: Dimensions.get('screen').width-50,
     flex:1,
-    flexDirection: "row-reverse",
-    marginRight:15,
-    ...Platform.select({
-      ios: {
-        marginRight:8,
-
-      },
-      android: {
-      },
-    }),
-    },
+    flexDirection: "row",
+    width: Dimensions.get('window').width-40,
+    alignItems: "center",
+  },
   bottombarprice: {
-    justifyContent:"flex-end",
-    alignItems:'center',
-
+    flex:3,
     marginTop:3,
   },
   pricediv: {
     flex:3,
-    justifyContent:"flex-end",
-
   },
   bottombarbutton: {
-    flex: 2,
+    flex:2,
     alignItems:'center',
     justifyContent:"center",
+    zIndex: 100,
   },
   pricetext: {
     fontSize: 18,
     fontFamily:"IRANSansMobileFaNum-Medium",
     color: "#3e3e3e",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop:5,
+    marginTop: 0,
+    textAlign: "left",
+    marginLeft: 14,
     ...Platform.select({
       ios: {
         fontSize: 16,
+        textAlign: "center",
       },
       android: {
       },
@@ -1778,7 +1774,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily:"IRANSansMobileFaNum-Light",
     color: "#3e3e3e",
-    marginTop:6,
+    marginTop: 0,
+    textAlign: "right",
   },
   reservebuttontext: {
     fontSize: 19,
@@ -1805,7 +1802,6 @@ const styles = StyleSheet.create({
         width: 130,
       },
       android: {
-
       },
     }),
   },
@@ -1866,10 +1862,17 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   checktime:{
-    fontSize: 18,
     fontFamily:'IRANSansMobileFaNum-Medium',
     color:"#3e3e3e",
     marginLeft:8,
+    ...Platform.select({
+      ios: {
+        fontSize: 16,
+      },
+      android: {
+        fontSize: 18,
+      },
+    }),
   },
   pricetitletext:{
     fontSize: 18,
@@ -1905,7 +1908,7 @@ const styles = StyleSheet.create({
     marginRight:2,
     justifyContent:"center",
     marginLeft:50,
-
+    textAlign:"right",
   },
   contacthost: {
     flexDirection: "row-reverse"
@@ -1919,7 +1922,7 @@ const styles = StyleSheet.create({
   lawstext2: {
     fontSize: 16,
     fontFamily:'IRANSansMobileFaNum-Medium',
-    color:"#00cecc",
+    color: '#00b1ce',
     marginLeft:5,
   },
   mapContainer: {
@@ -1979,6 +1982,16 @@ const styles = StyleSheet.create({
     height: 25,
     width: 30,
     resizeMode: 'contain',
+  },
+  reservebuttontext2: {
+    fontSize: 15,
+    fontFamily:"IRANSansMobileFaNum-Medium",
+    color: "#ffffff",
+    paddingTop:4,
+    paddingBottom:4,
+    paddingRight:12,
+    paddingLeft:12,
+    marginBottom:5,
   },
 });
 

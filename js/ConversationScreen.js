@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Keyboard,
+  Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { GiftedChat } from 'react-native-gifted-chat';
@@ -439,12 +440,26 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum-Light',
     color:'#ffffff',
     marginRight:5,
+    ...Platform.select({
+      ios: {
+        marginTop: 5,
+      },
+      android: {
+      },
+    }),
   },
   header0:{
     backgroundColor:'#0ca6c1',
     elevation:3,
     height:56,
     alignItems:'center',
+    ...Platform.select({
+      ios: {
+        height: 66,
+      },
+      android: {
+      },
+    }),
   },
   header1:{
     flex:1,
@@ -452,17 +467,40 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'space-between',
     width:Dimensions.get('screen').width-36,
+    ...Platform.select({
+      ios: {
+        height: 66,
+        paddingTop:14,
+      },
+      android: {
+      },
+    }),
   },
   headerlastname:{
     fontSize:18,
     color:'#ffffff',
     fontFamily:'IRANSansMobileFaNum-Medium',
+    ...Platform.select({
+      ios: {
+        marginTop:6,
+      },
+      android: {
+      },
+    }),
+
   },
   backbottomlastname:{
     flexDirection:'row-reverse',
   },
   showhome:{
     flexDirection:'row-reverse',
+    ...Platform.select({
+      ios: {
+        marginTop:5,
+      },
+      android: {
+      },
+    }),
   },
 });
 export default ConversationScreen;
