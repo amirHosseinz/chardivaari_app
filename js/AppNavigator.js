@@ -70,7 +70,7 @@ class AppWithNavigationState extends Component {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress');
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     timer.clearTimeout(this);
   }
 

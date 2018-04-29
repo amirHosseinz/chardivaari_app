@@ -117,15 +117,16 @@ class HouseDetail extends Component {
  }
 
  componentWillMount () {
-   BackHandler.addEventListener('hardwareBackPress_bookmark', this.handleBackButton);
+   BackHandler.addEventListener('hardwareBackPress_bookmark', this.handleBackButtonHouse);
  }
 
  componentWillUnmount () {
-   BackHandler.removeEventListener('hardwareBackPress_bookmark');
+   BackHandler.removeEventListener('hardwareBackPress_bookmark', this.handleBackButtonHouse);
  }
 
- handleBackButton = () => {
+ handleBackButtonHouse = () => {
    this.onPressBackButton();
+   return true;
  }
 
  setToken (token) {

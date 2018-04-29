@@ -119,11 +119,12 @@ class EcotourismDetail extends Component {
  }
 
  componentWillUnmount () {
-   BackHandler.removeEventListener('hardwareBackPress_eco_bookmark');
+   BackHandler.removeEventListener('hardwareBackPress_eco_bookmark', this.handleBackButton);
  }
 
  handleBackButton = () => {
    this.onPressBackButton();
+   return true;
  }
 
  setToken (token) {
