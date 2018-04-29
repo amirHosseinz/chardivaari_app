@@ -603,15 +603,18 @@ const styles = StyleSheet.create({
     fontSize:14,
     color:'#3e3e3e',
     marginLeft: 4,
+    textAlign: 'right',
   },
   resulttextbold:{
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
     color:'#3e3e3e',
+    textAlign: 'right',
   },
   resulttextbold1:{
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:14,
+    textAlign: 'right',
     color:'#00a8a6',
   },
   divider:{
@@ -625,6 +628,7 @@ const styles = StyleSheet.create({
     fontFamily:'IRANSansMobileFaNum-Medium',
     fontSize:16,
     color:'#00a8a6',
+    textAlign: 'right',
   },
   buttontouch: {
     borderColor:"#f56e4e",
