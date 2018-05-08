@@ -245,7 +245,7 @@ class Explore extends Component {
 
   rowRenderer = (type, data) => {
     return (
-      <View {...this._panResponder.panHandlers}>
+      <View>
         <ExploreResult room={data} navigation={this.props.navigation} />
       </View>
     );
@@ -307,7 +307,9 @@ class Explore extends Component {
         </View>
         {this.renderError()}
 
-        {this.renderBody()}
+        <View {...this._panResponder.panHandlers}>
+          {this.renderBody()}
+        </View>
 
       </View>
     );
