@@ -787,14 +787,14 @@ class HouseDetail extends Component {
     if (this.state.room.is_price_per_person) {
       return(
         <View style={styles.bottombarchild}>
+        <View style={styles.bottombarbutton}>
+            {this.renderBottomButton()}
+        </View>
+        <View style={styles.bottombarprice}>
           <Text style={styles.mablaghtext}>هزینه هر شب هر نفر</Text>
-          <View style={styles.bottombarprice}>
             <Text style={styles.pricetext} numberOfLines={1}>
               {this.renderPrice(String(this.state.room.price))} تومان
             </Text>
-          </View>
-          <View style={styles.bottombarbutton}>
-              {this.renderBottomButton()}
           </View>
         </View>
       );

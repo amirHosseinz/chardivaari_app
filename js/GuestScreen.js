@@ -200,11 +200,13 @@ class GuestScreen extends Component {
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'bookmarks'}
-          title="لیست علاقه‌مندی‌ها"
+          title="علاقه‌مندی‌ها"
           selectedTitleStyle={styles.selectedTitleStyle}
           titleStyle={styles.titleStyle}
-          renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
-          renderSelectedIcon={() => <Image style={styles.selectedIcon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
+          // renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
+          // renderSelectedIcon={() => <Image style={styles.selectedIcon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
+          renderIcon={() => <Icon size={22} color="#bbbbbb" name="favorite" />}
+          renderSelectedIcon={() => <Icon size={22} color="#f56e4e" name="favorite" />}
           onPress={() => {
             this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
             if (this.refs.bookmarks) {
