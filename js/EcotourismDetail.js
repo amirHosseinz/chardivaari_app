@@ -1190,6 +1190,7 @@ class EcotourismDetail extends Component {
         </View>
 
         <View style={{marginLeft: 18}}>
+          {this.renderBookmarkSection()}
         </View>
       </View>
       <ScrollView>

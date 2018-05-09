@@ -204,7 +204,7 @@ class GuestScreen extends Component {
           selectedTitleStyle={styles.selectedTitleStyle}
           titleStyle={styles.titleStyle}
           renderIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_icon.png')} />}
-          renderSelectedIcon={() => <Image style={styles.icon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
+          renderSelectedIcon={() => <Image style={styles.selectedIcon} source={require('./img/bookmark/bookmark_selected_icon.png')} />}
           onPress={() => {
             this.setState({ selectedTab: 'bookmarks' }, this.updateStatusBar);
             if (this.refs.bookmarks) {
@@ -321,9 +321,14 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  icon: {
+  selectedIcon: {
     height: 25,
-    width: 30,
+    width: 25,
+    resizeMode: 'contain',
+  },
+  icon: {
+    height: 20,
+    width: 20,
     resizeMode: 'contain',
   },
 });

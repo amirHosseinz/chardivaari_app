@@ -6,7 +6,7 @@ import {
   Dimensions,
   Image,
   Platform,
-  PanResponder,
+  // PanResponder,
 } from 'react-native';
 import { OptimizedFlatList } from 'react-native-optimized-flatlist';
 import {
@@ -77,23 +77,23 @@ class Explore extends Component {
       });
     }
 
-    this._panResponder = PanResponder.create({
-      // Ask to be the responder:
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return Math.abs(gestureState.dy) >= 1;
-      },
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-        return Math.abs(gestureState.dy) >= 1;
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        // The most recent move distance is gestureState.move{X,Y}
-        // The accumulated gesture distance since becoming responder is
-        // gestureState.d{x,y}
-        if (gestureState.dy < -1) {
-          this.searchPicker.collapseFromOutside();
-        }
-      },
-    });
+    // this._panResponder = PanResponder.create({
+    //   // Ask to be the responder:
+    //   onMoveShouldSetPanResponder: (evt, gestureState) => {
+    //     return Math.abs(gestureState.dy) >= 1;
+    //   },
+    //   onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+    //     return Math.abs(gestureState.dy) >= 1;
+    //   },
+    //   onPanResponderMove: (evt, gestureState) => {
+    //     // The most recent move distance is gestureState.move{X,Y}
+    //     // The accumulated gesture distance since becoming responder is
+    //     // gestureState.d{x,y}
+    //     if (gestureState.dy < -1) {
+    //       this.searchPicker.collapseFromOutside();
+    //     }
+    //   },
+    // });
 
   }
 
@@ -292,6 +292,10 @@ class Explore extends Component {
     }
   }
 
+  // <View {...this._panResponder.panHandlers}>
+  //   {this.renderBody()}
+  // </View>
+
   render () {
     return(
       <View style={styles.container}>
@@ -307,9 +311,7 @@ class Explore extends Component {
         </View>
         {this.renderError()}
 
-        <View {...this._panResponder.panHandlers}>
-          {this.renderBody()}
-        </View>
+        {this.renderBody()}
 
       </View>
     );
