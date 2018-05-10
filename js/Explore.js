@@ -112,7 +112,8 @@ class Explore extends Component {
     .then((response) => this.onFetchHomepageResponseRecieved(response))
     .catch((error) => {
       this.setState({
-        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
+        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.',
+        isSpinnerVisible: false,
       });
     });
   }
@@ -124,7 +125,7 @@ class Explore extends Component {
       for (var i = 0; i < body.location.length; i++) {
         lc.push(body.location[i].text);
       }
-      lc.push('هر کجا');
+      // lc.push('هر کجا');
       lc.reverse();
       this.setState({
         error: null,
@@ -134,7 +135,10 @@ class Explore extends Component {
         isSpinnerVisible: false,
       });
     } else {
-      this.setState({ error: 'خطایی رخ داده.' });
+      this.setState({
+        error: 'خطایی رخ داده.',
+        isSpinnerVisible: false,
+      });
     }
   }
 
@@ -160,7 +164,8 @@ class Explore extends Component {
     .then((response) => this.onSearchResponseRecieved(response))
     .catch((error) => {
       this.setState({
-        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.'
+        error: 'خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجدد تلاش کنید.',
+        isSpinnerVisible: false,
       });
     });
   }
@@ -175,7 +180,10 @@ class Explore extends Component {
         isSpinnerVisible: false,
       });
     } else {
-      this.setState({ error: 'خطایی رخ داده.' });
+      this.setState({
+        error: 'خطایی رخ داده.',
+        isSpinnerVisible: false,
+      });
     }
   }
 
