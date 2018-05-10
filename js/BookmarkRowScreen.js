@@ -135,8 +135,7 @@ class BookmarkRowScreen extends Component {
           <Image
             source={{ uri: productionURL + this.state.room.preview_low }}
             style={styles.image}>
-            <Image style={styles.imageOverlay}
-            source={require('./img/bookmark/bookmark_filled.png')} />
+            <Icon size={30} color="#ea4f50" name="favorite" />
           </Image>
         </View>
 

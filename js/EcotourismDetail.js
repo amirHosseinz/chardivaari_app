@@ -1163,9 +1163,7 @@ class EcotourismDetail extends Component {
     if (this.state.isLiked) {
       return(
         <TouchableOpacity onPress={() => {this.onLikePress()}}>
-          <Image
-            style={styles.bookmarkIcon}
-            source={require('./img/bookmark/bookmark_filled.png')} />
+          <Icon size={30} color="#ea4f50" name="favorite" />
         </TouchableOpacity>
       );
     } else {
@@ -1978,7 +1976,7 @@ const styles = StyleSheet.create({
     opacity:0.78,
   },
   bookmarkIcon: {
-    height: 25,
+    height: 30,
     width: 30,
     resizeMode: 'contain',
   },
