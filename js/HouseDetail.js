@@ -1519,8 +1519,6 @@ const styles = StyleSheet.create({
     borderColor:"#f56e4e",
     borderRadius: 50,
     borderWidth : 2,
-    height:46,
-    width: 148,
     flexDirection: "row-reverse",
     justifyContent:"center",
     alignItems:"center",
@@ -1528,6 +1526,10 @@ const styles = StyleSheet.create({
       ios: {
         height:46,
         width: 130,
+      },
+      android: {
+        height: 46,
+        width: 120,
       },
     }),
   },
@@ -1564,8 +1566,8 @@ const styles = StyleSheet.create({
       },
       android: {
         height:38,
-        borderRadius: 50,
-        width: 139,
+        borderRadius: 22,
+        width: 110,
       },
     }),
   },

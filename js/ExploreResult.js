@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent:"space-between",
     alignItems: 'center',
-
     ...Platform.select({
       ios: {
         flex: 1,
@@ -198,6 +197,7 @@ const styles = StyleSheet.create({
       },
       android: {
         height: 110,
+        paddingRight: 10,
       },
     }),
   },

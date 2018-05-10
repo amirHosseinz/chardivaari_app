@@ -277,11 +277,9 @@ class Explore extends Component {
           rowRenderer={this.rowRenderer}
           style={{
             width: Dimensions.get('window').width - 10,
-
             ...Platform.select({
               android: {
                 marginBottom: 5,
-                paddingLeft: 5,
               },
               ios: {
                 paddingTop:56,
