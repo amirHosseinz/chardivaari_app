@@ -145,9 +145,15 @@ class BookmarkRowScreen extends Component {
             source={{ uri: productionURL + this.state.room.preview_low }}
             style={styles.image}>
             <Icon size={30} color="#ea4f50" name="favorite" style={{
-              position: 'absolute',
-              zIndex: 200,
-              backgroundColor: 'transparent',
+              ...Platform.select({
+                ios: {
+                  position: 'absolute',
+                  zIndex: 200,
+                  backgroundColor: 'transparent',
+                },
+                android: {
+                },
+              }),
             }} />
           </Image>
         </View>
