@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -65,44 +66,52 @@ class BookmarkRowScreen extends Component {
     if (this.state.room.is_price_per_person) {
       if (this.state.room.avg_price != null) {
         return(
-          <View style={styles.tripcardtexts2}>
-            <Text style={styles.night1}>
-              {this.renderPriceNumber(this.state.room.avg_price)}
-            </Text>
-            <Text style={styles.night}>تومان</Text>
-            <Text style={styles.night}>/ هر شب هر نفر</Text>
+          <View style={styles.tripcardtexts3}>
+            <View style={styles.tripcardtexts2}>
+              <Text style={styles.night1}>
+                {this.renderPriceNumber(this.state.room.avg_price)}
+              </Text>
+              <Text style={styles.night2}>تومان</Text>
+              <Text style={styles.night3}>/ هر شب هر نفر</Text>
+            </View>
           </View>
         );
       } else {
         return(
-          <View style={styles.tripcardtexts2}>
-            <Text style={styles.night1}>
-              {this.renderPriceNumber(this.state.room.price)}
-            </Text>
-            <Text style={styles.night}>تومان</Text>
-            <Text style={styles.night}>/ هر شب هر نفر</Text>
+          <View style={styles.tripcardtexts3}>
+            <View style={styles.tripcardtexts2}>
+              <Text style={styles.night1}>
+                {this.renderPriceNumber(this.state.room.price)}
+              </Text>
+              <Text style={styles.night2}>تومان</Text>
+              <Text style={styles.night3}>/ هر شب هر نفر</Text>
+            </View>
           </View>
         );
       }
     } else {
       if (this.state.room.avg_price != null) {
         return(
-          <View style={styles.tripcardtexts2}>
-            <Text style={styles.night1}>
-              {this.renderPriceNumber(this.state.room.avg_price)}
-            </Text>
-            <Text style={styles.night}>تومان</Text>
-            <Text style={styles.night}>/ هر شب در بازه‌ی انتخابی</Text>
+          <View style={styles.tripcardtexts3}>
+            <View style={styles.tripcardtexts2}>
+              <Text style={styles.night1}>
+                {this.renderPriceNumber(this.state.room.avg_price)}
+              </Text>
+              <Text style={styles.night2}>تومان</Text>
+              <Text style={styles.night3}>/ هر شب در بازه‌ی انتخابی</Text>
+            </View>
           </View>
         );
       } else {
         return(
-          <View style={styles.tripcardtexts2}>
-            <Text style={styles.night1}>
-              {this.renderPriceNumber(this.state.room.price)}
-            </Text>
-            <Text style={styles.night}>تومان</Text>
-            <Text style={styles.night}>/ هر شب عادی</Text>
+          <View style={styles.tripcardtexts3}>
+            <View style={styles.tripcardtexts2}>
+              <Text style={styles.night1}>
+                {this.renderPriceNumber(this.state.room.price)}
+              </Text>
+              <Text style={styles.night2}>تومان</Text>
+              <Text style={styles.night3}>/ هر شب عادی</Text>
+            </View>
           </View>
         );
       }
@@ -119,7 +128,7 @@ class BookmarkRowScreen extends Component {
         <View style={styles.tripcard1}>
 
           <View style={styles.tripcardtexts1}>
-              <Text style={styles.cardtext1}>
+              <Text style={styles.cardtext1} numberOfLines={1}>
                 {this.state.room.title}
               </Text>
               <Text style={styles.cardtext2}>
@@ -135,7 +144,11 @@ class BookmarkRowScreen extends Component {
           <Image
             source={{ uri: productionURL + this.state.room.preview_low }}
             style={styles.image}>
-            <Icon size={30} color="#ea4f50" name="favorite" />
+            <Icon size={30} color="#ea4f50" name="favorite" style={{
+              position: 'absolute',
+              zIndex: 200,
+              backgroundColor: 'transparent',
+            }} />
           </Image>
         </View>
 
@@ -147,21 +160,36 @@ class BookmarkRowScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexWrap: 'wrap',
     width: Dimensions.get('window').width - 10,
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#f9f9f9',
-    marginTop: 5,
     borderRadius: 1,
+    ...Platform.select({
+      ios: {
+        flex: 1,
+        marginTop: 4,
+      },
+      android: {
+        marginTop: 5,
+      },
+    }),
   },
   tripcard1: {
     flex: 1.5,
-    height: 110,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    ...Platform.select({
+      ios: {
+        height: 108,
+      },
+      android: {
+        height: 110,
+      },
+    }),
   },
   tripcard2: {
     flex: 1,
@@ -172,46 +200,84 @@ const styles = StyleSheet.create({
   },
   cardtext1: {
     textAlign: 'right',
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
     color: '#3e3e3e',
     fontFamily: 'IRANSansMobileFaNum-Medium',
     fontSize: 16,
   },
   cardtext2: {
     textAlign: 'right',
-    alignSelf: 'stretch',
-    color: '#3e3e3e',
-    fontFamily: 'IRANSansMobileFaNum-Light',
-    fontSize: 12,
+    // alignSelf: 'stretch',
+    color: '#4f4f4f',
+    fontFamily: 'IRANSansMobileFaNum',
+    fontSize: 11,
   },
   tripcardtexts1: {
+    flex: 1,
     flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'flex-end',
-    marginRight: 15,
+    ...Platform.select({
+      ios: {
+        marginRight: 10,
+      },
+      android: {
+        marginRight: 15,
+      },
+    }),
   },
   tripcardtexts2: {
     flexDirection: 'row-reverse',
     marginBottom: 5,
   },
-  image: {
-    width: Dimensions.get('screen').width / 3,
-    height: 110,
+  tripcardtexts3: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
   },
-  night: {
-    fontSize: 13,
-    fontFamily: "IRANSansMobileFaNum",
-    color: "#acacac",
-    marginRight: 3,
-    textAlign: 'right',
-    alignSelf: 'stretch',
+  image: {
+    // width: Dimensions.get('screen').width / 3,
+    width:120,
+    ...Platform.select({
+      ios: {
+        height: 108,
+      },
+      android: {
+        height: 110,
+      },
+    }),
   },
   night1: {
     fontSize: 13,
     fontFamily: "IRANSansMobileFaNum",
-    color: "#acacac",
-    marginRight: 15,
+    color: "#f56e4e",
     textAlign: 'right',
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
+    ...Platform.select({
+      ios: {
+        marginRight: 10,
+      },
+      android: {
+        marginRight: 15,
+      },
+    }),
+  },
+  night2: {
+    fontSize: 13,
+    fontFamily: "IRANSansMobileFaNum",
+    color: "#f56e4e",
+    textAlign: 'right',
+    // alignSelf: 'stretch',
+    marginRight: 3,
+  },
+  night3: {
+    fontSize: 13,
+    fontFamily: "IRANSansMobileFaNum",
+    color: "#acacac",
+    textAlign: 'right',
+    // alignSelf: 'stretch',
+    marginRight: 3,
   },
   imageOverlay: {
     width: 20,

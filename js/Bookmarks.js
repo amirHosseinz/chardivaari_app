@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
+import { NavigationActions } from 'react-navigation';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
@@ -21,6 +22,7 @@ class Bookmarks extends Component {
   constructor (props) {
     super(props);
     this.state={
+      user: null,
       token: null,
       count: 0,
       bookmarksList: [],
@@ -32,6 +34,16 @@ class Bookmarks extends Component {
     tracker.trackScreenView('Bookmarks');
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('bookmarksList').then((value) => {this.setBookmarksList(value);});
+  }
+
+  componentDidMount () {
+    CacheStore.get('user').then((value) => {
+      if (value != null) {
+        this.setState({
+          user: value,
+        });
+      }
+    });
   }
 
   setBookmarksList (bookmarksList) {
@@ -118,8 +130,31 @@ class Bookmarks extends Component {
     }
   }
 
+  resetNavigation (targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   renderBody () {
-    if (this.state.count > 0) {
+    if (this.state.user && this.state.user.username === 'GUEST_USER') {
+      return(
+        <View style={styles.notlogin}>
+          <Text style={styles.notlogintext}>
+           شما وارد حساب کاربری خود نشده‌اید.
+          </Text>
+          <TouchableOpacity style={styles.logintouch} onPress={() => {
+            this.resetNavigation('login');
+          }}>
+            <Text style={styles.notlogintext1}> ورود </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else if (this.state.count > 0) {
       return(
         <View style={styles.container1}>
         <FlatList
@@ -132,7 +167,14 @@ class Bookmarks extends Component {
       return(
         <View style={styles.container1}>
         <View style={styles.notlogin}>
-          <Text style={styles.notlogintext}>برای یافتن علاقه‌مندی‌ها به بخش جستجو مراجعه کنید!</Text>
+          <Text style={styles.notlogintext}>
+            لیست علاقه‌مندی‌های شما خالیست!
+          </Text>
+          <Text style={styles.notlogintext}>
+          برای افزودن خانه‌های مورد علاقه‌ی خود
+          به بخش جستجو
+          بروید.
+          </Text>
           <TouchableOpacity style={styles.logintouch} onPress={this.changeToExploreTab}>
             <Text style={styles.notlogintext1}> بخش جستجو </Text>
           </TouchableOpacity>
@@ -160,7 +202,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#ededed',
   },
   container1: {
-    marginBottom: 90,
+    ...Platform.select({
+      ios: {
+        marginBottom: 80,
+      },
+      android: {
+        marginBottom: 90,
+      },
+    }),
   },
   headerbar: {
     flexDirection:'row-reverse',

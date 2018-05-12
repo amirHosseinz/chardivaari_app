@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 16,
     fontFamily: "IRANSansMobileFaNum-Medium",
-    color: "#4f4f4f",
+    color: "#3e3e3e",
     paddingLeft:10,
     ...Platform.select({
       ios: {

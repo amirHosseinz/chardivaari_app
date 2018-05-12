@@ -982,12 +982,28 @@ class EcotourismDetail extends Component {
         </View>
       );
     }
+    if (this.state.room.room_type &&
+        this.state.room.room_type.indexOf('DESERT') > -1
+    ) {
+      return(
+        <View style={styles.toppreviewtextpart}>
+          <Text style={styles.h3}>
+            صحرایی
+          </Text>
+          <Text style={styles.toppreviewdetailtext}>
+            محیط اطراف
+          </Text>
+        </View>
+      );
+    }
     return(
       <View style={styles.toppreviewtextpart}>
-        <Text style={styles.h3}>
-        </Text>
-        <Text style={styles.toppreviewdetailtext}>
-        </Text>
+      <Text style={styles.h3}>
+        دشت
+      </Text>
+      <Text style={styles.toppreviewdetailtext}>
+        محیط اطراف
+      </Text>
       </View>
     );
   }
