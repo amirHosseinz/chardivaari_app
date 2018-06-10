@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import { NavigationActions } from 'react-navigation';
@@ -33,6 +34,8 @@ class LoginVerify extends Component {
       smsCenter: null,
       subscription: null,
       tracker: null,
+      referralCode: null,
+      hasAccount: false,
     };
   }
 
@@ -43,6 +46,7 @@ class LoginVerify extends Component {
     this.setState({
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       smsCenter: this.props.navigation.state.params.smsCenter,
+      hasAccount: this.props.navigation.state.params.hasAccount,
       tracker: tracker,
     });
     let sbs = SmsListener.addListener(message => {
@@ -59,6 +63,13 @@ class LoginVerify extends Component {
     this.setState({
       subscription: sbs,
     });
+
+    BackHandler.addEventListener('backForChangeNumber', () => {
+      this.state.subscription.remove();
+      timer.clearInterval(this);
+      return false;
+    });
+
   }
 
   componentWillUnMount () {
@@ -106,6 +117,7 @@ class LoginVerify extends Component {
       body: JSON.stringify({
         cell_phone: this.state.cellPhoneNo,
         verification_code: this.state.verificationCode,
+        referral_code: this.state.referralCode,
       }),
     })
     .then((response) => this.onResponseRecieved(response))
@@ -150,9 +162,16 @@ class LoginVerify extends Component {
     this.setState({
       verificationCode
     }, () => {
-      if (this.state.verificationCode.length == 4) {
+      if (this.state.verificationCode.length == 4 && this.state.hasAccount) {
         this.checkVerificationCode();
       }
+    });
+  }
+
+  onReferralCodeChanged = (refCode) => {
+    refCode = persianArabicToEnglishDigits(refCode);
+    this.setState({
+      referralCode: refCode
     });
   }
 
@@ -199,7 +218,9 @@ class LoginVerify extends Component {
             this.setState({
               verificationCode: code,
             }, () => {
-              this.checkVerificationCode();
+              if (this.state.hasAccount) {
+                this.checkVerificationCode();
+              }
             });
             sbs.remove();
           }
@@ -219,7 +240,9 @@ class LoginVerify extends Component {
             this.setState({
               verificationCode: code,
             }, () => {
-              this.checkVerificationCode();
+              if (this.state.hasAccount) {
+                this.checkVerificationCode();
+              }
             });
             sbs.remove();
           }
@@ -295,7 +318,53 @@ class LoginVerify extends Component {
         <Text style={styles.resendtext2}>دریافت مجدد کد {this.remainedTimeText()}</Text>
       );
     }
+  }
 
+  renderGetReferral () {
+    if (this.state.hasAccount) {
+      return null;
+    } else {
+      return(
+        <View style={{
+          flexDirection: 'row-reverse',
+        }}>
+        <Text style={styles.getReferralText}>
+          کد معرف
+          (اختیاری)
+          :
+        </Text>
+
+        <TextInput
+          style={styles.referralInput}
+          autoFocus={false}
+          placeholderTextColor="#acacac"
+          value={this.state.referralCode}
+          maxLength={7}
+          onChangeText={referralCode => {
+            this.onReferralCodeChanged(referralCode);
+          }}
+          underlineColorAndroid={'transparent'}
+        />
+        </View>
+      );
+    }
+  }
+
+  renderContinueButton () {
+    if (this.state.hasAccount) {
+      return null;
+    } else {
+      return(
+        <TouchableOpacity style={styles.buttontouch}
+          onPress={this.checkVerificationCode.bind(this)}>
+          <View style={styles.buttonview}>
+            <Text style={styles.reservebuttontext}>
+              ادامه
+            </Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
   }
 
   render () {
@@ -328,6 +397,11 @@ class LoginVerify extends Component {
             <TouchableOpacity onPress={this.onWrongNumberButtonPress.bind(this)}>
               <Text style={styles.notnow}>شماره را اشتباه وارد کرده اید؟</Text>
             </TouchableOpacity>
+
+            {this.renderGetReferral()}
+
+            {this.renderContinueButton()}
+
           </View>
           <View style={styles.downside}>
           </View>
@@ -356,6 +430,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor:'#acacac',
   },
+  referralInput: {
+    height: 40,
+    width: 80,
+    fontSize: 14,
+    fontFamily: 'IRANSansMobileFaNum',
+    textAlign: 'center',
+    color: '#4f4f4f',
+    marginRight: 5,
+    marginTop: 35,
+    borderBottomWidth: 0.5,
+    borderBottomColor:'#acacac',
+  },
   reservebuttontext: {
     fontSize: 20,
     fontFamily:"IRANSansMobileFaNum-Medium",
@@ -367,15 +453,15 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   buttontouch: {
-    borderColor:"#22c8d4",
+    borderColor: '#22c8d4',
     borderRadius: 50,
     borderWidth : 2,
-    height:48,
+    height: 48,
     width: 148,
-    justifyContent:"center",
-    alignItems:"center",
-    marginBottom:15,
-    marginTop:15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+    marginTop: 20,
   },
   buttonview: {
     backgroundColor:"#22c8d4",
@@ -396,6 +482,13 @@ const styles = StyleSheet.create({
     marginTop:40,
     marginBottom:0,
     color:'#3e3e3e',
+  },
+  getReferralText: {
+    fontFamily: 'IRANSansMobileFaNum',
+    fontSize: 15,
+    marginTop: 40,
+    // marginBottom: 0,
+    color: '#3e3e3e',
   },
   notnow:{
     fontFamily:'IRANSansMobileFaNum-Medium',
@@ -440,9 +533,9 @@ const styles = StyleSheet.create({
     flex:4,
     marginTop:0,
   },
-  downside:{
-    flex:1,
-    marginTop:20,
+  downside: {
+    flex: 1,
+    marginTop: 20,
   },
 });
 

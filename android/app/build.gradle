@@ -146,7 +146,7 @@ android {
 dependencies {
     compile project(':react-native-spinkit')
     compile project(':react-native-push-notification')
-    compile ('com.google.android.gms:play-services-gcm:11.+') {
+    compile ('com.google.android.gms:play-services-gcm:+') {
         force = true;
     }
     compile project(':react-native-device-info')
@@ -161,8 +161,8 @@ dependencies {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
-    compile 'com.google.android.gms:play-services-base:11.+'
-    compile 'com.google.android.gms:play-services-maps:11.+'
+    compile 'com.google.android.gms:play-services-base:+'
+    compile 'com.google.android.gms:play-services-maps:+'
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.zarinpal:purchase:0.0.3-beta"

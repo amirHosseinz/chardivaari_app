@@ -20,6 +20,9 @@ import ReserveStatusScreen from './ReserveStatusScreen';
 import TripStatusScreen from './TripStatusScreen';
 import HouseDetail from './HouseDetail';
 import EcotourismDetail from './EcotourismDetail';
+import Wallet from './Wallet';
+import Transactions from './Transactions';
+import InviteFriend from './InviteFriend';
 
 const Routes = ({
   splash: {
@@ -153,6 +156,24 @@ const Routes = ({
       //   left: 0,
       //   right: 0
       // }
+    }
+  },
+  wallet: {
+    screen: Wallet,
+    navigationOptions: {
+      header: null
+    }
+  },
+  transactions: {
+    screen: Transactions,
+    navigationOptions: {
+      header: null
+    }
+  },
+  inviteFriend: {
+    screen: InviteFriend,
+    navigationOptions: {
+      header: null
     }
   },
 });

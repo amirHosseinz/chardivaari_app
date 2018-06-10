@@ -101,12 +101,14 @@ class Login extends Component {
       this.props.navigation.navigate('loginVerify', {
         cellPhoneNo: this.state.cellPhoneNo,
         smsCenter: body.sms_center,
+        hasAccount: body.has_account,
       });
     } else if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       this.props.navigation.navigate('loginVerify', {
         cellPhoneNo: this.state.cellPhoneNo,
         smsCenter: body.sms_center,
+        hasAccount: body.has_account,
       });
     } else if (response.status === 400) {
       body = JSON.parse(response._bodyText);

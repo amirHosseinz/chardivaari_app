@@ -153,10 +153,10 @@ class GuestScreen extends Component {
   updateStatusBar = () => {
     if (this.state.selectedTab === 'profile') {
       StatusBar.setHidden(false);
-      StatusBar.setBarStyle('dark-content');
+      StatusBar.setBarStyle('light-content');
       if (Platform.OS === 'android') {
         StatusBar.setTranslucent(false);
-        StatusBar.setBackgroundColor('#eeeeee');
+        StatusBar.setBackgroundColor('#0094ae');
       }
       // return(
       //   <StatusBar
