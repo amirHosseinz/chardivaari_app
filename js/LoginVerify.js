@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   StatusBar,
@@ -47,6 +48,7 @@ class LoginVerify extends Component {
       cellPhoneNo: this.props.navigation.state.params.cellPhoneNo,
       smsCenter: this.props.navigation.state.params.smsCenter,
       hasAccount: this.props.navigation.state.params.hasAccount,
+      referralCode: this.props.navigation.state.params.installReferralCode,
       tracker: tracker,
     });
     let sbs = SmsListener.addListener(message => {
@@ -141,16 +143,22 @@ class LoginVerify extends Component {
         } else {
           this.resetNavigation('guestScreen');
         }
-      } else {
+      } else if (body.successful) {
         this.props.navigation.navigate('loginGetName', {
           firstName: body.user.first_name,
           lastName: body.user.last_name,
           cellPhoneNo: this.state.cellPhoneNo,
           verificationCode: this.state.verificationCode,
         });
+      } else {
+        Alert.alert(
+          'کد معرف وارد شده معتبر نمی‌باشد.'
+        );
       }
     } else if (response.status === 401) {
-      Alert.alert('کد وارد شده معتبر نمی‌باشد.');
+      Alert.alert(
+        'کد تایید وارد شده معتبر نمی‌باشد.'
+      );
     } else {
       // TODO
       // error handle
@@ -370,21 +378,22 @@ class LoginVerify extends Component {
   render () {
     return(
       <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
         <View style={styles.upside}>
             <Text style={styles.addphonenumber}> کد تایید را وارد نمایید: </Text>
 
             <TextInput
-            style={styles.textInput}
-            autoFocus={true}
-            placeholder="O O O O"
-            placeholderTextColor="#acacac"
-            value={this.state.verificationCode}
-            maxLength = {4}
-            keyboardType = 'numeric'
-            onChangeText={verificationCode => {
-              this.onTextChanged(verificationCode);
-            }}
-            underlineColorAndroid={'transparent'}
+              style={styles.textInput}
+              autoFocus={true}
+              placeholder="O O O O"
+              placeholderTextColor="#acacac"
+              value={this.state.verificationCode}
+              maxLength = {4}
+              keyboardType = 'numeric'
+              onChangeText={verificationCode => {
+                this.onTextChanged(verificationCode);
+              }}
+              underlineColorAndroid={'transparent'}
             />
             <View style={styles.sendcodeplz}>
               <Text style={styles.resendtext}>یک کد 4 رقمی به شماره </Text>
@@ -403,6 +412,7 @@ class LoginVerify extends Component {
             {this.renderContinueButton()}
 
           </View>
+          </ScrollView>
           <View style={styles.downside}>
           </View>
 
@@ -416,6 +426,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  scrollContainer: {
+    backgroundColor: '#ffffff',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },

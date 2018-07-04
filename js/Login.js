@@ -102,6 +102,7 @@ class Login extends Component {
         cellPhoneNo: this.state.cellPhoneNo,
         smsCenter: body.sms_center,
         hasAccount: body.has_account,
+        installReferralCode: body.install_referral_code,
       });
     } else if (response.status === 200) {
       body = JSON.parse(response._bodyText);
@@ -109,6 +110,7 @@ class Login extends Component {
         cellPhoneNo: this.state.cellPhoneNo,
         smsCenter: body.sms_center,
         hasAccount: body.has_account,
+        installReferralCode: body.install_referral_code,
       });
     } else if (response.status === 400) {
       body = JSON.parse(response._bodyText);
