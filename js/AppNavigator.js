@@ -20,7 +20,7 @@ export const AppNavigator = StackNavigator(
 // );
 
 // gets the current screen from navigation state
-function getCurrentRouteName(navigationState) {
+export function getCurrentRouteName(navigationState) {
   if (!navigationState) {
     return null;
   }
@@ -137,9 +137,9 @@ class AppWithNavigationState extends Component {
                 }
                 break;
               default:
-          }}
+            }}
 
-          this.prepareBackButtonState(currentState);
+            this.prepareBackButtonState(currentState);
         }}
       />
     );

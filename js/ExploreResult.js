@@ -80,15 +80,15 @@ class ExploreResult extends Component {
   }
 
   _onPress () {
-    if (this.props.room.type=='room') {
-      this.props.navigation.navigate('houseDetail', {
-        room: this.props.room,
-      });
-    } else {
-      this.props.navigation.navigate('ecotourismDetail', {
-        room: this.props.room,
-      });
-    }
+      if (this.props.room.type=='room') {
+        this.props.navigation.navigate('houseDetail', {
+          room: this.props.room,
+        });
+      } else {
+        this.props.navigation.navigate('ecotourismDetail', {
+          room: this.props.room,
+        });
+      }
   }
 
   render () {
