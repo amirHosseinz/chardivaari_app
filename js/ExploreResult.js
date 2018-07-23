@@ -16,6 +16,14 @@ import { productionURL } from './data';
 
 class ExploreResult extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      lastOpened: '',
+    };
+    this.mapStyle = [];
+  }
+
   renderPriceNumber (input) {
     var input = parseInt(input);
     input = Math.ceil(input / 1000);
@@ -79,20 +87,25 @@ class ExploreResult extends Component {
     }
   }
 
+
   _onPress () {
-    if (this.props.room.type=='room') {
-      this.props.navigation.navigate('houseDetail', {
-        room: this.props.room,
-      });
-    } else {
-      this.props.navigation.navigate('ecotourismDetail', {
-        room: this.props.room,
-      });
+    console.log("lastOpened" + this.props.navigation.previousState)
+    if (this.props.navigation.state.previousState !== 'houseDetail' && this.props.navigation.state.previousState !== 'ecotourismDetail'){
+      if (this.props.room.type=='room') {
+        this.props.navigation.navigate('houseDetail', {
+          room: this.props.room,
+        });
+        this.props.navigation.state.previousState = 'houseDetail';
+      } else {
+        this.props.navigation.navigate('ecotourismDetail', {
+          room: this.props.room,
+        });
+        this.props.navigation.state.previousState = 'ecotourismDetail';
+      }
     }
   }
 
   render () {
-
     var rating = this.props.room.rating;
     if (rating - Math.floor(rating) < 0.5) {
       rating = Math.floor(rating);

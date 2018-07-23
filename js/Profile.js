@@ -166,11 +166,22 @@ class Profile extends Component {
     });
   }
 
-  hideEditProfile = () => {
+  hideEditProfile = (cell_phone) => {
     this.setState({
       editProfileModalVisible: false,
     }, () => {
-      this.fetchUser();
+      if (this.state.user.cell_phone != cell_phone){
+        CacheStore.flush();
+        this.resetNavigation('login');
+        /*this.props.navigation.navigate('loginVerify', {
+          cellPhoneNo: this.state.user.cell_phone,
+          smsCenter: '',
+          hasAccount: true,
+          installReferralCode: '',
+        });*/
+      }else{
+        this.fetchUser();
+      }
     });
     CacheStore.get('openEditProfile').then((value) => {
       if (value === true) {
@@ -423,10 +434,16 @@ class Profile extends Component {
   }
 
   renderCredit () {
-    if (this.state.user) {
-      return renderPriceNumberCommaBetween(this.state.user.credit + this.state.user.gift_credit);
+    if (this.state.user){
+      sum = 0;
+      if(!isNaN(this.state.user.credit)) {
+        sum = sum + this.state.user.credit
+      }
+      if(!isNaN(this.state.user.gift_credit)) {
+        sum = sum + this.state.user.gift_credit
+      }
     }
-    return 0;
+      return sum;
   }
 
   renderCreditSection () {
@@ -526,7 +543,7 @@ class Profile extends Component {
         transparent={false}
         visible={this.state.editProfileModalVisible}
         onRequestClose={() => {
-          this.hideEditProfile();
+          this.hideEditProfile(cellPhone);
         }}>
          <EditProfile
           hideEditProfile={this.hideEditProfile}

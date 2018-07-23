@@ -52,7 +52,7 @@ class SearchAnimations extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      destination: 'هر کجا',
+      destination: this.props.destination,
       newDestination: 'هر کجا',
       dateText: 'هر زمان',
       capacity: 1,
@@ -155,7 +155,7 @@ class SearchAnimations extends Component {
        } else {
          sum = this.state.dateText + ' - ';
        }
-       sum = sum + this.state.destination + ' - ';
+       sum = sum + this.props.destination + ' - ';
        sum = sum + this.state.capacity + ' نفر';
        return sum;
      }

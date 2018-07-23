@@ -106,6 +106,8 @@ class Login extends Component {
       });
     } else if (response.status === 200) {
       body = JSON.parse(response._bodyText);
+      console.log("the sms_center is: " + body.sms_center)
+      console.log("the install_referral_code is: " + body.sms_center)
       this.props.navigation.navigate('loginVerify', {
         cellPhoneNo: this.state.cellPhoneNo,
         smsCenter: body.sms_center,

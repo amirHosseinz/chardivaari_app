@@ -14,7 +14,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
-
+import Spinner from 'react-native-spinkit';
 import PrivateMessageRow from './PrivateMessageRow';
 import { productionURL } from './data';
 
@@ -180,15 +180,47 @@ class MessagesListScreen extends Component {
     }
   }
 
+  renderMessageList(){
+    if (this.state.messages != null && (this.state.messages.length > 0)){
+        return (
+          <FlatList
+          data={this.state.messages}
+          keyExtractor={this._keyExtractor}
+          renderItem={(item) => this.renderMessage(item, this.props.navigation)} />
+        );
+    }else{
+      if (this.state.refreshing){
+        return (
+          <View style={styles.container0}>
+          <View style={styles.notlogin}>
+            <Spinner
+              type={styles.spinner}
+              isVisible={this.state.refreshing}
+              size={70}
+              type={'ThreeBounce'}
+              color={'#0ccbed'} />
+              <Text style={styles.notlogintext}>  در حال دریافت لیست پیام‌ها </Text>
+          </View>
+          </View>
+        );
+      }else{
+        return (
+          <View style={styles.container0}>
+          <View style={styles.notlogin}>
+            <Text style={styles.notlogintext}> شما پیامی ندارید. </Text>
+          </View>
+          </View>
+        );
+      }
+    }
+  }
+
   render() {
     return(
       <View style={styles.container}>
         {this._onRefresh()}
         {this.renderLoginButton()}
-        <FlatList
-          data={this.state.messages}
-          keyExtractor={this._keyExtractor}
-          renderItem={(item) => this.renderMessage(item, this.props.navigation)} />
+        {this.renderMessageList()}
         <View style={{marginBottom:10}}>
         </View>
       </View>

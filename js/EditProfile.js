@@ -10,6 +10,7 @@ import {
   Alert,
   Platform,
   InteractionManager,
+  PanResponder
 } from 'react-native';
 import CacheStore from 'react-native-cache-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -74,23 +75,48 @@ class EditProfile extends Component {
   }
 
   _onPressSave () {
+    if (this.state.cellPhone != this.props.user.cell_phone){
+      
+      Alert.alert(
+        'تغییر شماره موبایل',
+        'تغییر شماره موبایل شما نیاز به تایید پیامکی دارد. آیا مایل به ادامه هستید؟',
+        [
+          {text: 'بله', onPress: () => {
+            this.processSaveRequest();
+          },},
+          {text: 'خیر', onPress: () => {},},
+        ],
+        { cancelable: false }
+      );
+    }else{
+      this.processSaveRequest();
+    }
+  }
+
+  processSaveRequest(){
     const data = new FormData();
     if (this.state.firstName != null) {
+      console.log("qw firstName: "+this.state.firstName)
       data.append('first_name', this.state.firstName);
     }
     if (this.state.lastName != null) {
+      console.log("qw lastName: " + this.state.lastName)
       data.append('last_name', this.state.lastName);
     }
     if (this.state.cellPhone != null) {
+      console.log("qw cellPhone: " + this.state.cellPhone)
       data.append('cell_phone', this.state.cellPhone);
     }
     if (this.state.email != null) {
+      console.log("qw email: " + this.state.email)
       data.append('email', this.state.email);
     }
     if (this.state.nationalID != null) {
+      console.log("qw nationalID: " + this.state.nationalID)
       data.append('national_id', this.state.nationalID);
     }
     if (this.state.remove_profile_picture) {
+      console.log("qw remove_profile_picture: " + this.state.remove_profile_picture)
       data.append('remove_profile_picture', this.state.remove_profile_picture);
     }
     fetch(productionURL + '/auth/api/user/edit/', {
@@ -207,6 +233,11 @@ class EditProfile extends Component {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
       if (body.successful != false) {
+        newCellPhone = body.user.cell_phone
+        if (this.props.user.cell_phone != newCellPhone){
+          this.props.needsVerif = true
+          //TODO
+        }
         CacheStore.set('user', body.user);
         this.exitSuccessfully();
       }
@@ -244,7 +275,7 @@ class EditProfile extends Component {
   }
 
   exitSuccessfully () {
-    this.props.hideEditProfile();
+    this.props.hideEditProfile(this.state.cellPhone);
   }
 
   renderProfilePhoto () {
@@ -298,7 +329,6 @@ class EditProfile extends Component {
   render () {
     return (
       <View style={{flex: 1}}>
-
         <View style={styles.header0}>
           <View style={styles.header00}>
             <TouchableOpacity onPress={() => {
@@ -395,6 +425,8 @@ class EditProfile extends Component {
                 placeholder="مثال: رضا"
                 placeholderTextColor="#acacac"
                 maxLength = {20}
+                multiline={false}
+                keyboardType={'default'}
                 value={this.state.firstName}
                 onChangeText={this._onChangeFirstName.bind(this)}
                 underlineColorAndroid={'transparent'} />
@@ -404,6 +436,8 @@ class EditProfile extends Component {
                 placeholder="مثال: رضایی"
                 placeholderTextColor="#acacac"
                 maxLength = {30}
+                multiline={false}
+                keyboardType={'default'}
                 value={this.state.lastName}
                 onChangeText={this._onChangeLastName.bind(this)}
                 underlineColorAndroid={'transparent'} />
@@ -413,6 +447,7 @@ class EditProfile extends Component {
                 placeholder="09XXXXXXXXX"
                 placeholderTextColor="#acacac"
                 maxLength = {11}
+                multiline={false}
                 keyboardType = 'phone-pad'
                 value={this.state.cellPhone}
                 onChangeText={this._onChangeCellPhone.bind(this)}
@@ -423,6 +458,7 @@ class EditProfile extends Component {
                 placeholder="وارد کردن آدرس ایمیل"
                 placeholderTextColor="#acacac"
                 maxLength = {50}
+                multiline={false}
                 keyboardType = 'email-address'
                 value={this.state.email}
                 onChangeText={this._onChangeEmail.bind(this)}
@@ -433,6 +469,7 @@ class EditProfile extends Component {
                 placeholder="وارد کردن شماره ملی"
                 placeholderTextColor="#acacac"
                 maxLength = {10}
+                multiline={false}
                 keyboardType = 'numeric'
                 value={this.state.nationalID}
                 onChangeText={this._onChangeNationalID.bind(this)}
@@ -484,9 +521,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   textInput: {
-    height: 44,
+    height: 46,
     width:Dimensions.get('window').width-80,
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'IRANSansMobileFaNum',
     textAlign: 'right',
     color: '#4f4f4f',

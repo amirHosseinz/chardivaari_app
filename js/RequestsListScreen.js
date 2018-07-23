@@ -11,7 +11,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import CacheStore from 'react-native-cache-store';
 import timer from 'react-native-timer';
-
+import Spinner from 'react-native-spinkit';
 import RequestRowScreen from './RequestRowScreen';
 import { productionURL } from './data';
 
@@ -86,6 +86,9 @@ class RequestsListScreen extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
+      this.setState({
+        'refreshing':false
+      });
       CacheStore.get('errorAlert').then((value) => {
         if (value && value=='off') {
           Alert.alert(
@@ -191,17 +194,49 @@ class RequestsListScreen extends Component {
     }
   }
 
+  renderRequestList(){
+    if (this.state.requests != null && (this.state.requests.length > 0)){
+        return (
+          <FlatList
+          data={this.state.requests}
+          keyExtractor={this._keyExtractor}
+          renderItem={(item) => this.renderRequest(item, this.props.navigation)} />
+        );
+    }else{
+      if (this.state.refreshing){
+        return (
+          <View style={styles.container0}>
+          <View style={styles.notlogin}>
+            <Spinner
+              type={styles.spinner}
+              isVisible={this.state.refreshing}
+              size={70}
+              type={'ThreeBounce'}
+              color={'#0ccbed'} />
+              <Text style={styles.notlogintext}> در حال دریافت لیست درخواست </Text>
+          </View>
+          </View>
+        );
+      }else{
+        return (
+          <View style={styles.container0}>
+          <View style={styles.notlogin}>
+            <Text style={styles.notlogintext}> شما درخواست ثبت شده‌ای ندارید. </Text>
+          </View>
+          </View>
+        );
+      }
+    }
+  }
+
   render(){
     return(
       <View style={styles.container}>
         {this._onRefresh()}
         {this.renderLoginButton()}
-        <FlatList
-          data={this.state.requests}
-          keyExtractor={this._keyExtractor}
-          renderItem={(item) => this.renderRequest(item, this.props.navigation)} />
-          <View style={{marginBottom:10}}>
-          </View>
+        {this.renderRequestList()}
+        <View style={{marginBottom:10}}>
+        </View>
       </View>
     );
   }
@@ -213,6 +248,9 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     backgroundColor: '#ededed',
+  },
+  spinner: {
+    marginTop: 10,
   },
   notlogin:{
     alignItems:'center',

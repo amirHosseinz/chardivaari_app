@@ -10,6 +10,8 @@ import {
 } from 'react-navigation';
 import Routes from './Routes';
 import timer from 'react-native-timer';
+import CacheStore from 'react-native-cache-store';
+
 
 export const AppNavigator = StackNavigator(
   Routes
@@ -37,6 +39,7 @@ class AppWithNavigationState extends Component {
     super(props);
     this.state={
       backPressedBefore: false,
+      previousState:''
     };
   }
 
@@ -46,6 +49,7 @@ class AppWithNavigationState extends Component {
     } else {
       this.setState({
         backPressedBefore: true,
+        previousState:''
       });
       timer.setTimeout(
         this,
@@ -62,6 +66,7 @@ class AppWithNavigationState extends Component {
   resetBackButtonState = () => {
     this.setState({
       backPressedBefore: false,
+      previousState:''
     });
   }
 
@@ -90,8 +95,8 @@ class AppWithNavigationState extends Component {
         onNavigationStateChange={(prevState, currentState) => {
           const currentScreen = getCurrentRouteName(currentState);
           const prevScreen = getCurrentRouteName(prevState);
-
-          if (prevScreen !== currentScreen) {
+          if (CacheStore.get('lastScreen') !== currentScreen) {
+            CacheStore.set('lastScreen', currentScreen);
             switch (currentScreen) {
               case 'splash':
                 StatusBar.setHidden(true);
@@ -137,9 +142,14 @@ class AppWithNavigationState extends Component {
                 }
                 break;
               default:
-          }}
+                break;
 
+            }
           this.prepareBackButtonState(currentState);
+
+        }
+
+          
         }}
       />
     );

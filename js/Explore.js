@@ -55,7 +55,7 @@ class Explore extends Component {
       capacity: null,
       start_date: null,
       end_date: null,
-      destination: null,
+      destination: 'هر کجا',
       rooms: this.dataProvider.cloneWithRows([]),
       locations: [],
       tracker: null,
@@ -127,6 +127,7 @@ class Explore extends Component {
       }
       // lc.push('هر کجا');
       lc.reverse();
+      console.log("set new location")
       this.setState({
         error: null,
         rooms: this.dataProvider.cloneWithRows(body.room),
@@ -251,6 +252,19 @@ class Explore extends Component {
     }
   }
 
+  renderSearchBar (dest) {
+    return(
+      <SearchAnimations
+            ref={instance => { this.searchPicker = instance; }}
+            locations={this.state.locations}
+            setStartDate={this.setStartDate}
+            setEndDate={this.setEndDate}
+            setDestination={this.setDestination}
+            destination={dest}
+            setCapacity={this.setCapacity} />
+    );
+  }
+
   rowRenderer = (type, data) => {
     return (
       <View>
@@ -283,6 +297,7 @@ class Explore extends Component {
           layoutProvider={this._layoutProvider}
           dataProvider={this.state.rooms}
           rowRenderer={this.rowRenderer}
+          renderAheadOffset={400}
           style={{
             width: Dimensions.get('window').width - 10,
             ...Platform.select({
@@ -306,13 +321,7 @@ class Explore extends Component {
     return(
       <View style={styles.container}>
 
-        <SearchAnimations
-          ref={instance => { this.searchPicker = instance; }}
-          locations={this.state.locations}
-          setStartDate={this.setStartDate}
-          setEndDate={this.setEndDate}
-          setDestination={this.setDestination}
-          setCapacity={this.setCapacity} />
+        {this.renderSearchBar(this.state.destination)}
         <View style={styles.filter}>
         </View>
         {this.renderError()}

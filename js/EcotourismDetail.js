@@ -1173,6 +1173,7 @@ class EcotourismDetail extends Component {
     if (this.props.navigation.state.params.refreshScreen) {
       this.props.navigation.state.params.refreshScreen();
     }
+    console.log('passed here' + this.props.navigation.state.previousState);
   }
 
   renderBookmarkSection () {

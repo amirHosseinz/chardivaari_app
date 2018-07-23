@@ -24,6 +24,7 @@ class Trips extends Component {
       token: null,
       count: 0,
       tripList: [],
+      fetchedList: false,
     };
   }
 
@@ -63,6 +64,9 @@ class Trips extends Component {
     })
     .then((response) => this.onResponseRecieved(response))
     .catch((error) => {
+      this.setState({
+        fetchedList: true,
+      });
       // network error
       // console.error(error);
       Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نمایید.');
@@ -76,11 +80,13 @@ class Trips extends Component {
         this.setState({
           tripList: body.reserve_list,
           count: body.reserve_list.length,
+          fetchedList: true,
         });
       } else {
         this.setState({
           tripList: [],
           count: 0,
+          fetchedList: true,
         });
       }
 
@@ -121,12 +127,30 @@ class Trips extends Component {
         </View>
       );
     } else {
-      return(
+      if (this.state.fetchedList == true){
+
+      return (
         <View style={styles.headerbar}>
           <Text style={styles.headertext}> شما </Text>
           <Text style={styles.headertext}>سفر تایید شده‌ای ندارید.</Text>
         </View>
       );
+    }else{
+      return (
+        <View style={styles.headerbar}>
+          <Text style={styles.headertext}>در حال دریافت لیست سفرها...</Text>
+        </View>
+      );
+    }
+      //this.renderEmptyStates()
+    }
+  }
+
+  renderEmptyStates () {
+    if (this.state.fetchedList == true){
+      
+    }else{
+      
     }
   }
 
