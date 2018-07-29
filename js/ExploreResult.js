@@ -13,6 +13,7 @@ import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { productionURL } from './data';
+import { AppNavigator } from './AppNavigator';
 
 class ExploreResult extends Component {
 
@@ -89,20 +90,20 @@ class ExploreResult extends Component {
 
 
   _onPress () {
-    console.log("lastOpened" + this.props.navigation.previousState)
-    if (this.props.navigation.state.previousState !== 'houseDetail' && this.props.navigation.state.previousState !== 'ecotourismDetail'){
+    //console.log("*** forward" + this.props.navigation.state.previousState)
+    //if (this.props.navigation.state.previousState !== 'houseDetail' && this.props.navigation.state.previousState !== 'ecotourismDetail'){
       if (this.props.room.type=='room') {
         this.props.navigation.navigate('houseDetail', {
           room: this.props.room,
         });
-        this.props.navigation.state.previousState = 'houseDetail';
+        //this.props.navigation//state.previousState = 'houseDetail';
       } else {
         this.props.navigation.navigate('ecotourismDetail', {
           room: this.props.room,
         });
-        this.props.navigation.state.previousState = 'ecotourismDetail';
+        //this.props.navigation.state.previousState = 'ecotourismDetail';
       }
-    }
+    //}
   }
 
   render () {

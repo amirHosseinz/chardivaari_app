@@ -22,7 +22,7 @@ export const AppNavigator = StackNavigator(
 // );
 
 // gets the current screen from navigation state
-function getCurrentRouteName(navigationState) {
+export function getCurrentRouteName(navigationState) {
   if (!navigationState) {
     return null;
   }
@@ -39,7 +39,7 @@ class AppWithNavigationState extends Component {
     super(props);
     this.state={
       backPressedBefore: false,
-      previousState:''
+      //previousState:''
     };
   }
 
@@ -49,7 +49,7 @@ class AppWithNavigationState extends Component {
     } else {
       this.setState({
         backPressedBefore: true,
-        previousState:''
+        //previousState:''
       });
       timer.setTimeout(
         this,
@@ -66,7 +66,7 @@ class AppWithNavigationState extends Component {
   resetBackButtonState = () => {
     this.setState({
       backPressedBefore: false,
-      previousState:''
+      //previousState:''
     });
   }
 
@@ -95,8 +95,10 @@ class AppWithNavigationState extends Component {
         onNavigationStateChange={(prevState, currentState) => {
           const currentScreen = getCurrentRouteName(currentState);
           const prevScreen = getCurrentRouteName(prevState);
-          if (CacheStore.get('lastScreen') !== currentScreen) {
-            CacheStore.set('lastScreen', currentScreen);
+          console.log("*** previous: " + prevScreen)
+          console.log("*** current: " + currentScreen)
+          //if (prevScreen != currentScreen) {
+            console.log("*** crossed")
             switch (currentScreen) {
               case 'splash':
                 StatusBar.setHidden(true);
@@ -144,7 +146,7 @@ class AppWithNavigationState extends Component {
               default:
                 break;
 
-            }
+            //}
           this.prepareBackButtonState(currentState);
 
         }
