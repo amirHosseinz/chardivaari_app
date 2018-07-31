@@ -92,6 +92,8 @@ class ExploreResult extends Component {
   _onPress () {
     //console.log("*** forward" + this.props.navigation.state.previousState)
     //if (this.props.navigation.state.previousState !== 'houseDetail' && this.props.navigation.state.previousState !== 'ecotourismDetail'){
+    console.log("*** prev is: " + JSON.stringify(this.props.navigation.state.routeName))  
+      
       if (this.props.room.type=='room') {
         this.props.navigation.navigate('houseDetail', {
           room: this.props.room,

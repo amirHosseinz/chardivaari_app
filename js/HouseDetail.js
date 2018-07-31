@@ -821,7 +821,7 @@ class HouseDetail extends Component {
     if (this.props.navigation.state.params.refreshScreen) {
       this.props.navigation.state.params.refreshScreen();
     }
-    console.log('*** back' + JSON.stringify(this.props.navigation.state));
+    //console.log('*** back' + JSON.stringify(this.props.navigation.state));
   }
 
   likeRoom() {
