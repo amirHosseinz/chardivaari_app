@@ -227,6 +227,10 @@ class Explore extends Component {
           var destination = 'هر کجا';
           if (this.state.destination != null) {
             destination = this.state.destination;
+          }else{
+            this.setState ({
+              destination : destination
+            })
           }
           this.state.tracker.trackEvent('Search', 'destination', {
             label: destination,

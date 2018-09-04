@@ -51,6 +51,7 @@ class EcotourismDetail extends Component {
      callCenter: null,
      isLiked: false,
      inMidLiking: false,
+     priceEditMode: false,
    };
    this.mapStyle = [];
  }
@@ -730,6 +731,18 @@ class EcotourismDetail extends Component {
     });
   }
 
+  togglePriceEditMode = () => {
+    if (this.state.priceEditMode) {
+      this.setState({
+        priceEditMode: false,
+      });
+    }else{
+      this.setState({
+        priceEditMode: true,
+      });
+    }
+  }
+
   closeLoginModal = () => {
     this.setState({
       loginModalVisible: false,
@@ -797,7 +810,9 @@ class EcotourismDetail extends Component {
       res = input.substr(input.length - 3) + ',' + res;
       input = input.substring(0, input.length - 3);
     }
-    res = input + ',' + res;
+    if (input.length > 0){
+      res = input + ',' + res;
+    }
     return(res);
   }
 
@@ -1176,6 +1191,38 @@ class EcotourismDetail extends Component {
     //console.log('*** back' + this.props.navigation.state.previousState);
   }
 
+  renderPriceEditor (value) {
+    if (this.state.priceEditMode){
+      return (
+        <TextInput
+                style={styles.detailiconteditbox}
+                placeholder="_______"
+                placeholderTextColor="#acacac"
+                maxLength = {10}
+                multiline={false}
+                keyboardType = 'numeric'
+                value={value.stringify}
+                underlineColorAndroid={'transparent'} />
+        );
+    }else{
+      return (
+      <Text style={styles.detailicontext}>{this.renderPrice(String(value))}</Text>
+      );
+    }
+  }
+
+  renderPriceEditorButton () {
+    if (this.state.priceEditMode){
+      return (
+        <Text style={styles.lawstext2}>ثبت قیمت</Text>
+      );
+    }else{
+      return (
+        <Text style={styles.lawstext2}>اصلاح قیمت</Text>
+      );
+    }
+  }
+
   renderBookmarkSection () {
     if (this.state.isLiked) {
       return(
@@ -1330,34 +1377,38 @@ class EcotourismDetail extends Component {
     <View style={styles.divider}>
     </View>
 
+    <TouchableOpacity onPress={this.togglePriceEditMode}>
+    {this.renderPriceEditorButton()}
+    </TouchableOpacity>
+
     <View style={styles.detailbox}>
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>عادی</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.price}</Text>
         <Text style={styles.detailicontext}>
-          تومان
+        {this.renderPriceEditor(this.state.room.price)}
         </Text>
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>آخر هفته</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.weekend_price}</Text>
         <Text style={styles.detailicontext}>
-          تومان
+        {this.renderPriceEditor(this.state.room.weekend_price)}
         </Text>
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>ایام خاص</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.special_offer_price}</Text>
         <Text style={styles.detailicontext}>
-          تومان
+          {this.renderPriceEditor(this.state.room.special_offer_price)}
         </Text>
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 

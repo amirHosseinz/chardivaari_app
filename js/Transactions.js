@@ -119,6 +119,8 @@ class Transactions extends Component {
   onFinancialAccountResponseRecieved (response) {
     if (response.status === 200) {
       body = JSON.parse(response._bodyText);
+      CacheStore.set("credit",body.credit);
+      CacheStore.set("gift_credit",body.gift_credit);
       this.setState({
         credit: body.credit,
         gift_credit: body.gift_credit,

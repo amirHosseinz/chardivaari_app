@@ -25,6 +25,8 @@ class ExploreResult extends Component {
     this.mapStyle = [];
   }
 
+
+
   renderPriceNumber (input) {
     var input = parseInt(input);
     input = Math.ceil(input / 1000);
@@ -92,14 +94,19 @@ class ExploreResult extends Component {
   _onPress () {
     //console.log("*** forward" + this.props.navigation.state.previousState)
     //if (this.props.navigation.state.previousState !== 'houseDetail' && this.props.navigation.state.previousState !== 'ecotourismDetail'){
-    console.log("*** prev is: " + JSON.stringify(this.props.navigation.state.routeName))  
-      
+    //console.log("*** prev is: " + JSON.stringify(this.props.navigation.state.routeName))  
       if (this.props.room.type=='room') {
+        this.setState({
+          lastOpened : 'houseDetail'
+        });
         this.props.navigation.navigate('houseDetail', {
           room: this.props.room,
         });
         //this.props.navigation//state.previousState = 'houseDetail';
       } else {
+        this.setState({
+          lastOpened : 'ecotourismDetail'
+        });
         this.props.navigation.navigate('ecotourismDetail', {
           room: this.props.room,
         });

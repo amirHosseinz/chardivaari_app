@@ -409,7 +409,9 @@ class TripStatusScreen extends Component {
       res = input.substr(input.length - 3) + ',' + res;
       input = input.substring(0, input.length - 3);
     }
-    res = input + ',' + res;
+    if (input.length > 0){
+      res = input + ',' + res;
+    }
     return(res);
   }
 

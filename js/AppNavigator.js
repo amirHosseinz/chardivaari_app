@@ -41,6 +41,7 @@ class AppWithNavigationState extends Component {
       backPressedBefore: false,
       previousState:''
     };
+    
   }
 
   handleBackButton = () => {
@@ -66,7 +67,6 @@ class AppWithNavigationState extends Component {
   resetBackButtonState = () => {
     this.setState({
       backPressedBefore: false,
-      previousState:''
     });
   }
 
@@ -149,7 +149,7 @@ class AppWithNavigationState extends Component {
 
             }
           this.prepareBackButtonState(currentState);
-
+          console.log("*** previousState: " + this.state.previousState)
         }
 
           

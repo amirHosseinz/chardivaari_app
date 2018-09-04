@@ -19,10 +19,13 @@ import moment from 'moment-jalaali';
 import {
   GoogleAnalyticsTracker,
 } from 'react-native-google-analytics-bridge';
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 
 // import PaymentModule from './common/payment/PaymentModule';
 import { productionURL, GATrackerId } from './data';
-
+const slideAnimation = new SlideAnimation({
+  slideFrom: 'bottom',
+});
 
 class RequestStatus extends Component {
   constructor (props) {
@@ -37,6 +40,48 @@ class RequestStatus extends Component {
     };
   }
 
+  showPaymentDialog = () => {
+    /*this.setState({
+      modalShow:'payment',
+    })*/
+    //this.renderModal(this.state.modalShow);
+    this.paymentDialog.show();
+  }
+
+
+  fetchFinancialAccount () {
+    //if (CacheStore.get("credit") || CacheStore.get("gift_credit"))
+    fetch(productionURL + '/finance/api/get_finance_account/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      },
+    })
+    .then((response) => this.onFinancialAccountResponseRecieved(response))
+    .catch((error) => {
+      // network error
+      // console.error(error);
+      Alert.alert('خطای شبکه، لطفا پس از اطمینان از اتصال اینترنت مجددا امتحان نمایید.');
+    });
+  }
+
+  onFinancialAccountResponseRecieved (response) {
+    if (response.status === 200) {
+      body = JSON.parse(response._bodyText);
+      CacheStore.set("credit",body.credit);
+      CacheStore.set("gift_credit",body.gift_credit);
+      this.setState({
+        credit: body.credit,
+        gift_credit: body.gift_credit,
+      });
+    } else {
+      // TODO
+      // a eror handle
+    }
+  }
+
   componentWillMount() {
     let tracker = new GoogleAnalyticsTracker(GATrackerId);
     this.setState({
@@ -44,6 +89,7 @@ class RequestStatus extends Component {
       role: this.props.navigation.state.params.role,
       tracker: tracker,
     });
+    this.fetchFinancialAccount();
     // load token and username from CacheStore
     CacheStore.get('token').then((value) => this.setToken(value));
     CacheStore.get('username').then((value) => this.setUsername(value));
@@ -445,7 +491,7 @@ class RequestStatus extends Component {
   // }
 
   onPayRequestPress = () => {
-    this.asyncPayment();
+    //TODO this.asyncPayment();
     // this.backNavigation();
   }
 
@@ -560,7 +606,7 @@ class RequestStatus extends Component {
       } else if (this.state.role === 'guest') {
         return(
           <View style={styles.bottombarbutton}>
-              <TouchableOpacity style={styles.buttontouch} onPress={this.onPayRequestPress}>
+              <TouchableOpacity style={styles.buttontouch} onPress={this.showPaymentDialog}>
                 <View style={styles.buttonview}>
                 <Text style={styles.reservebuttontext}>پرداخت</Text>
               </View>
@@ -806,11 +852,14 @@ class RequestStatus extends Component {
   renderPrice (input) {
     var res = input.substr(input.length - 3);
     input = input.substring(0, input.length - 3);
+  
     while (input.length > 3) {
       res = input.substr(input.length - 3) + ',' + res;
       input = input.substring(0, input.length - 3);
     }
-    res = input + ',' + res;
+    if (input.length > 0){
+      res = input + ',' + res;
+    }
     return(res);
   }
 
@@ -928,7 +977,7 @@ class RequestStatus extends Component {
             onRequestClose={() => {
               this.closeVPNModal();
             }}>
-           <View style={styles.popup}>
+            <View style={styles.popup}>
            <TouchableOpacity onPress={this.closeVPNModal}>
              <View style={styles.backbuttonview}>
                <Icon size={40} color="#f3f3f3" name="close" />
@@ -952,7 +1001,14 @@ class RequestStatus extends Component {
           </Modal>
 
       </View>
-
+      <PopupDialog
+                    ref={(popupDialog) => { this.paymentDialog = popupDialog; }}
+                    dialogAnimation={slideAnimation}
+                  >
+                  <View>
+                    <Text>1</Text>
+                  </View>
+              </PopupDialog>
       {this.renderButtonSection()}
    </View>
      );

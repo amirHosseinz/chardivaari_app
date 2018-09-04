@@ -11,6 +11,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  TextInput,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Stars from 'react-native-stars';
@@ -53,6 +54,7 @@ class HouseDetail extends Component {
      callCenter: null,
      isLiked: false,
      inMidLiking: false,
+     priceEditMode: false,
    };
    this.mapStyle = [];
  }
@@ -668,6 +670,26 @@ class HouseDetail extends Component {
     }
   }
 
+  renderPriceEditor (value) {
+    if (this.state.priceEditMode){
+      return (
+        <TextInput
+                style={styles.detailiconteditbox}
+                placeholder="_______"
+                placeholderTextColor="#acacac"
+                maxLength = {10}
+                multiline={false}
+                keyboardType = 'numeric'
+                value={value.stringify}
+                underlineColorAndroid={'transparent'} />
+        );
+    }else{
+      return (
+      <Text style={styles.detailicontext}>{this.renderPrice(String(value))}</Text>
+      );
+    }
+  }
+
   openFacilities = () => {
     this.setState({
       facilitiesModalVisible: true,
@@ -684,6 +706,18 @@ class HouseDetail extends Component {
     this.setState({
       loginModalVisible: true,
     });
+  }
+
+  togglePriceEditMode = () => {
+    if (this.state.priceEditMode) {
+      this.setState({
+        priceEditMode: false,
+      });
+    }else{
+      this.setState({
+        priceEditMode: true,
+      });
+    }
   }
 
   closeLoginModal = () => {
@@ -753,7 +787,9 @@ class HouseDetail extends Component {
       res = input.substr(input.length - 3) + ',' + res;
       input = input.substring(0, input.length - 3);
     }
-    res = input + ',' + res;
+    if (input.length > 0){
+      res = input + ',' + res;
+    }
     return(res);
   }
 
@@ -943,6 +979,18 @@ class HouseDetail extends Component {
     }
   }
 
+  renderPriceEditorButton () {
+    if (this.state.priceEditMode){
+      return (
+        <Text style={styles.lawstext2}>ثبت قیمت</Text>
+      );
+    }else{
+      return (
+        <Text style={styles.lawstext2}>اصلاح قیمت</Text>
+      );
+    }
+  }
+
   render () {
     return(
       <View style={styles.container}>
@@ -1081,34 +1129,32 @@ class HouseDetail extends Component {
     <View style={styles.divider}>
     </View>
 
+    <TouchableOpacity onPress={this.togglePriceEditMode}>
+    {this.renderPriceEditorButton()}
+    </TouchableOpacity>
+
     <View style={styles.detailbox}>
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>عادی</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.price}</Text>
-        <Text style={styles.detailicontext}>
-          تومان
-        </Text>
+        {this.renderPriceEditor(this.state.room.price)}
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>آخر هفته</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.weekend_price}</Text>
-        <Text style={styles.detailicontext}>
-          تومان
-        </Text>
+        {this.renderPriceEditor(this.state.room.weekend_price)}
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 
       <View style={styles.deatilitembox}>
         <Text style={styles.pricetitletext}>ایام خاص</Text>
         <View style={styles.detailicontextbox}>
-        <Text style={styles.detailicontext}> {this.state.room.special_offer_price}</Text>
-        <Text style={styles.detailicontext}>
-          تومان
-        </Text>
+        {this.renderPriceEditor(this.state.room.special_offer_price)}
+        <Text style={styles.detailicontext}> تومان</Text>
         </View>
       </View>
 
@@ -1411,9 +1457,23 @@ const styles = StyleSheet.create({
   },
   detailicontextbox: {
     flexDirection:'row-reverse',
+    alignItems:'center',
+    justifyContent:'center',
     marginLeft:28,
     marginRight:28,
     marginBottom:15,
+  },
+  detailiconteditbox: {
+    flexDirection:'row-reverse',
+    fontFamily:'IRANSansMobileFaNum-Light',
+    fontSize:14,
+    textAlign:'center',
+    borderRadius:4,
+    borderWidth : 1,
+    borderColor: "#9e9e9e",
+    minWidth: 60,
+    marginLeft:20,
+    marginRight:2,
   },
   detailicontext: {
     fontSize: 14,

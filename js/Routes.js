@@ -23,6 +23,7 @@ import EcotourismDetail from './EcotourismDetail';
 import Wallet from './Wallet';
 import Transactions from './Transactions';
 import InviteFriend from './InviteFriend';
+import PaymentPopup from './PaymentPopup';
 
 const Routes = ({
   splash: {
@@ -105,6 +106,13 @@ const Routes = ({
   // },
   conversationScreen: {
     screen: ConversationScreen,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
+  paymentdialog:{
+    screen: PaymentPopup,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,

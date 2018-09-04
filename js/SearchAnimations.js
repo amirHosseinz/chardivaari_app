@@ -155,9 +155,29 @@ class SearchAnimations extends Component {
        } else {
          sum = this.state.dateText + ' - ';
        }
-       sum = sum + this.props.destination + ' - ';
+       if (this.props.destination != null){
+        sum = sum + this.props.destination + ' - ';
+       }else{
+        sum = sum + 'هر کجا' + ' - ';
+       }
        sum = sum + this.state.capacity + ' نفر';
        return sum;
+     }
+
+     renderDestination(){
+       if (this.state.destination != null){
+         return(
+            <Text style={styles.button}>
+              {this.state.destination}
+            </Text>
+          );
+       }else{
+        return(
+          <Text style={styles.button}>
+            {'هر کجا'}
+          </Text>
+        );
+       }
      }
 
      renderLesserIcon () {
@@ -187,9 +207,7 @@ class SearchAnimations extends Component {
                name='public'
                size={32}
                color='#f7f7f7' />
-                <Text style={styles.button}>
-                  {this.state.destination}
-                </Text>
+                {this.renderDestination()}
                 </View>
              </TouchableOpacity>
              </View>
